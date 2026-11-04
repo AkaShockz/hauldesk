@@ -28,7 +28,7 @@ Lead with the painful first workflow. Sell the desk that can grow.
 ## Quick start
 
 1. Find-replace `YOU@EXAMPLE.com` with your real email (optional Calendly on landing CTAs).
-2. Open `landing.html` locally — try **Mixed morning** / **Trade plate** / **Inspect & collect** / **Transporter**, then **Download CSV**.
+2. Open `landing.html` locally — switch desk modules, try sample chips, live parse, upload `.txt`, filter rows, **Copy board** / **Download CSV**.
 3. Host on Netlify Drop / Cloudflare Pages / any static host.
 4. Record a 45s Loom (redacted sample only) showing paste → preview → Excel, then mention “same desk, more modules later”.
 5. Fill `targets.csv` and send ~10 personalised LinkedIn notes per day.

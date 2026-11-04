@@ -455,14 +455,85 @@
     .desk h2 { color: var(--cream); max-width: 24ch; }
     .desk .section-lead { color: rgba(243, 247, 242, 0.7); }
 
-    .sample-row {
+    .desk-tabs {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0.45rem;
+      margin-bottom: 1.35rem;
+    }
+
+    .desk-tab {
+      appearance: none;
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.55rem 0.9rem;
+      cursor: pointer;
+      color: rgba(243, 247, 242, 0.7);
+      background: transparent;
+      border: 1px solid rgba(243, 247, 242, 0.2);
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .desk-tab[aria-selected="true"] {
+      color: var(--signal-ink);
+      background: var(--signal);
+      border-color: var(--signal);
+    }
+
+    .desk-tab:hover { border-color: rgba(243, 247, 242, 0.45); color: var(--cream); }
+    .desk-tab[aria-selected="true"]:hover { color: var(--signal-ink); border-color: var(--signal); }
+
+    .desk-panel[hidden] { display: none !important; }
+
+    .module-preview {
+      border: 1px solid rgba(243, 247, 242, 0.14);
+      background: rgba(243, 247, 242, 0.03);
+      padding: 1.5rem;
+    }
+
+    .module-preview h3 {
+      font-family: "Fraunces", serif;
+      font-size: 1.35rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .module-preview p {
+      color: rgba(243, 247, 242, 0.7);
+      max-width: 52ch;
       margin-bottom: 1.15rem;
     }
 
-    .sample-chip {
+    .preview-list {
+      list-style: none;
+      display: grid;
+      gap: 0.55rem;
+      max-width: 520px;
+    }
+
+    .preview-list li {
+      padding: 0.7rem 0.85rem;
+      border: 1px solid rgba(243, 247, 242, 0.12);
+      background: rgba(0, 0, 0, 0.2);
+      font-size: 0.92rem;
+      color: rgba(243, 247, 242, 0.82);
+    }
+
+    .preview-list strong { color: var(--signal); font-weight: 600; }
+
+    .sample-row,
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      align-items: center;
+    }
+
+    .filter-row { margin-top: 0.25rem; margin-bottom: 0.85rem; }
+
+    .sample-chip,
+    .filter-chip {
       appearance: none;
       font-family: inherit;
       font-size: 0.8rem;
@@ -476,15 +547,80 @@
     }
 
     .sample-chip:hover,
-    .sample-chip[aria-pressed="true"] {
+    .sample-chip[aria-pressed="true"],
+    .filter-chip:hover,
+    .filter-chip[aria-pressed="true"] {
       color: var(--signal-ink);
       background: var(--signal);
       border-color: var(--signal);
     }
 
-    .sample-chip:focus-visible {
+    .sample-chip:focus-visible,
+    .filter-chip:focus-visible,
+    .desk-tab:focus-visible {
       outline: 2px solid var(--signal);
       outline-offset: 2px;
+    }
+
+    .drop-hint {
+      font-size: 0.8rem;
+      color: rgba(243, 247, 242, 0.45);
+    }
+
+    .job-editor.is-drop {
+      border-color: var(--signal);
+      box-shadow: inset 0 0 0 1px rgba(214, 178, 58, 0.35);
+    }
+
+    .history-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.35rem;
+    }
+
+    .history-chip {
+      appearance: none;
+      font-family: inherit;
+      font-size: 0.72rem;
+      padding: 0.3rem 0.55rem;
+      cursor: pointer;
+      color: rgba(243, 247, 242, 0.65);
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(243, 247, 242, 0.12);
+    }
+
+    .history-chip:hover { color: var(--cream); border-color: rgba(243, 247, 242, 0.3); }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 1.5rem;
+      transform: translateX(-50%) translateY(120%);
+      background: var(--field);
+      color: var(--cream);
+      border: 1px solid rgba(214, 178, 58, 0.45);
+      padding: 0.75rem 1.1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      z-index: 40;
+      opacity: 0;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    #parse-body tr {
+      animation: rowIn 0.28s ease both;
+    }
+
+    @keyframes rowIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .desk-board {
@@ -951,58 +1087,121 @@
 
   <div class="desk" id="desk">
     <div class="wrap">
-      <p class="section-label">Module 01 · try it</p>
-      <h2>Load a morning mix. Watch the board fill.</h2>
+      <p class="section-label">Try the desk</p>
+      <h2>One private desk. Several modules.</h2>
       <p class="section-lead">
-        Browser demo only. Production is private, login-gated, and mapped to your real planner columns.
+        Switch modules below. Module 01 is interactive in the browser; the others show how the same desk grows.
       </p>
 
-      <div class="sample-row" role="group" aria-label="Sample job packs">
-        <button type="button" class="sample-chip" data-sample="mixed" aria-pressed="false">Mixed morning</button>
-        <button type="button" class="sample-chip" data-sample="tp" aria-pressed="false">Trade plate</button>
-        <button type="button" class="sample-chip" data-sample="ic" aria-pressed="false">Inspect &amp; collect</button>
-        <button type="button" class="sample-chip" data-sample="tpt" aria-pressed="false">Transporter</button>
+      <div class="desk-tabs" role="tablist" aria-label="Desk modules">
+        <button type="button" class="desk-tab" role="tab" id="tab-jobs" aria-controls="panel-jobs" aria-selected="true" data-panel="jobs">01 · Job sheets</button>
+        <button type="button" class="desk-tab" role="tab" id="tab-checks" aria-controls="panel-checks" aria-selected="false" data-panel="checks">02 · Address checks</button>
+        <button type="button" class="desk-tab" role="tab" id="tab-merge" aria-controls="panel-merge" aria-selected="false" data-panel="merge">03 · Board merge</button>
+        <button type="button" class="desk-tab" role="tab" id="tab-custom" aria-controls="panel-custom" aria-selected="false" data-panel="custom">04 · Your workflow</button>
       </div>
 
-      <div class="desk-board">
-        <div class="desk-input">
-          <p class="desk-kicker">Paste job text</p>
-          <label class="sr-only" for="job-paste">Job sheet paste</label>
-          <textarea id="job-paste" class="job-editor" spellcheck="false" placeholder="Paste a redacted job sheet here, or tap a sample above…"></textarea>
-          <div class="desk-actions">
-            <button type="button" class="btn btn-primary" id="btn-parse">Parse to Excel</button>
-            <button type="button" class="btn btn-ghost" id="btn-clear" style="border-color: rgba(243,247,242,0.25); color: rgba(243,247,242,0.75);">Clear</button>
-            <button type="button" class="btn btn-ghost" id="btn-csv" disabled style="border-color: rgba(243,247,242,0.25); color: rgba(243,247,242,0.75);">Download CSV</button>
+      <div class="desk-panel" id="panel-jobs" role="tabpanel" aria-labelledby="tab-jobs">
+        <div class="sample-row" role="group" aria-label="Sample job packs">
+          <button type="button" class="sample-chip" data-sample="mixed" aria-pressed="false">Mixed morning</button>
+          <button type="button" class="sample-chip" data-sample="tp" aria-pressed="false">Trade plate</button>
+          <button type="button" class="sample-chip" data-sample="ic" aria-pressed="false">Inspect &amp; collect</button>
+          <button type="button" class="sample-chip" data-sample="tpt" aria-pressed="false">Transporter</button>
+          <span class="drop-hint">or drop a .txt file on the paste box</span>
+        </div>
+
+        <div class="desk-board">
+          <div class="desk-input">
+            <p class="desk-kicker">Paste job text</p>
+            <label class="sr-only" for="job-paste">Job sheet paste</label>
+            <textarea id="job-paste" class="job-editor" spellcheck="false" placeholder="Paste a redacted job sheet here, tap a sample, or drop a .txt file…"></textarea>
+            <input type="file" id="job-file" class="sr-only" accept=".txt,text/plain" />
+            <div class="desk-actions">
+              <button type="button" class="btn btn-primary" id="btn-parse">Parse to Excel</button>
+              <button type="button" class="btn btn-ghost" id="btn-upload" style="border-color: rgba(243,247,242,0.25); color: rgba(243,247,242,0.75);">Upload .txt</button>
+              <button type="button" class="btn btn-ghost" id="btn-clear" style="border-color: rgba(243,247,242,0.25); color: rgba(243,247,242,0.75);">Clear</button>
+              <button type="button" class="btn btn-ghost" id="btn-copy" disabled style="border-color: rgba(243,247,242,0.25); color: rgba(243,247,242,0.75);">Copy board</button>
+              <button type="button" class="btn btn-ghost" id="btn-csv" disabled style="border-color: rgba(243,247,242,0.25); color: rgba(243,247,242,0.75);">Download CSV</button>
+            </div>
+            <div class="desk-meta">
+              <span><strong>Live parse</strong> as you type</span>
+              <span><strong>Reads</strong> ref, VRM, mode, both ends, ready-by</span>
+            </div>
+            <div>
+              <p class="desk-kicker" style="margin-bottom:0.45rem;">Recent in this browser</p>
+              <div class="history-strip" id="history-strip"></div>
+            </div>
           </div>
-          <div class="desk-meta">
-            <span><strong>Reads</strong> ref, VRM, mode, both ends</span>
-            <span><strong>Flags</strong> missing postcodes</span>
+          <div class="desk-output">
+            <p class="desk-kicker">Preview → Excel rows</p>
+            <div class="filter-row" role="group" aria-label="Filter preview rows">
+              <button type="button" class="filter-chip" data-filter="all" aria-pressed="true">All</button>
+              <button type="button" class="filter-chip" data-filter="TP" aria-pressed="false">TP</button>
+              <button type="button" class="filter-chip" data-filter="I&C" aria-pressed="false">I&amp;C</button>
+              <button type="button" class="filter-chip" data-filter="TPT" aria-pressed="false">TPT</button>
+              <button type="button" class="filter-chip" data-filter="Check" aria-pressed="false">Checks only</button>
+            </div>
+            <div id="parse-empty" class="empty-hint">Choose a sample, paste, or upload to see rows appear.</div>
+            <table class="excel-table" id="parse-table" hidden>
+              <thead>
+                <tr>
+                  <th>Ref</th>
+                  <th>VRM</th>
+                  <th>Mode</th>
+                  <th>Collect PC</th>
+                  <th>Deliver PC</th>
+                  <th>Ready</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="parse-body"></tbody>
+            </table>
+            <div class="desk-meta" id="parse-meta" hidden>
+              <span id="parse-count"></span>
+              <span>Demo only — production maps to <strong>your</strong> template</span>
+            </div>
           </div>
         </div>
-        <div class="desk-output">
-          <p class="desk-kicker">Preview → Excel rows</p>
-          <div id="parse-empty" class="empty-hint">Choose a sample or paste a job to see rows appear.</div>
-          <table class="excel-table" id="parse-table" hidden>
-            <thead>
-              <tr>
-                <th>Ref</th>
-                <th>VRM</th>
-                <th>Mode</th>
-                <th>Collect PC</th>
-                <th>Deliver PC</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="parse-body"></tbody>
-          </table>
-          <div class="desk-meta" id="parse-meta" hidden>
-            <span id="parse-count"></span>
-            <span>Demo only — production maps to <strong>your</strong> template</span>
-          </div>
+      </div>
+
+      <div class="desk-panel" id="panel-checks" role="tabpanel" aria-labelledby="tab-checks" hidden>
+        <div class="module-preview">
+          <h3>Address &amp; postcode checks</h3>
+          <p>Same desk, next module: catch shaky collects and delivers before the board goes to drivers.</p>
+          <ul class="preview-list">
+            <li><strong>Flag</strong> missing or malformed UK postcodes on either end</li>
+            <li><strong>Highlight</strong> TBD / “customer address” collects that still need chasing</li>
+            <li><strong>Export</strong> a clean board plus a short exceptions list for the allocator</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="desk-panel" id="panel-merge" role="tabpanel" aria-labelledby="tab-merge" hidden>
+        <div class="module-preview">
+          <h3>Board merge &amp; exceptions</h3>
+          <p>Combine customer formats and portal dumps into one morning board — without rebuilding columns by hand.</p>
+          <ul class="preview-list">
+            <li><strong>Merge</strong> trade-plate, I&amp;C, and transporter sources into one export</li>
+            <li><strong>Surface</strong> duplicates and missing VRMs before allocation</li>
+            <li><strong>Keep history</strong> so the desk can reopen yesterday’s board</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="desk-panel" id="panel-custom" role="tabpanel" aria-labelledby="tab-custom" hidden>
+        <div class="module-preview">
+          <h3>Your repeat workflow</h3>
+          <p>Hauldesk is not locked to one automation. If the desk repeats it every week, we can usually turn it into a module once we have samples.</p>
+          <ul class="preview-list">
+            <li><strong>Customer-format normalisers</strong> for leasing, rental, OEM, AVR sheets</li>
+            <li><strong>Exception views</strong> for jobs that fail ready-by or fail inspection notes</li>
+            <li><strong>Later hooks</strong> like inbox ingest — only after the core desk is solid</li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <div class="offer-block" id="pilot">
     <div class="wrap">
@@ -1098,109 +1297,59 @@
     (function () {
       var SAMPLES = {
         mixed:
-          "JOB AVL-48291\n" +
-          "Mode: Trade plate\n" +
-          "Vehicle: Audi A4 · AB12 CDE\n" +
-          "Collect from:\n" +
-          "  Southampton Compound Gate 3\n" +
-          "  SO14 3HG\n" +
-          "Deliver to:\n" +
-          "  Leeds dealer — stock bay B\n" +
-          "  LS11 5QR\n" +
-          "Customer: leasing desk · ready by 14:00\n\n" +
-          "JOB AVL-48302\n" +
-          "Mode: Inspect & collect\n" +
-          "Vehicle: VW Golf · XY98 ZYX\n" +
-          "Collect from:\n" +
-          "  Customer address TBD\n" +
-          "Deliver to:\n" +
-          "  Manchester compound\n" +
-          "  M34 2AB\n" +
-          "Notes: AVR collection\n\n" +
-          "JOB AVL-48310\n" +
-          "Mode: Transporter\n" +
-          "Vehicle: BMW 320d · FG45 HIJ\n" +
-          "Collect from:\n" +
-          "  Brighton holding · BN1 4GH\n" +
-          "Deliver to:\n" +
-          "  Birmingham dealer · B6 7RN",
+          "JOB AVL-48291\nMode: Trade plate\nVehicle: Audi A4 · AB12 CDE\nCollect from:\n  Southampton Compound Gate 3\n  SO14 3HG\nDeliver to:\n  Leeds dealer — stock bay B\n  LS11 5QR\nCustomer: leasing desk · ready by 14:00\n\nJOB AVL-48302\nMode: Inspect & collect\nVehicle: VW Golf · XY98 ZYX\nCollect from:\n  Customer address TBD\nDeliver to:\n  Manchester compound\n  M34 2AB\nNotes: AVR collection\n\nJOB AVL-48310\nMode: Transporter\nVehicle: BMW 320d · FG45 HIJ\nCollect from:\n  Brighton holding · BN1 4GH\nDeliver to:\n  Birmingham dealer · B6 7RN\nReady by 16:30",
         tp:
-          "JOB TP-11021\n" +
-          "Mode: Trade plate\n" +
-          "Vehicle: Mercedes C220 · LK71 PQR\n" +
-          "Collect from:\n" +
-          "  Northampton compound · NN4 7BE\n" +
-          "Deliver to:\n" +
-          "  Retail handover · customer address\n" +
-          "  SW1A 1AA\n" +
-          "Ready by 11:30 · keys in lockbox\n\n" +
-          "JOB TP-11022\n" +
-          "Mode: Trade plate\n" +
-          "Vehicle: Ford Focus · BX19 LMN\n" +
-          "Collect from:\n" +
-          "  Dealer stock · CV3 4LF\n" +
-          "Deliver to:\n" +
-          "  Rental branch · B90 4AA",
+          "JOB TP-11021\nMode: Trade plate\nVehicle: Mercedes C220 · LK71 PQR\nCollect from:\n  Northampton compound · NN4 7BE\nDeliver to:\n  Retail handover · customer address\n  SW1A 1AA\nReady by 11:30 · keys in lockbox\n\nJOB TP-11022\nMode: Trade plate\nVehicle: Ford Focus · BX19 LMN\nCollect from:\n  Dealer stock · CV3 4LF\nDeliver to:\n  Rental branch · B90 4AA\nReady by 13:00",
         ic:
-          "JOB IC-7701\n" +
-          "Mode: Inspect & collect\n" +
-          "Vehicle: Nissan Qashqai · YE68 HJK\n" +
-          "Collect from:\n" +
-          "  Lessee address TBD\n" +
-          "Deliver to:\n" +
-          "  Remarketing compound · WA14 5UN\n" +
-          "Notes: end-of-lease inspect, photos required\n\n" +
-          "JOB IC-7702\n" +
-          "Mode: Inspect & collect\n" +
-          "Vehicle: Kia Sportage · GJ21 VWX\n" +
-          "Collect from:\n" +
-          "  Customer site · EH12 9DN\n" +
-          "Deliver to:\n" +
-          "  Holding yard · G51 4TR",
+          "JOB IC-7701\nMode: Inspect & collect\nVehicle: Nissan Qashqai · YE68 HJK\nCollect from:\n  Lessee address TBD\nDeliver to:\n  Remarketing compound · WA14 5UN\nNotes: end-of-lease inspect, photos required\n\nJOB IC-7702\nMode: Inspect & collect\nVehicle: Kia Sportage · GJ21 VWX\nCollect from:\n  Customer site · EH12 9DN\nDeliver to:\n  Holding yard · G51 4TR\nReady by 15:45",
         tpt:
-          "JOB TPT-301\n" +
-          "Mode: Transporter\n" +
-          "Vehicle: Skoda Octavia · SG70 ABC\n" +
-          "Collect from:\n" +
-          "  Port compound · SO14 2AQ\n" +
-          "Deliver to:\n" +
-          "  Midlands hub · B6 7ER\n\n" +
-          "JOB TPT-302\n" +
-          "Mode: Transporter\n" +
-          "Vehicle: Toyota Corolla · VX22 DEF\n" +
-          "Collect from:\n" +
-          "  Port compound · SO14 2AQ\n" +
-          "Deliver to:\n" +
-          "  Dealer prep · LS10 1LT\n\n" +
-          "JOB TPT-303\n" +
-          "Mode: Transporter\n" +
-          "Vehicle: Hyundai Tucson · NA19 GHI\n" +
-          "Collect from:\n" +
-          "  Holding · BN1 4GH\n" +
-          "Deliver to:\n" +
-          "  Rental prep centre · M17 1FT"
+          "JOB TPT-301\nMode: Transporter\nVehicle: Skoda Octavia · SG70 ABC\nCollect from:\n  Port compound · SO14 2AQ\nDeliver to:\n  Midlands hub · B6 7ER\n\nJOB TPT-302\nMode: Transporter\nVehicle: Toyota Corolla · VX22 DEF\nCollect from:\n  Port compound · SO14 2AQ\nDeliver to:\n  Dealer prep · LS10 1LT\n\nJOB TPT-303\nMode: Transporter\nVehicle: Hyundai Tucson · NA19 GHI\nCollect from:\n  Holding · BN1 4GH\nDeliver to:\n  Rental prep centre · M17 1FT"
       };
 
+      var HISTORY_KEY = "hauldesk_demo_history_v1";
       var paste = document.getElementById("job-paste");
+      var fileInput = document.getElementById("job-file");
       var body = document.getElementById("parse-body");
       var table = document.getElementById("parse-table");
       var empty = document.getElementById("parse-empty");
       var meta = document.getElementById("parse-meta");
       var countEl = document.getElementById("parse-count");
       var csvBtn = document.getElementById("btn-csv");
+      var copyBtn = document.getElementById("btn-copy");
+      var historyStrip = document.getElementById("history-strip");
+      var toastEl = document.getElementById("toast");
       var chips = document.querySelectorAll(".sample-chip");
-      var lastRows = [];
+      var filterChips = document.querySelectorAll(".filter-chip");
+      var tabs = document.querySelectorAll(".desk-tab");
+      var panels = {
+        jobs: document.getElementById("panel-jobs"),
+        checks: document.getElementById("panel-checks"),
+        merge: document.getElementById("panel-merge"),
+        custom: document.getElementById("panel-custom")
+      };
+
+      var allRows = [];
+      var activeFilter = "all";
+      var parseTimer = null;
+      var toastTimer = null;
 
       var POSTCODE = /\b([A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2})\b/i;
       var VRM = /\b([A-Z]{2}\d{2}\s*[A-Z]{3})\b/i;
       var REF = /\b(?:JOB|REF)[:\s#-]*([A-Z]{2,5}-?\d{3,6})\b/i;
+      var READY = /\bready\s*by\s*(\d{1,2}:\d{2})\b/i;
+
+      function toast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toastEl.classList.remove("show"); }, 2200);
+      }
 
       function modeFrom(block) {
         var t = block.toLowerCase();
         if (t.indexOf("inspect") !== -1) return "I&C";
         if (t.indexOf("transport") !== -1) return "TPT";
-        if (t.indexOf("trade") !== -1) return "TP";
-        if (t.indexOf("driven") !== -1 || t.indexOf("handover") !== -1) return "TP";
+        if (t.indexOf("trade") !== -1 || t.indexOf("driven") !== -1 || t.indexOf("handover") !== -1) return "TP";
         return "—";
       }
 
@@ -1225,6 +1374,7 @@
       function parseBlock(block) {
         var refMatch = block.match(REF);
         var vrmMatch = block.match(VRM);
+        var readyMatch = block.match(READY);
         var collect = sectionPc(block, "Collect", "Deliver");
         var deliver = sectionPc(block, "Deliver", null);
         var status = "Ready";
@@ -1235,6 +1385,7 @@
           mode: modeFrom(block),
           collect: collect,
           deliver: deliver,
+          ready: readyMatch ? readyMatch[1] : "—",
           status: status
         };
       }
@@ -1247,26 +1398,47 @@
           .replace(/"/g, "&quot;");
       }
 
-      function render(rows) {
-        lastRows = rows;
+      function filteredRows() {
+        if (activeFilter === "all") return allRows;
+        if (activeFilter === "Check") return allRows.filter(function (r) { return r.status === "Check"; });
+        return allRows.filter(function (r) { return r.mode === activeFilter; });
+      }
+
+      function setActionsEnabled(on) {
+        csvBtn.disabled = !on;
+        copyBtn.disabled = !on;
+      }
+
+      function render() {
+        var rows = filteredRows();
         body.innerHTML = "";
+        if (!allRows.length) {
+          table.hidden = true;
+          meta.hidden = true;
+          empty.hidden = false;
+          empty.textContent = "Choose a sample, paste, or upload to see rows appear.";
+          setActionsEnabled(false);
+          return;
+        }
         if (!rows.length) {
           table.hidden = true;
           meta.hidden = true;
           empty.hidden = false;
-          csvBtn.disabled = true;
+          empty.textContent = "No rows match this filter.";
+          setActionsEnabled(true);
           return;
         }
         empty.hidden = true;
         table.hidden = false;
         meta.hidden = false;
-        csvBtn.disabled = false;
-        var checks = rows.filter(function (r) { return r.status === "Check"; }).length;
-        countEl.textContent = rows.length + " row" + (rows.length === 1 ? "" : "s") +
+        setActionsEnabled(true);
+        var checks = allRows.filter(function (r) { return r.status === "Check"; }).length;
+        countEl.textContent = rows.length + " shown / " + allRows.length + " total" +
           (checks ? " · " + checks + " to check" : " · all ready");
-        rows.forEach(function (row) {
+        rows.forEach(function (row, i) {
           var tr = document.createElement("tr");
           if (row.status === "Check") tr.className = "warn";
+          tr.style.animationDelay = Math.min(i, 8) * 0.03 + "s";
           var badge = row.status === "Check"
             ? '<span class="badge-warn">Check</span>'
             : '<span class="badge-ok">Ready</span>';
@@ -1276,18 +1448,33 @@
             "<td>" + escapeHtml(row.mode) + "</td>" +
             "<td>" + escapeHtml(row.collect) + "</td>" +
             "<td>" + escapeHtml(row.deliver) + "</td>" +
+            "<td>" + escapeHtml(row.ready) + "</td>" +
             "<td>" + badge + "</td>";
           body.appendChild(tr);
         });
       }
 
-      function runParse() {
+      function runParse(saveHistory) {
         var text = paste.value.trim();
         if (!text) {
-          render([]);
+          allRows = [];
+          render();
           return;
         }
-        render(splitJobs(text).map(parseBlock));
+        allRows = splitJobs(text).map(parseBlock);
+        if (activeFilter !== "all" && !filteredRows().length && allRows.length) {
+          activeFilter = "all";
+          filterChips.forEach(function (c) {
+            c.setAttribute("aria-pressed", c.getAttribute("data-filter") === "all" ? "true" : "false");
+          });
+        }
+        render();
+        if (saveHistory) pushHistory(text, allRows.length);
+      }
+
+      function scheduleParse() {
+        clearTimeout(parseTimer);
+        parseTimer = setTimeout(function () { runParse(false); }, 220);
       }
 
       function setActiveChip(key) {
@@ -1300,8 +1487,83 @@
         if (!SAMPLES[key]) return;
         paste.value = SAMPLES[key];
         setActiveChip(key);
-        runParse();
+        runParse(true);
+        toast("Loaded " + key.replace("ic", "I&C").replace("tpt", "transporter").replace("tp", "trade plate").replace("mixed", "mixed morning") + " sample");
       }
+
+      function readHistory() {
+        try {
+          return JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
+        } catch (e) {
+          return [];
+        }
+      }
+
+      function writeHistory(items) {
+        try { localStorage.setItem(HISTORY_KEY, JSON.stringify(items.slice(0, 5))); } catch (e) {}
+      }
+
+      function pushHistory(text, count) {
+        var items = readHistory().filter(function (h) { return h.text !== text; });
+        items.unshift({
+          id: String(Date.now()),
+          label: count + " job" + (count === 1 ? "" : "s") + " · " + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+          text: text,
+          count: count
+        });
+        writeHistory(items);
+        renderHistory();
+      }
+
+      function renderHistory() {
+        var items = readHistory();
+        historyStrip.innerHTML = "";
+        if (!items.length) {
+          historyStrip.innerHTML = '<span class="drop-hint">Parses in this browser will appear here</span>';
+          return;
+        }
+        items.forEach(function (item) {
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "history-chip";
+          btn.textContent = item.label;
+          btn.addEventListener("click", function () {
+            paste.value = item.text;
+            setActiveChip("");
+            runParse(false);
+            toast("Restored " + item.label);
+          });
+          historyStrip.appendChild(btn);
+        });
+      }
+
+      function switchPanel(name) {
+        tabs.forEach(function (tab) {
+          var on = tab.getAttribute("data-panel") === name;
+          tab.setAttribute("aria-selected", on ? "true" : "false");
+        });
+        Object.keys(panels).forEach(function (key) {
+          panels[key].hidden = key !== name;
+        });
+      }
+
+      function ingestFile(file) {
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function () {
+          paste.value = String(reader.result || "");
+          setActiveChip("");
+          runParse(true);
+          toast("Loaded " + file.name);
+        };
+        reader.readAsText(file);
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          switchPanel(tab.getAttribute("data-panel"));
+        });
+      });
 
       chips.forEach(function (chip) {
         chip.addEventListener("click", function () {
@@ -1309,23 +1571,88 @@
         });
       });
 
+      filterChips.forEach(function (chip) {
+        chip.addEventListener("click", function () {
+          activeFilter = chip.getAttribute("data-filter");
+          filterChips.forEach(function (c) {
+            c.setAttribute("aria-pressed", c === chip ? "true" : "false");
+          });
+          render();
+        });
+      });
+
       document.getElementById("btn-parse").addEventListener("click", function () {
         setActiveChip("");
-        runParse();
+        runParse(true);
+        toast(allRows.length ? "Board updated" : "Nothing to parse yet");
       });
 
       document.getElementById("btn-clear").addEventListener("click", function () {
         paste.value = "";
         setActiveChip("");
-        render([]);
+        allRows = [];
+        render();
         paste.focus();
       });
 
+      document.getElementById("btn-upload").addEventListener("click", function () {
+        fileInput.click();
+      });
+
+      fileInput.addEventListener("change", function () {
+        if (fileInput.files && fileInput.files[0]) ingestFile(fileInput.files[0]);
+        fileInput.value = "";
+      });
+
+      ;["dragenter", "dragover"].forEach(function (evt) {
+        paste.addEventListener(evt, function (e) {
+          e.preventDefault();
+          paste.classList.add("is-drop");
+        });
+      });
+      ;["dragleave", "drop"].forEach(function (evt) {
+        paste.addEventListener(evt, function (e) {
+          e.preventDefault();
+          paste.classList.remove("is-drop");
+        });
+      });
+      paste.addEventListener("drop", function (e) {
+        var file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+        if (file) ingestFile(file);
+      });
+
+      copyBtn.addEventListener("click", function () {
+        var rows = filteredRows();
+        if (!rows.length) return;
+        var lines = ["Ref\tVRM\tMode\tCollect PC\tDeliver PC\tReady\tStatus"];
+        rows.forEach(function (r) {
+          lines.push([r.ref, r.vrm, r.mode, r.collect, r.deliver, r.ready, r.status].join("\t"));
+        });
+        var text = lines.join("\n");
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function () { toast("Board copied"); }).catch(function () {
+            fallbackCopy(text);
+          });
+        } else {
+          fallbackCopy(text);
+        }
+      });
+
+      function fallbackCopy(text) {
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand("copy"); toast("Board copied"); } catch (e) { toast("Copy failed"); }
+        ta.remove();
+      }
+
       csvBtn.addEventListener("click", function () {
-        if (!lastRows.length) return;
-        var lines = ["Ref,VRM,Mode,Collect PC,Deliver PC,Status"];
-        lastRows.forEach(function (r) {
-          lines.push([r.ref, r.vrm, r.mode, r.collect, r.deliver, r.status]
+        var rows = filteredRows();
+        if (!rows.length) return;
+        var lines = ["Ref,VRM,Mode,Collect PC,Deliver PC,Ready,Status"];
+        rows.forEach(function (r) {
+          lines.push([r.ref, r.vrm, r.mode, r.collect, r.deliver, r.ready, r.status]
             .map(function (c) { return '"' + String(c).replace(/"/g, '""') + '"'; })
             .join(","));
         });
@@ -1338,12 +1665,18 @@
         a.click();
         a.remove();
         URL.revokeObjectURL(url);
+        toast("CSV downloaded");
+      });
+
+      paste.addEventListener("input", function () {
+        setActiveChip("");
+        scheduleParse();
       });
 
       paste.addEventListener("keydown", function (e) {
         if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
           e.preventDefault();
-          runParse();
+          runParse(true);
         }
       });
 
@@ -1357,6 +1690,9 @@
           if (history.replaceState) history.replaceState(null, "", "#" + id);
         });
       });
+
+      renderHistory();
+      render();
     })();
   </script>
 </body>
