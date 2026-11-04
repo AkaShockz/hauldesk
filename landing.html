@@ -5,29 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fastenly — Private automation for work that repeats</title>
   <meta name="description" content="Fastenly is a private automation desk for your company. Stack parse, checks, merges, chase lists, and custom workflows — without shared SaaS." />
-  <meta name="theme-color" content="#111114" />
+  <meta name="theme-color" content="#0e0e12" />
+  <meta property="og:title" content="Fastenly — Private automation for work that repeats" />
+  <meta property="og:description" content="A company-private automation desk. Stack parse, checks, merges, chase lists, and custom workflows." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111114'/%3E%3Ccircle cx='16' cy='16' r='7.5' fill='none' stroke='%23e85d04' stroke-width='2.5'/%3E%3Cpath d='M16 11.5v9M12.5 16h7' stroke='%23e85d04' stroke-width='2' stroke-linecap='square'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #111114;
-      --bg-2: #1a1a1f;
-      --paper: #f4f2ec;
-      --paper-2: #ebe7de;
-      --ink: #16161a;
-      --mute: #5c5c66;
-      --line: rgba(22, 22, 26, 0.12);
-      --line-dark: rgba(244, 242, 236, 0.12);
+      --bg: #0e0e12;
+      --bg-2: #17171d;
+      --paper: #eceef1;
+      --paper-2: #e2e5ea;
+      --ink: #121318;
+      --mute: #5a5d68;
+      --line: rgba(18, 19, 24, 0.12);
+      --line-dark: rgba(236, 238, 241, 0.12);
       --accent: #e85d04;
       --accent-2: #c44d03;
       --ok: #1f7a4c;
       --warn: #b45309;
-      --white: #f7f6f2;
+      --white: #f4f5f7;
       --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
       --sans: "IBM Plex Sans", system-ui, sans-serif;
       --display: "Bricolage Grotesque", "IBM Plex Sans", system-ui, sans-serif;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,7 +42,9 @@
     body {
       font-family: var(--sans);
       color: var(--ink);
-      background: var(--paper);
+      background:
+        radial-gradient(ellipse 70% 40% at 0% 0%, rgba(232, 93, 4, 0.045), transparent 55%),
+        linear-gradient(180deg, #f3f4f6 0%, var(--paper) 28%, var(--paper) 100%);
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
@@ -61,8 +68,9 @@
       overflow: hidden;
       color: var(--white);
       background:
-        radial-gradient(ellipse 90% 60% at 100% 0%, rgba(232, 93, 4, 0.16), transparent 55%),
-        linear-gradient(180deg, #0c0c0f 0%, var(--bg) 45%, #17171c 100%);
+        radial-gradient(ellipse 70% 55% at 85% 15%, rgba(232, 93, 4, 0.2), transparent 50%),
+        radial-gradient(ellipse 45% 40% at 10% 80%, rgba(232, 93, 4, 0.08), transparent 55%),
+        linear-gradient(165deg, #09090c 0%, var(--bg) 42%, #15151b 100%);
     }
 
     .hero::after {
@@ -1060,6 +1068,310 @@
       .mod-list li { grid-template-columns: 1fr; gap: 0.25rem; }
     }
 
+
+    .skip {
+      position: fixed;
+      left: 1rem;
+      top: 1rem;
+      z-index: 100;
+      background: var(--accent);
+      color: #1a0a00;
+      padding: 0.55rem 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      clip-path: inset(100%);
+    }
+    .skip:focus { clip-path: none; }
+
+    .progress {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 2px;
+      z-index: 60;
+      background: transparent;
+      pointer-events: none;
+    }
+    .progress > span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      transition: width 0.08s linear;
+    }
+
+    .topnav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 50;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.7rem max(1rem, calc((100% - 1080px) / 2 + 1rem));
+      background: rgba(14, 14, 18, 0.72);
+      border-bottom: 1px solid transparent;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transform: translateY(-110%);
+      transition: transform 0.35s var(--ease), border-color 0.2s ease;
+    }
+    .topnav.is-on {
+      transform: translateY(0);
+      border-bottom-color: var(--line-dark);
+    }
+    .topnav .mark {
+      font-family: var(--display);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 1.05rem;
+    }
+    .topnav .mark span { color: var(--accent); }
+    .topnav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem 0.85rem;
+      align-items: center;
+    }
+    .topnav-links a {
+      color: rgba(244, 245, 247, 0.62);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+    .topnav-links a:hover { color: var(--white); }
+    .topnav .btn {
+      min-height: 2.1rem;
+      padding: 0.35rem 0.8rem;
+      font-size: 0.8rem;
+    }
+
+    .hero {
+      background:
+        radial-gradient(ellipse 70% 55% at 85% 15%, rgba(232, 93, 4, 0.2), transparent 50%),
+        radial-gradient(ellipse 45% 40% at 10% 80%, rgba(232, 93, 4, 0.08), transparent 55%),
+        linear-gradient(165deg, #09090c 0%, var(--bg) 42%, #15151b 100%);
+    }
+
+    .hero-ui {
+      box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-ui-body .line {
+      opacity: 0;
+      transform: translateY(6px);
+      animation: lineIn 0.45s var(--ease) forwards;
+    }
+    @keyframes lineIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-ui-body .caret {
+      display: inline-block;
+      width: 0.45rem;
+      height: 0.9em;
+      background: var(--accent);
+      margin-left: 0.15rem;
+      vertical-align: -0.1em;
+      animation: blink 1s steps(1) infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+    .pulse {
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 0 rgba(232, 93, 4, 0.55);
+      animation: pulse 1.8s ease-out infinite;
+    }
+    @keyframes pulse {
+      70% { box-shadow: 0 0 0 0.55rem rgba(232, 93, 4, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(232, 93, 4, 0); }
+    }
+
+    .scroll-cue {
+      position: absolute;
+      left: 50%;
+      bottom: 1.35rem;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: grid;
+      gap: 0.35rem;
+      justify-items: center;
+      color: rgba(244, 245, 247, 0.45);
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      animation: cueFloat 2.2s ease-in-out infinite;
+    }
+    .scroll-cue i {
+      width: 1px;
+      height: 1.6rem;
+      background: linear-gradient(var(--accent), transparent);
+    }
+    @keyframes cueFloat {
+      0%, 100% { transform: translate(-50%, 0); opacity: 0.7; }
+      50% { transform: translate(-50%, 4px); opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .reveal.is-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .demo-track {
+      height: 2px;
+      background: var(--line);
+      margin: 0;
+    }
+    .demo-track > span {
+      display: block;
+      height: 100%;
+      width: 25%;
+      background: var(--accent);
+      transition: width 0.45s var(--ease), margin-left 0.45s var(--ease);
+    }
+
+    .desk-chrome {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem 1.25rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      padding: 0.7rem 0.85rem;
+      border: 1px solid var(--line-dark);
+      background: rgba(255,255,255,0.02);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      color: rgba(244, 245, 247, 0.5);
+    }
+    .desk-chrome strong { color: var(--white); font-weight: 500; }
+    .desk-chrome kbd {
+      display: inline-block;
+      padding: 0.1rem 0.3rem;
+      border: 1px solid var(--line-dark);
+      color: rgba(244, 245, 247, 0.7);
+      font-size: 0.65rem;
+    }
+
+    .live-board {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--line-dark);
+      background: rgba(255,255,255,0.02);
+      margin-top: 0.85rem;
+    }
+    .live-board .pane { min-height: 220px; }
+    .live-board .pane + .pane { border-left: 1px solid var(--line-dark); }
+    .issue {
+      display: grid;
+      gap: 0.35rem;
+      margin-top: 0.55rem;
+    }
+    .issue button {
+      appearance: none;
+      text-align: left;
+      border: 1px solid var(--line-dark);
+      background: rgba(0,0,0,0.25);
+      color: rgba(244, 245, 247, 0.82);
+      padding: 0.55rem 0.65rem;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    .issue button:hover { border-color: rgba(244,245,247,0.35); }
+    .issue button .why {
+      display: block;
+      margin-top: 0.15rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.04em;
+      color: #ffb070;
+    }
+    .merge-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.2fr;
+      gap: 0.65rem;
+      margin-top: 0.85rem;
+    }
+    .merge-col {
+      border: 1px solid var(--line-dark);
+      background: rgba(0,0,0,0.22);
+      padding: 0.75rem;
+      min-height: 180px;
+    }
+    .merge-col pre {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      line-height: 1.5;
+      color: rgba(244,245,247,0.75);
+      white-space: pre-wrap;
+    }
+    .merge-col .table { font-size: 0.72rem; }
+    .custom-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.55rem;
+      margin-top: 0.85rem;
+    }
+    .custom-pick {
+      appearance: none;
+      border: 1px solid var(--line-dark);
+      background: rgba(0,0,0,0.22);
+      color: rgba(244,245,247,0.85);
+      padding: 0.85rem 0.75rem;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .custom-pick:hover, .custom-pick[aria-pressed="true"] {
+      border-color: var(--accent);
+      background: rgba(232, 93, 4, 0.08);
+    }
+    .custom-pick strong {
+      display: block;
+      font-family: var(--display);
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+    .custom-pick span {
+      font-size: 0.8rem;
+      color: rgba(244,245,247,0.55);
+    }
+
+    section.alt {
+      background:
+        linear-gradient(180deg, rgba(18,19,24,0.03), transparent 40%),
+        var(--paper-2);
+    }
+
+    @media (max-width: 900px) {
+      .merge-cols, .custom-grid, .live-board { grid-template-columns: 1fr; }
+      .live-board .pane + .pane, .merge-col + .merge-col { border-left: 0; border-top: 1px solid var(--line-dark); }
+      .topnav-links .hide-sm { display: none; }
+      .scroll-cue { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .scroll-cue, .pulse, .caret { animation: none !important; }
+      .topnav { transition: none; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation: none !important;
@@ -1074,18 +1386,22 @@
   </style>
 </head>
 <body>
+  <a class="skip" href="#automation">Skip to automation</a>
+  <div class="progress" aria-hidden="true"><span id="scroll-progress"></span></div>
+  <nav class="topnav" id="topnav" aria-label="Primary">
+    <a class="mark" href="#">Fasten<span>ly</span></a>
+    <div class="topnav-links">
+      <a class="hide-sm" href="#automation">Automation</a>
+      <a class="hide-sm" href="#desk">Desk</a>
+      <a class="hide-sm" href="#process">Process</a>
+      <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Email a sample</a>
+    </div>
+  </nav>
   <header class="hero">
     <div class="hero-rail" aria-hidden="true"></div>
     <aside class="hero-ui" aria-hidden="true">
-      <div class="hero-ui-bar"><i></i><i></i><i></i><span>fastenly · private desk</span></div>
-      <div class="hero-ui-body">
-        <div class="ac">// inbound</div>
-        <div class="hi">ORD-4821 · Northline · owner Sam · due today</div>
-        <div>LEAD-902 · incomplete form · owner — · due TBD</div>
-        <div class="hi">TKT-118 · access reset · owner Alex · due Thu</div>
-        <div style="margin-top:0.85rem" class="ac">// modules online</div>
-        <div>parse · checks · merge · chase</div>
-      </div>
+      <div class="hero-ui-bar"><span class="pulse" aria-hidden="true"></span><i></i><i></i><span>fastenly · private desk · live</span></div>
+      <div class="hero-ui-body" id="hero-stream"></div>
       <div class="hero-ui-foot">
         <div><strong>04</strong>modules</div>
         <div><strong>private</strong>per company</div>
@@ -1100,13 +1416,14 @@
         Automate the work your team keeps repeating — then keep stacking modules on the same login.
       </p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20pilot">Book a short call</a>
+        <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Email a sample</a>
         <a class="btn btn-ghost" href="#automation">See how it runs</a>
       </div>
     </div>
+    <a class="scroll-cue" href="#automation"><span>Scroll</span><i></i></a>
   </header>
 
-  <section id="automation">
+  <section id="automation" class="reveal">
     <div class="wrap">
       <p class="kicker">See the automation</p>
       <h2>Messy in. Clean out. Gaps flagged.</h2>
@@ -1122,6 +1439,7 @@
           </div>
           <button type="button" class="btn btn-ghost" id="btn-demo-replay" style="min-height:2.1rem;padding:0.35rem 0.7rem;font-size:0.8rem;border-color:var(--line);color:var(--ink)">Replay</button>
         </div>
+        <div class="demo-track" aria-hidden="true"><span id="demo-track-bar"></span></div>
         <div class="demo-body">
           <div class="demo-pane">
             <p class="label" id="demo-left-label">Inbound text</p>
@@ -1141,7 +1459,7 @@
     </div>
   </section>
 
-  <section id="how">
+  <section id="how" class="reveal">
     <div class="wrap">
       <p class="kicker">How it works</p>
       <h2>Build once. Add forever.</h2>
@@ -1163,7 +1481,7 @@
     </div>
   </section>
 
-  <section id="uses">
+  <section id="uses" class="reveal alt">
     <div class="wrap">
       <p class="kicker">Use it for</p>
       <h2>Any messy-to-clean loop</h2>
@@ -1189,7 +1507,7 @@
     </div>
   </section>
 
-  <section id="modules">
+  <section id="modules" class="reveal">
     <div class="wrap">
       <p class="kicker">Modules</p>
       <h2>A desk, not a one-off script</h2>
@@ -1241,11 +1559,17 @@
     </div>
   </section>
 
-  <div class="desk" id="desk">
+  <div class="desk reveal" id="desk">
     <div class="wrap">
       <p class="kicker">Try it</p>
       <h2>Same desk. Different modules.</h2>
-      <p class="lead">Parse is interactive. The others show what stacks next.</p>
+      <p class="lead">Parse is live. Checks, merge, and custom modules run as interactive previews.</p>
+
+      <div class="desk-chrome" aria-hidden="true">
+        <span><strong id="desk-clock">--:--</strong> desk session</span>
+        <span>module <strong id="desk-module">parse</strong></span>
+        <span>shortcuts <kbd>1</kbd>–<kbd>4</kbd> · <kbd>⌘</kbd>/<kbd>Ctrl</kbd>+<kbd>Enter</kbd> parse</span>
+      </div>
 
       <div class="tabs" role="tablist" aria-label="Modules">
         <button type="button" class="tab" role="tab" id="tab-parse" aria-controls="panel-parse" aria-selected="true" data-panel="parse">01 Parse</button>
@@ -1320,36 +1644,74 @@
       <div class="panel" id="panel-checks" role="tabpanel" aria-labelledby="tab-checks" hidden>
         <div class="preview">
           <h3>Quality checks</h3>
-          <p>Catch gaps before anything leaves the desk.</p>
-          <ul>
-            <li><strong>Flag</strong> missing owners, dues, IDs, addresses</li>
-            <li><strong>Highlight</strong> TBD / incomplete values</li>
-            <li><strong>Export</strong> clean board + exceptions list</li>
-          </ul>
+          <p>Run the checker on the current parse — or load a sample with known gaps.</p>
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="btn-run-checks">Run checks</button>
+            <button type="button" class="btn btn-ghost" id="btn-checks-sample">Load gappy sample</button>
+          </div>
+          <div class="live-board">
+            <div class="pane">
+              <p class="label">Exceptions</p>
+              <div class="issue" id="checks-list"><p class="empty">Run checks to list gaps.</p></div>
+            </div>
+            <div class="pane">
+              <p class="label">Summary</p>
+              <div class="meta" id="checks-summary"><span>Waiting…</span></div>
+              <ul style="margin-top:0.85rem">
+                <li><strong>Flag</strong> missing owners, dues, IDs</li>
+                <li><strong>Highlight</strong> TBD / incomplete values</li>
+                <li><strong>Export</strong> clean board + exceptions list</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="panel" id="panel-merge" role="tabpanel" aria-labelledby="tab-merge" hidden>
         <div class="preview">
           <h3>Board merge</h3>
-          <p>Multiple sources, one working board.</p>
-          <ul>
-            <li><strong>Merge</strong> formats into one export</li>
-            <li><strong>Surface</strong> duplicates and missing keys</li>
-            <li><strong>Keep</strong> reopenable history</li>
-          </ul>
+          <p>Two inbound formats into one working board — duplicates and missing keys surface automatically.</p>
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="btn-run-merge">Merge sources</button>
+            <button type="button" class="btn btn-ghost" id="btn-reset-merge">Reset</button>
+          </div>
+          <div class="merge-cols">
+            <div class="merge-col">
+              <p class="label">Source A · CRM</p>
+              <pre id="merge-a">LEAD-901 · Cedar &amp; Co · Jordan · Fri
+LEAD-902 · Unknown · — · TBD
+LEAD-904 · Harbor Ltd · Sam · Mon</pre>
+            </div>
+            <div class="merge-col">
+              <p class="label">Source B · Forms</p>
+              <pre id="merge-b">LEAD-902 · Unknown · Riley · Wed
+LEAD-903 · Maple Works · Riley · Wed
+LEAD-904 · Harbor Ltd · Sam · Mon</pre>
+            </div>
+            <div class="merge-col">
+              <p class="label">Merged board</p>
+              <div id="merge-out"><p class="empty">Hit merge to combine.</p></div>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="panel" id="panel-custom" role="tabpanel" aria-labelledby="tab-custom" hidden>
         <div class="preview">
           <h3>Your workflow</h3>
-          <p>Not locked to one automation or one industry.</p>
-          <ul>
-            <li><strong>Any</strong> messy-to-clean weekly loop</li>
-            <li><strong>Report packs</strong> and chase lists from your samples</li>
-            <li><strong>Later hooks</strong> once the core desk is solid</li>
-          </ul>
+          <p>Pick the loop that burns the most time — we’ll scope Module 01 from a redacted sample.</p>
+          <div class="custom-grid" role="group" aria-label="Workflow types">
+            <button type="button" class="custom-pick" data-flow="Orders / fulfilment" aria-pressed="false"><strong>Orders</strong><span>Notes → clean board + flags</span></button>
+            <button type="button" class="custom-pick" data-flow="Leads / chase list" aria-pressed="false"><strong>Leads</strong><span>Dumps → owners and dues</span></button>
+            <button type="button" class="custom-pick" data-flow="Tickets / support" aria-pressed="false"><strong>Tickets</strong><span>Paste → triage board</span></button>
+            <button type="button" class="custom-pick" data-flow="Ops / run sheet" aria-pressed="false"><strong>Ops</strong><span>Job notes → daily sheet</span></button>
+            <button type="button" class="custom-pick" data-flow="Finance exceptions" aria-pressed="false"><strong>Finance</strong><span>Dumps → exception list</span></button>
+            <button type="button" class="custom-pick" data-flow="Custom weekly loop" aria-pressed="false"><strong>Custom</strong><span>Any messy-to-clean loop</span></button>
+          </div>
+          <div class="actions" style="margin-top:1rem">
+            <a class="btn btn-primary" id="btn-custom-mail" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Email this sample</a>
+            <span class="hint" id="custom-hint">Choose a workflow first</span>
+          </div>
         </div>
       </div>
     </div>
@@ -1357,7 +1719,7 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <div class="offer" id="pilot">
+  <div class="offer reveal" id="pilot">
     <div class="wrap">
       <p class="kicker">Pilot pricing</p>
       <h2>Start small. Stay private. Keep growing.</h2>
@@ -1402,7 +1764,7 @@
     </div>
   </div>
 
-  <section id="fit">
+  <section id="fit" class="reveal">
     <div class="wrap">
       <p class="kicker">Fit</p>
       <h2>Built for teams with a pile, not a toy problem</h2>
@@ -1428,7 +1790,7 @@
     </div>
   </section>
 
-  <section id="process">
+  <section id="process" class="reveal alt">
     <div class="wrap">
       <p class="kicker">How we work with you</p>
       <h2>Sample first. Pilot next. Stack forever.</h2>
@@ -1468,7 +1830,7 @@
     </div>
   </section>
 
-  <section id="faq">
+  <section id="faq" class="reveal">
     <div class="wrap">
       <p class="kicker">FAQ</p>
       <h2>Before the call</h2>
@@ -1501,7 +1863,7 @@
     </div>
   </section>
 
-  <section class="close" id="contact">
+  <section class="close reveal" id="contact">
     <div class="wrap">
       <p class="kicker">Next</p>
       <h2>Send the messy sample. Get a clean test.</h2>
@@ -1601,6 +1963,11 @@
         stageBtns.forEach(function (btn, i) {
           btn.setAttribute("aria-current", i === idx ? "true" : "false");
         });
+        var bar = document.getElementById("demo-track-bar");
+        if (bar) {
+          bar.style.width = (100 / stages.length) + "%";
+          bar.style.marginLeft = (idx * (100 / stages.length)) + "%";
+        }
         renderResult(s.result);
         if (userDriven) restartAuto();
       }
@@ -1638,6 +2005,63 @@
           });
         }, { threshold: 0.35 });
         if (demo) observer.observe(demo);
+      }
+    })();
+
+
+    (function () {
+      var stream = document.getElementById("hero-stream");
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var lines = [
+        { cls: "ac", text: "// inbound · live feed" },
+        { cls: "hi", text: "ORD-4821 · Northline · owner Sam · due today" },
+        { cls: "", text: "LEAD-902 · incomplete form · owner — · due TBD" },
+        { cls: "hi", text: "TKT-118 · access reset · owner Alex · due Thu" },
+        { cls: "ac", text: "// modules online" },
+        { cls: "", text: "parse · checks · merge · chase" }
+      ];
+      function paint(withCaret) {
+        if (!stream) return;
+        stream.innerHTML = "";
+        lines.forEach(function (line, i) {
+          var div = document.createElement("div");
+          if (line.cls) div.className = line.cls;
+          div.classList.add("line");
+          div.style.animationDelay = (i * 0.08) + "s";
+          div.textContent = line.text;
+          if (withCaret && i === lines.length - 1) {
+            var caret = document.createElement("span");
+            caret.className = "caret";
+            caret.setAttribute("aria-hidden", "true");
+            div.appendChild(caret);
+          }
+          if (i === 4) div.style.marginTop = "0.85rem";
+          stream.appendChild(div);
+        });
+      }
+      paint(!reduce);
+      if (!reduce) setInterval(function () { paint(true); }, 5200);
+
+      var progress = document.getElementById("scroll-progress");
+      var topnav = document.getElementById("topnav");
+      function onScroll() {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        var p = max > 0 ? (window.scrollY / max) * 100 : 0;
+        if (progress) progress.style.width = p + "%";
+        if (topnav) topnav.classList.toggle("is-on", window.scrollY > window.innerHeight * 0.72);
+      }
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
+      if ("IntersectionObserver" in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) entry.target.classList.add("is-in");
+          });
+        }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+        document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+      } else {
+        document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("is-in"); });
       }
     })();
 
@@ -1838,7 +2262,142 @@
       function switchPanel(name) {
         tabs.forEach(function (t) { t.setAttribute("aria-selected", t.getAttribute("data-panel") === name ? "true" : "false"); });
         Object.keys(panels).forEach(function (k) { panels[k].hidden = k !== name; });
+        var mod = document.getElementById("desk-module");
+        if (mod) mod.textContent = name;
+        if (name === "checks") renderChecks();
+        if (name === "merge" && !mergeDone) { /* wait for click */ }
       }
+
+      var mergeDone = false;
+      var checksList = document.getElementById("checks-list");
+      var checksSummary = document.getElementById("checks-summary");
+
+      function renderChecks() {
+        if (!checksList) return;
+        var rows = allRows.length ? allRows : [];
+        var flags = rows.filter(function (r) { return r.status === "Check"; });
+        checksList.textContent = "";
+        if (!rows.length) {
+          checksList.innerHTML = '<p class="empty">Parse something first, or load the gappy sample.</p>';
+          if (checksSummary) checksSummary.innerHTML = "<span>No rows loaded</span>";
+          return;
+        }
+        if (!flags.length) {
+          checksList.innerHTML = '<p class="empty">All clear — no gaps flagged.</p>';
+          if (checksSummary) checksSummary.innerHTML = "<span><strong>" + rows.length + "</strong> rows · <strong>0</strong> flags</span>";
+          return;
+        }
+        flags.forEach(function (r) {
+          var why = [];
+          if (r.owner === "—") why.push("missing owner");
+          if (r.due === "—" || /TBD/i.test(r.due)) why.push("due unclear");
+          if (/TBD|unknown|incomplete/i.test(r.detail)) why.push("detail incomplete");
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.innerHTML = "<strong>" + esc(r.ref) + "</strong> · " + esc(r.type) + '<span class="why">' + esc(why.join(" · ") || "needs review") + "</span>";
+          btn.addEventListener("click", function () {
+            switchPanel("parse");
+            activeFilter = "Check";
+            filters.forEach(function (f) { f.setAttribute("aria-pressed", f.getAttribute("data-filter") === "Check" ? "true" : "false"); });
+            render();
+            toast("Showing flags");
+          });
+          checksList.appendChild(btn);
+        });
+        if (checksSummary) {
+          checksSummary.innerHTML = "<span><strong>" + rows.length + "</strong> rows · <strong>" + flags.length + "</strong> flagged</span>";
+        }
+      }
+
+      var runChecksBtn = document.getElementById("btn-run-checks");
+      if (runChecksBtn) runChecksBtn.addEventListener("click", function () {
+        if (!allRows.length) loadSample("orders");
+        renderChecks();
+        toast(allRows.filter(function (r) { return r.status === "Check"; }).length ? "Flags listed" : "All clear");
+      });
+      var checksSampleBtn = document.getElementById("btn-checks-sample");
+      if (checksSampleBtn) checksSampleBtn.addEventListener("click", function () {
+        loadSample("orders");
+        switchPanel("checks");
+        renderChecks();
+      });
+
+      function runMerge() {
+        var a = [
+          { ref: "LEAD-901", owner: "Jordan", due: "Fri", src: "A" },
+          { ref: "LEAD-902", owner: "—", due: "TBD", src: "A" },
+          { ref: "LEAD-904", owner: "Sam", due: "Mon", src: "A" }
+        ];
+        var b = [
+          { ref: "LEAD-902", owner: "Riley", due: "Wed", src: "B" },
+          { ref: "LEAD-903", owner: "Riley", due: "Wed", src: "B" },
+          { ref: "LEAD-904", owner: "Sam", due: "Mon", src: "B" }
+        ];
+        var map = {};
+        a.concat(b).forEach(function (row) {
+          if (!map[row.ref]) map[row.ref] = { ref: row.ref, owner: row.owner, due: row.due, sources: [row.src], status: "Ready" };
+          else {
+            var cur = map[row.ref];
+            if (cur.sources.indexOf(row.src) === -1) cur.sources.push(row.src);
+            if (cur.owner === "—" && row.owner !== "—") cur.owner = row.owner;
+            if ((cur.due === "—" || /TBD/i.test(cur.due)) && row.due && !/TBD/i.test(row.due)) cur.due = row.due;
+            if (cur.sources.length > 1) cur.status = "Dup";
+          }
+          if (map[row.ref].owner === "—" || /TBD/i.test(map[row.ref].due)) map[row.ref].status = "Check";
+        });
+        var rows = Object.keys(map).sort().map(function (k) { return map[k]; });
+        var out = document.getElementById("merge-out");
+        var htmlOut = '<table class="table"><thead><tr><th>Ref</th><th>Owner</th><th>Due</th><th>Sources</th><th>Status</th></tr></thead><tbody>';
+        rows.forEach(function (r, i) {
+          var badge = r.status === "Check" ? '<span class="badge badge-warn">Flag</span>' : (r.status === "Dup" ? '<span class="badge badge-warn">Merged</span>' : '<span class="badge badge-ok">Ready</span>');
+          htmlOut += '<tr style="animation-delay:' + (i * 0.04) + 's"' + (r.status !== "Ready" ? ' class="warn"' : '') + "><td>" + esc(r.ref) + "</td><td>" + esc(r.owner) + "</td><td>" + esc(r.due) + "</td><td>" + esc(r.sources.join("+")) + "</td><td>" + badge + "</td></tr>";
+        });
+        htmlOut += "</tbody></table>";
+        out.innerHTML = htmlOut;
+        mergeDone = true;
+        toast("Merged " + rows.length + " rows");
+      }
+      var mergeBtn = document.getElementById("btn-run-merge");
+      if (mergeBtn) mergeBtn.addEventListener("click", runMerge);
+      var resetMerge = document.getElementById("btn-reset-merge");
+      if (resetMerge) resetMerge.addEventListener("click", function () {
+        mergeDone = false;
+        document.getElementById("merge-out").innerHTML = '<p class="empty">Hit merge to combine.</p>';
+      });
+
+      var customPicks = Array.prototype.slice.call(document.querySelectorAll(".custom-pick"));
+      var customMail = document.getElementById("btn-custom-mail");
+      var customHint = document.getElementById("custom-hint");
+      customPicks.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          customPicks.forEach(function (b) { b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
+          var flow = btn.getAttribute("data-flow");
+          if (customMail) customMail.href = "mailto:YOU@EXAMPLE.com?subject=" + encodeURIComponent("Fastenly sample — " + flow);
+          if (customHint) customHint.textContent = "Selected: " + flow;
+          toast(flow);
+        });
+      });
+
+      function tickClock() {
+        var el = document.getElementById("desk-clock");
+        if (!el) return;
+        el.textContent = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      }
+      tickClock();
+      setInterval(tickClock, 30000);
+
+      document.addEventListener("keydown", function (e) {
+        if (e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+        var desk = document.getElementById("desk");
+        if (!desk) return;
+        var r = desk.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight) return;
+        var map = { "1": "parse", "2": "checks", "3": "merge", "4": "custom" };
+        if (map[e.key]) {
+          e.preventDefault();
+          switchPanel(map[e.key]);
+        }
+      });
 
       function ingest(file) {
         if (!file) return;
