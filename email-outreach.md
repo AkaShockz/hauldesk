@@ -64,18 +64,60 @@ If useful: YOU@EXAMPLE.com — one redacted sample in, clean test back.
 
 ## After a free sample
 
-**Subject:** Test output from your {{workflow}} sample
+Use the full template in `sample-reply.md` (attach file + 60s Loom + Calendly).
+
+---
+
+## Busywork Audit invite
+
+**Subject:** 20-min busywork map for {{Company}}?
 
 ```
 Hi {{First name}},
 
-Attached is a first-pass result from the redacted sample you sent.
-Happy to remap to your real template.
+I run a short Busywork Audit for ops teams: we list the top 3 weekly
+manual loops, rank which one to automate first, and you leave with a
+module shortlist — even if you never buy.
 
-If this is close, the pilot gets a private desk live in ~2 weeks
-(£795 + £49/mo hosting) with room to add the next modules after.
-
-Open to a 15-minute call this week?
+If useful: {{CALENDLY_LINK}} (20 minutes) or reply with one redacted
+sample and I’ll return a clean test the same week.
 
 {{Your name}}
+```
+
+---
+
+## Open Desk Hour invite
+
+**Subject:** Live sample hour — Wed 12:00
+
+```
+{{First name}} — I host a weekly Open Desk Hour (Wed 12:00 UK):
+paste one messy workflow, leave with a clean test on the call.
+
+Grab a seat: {{CALENDLY_LINK}}
+Or skip the call and email a redacted sample to YOU@EXAMPLE.com.
+
+{{Your name}}
+```
+
+---
+
+## Partner / bookkeeper pitch
+
+**Subject:** £100 for ops busywork intros
+
+```
+Hi {{First name}},
+
+I build private automation desks for teams stuck on repeat admin
+(pastes, checks, chase lists). Fixed pilot: £795 + £49/mo.
+
+If you see clients drowning in that work, I’ll pay £100 credit (or 15%
+of Module 01) for every closed intro — and I run a free sample first so
+you’re never sending them into a hard sell.
+
+Open to a 10-minute partner chat? {{CALENDLY_LINK}}
+
+{{Your name}} · Fastenly
 ```

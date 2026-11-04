@@ -292,6 +292,33 @@
       counter-reset: step;
     }
 
+    .steps.steps-4 { grid-template-columns: repeat(4, 1fr); }
+
+    .promise {
+      margin-top: 1.75rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+    }
+
+    .promise article {
+      padding: 0.95rem 1rem;
+      border: 1px solid var(--line);
+      background: var(--paper-2);
+    }
+
+    .promise h3 {
+      font-family: var(--display);
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.3rem;
+    }
+
+    .promise p {
+      color: var(--mute);
+      font-size: 0.9rem;
+    }
+
     .step {
       padding-top: 1rem;
       border-top: 2px solid var(--ink);
@@ -1021,7 +1048,7 @@
     }
 
     @media (max-width: 760px) {
-      .steps, .board, .fit, .offer-grid, .demo-body { grid-template-columns: 1fr; }
+      .steps, .steps.steps-4, .board, .fit, .offer-grid, .demo-body, .promise { grid-template-columns: 1fr; }
       .demo-pane + .demo-pane { border-left: 0; border-top: 1px solid var(--line); }
       .pane-in { border-right: none; border-bottom: 1px solid var(--line-dark); }
       .mod-list li { grid-template-columns: 5.5rem 1fr; }
@@ -1401,6 +1428,46 @@
     </div>
   </section>
 
+  <section id="process">
+    <div class="wrap">
+      <p class="kicker">How we work with you</p>
+      <h2>Sample first. Pilot next. Stack forever.</h2>
+      <p class="lead">No generic automation pitch. You feel the work before you pay.</p>
+      <div class="steps steps-4">
+        <article class="step">
+          <h3>Send a sample</h3>
+          <p>One redacted messy workflow. Same-week clean test back — free.</p>
+        </article>
+        <article class="step">
+          <h3>Busywork Audit</h3>
+          <p>20 minutes. Rank your top loops. Leave with a module shortlist.</p>
+        </article>
+        <article class="step">
+          <h3>Pilot the desk</h3>
+          <p>£795 + £49/mo. Module 01 live in ~2 weeks on your private login.</p>
+        </article>
+        <article class="step">
+          <h3>Stack &amp; refer</h3>
+          <p>Add modules from £195. Twin £100 credits when intros close.</p>
+        </article>
+      </div>
+      <div class="promise">
+        <article>
+          <h3>Same-week sample SLA</h3>
+          <p>In by Wednesday → clean test by Friday.</p>
+        </article>
+        <article>
+          <h3>Risk reversal</h3>
+          <p>Unused in 14 days → free Module 02 scope or build-fee refund.</p>
+        </article>
+        <article>
+          <h3>Open Desk Hour</h3>
+          <p>Weekly live slot: paste a workflow, leave with a clean test.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <section id="faq">
     <div class="wrap">
       <p class="kicker">FAQ</p>
@@ -1422,6 +1489,14 @@
           <summary>How do extra modules work?</summary>
           <p>Same desk, new scope — from £195 after samples. Hosting is £49/mo and cancel-anytime.</p>
         </details>
+        <details>
+          <summary>What if Module 01 doesn’t stick?</summary>
+          <p>If it isn’t in real use within 14 days, you get a free Module 02 scope pass or a refund of the £795 build fee.</p>
+        </details>
+        <details>
+          <summary>Can I try before paying?</summary>
+          <p>Yes — email a redacted sample for a free clean test, or join Open Desk Hour and paste one live.</p>
+        </details>
       </div>
     </div>
   </section>
@@ -1430,10 +1505,11 @@
     <div class="wrap">
       <p class="kicker">Next</p>
       <h2>Send the messy sample. Get a clean test.</h2>
-      <p class="lead">Free pass on the first workflow. If it lands, we scope the pilot and leave room for the rest.</p>
+      <p class="lead">Free same-week pass on the first workflow. If it lands, we scope the pilot and leave room for the rest.</p>
       <div class="cta-row" style="opacity:1;animation:none">
         <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample" style="color:#1a0a00">Email a sample</a>
-        <a class="btn btn-ink" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20pilot">Book a call</a>
+        <a class="btn btn-ink" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20Busywork%20Audit">Book a Busywork Audit</a>
+        <a class="btn btn-ghost" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20Open%20Desk%20Hour" style="border-color:rgba(255,255,255,0.35)">Ask about Open Desk Hour</a>
       </div>
     </div>
   </section>

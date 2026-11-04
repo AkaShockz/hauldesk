@@ -24,19 +24,20 @@ Lead with the desk. Use parse-to-rows as a common first example — never as the
 | File | Use |
 |------|-----|
 | `landing.html` | One-page site with multi-module desk demo — replace `YOU@EXAMPLE.com`, then host |
-| `gtm-process.md` | Unique sample-first sales process + weekly acquisition engine |
-| `linkedin-outreach.md` | Connection notes + follow-ups |
-| `email-outreach.md` | Cold email + post-sample reply |
+| `gtm-process.md` | Unique sample-first sales process + weekly volume engine |
+| `sample-reply.md` | What to send back with every free clean test |
+| `linkedin-outreach.md` | Connection notes, hiring-signal + audit variants |
+| `email-outreach.md` | Cold email, audit, Open Desk Hour, partner pitch |
 | `pilot-proposal.md` | Send same day after a good discovery call |
 | `targets.csv` | Track ~40 firms (segment, hook, status, next action) |
 
 ## Quick start
 
-1. Find-replace `YOU@EXAMPLE.com` with your real email (optional Calendly on landing CTAs).
-2. Open `landing.html` — use **Watch it run on the desk**, then flip module tabs.
+1. Find-replace `YOU@EXAMPLE.com` with your real email; add Calendly + Loom links.
+2. Open `landing.html` — use **See how it runs**, then the live desk.
 3. Host on Netlify Drop / Cloudflare Pages / any static host.
-4. Record a short Loom showing the desk modules, not only one sample parse.
-5. Follow `gtm-process.md`: fill `targets.csv`, send ~10 LinkedIn notes/day, lead with free samples.
+4. Book a recurring **Open Desk Hour** and follow `gtm-process.md` for one full week before changing the offer.
+5. Seed `targets.csv` (~40 firms); prefer hiring-signal hooks; send ~10 LinkedIn notes/day.
 
 ## Boundaries
 

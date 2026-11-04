@@ -53,7 +53,30 @@ If it is: fixed pilot to get the desk live in ~2 weeks (£795 + £49/mo hosting)
 ```
 Last note from me: send one redacted sample workflow to YOU@EXAMPLE.com and I’ll return a clean test the same week — no charge.
 
+Or grab a seat at Open Desk Hour (live paste → clean test): {{CALENDLY_LINK}}
+
 Either way, appreciate the connect.
+```
+
+---
+
+## Hiring-signal variant (connection note)
+
+```
+Hi {{First name}} — saw {{Company}} hiring for {{role}}. That usually means a retyping / chase loop somewhere. I run free same-week samples on private automation desks — worth a look?
+```
+
+---
+
+## Busywork Audit variant (after accept)
+
+```
+Thanks for connecting, {{First name}}.
+
+I offer a free 20-min Busywork Audit: we map your top 3 weekly manual loops and rank what to automate first. No deck. You leave with a shortlist.
+
+Book here: {{CALENDLY_LINK}}
+Or send one redacted sample to YOU@EXAMPLE.com and I’ll return a clean test.
 ```
 
 ---
@@ -67,4 +90,4 @@ Ask only:
 3. What must the output look like?
 4. Who uses it day to day?
 
-Then: propose the pilot (£795 + £49/mo). Send `pilot-proposal.md` the same day.
+Then: propose the pilot (£795 + £49/mo). Send `pilot-proposal.md` the same day. Mention risk reversal (unused in 14 days → free Module 02 scope or build-fee refund).

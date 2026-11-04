@@ -56,6 +56,19 @@ Fastenly is not a single-purpose converter and not locked to one industry. The d
 
 After two weeks of live use: the team runs Module 01 without falling back to full manual process — and you have a prioritised shortlist for Modules 02+.
 
+## Risk reversal
+
+If Module 01 is not in real use within 14 days of go-live, choose one:
+
+1. Free scope pass on Module 02 (build fee waived on the next scoped module), or  
+2. Refund of the £795 pilot build fee (hosting already used is non-refundable)
+
+This keeps the pilot easy to say yes to.
+
+## Referral credit
+
+After Module 01 sticks: introduce two peer ops leads. For each intro that becomes a paid pilot, both sides get **£100 off** the next module.
+
 ## What I need from you to start
 
 1. Samples for Module 01 (redacted)  

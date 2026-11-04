@@ -1,55 +1,131 @@
 # Fastenly GTM process — unique + high-volume
 
-Use this as the operating rhythm. The goal is **many conversations**, not prettier decks.
+Operating rhythm for **as many customers as possible** without sounding like every other automation freelancer.
 
-## What makes the process unique
+Core loop: **signal → free sample → 15-min call → £795 pilot → module stack → referral**.
 
-Most automation sellers demo a generic Zapier clone. Fastenly sells a **company-private desk** with a **free sample → paid pilot → module stack** loop:
+---
 
-1. **Sample-first, not demo-first.** Ask for one redacted messy workflow. Return a clean test the same week. Buyers feel the product before a call.
-2. **Desk, not script.** Pitch the private multi-module site. Module 01 is the wedge; Modules 02+ are the expansion story.
-3. **Fixed, affordable pilot.** £795 + £49/mo. Easy to say yes. Extra modules from £195 keep expansion light.
-4. **Industry-agnostic targeting.** Ops / admin / sales ops / support / finance / logistics — anyone with weekly retyping.
-5. **Proof on the landing page.** Live parse desk + flow strip so cold traffic can see the automation without booking first.
+## What makes this process unique
 
-## Weekly engine (aim: ~40 firms active)
+Most sellers pitch “AI automation” or a Zapier clone. Fastenly sells a **company-private desk** with this wedge:
 
-| Day | Action |
-|-----|--------|
-| Mon | Add 10 firms to `targets.csv` with a real personalisation hook |
-| Tue–Thu | 10 LinkedIn connection notes/day + 5 cold emails/day |
-| Fri | Send / chase free samples; book calls; update status columns |
-| Anytime | After accept → Loom + sample offer within 24h |
+1. **Sample-first, not demo-first.** One redacted messy workflow in → clean test back same week. Buyers feel it before a call.
+2. **Busywork Audit (20 min).** Map their top 3 loops → ranked module shortlist. Not a feature tour.
+3. **Desk, not script.** Module 01 is the wedge; Modules 02+ are the expansion story on the same login.
+4. **Fixed, say-yes pricing.** £795 + £49/mo. Extras from £195. No enterprise theatre.
+5. **Same-week sample SLA.** Public promise: sample in by Wednesday → result by Friday.
+6. **Open Desk Hour.** Weekly 30-min Zoom where anyone can paste a live sample. Low-friction volume.
+7. **Risk reversal.** If Module 01 isn’t used in the first 14 days, re-scope Module 02 free or refund the build fee.
+8. **Twin-seat referral.** Closed referral → both sides get £100 off the next module.
 
-Cap connection notes at ~10/day so accounts stay healthy.
+---
 
-## Acquisition channels that actually fit
+## Weekly engine (aim: 40+ firms in motion)
 
-1. **LinkedIn ops managers** — primary. Use notes in `linkedin-outreach.md`.
-2. **Cold email to ops@ / admin** — secondary. Use `email-outreach.md`.
-3. **Sample bait on the site** — “Email a sample” CTA. Treat every inbound sample as a warm lead.
-4. **Referral after go-live** — ask each pilot customer for 2 intros to peer ops leads once Module 01 is sticky.
-5. **Partner with bookkeepers / fractional COOs** — they see the busywork piles; offer £100 credit per closed pilot.
-6. **Local / niche Slack & FB ops groups** — answer process questions; offer a free sample, never a spray pitch.
-7. **Short Loom library** — one 45s desk overview + one 60s “your sample → clean rows” clip per vertical you touch.
+| Day | Action | Volume target |
+|-----|--------|---------------|
+| Mon | Research + add firms to `targets.csv` with a real hook | +10 firms |
+| Tue | LinkedIn connection notes | 10 |
+| Wed | Cold emails + Open Desk Hour invite | 8 emails · 1 live hour |
+| Thu | LinkedIn follow-ups + partner pings | 10 notes · 3 partners |
+| Fri | Return samples · book calls · update CRM columns | all open samples |
+| Anytime | Accept → Loom + sample offer within 24h | 100% |
 
-## Qualification (keep / skip)
+Hard caps: ~10 LinkedIn notes/day, ~8 cold emails/day. Consistency beats spikes.
 
-**Keep if:** weekly manual loop, multi-person users, no single tool already covers it, budget for a £795 pilot.
+---
 
-**Skip if:** they only want a free forever script, need full ERP replacement, or insist on shared multi-tenant SaaS.
+## Acquisition plays (stack these)
 
-## Closing sequence
+### A. Primary — LinkedIn ops / admin managers
+Use `linkedin-outreach.md`. Personalise the hook from careers pages, job ads, or “ops coordinator” hiring signals.
 
-1. Free sample lands close → 15-min call  
-2. Same day: send `pilot-proposal.md` with Module 01 named and Modules 02+ listed  
-3. 50% deposit → kickoff samples + template  
-4. ~2 weeks to go-live → training call  
-5. Day 14 check-in → propose Module 02 from the shortlist  
+### B. Secondary — Cold email
+Use `email-outreach.md`. Prefer ops@, admin@, operations@, or named ops leads.
 
-## Expansion (more revenue per customer)
+### C. Sample bait on the site
+Every “Email a sample” hit is a warm lead. Reply with `sample-reply.md` the same day if possible.
 
-After Module 01 sticks, sell the next pain in this order when it exists:
+### D. Open Desk Hour (unique volume lever)
+- Book a recurring Wed 12:00 UK slot (Calendly).
+- Title: “Paste one messy workflow — leave with a clean test.”
+- Soft limit 6 people. Record with permission → clip library.
+- Invite everyone who ignored a cold note once.
+
+### E. Hiring-signal hunting
+Search LinkedIn / Indeed for: *operations coordinator, data entry, admin assistant, order processor, sales ops*. Firms hiring these often have the pile. Hook: “Saw you’re hiring for {{role}} — usually means a retyping loop. Free sample?”
+
+### F. Partner channel
+Bookkeepers, fractional COOs, virtual PAs, Shopify/agency ops freelancers.
+Offer **£100 credit per closed pilot** (or 15% of Module 01). Use the partner blurb in `email-outreach.md`.
+
+### G. Referral machine
+Day 14 after go-live: ask for **2 intros** to peer ops leads.
+Closed intro → twin £100 module credit. Track in `targets.csv` notes.
+
+### H. Vertical starter wedges (faster close)
+Lead with the language they already use:
+
+| Segment | Module 01 wedge |
+|---------|-----------------|
+| Orders / fulfilment | Messy order notes → clean board + flags |
+| Sales / agencies | Lead dumps → chase list |
+| Support | Ticket paste → owner/due board |
+| Field / logistics ops | Job notes → daily run sheet |
+| Finance admin | Statement / invoice dumps → exception list |
+
+### I. Content that sells samples (not brand)
+Post 2×/week: before/after of a **redacted** sample (never client data). CTA always = “send yours.”
+One 45s Loom (desk) + one 60s Loom (sample → rows) per wedge you touch.
+
+### J. Local / niche communities
+Ops Slack groups, Facebook admin groups, Indie Hackers ops threads.
+Answer the process question first. Offer a free sample second. Never spray.
+
+---
+
+## Qualification (protect your calendar)
+
+**Keep if**
+- Weekly manual loop (not a one-off)
+- ≥2 people would use the desk
+- No single tool already covers it
+- Can fund a £795 pilot
+
+**Skip if**
+- Want free forever custom scripts
+- Need full ERP / CRM replacement
+- Insist on shared multi-tenant SaaS only
+- Can’t send even a redacted sample
+
+---
+
+## Closing sequence (tight)
+
+1. Sample lands close **or** Busywork Audit done  
+2. 15-min call (4 questions only — see LinkedIn doc)  
+3. Same day: `pilot-proposal.md` with Module 01 named + Modules 02+ listed  
+4. 50% deposit → kickoff pack  
+5. ~2 weeks go-live + training  
+6. Day 14 check-in → Module 02 + ask for 2 intros  
+
+**Objection cheatsheet**
+
+| They say | You say |
+|----------|---------|
+| “We’re fine with spreadsheets” | “Keep the sheet — Fastenly feeds it. Sample shows the hours you get back.” |
+| “We should build this in-house” | “You can — pilot is cheaper than two weeks of eng time and already private.” |
+| “Too busy to switch” | “That’s the point. Module 01 replaces one loop in ~2 weeks. No big bang.” |
+| “Need to see security / privacy” | “Private build + login per company. Your data never trains a shared model.” |
+| “Can you just do a cheap script?” | “Scripts die. Desk compounds. Pilot is fixed at £795 so it stays affordable.” |
+| “Send pricing” | “£795 + £49/mo for desk + first module. Extras from £195. Sample first if you want proof.” |
+
+---
+
+## Expansion (more £ per customer)
+
+After Module 01 sticks, sell next pain in this order when it exists:
 
 1. Quality checks / flags  
 2. Format normaliser  
@@ -57,15 +133,35 @@ After Module 01 sticks, sell the next pain in this order when it exists:
 4. Chase / report pack  
 5. Custom weekly loop from their samples  
 
-Never force a module. Use their own “pile” language from discovery.
+Never force a module — use their own pile language from the audit.
 
-## Metrics to watch
+---
 
-- Samples requested / week  
-- Samples returned / week  
-- Calls booked from samples  
-- Pilot close rate  
-- Module 02 attach rate within 45 days  
-- Referrals asked / received  
+## Metrics (review every Friday)
 
-If samples are high but calls are low, tighten the sample reply and add a Calendly link. If calls are high but closes are low, shorten the proposal and restate the £795 vs hours-lost comparison.
+| Metric | Healthy weekly signal |
+|--------|------------------------|
+| New firms added | ≥10 |
+| Connection notes sent | ≥30 |
+| Cold emails sent | ≥20 |
+| Samples requested | ≥5 |
+| Samples returned | ≥5 (same-week SLA) |
+| Calls booked | ≥3 |
+| Pilots closed | ≥1 |
+| Module 02 attach (45 days) | ≥40% of live pilots |
+| Referrals asked | 100% of Day-14 check-ins |
+
+**If samples high / calls low** → tighten `sample-reply.md` + add Calendly.  
+**If calls high / closes low** → shorten proposal + restate £795 vs hours lost.  
+**If outreach high / samples low** → switch CTA to Open Desk Hour + Busywork Audit.
+
+---
+
+## First 14 days on this process
+
+1. Replace `YOU@EXAMPLE.com` + add Calendly + Loom links  
+2. Host `landing.html`  
+3. Book recurring Open Desk Hour  
+4. Seed `targets.csv` with 40 firms (hiring-signal hooks preferred)  
+5. Run one full week of the engine above without changing the offer  
+6. Only then tweak copy — not pricing, not the sample-first wedge
