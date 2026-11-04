@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fastenly — Turn messy repeat work into clean sheets</title>
-  <meta name="description" content="Paste messy notes. Get clean rows. Flag the gaps. A private parser desk for your company." />
+  <meta name="description" content="Job sheets to Excel. Daily status boards. Locked sample desk that mirrors a live ops module." />
   <meta name="theme-color" content="#0e0e12" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230e0e12'/%3E%3Ccircle cx='16' cy='16' r='7.5' fill='none' stroke='%23e85d04' stroke-width='2.5'/%3E%3Cpath d='M16 11.5v9M12.5 16h7' stroke='%23e85d04' stroke-width='2' stroke-linecap='square'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -145,6 +145,9 @@
       border-bottom: 1px solid var(--line-dark);
       background: rgba(255,255,255,0.02);
     }
+    .parser-steps[hidden], .parser-tools[hidden], .progress-steps[hidden], .remind:not(.is-on) {
+      display: none !important;
+    }
     .pstep {
       padding: 0.7rem 0.85rem;
       border-right: 1px solid var(--line-dark);
@@ -168,6 +171,7 @@
       padding: 0.75rem 0.95rem;
       border-bottom: 1px solid var(--line-dark);
     }
+    .module-btn, .chip { position: relative; z-index: 3; }
     .chip {
       appearance: none; border: 1px solid var(--line-dark);
       background: transparent; color: rgba(244,245,247,0.65);
@@ -251,20 +255,80 @@
       border: 1px solid var(--line-dark); padding: 0.85rem;
       white-space: pre-wrap; word-break: break-word;
     }
-    .source-view.is-on { display: block; cursor: text; }
+    .source-view.is-on { display: block; cursor: default; }
     .source-view .beam {
       position: absolute; left: 0; right: 0; height: 2px;
       background: linear-gradient(90deg, transparent, var(--accent), transparent);
       opacity: 0; pointer-events: none;
       animation: beamSweep 1.15s var(--ease) forwards;
     }
-    .source-view .edit-hint {
+    .source-view .lock-hint {
       position: sticky; bottom: 0; left: 0;
       margin-top: 0.75rem;
       font-family: var(--mono); font-size: 0.62rem;
       letter-spacing: 0.06em; text-transform: uppercase;
       color: rgba(244,245,247,0.35);
     }
+    .module-bar {
+      display: flex; flex-wrap: wrap; gap: 0.35rem;
+      padding: 0.65rem 0.95rem;
+      border-bottom: 1px solid var(--line-dark);
+      background: rgba(0,0,0,0.22);
+    }
+    .module-btn {
+      appearance: none; border: 1px solid var(--line-dark);
+      background: transparent; color: rgba(244,245,247,0.6);
+      padding: 0.42rem 0.75rem; font-size: 0.78rem; font-weight: 600;
+      cursor: pointer; font-family: var(--mono); letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .module-btn[aria-pressed="true"] {
+      background: rgba(232,93,4,0.18); border-color: rgba(232,93,4,0.55); color: var(--accent);
+    }
+    .remind {
+      display: none;
+      margin: 0 0.95rem;
+      padding: 0.55rem 0.7rem;
+      border: 1px solid rgba(232,163,23,0.35);
+      background: rgba(232,163,23,0.08);
+      color: #ffd27a;
+      font-size: 0.78rem;
+      font-family: var(--mono);
+    }
+    .remind.is-on { display: block; }
+    .remind strong { color: var(--white); font-weight: 600; }
+    .history-rail {
+      display: flex; flex-wrap: wrap; gap: 0.35rem;
+      padding: 0.55rem 0.95rem 0.75rem;
+      border-top: 1px solid var(--line-dark);
+      min-height: 2.2rem;
+    }
+    .history-rail .hchip {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.04em;
+      text-transform: uppercase; color: rgba(244,245,247,0.45);
+      border: 1px solid var(--line-dark); padding: 0.2rem 0.45rem;
+    }
+    .history-rail .hchip strong { color: var(--white); font-weight: 500; }
+    .report-board .bucket {
+      display: inline-block; min-width: 1.6rem; text-align: center;
+      font-variant-numeric: tabular-nums; font-weight: 600;
+    }
+    .report-board .bucket.is-late { color: var(--warn); }
+    .report-board .totals td { font-weight: 700; color: var(--white); border-top: 1px solid rgba(232,93,4,0.35); }
+    .progress-steps {
+      display: none; flex-direction: column; gap: 0.35rem;
+      padding: 0.5rem 0;
+    }
+    .progress-steps.is-on { display: flex; }
+    .progress-steps span {
+      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.04em;
+      color: rgba(244,245,247,0.35);
+    }
+    .progress-steps span.is-on { color: var(--accent); }
+    .progress-steps span.is-done { color: #8fd4ae; }
+    .pane-in.is-locked .editor { display: none; }
+    mark.mk-job { background: #9ec5ff; }
+    mark.mk-veh { background: #c4b5fd; }
     @keyframes beamSweep {
       0% { top: 8%; opacity: 0; }
       15% { opacity: 1; }
@@ -674,6 +738,47 @@
       .table tr, .table td, .xchip { opacity: 1; transform: none; }
       html { scroll-behavior: auto; }
     }
+
+    /* —— UI polish: cleaner desk, stronger responsive —— */
+    .hero { padding: 2rem 0 2.75rem; }
+    .hero-copy { max-width: 34rem; margin-bottom: 1.5rem; }
+    .hero-copy h1 { font-size: clamp(1.85rem, 4.2vw, 2.75rem); }
+    .hero-copy p { font-size: 1rem; max-width: 36ch; }
+    .parser { border-radius: 2px; }
+    .module-bar { gap: 0.45rem; padding: 0.7rem 0.95rem; }
+    .parser-board { min-height: 420px; }
+    .remind {
+      margin: 0.65rem 0.95rem 0;
+      border-radius: 2px;
+      line-height: 1.45;
+    }
+    .history-rail { gap: 0.4rem; padding: 0.6rem 0.95rem 0.8rem; }
+    .table th, .table td { padding: 0.5rem 0.5rem; }
+    .pane { padding: 0.85rem; }
+    .source-stage { min-height: 240px; }
+    .extract-feed, .table-wrap { min-height: 240px; }
+    @media (max-width: 900px) {
+      .hero { padding: 1.5rem 0 2rem; }
+      .hero-copy h1 { font-size: clamp(1.7rem, 7vw, 2.2rem); }
+      .cta-row .btn { width: 100%; }
+      .parser-chrome { font-size: 0.65rem; }
+      .module-btn { flex: 1 1 auto; text-align: center; }
+      .chip { font-size: 0.76rem; }
+      .stat strong { font-size: 1.25rem; }
+      .parser-board { min-height: 0; }
+      .source-stage, .table-wrap { min-height: 160px; }
+      .remind { font-size: 0.72rem; margin-inline: 0.75rem; }
+      .history-rail { display: none; }
+      .parser-foot { flex-direction: column; align-items: stretch; }
+      .parser-foot .btn { width: 100%; }
+    }
+    @media (max-width: 560px) {
+      .wrap { width: min(100% - 1.25rem, 1080px); }
+      .topbar .btn-sm { display: none; }
+      .stat-bar { grid-template-columns: 1fr 1fr; }
+      .parser-steps { grid-template-columns: 1fr 1fr; }
+      .pstep:nth-child(2) { border-right: 0; }
+    }
   </style>
 </head>
 <body>
@@ -692,68 +797,83 @@
       </div>
 
       <div class="hero-copy">
-        <h1>Watch messy text sort itself into Excel.</h1>
-        <p>Live extraction — fields light up in the paste, land in your sheet layout, and gaps get flagged before anyone acts.</p>
+        <h1>One paste. A whole batch of jobs — sorted.</h1>
+        <p>Locked sample desk — run a multi-job sheet parse, watch every vehicle land in Excel, then try the Daily report board.</p>
         <div class="cta-row">
-          <button type="button" class="btn btn-primary" id="btn-replay">Play the parse</button>
+          <button type="button" class="btn btn-primary" id="btn-replay">Play Module 01</button>
           <a class="btn btn-ghost" href="#build">See everything</a>
         </div>
       </div>
 
-      <!-- LIVE PARSER PREVIEW -->
-      <div class="parser" id="preview" aria-label="Parser preview">
+      <!-- LIVE PARSER PREVIEW — locked samples -->
+      <div class="parser" id="preview" aria-label="Automation desk preview">
         <div class="parser-chrome">
           <div class="chrome-left">
             <span class="dot" aria-hidden="true"></span>
-            <span><strong>Live extract</strong> · private desk</span>
+            <span><strong>Ops desk</strong> · sample mode</span>
           </div>
           <span id="desk-clock">--:--</span>
         </div>
 
-        <div class="parser-steps" aria-hidden="true">
-          <div class="pstep is-on" data-step="0"><span>01</span><em>Paste</em></div>
+        <div class="module-bar" role="tablist" aria-label="Modules">
+          <button type="button" class="module-btn" data-module="jobs" aria-pressed="true">01 · Job sheets</button>
+          <button type="button" class="module-btn" data-module="report" aria-pressed="false">02 · Daily report</button>
+        </div>
+
+        <div class="parser-steps" id="job-steps" aria-hidden="true">
+          <div class="pstep is-on" data-step="0"><span>01</span><em>Load sample</em></div>
           <div class="pstep" data-step="1"><span>02</span><em>Highlight fields</em></div>
           <div class="pstep" data-step="2"><span>03</span><em>Build sheet</em></div>
           <div class="pstep" data-step="3"><span>04</span><em>Ready</em></div>
         </div>
-
-        <div class="parser-tools">
-          <button type="button" class="chip" data-sample="invoices" aria-pressed="true">Invoices</button>
-          <button type="button" class="chip" data-sample="tickets" aria-pressed="false">Tickets</button>
-          <button type="button" class="chip" data-sample="leads" aria-pressed="false">Leads</button>
-          <button type="button" class="chip" data-sample="delivery" aria-pressed="false">Delivery</button>
-          <button type="button" class="chip" data-sample="stock" aria-pressed="false">Stock</button>
-          <span class="chip-hint">pick a lump · watch it sort</span>
+        <div class="parser-steps" id="report-steps" hidden aria-hidden="true">
+          <div class="pstep is-on" data-step="0"><span>01</span><em>Load dump</em></div>
+          <div class="pstep" data-step="1"><span>02</span><em>Map statuses</em></div>
+          <div class="pstep" data-step="2"><span>03</span><em>Bucket counts</em></div>
+          <div class="pstep" data-step="3"><span>04</span><em>Board ready</em></div>
         </div>
 
+        <div class="parser-tools" id="job-tools">
+          <button type="button" class="chip" data-sample="batch-a" aria-pressed="true">Batch A</button>
+          <button type="button" class="chip" data-sample="batch-b" aria-pressed="false">Batch B</button>
+          <button type="button" class="chip" data-sample="mixed" aria-pressed="false">Mixed routes</button>
+          <span class="chip-hint">locked samples · no free paste</span>
+        </div>
+        <div class="parser-tools" id="report-tools" hidden>
+          <button type="button" class="chip" data-sample="daily-a" aria-pressed="true">Morning dump</button>
+          <button type="button" class="chip" data-sample="daily-b" aria-pressed="false">Week window</button>
+          <span class="chip-hint">status buckets · Daily orders board</span>
+        </div>
+
+        <p class="remind" id="date-remind" role="status"></p>
+
         <div class="stat-bar" aria-live="polite">
-          <div class="stat"><strong id="stat-rows" class="is-accent">0</strong> rows</div>
-          <div class="stat"><strong id="stat-fields">0</strong> fields found</div>
-          <div class="stat"><strong id="stat-flags" class="is-warn">0</strong> flagged</div>
+          <div class="stat"><strong id="stat-rows" class="is-accent">0</strong> <span id="stat-rows-label">rows</span></div>
+          <div class="stat"><strong id="stat-fields">0</strong> <span id="stat-fields-label">fields</span></div>
+          <div class="stat"><strong id="stat-flags" class="is-warn">0</strong> <span id="stat-flags-label">flagged</span></div>
           <div class="stat"><strong id="stat-ms" class="is-ok">0</strong> ms</div>
         </div>
 
         <div class="parser-board">
-          <div class="pane pane-in">
-            <p class="label">Messy paste</p>
+          <div class="pane pane-in is-locked">
+            <p class="label" id="source-label">Job sheet sample</p>
             <div class="source-stage">
-              <label class="sr-only" for="job-paste">Raw paste</label>
-              <textarea id="job-paste" class="editor" spellcheck="false" placeholder="Paste messy notes, emails, or chat dumps…"></textarea>
-              <pre class="source-view" id="source-view" aria-hidden="true"></pre>
+              <pre class="source-view is-on" id="source-view" aria-live="polite"></pre>
             </div>
             <div class="pane-actions">
-              <button type="button" class="btn btn-primary btn-sm" id="btn-parse">Parse to Excel</button>
-              <button type="button" class="btn btn-ghost btn-sm" id="btn-clear">Clear</button>
+              <button type="button" class="btn btn-primary btn-sm" id="btn-parse">Run parse</button>
+              <button type="button" class="btn btn-ghost btn-sm" id="btn-reset">Reset demo</button>
               <button type="button" class="btn btn-ghost btn-sm" id="btn-copy" disabled>Copy</button>
               <button type="button" class="btn btn-ghost btn-sm" id="btn-csv" disabled>Download Excel</button>
             </div>
-            <div class="run-meta">
-              <span>Paste <b>any</b> messy notes — we split, label, and flag gaps</span>
+            <div class="run-meta" id="run-meta">
+              <span>Press <b>Ctrl</b>+<b>Enter</b> to run · samples only</span>
             </div>
+            <div class="progress-steps" id="progress-steps" aria-hidden="true"></div>
           </div>
 
           <div class="pane pane-mid">
-            <p class="label">Live extract</p>
+            <p class="label" id="extract-label">Live extract</p>
             <div class="extract-feed" id="extract-feed">
               <p class="idle">Fields appear here as they’re found…</p>
             </div>
@@ -761,37 +881,16 @@
 
           <div class="pane pane-out">
             <div class="out-head">
-              <p class="label" style="margin:0">Excel sheet</p>
+              <p class="label" style="margin:0" id="out-label">Transport sheet</p>
               <span class="status-pill" id="status-pill">Idle</span>
             </div>
-            <div class="layout-row" role="group" aria-label="Sheet layout">
-              <span class="label">Layout</span>
-              <button type="button" class="layout-btn" data-layout="ops" aria-pressed="true">Ops</button>
-              <button type="button" class="layout-btn" data-layout="finance" aria-pressed="false">Finance</button>
-              <button type="button" class="layout-btn" data-layout="delivery" aria-pressed="false">Delivery</button>
-              <button type="button" class="layout-btn" data-layout="report" aria-pressed="false">Report</button>
-            </div>
             <div class="scanline" id="scanline" aria-hidden="true"><i></i></div>
-            <div class="field-map" id="field-map" aria-hidden="true">
-              <span data-f="c0">col 1</span>
-              <span data-f="c1">col 2</span>
-              <span data-f="c2">col 3</span>
-              <span data-f="c3">col 4</span>
-              <span data-f="c4">col 5</span>
-              <span data-f="c5">status</span>
-            </div>
+            <div class="field-map" id="field-map" aria-hidden="true"></div>
             <div class="table-wrap" id="table-wrap">
-              <div id="parse-empty" class="empty">Paste your own text or hit Play — rows appear here.</div>
+              <div id="parse-empty" class="empty">Pick a locked sample and run — rows land here.</div>
               <table class="table" id="parse-table" hidden>
                 <thead>
-                  <tr id="parse-head">
-                    <th>Ref</th>
-                    <th>Type</th>
-                    <th>Owner</th>
-                    <th>Due</th>
-                    <th>Detail</th>
-                    <th>Status</th>
-                  </tr>
+                  <tr id="parse-head"></tr>
                 </thead>
                 <tbody id="parse-body"></tbody>
               </table>
@@ -802,9 +901,13 @@
           </div>
         </div>
 
+        <div class="history-rail" id="history-rail" aria-label="Session runs">
+          <span class="hchip">No runs yet</span>
+        </div>
+
         <div class="parser-foot">
-          <p><strong id="foot-summary">Waiting for paste</strong> — production matches the Excel layout you choose.</p>
-          <button type="button" class="btn btn-ghost btn-sm" id="btn-replay-foot">Replay the magic</button>
+          <p><strong id="foot-summary">Waiting for a sample</strong> — production desks use your real formats.</p>
+          <button type="button" class="btn btn-ghost btn-sm" id="btn-replay-foot">Replay</button>
         </div>
       </div>
     </div>
@@ -822,12 +925,12 @@
         <article class="build-item">
           <p class="tag">01 · Excel</p>
           <h3>Text → Excel in a couple of clicks</h3>
-          <p>Paste a big lump of notes, chats, or emails. We sort it into a clean sheet — columns and layout of your choice.</p>
+          <p>One sheet with many jobs: FROM / TO / JOB NO / vehicle fields light up and drop into a transport Excel in a couple of clicks.</p>
         </article>
         <article class="build-item">
           <p class="tag">02 · Reports</p>
           <h3>Reports from messy data</h3>
-          <p>Turn dumps into weekly / monthly boards your team can actually read — totals, exceptions, and ready-to-send summaries.</p>
+          <p>Turn a master dump into a Daily orders board — To be planned, Allocated, Collected, Late — with SLA notes and totals.</p>
         </article>
         <article class="build-item">
           <p class="tag">03 · Delivery</p>
@@ -1010,58 +1113,213 @@
   </section>
 
   <footer class="wrap">
-    <p><span class="mark">Fasten<span>ly</span></span> — paste in, clean board out</p>
+    <p><span class="mark">Fasten<span>ly</span></span> — sample in, clean board out</p>
     <p><a href="mailto:YOU@EXAMPLE.com">YOU@EXAMPLE.com</a></p>
   </footer>
 
   <script>
   (function () {
-    var SAMPLES = {
-      invoices:
-        "INV-2041 Northline Supplies\n" +
-        "owner Sam · due today · qty 12 · net £840 · approved\n\n" +
-        "INV-2042 (customer missing)\n" +
-        "owner nobody assigned · due tomorrow · qty 4 · rush · awaiting PO\n\n" +
-        "INV-2043 Bright Harbor\n" +
-        "owner Alex · due Thu · qty 20 · restock",
-      tickets:
-        "TKT-118 Access reset for new starter\n" +
-        "owner Alex · due Thu · priority normal\n\n" +
-        "TKT-119 Export failing on Friday report\n" +
-        "owner:  · due today · priority high\n\n" +
-        "TKT-120 New user setup\n" +
-        "owner Sam · due Mon · priority normal · notes VPN + mailbox",
-      leads:
-        "LEAD-901 Cedar & Co\n" +
-        "owner Jordan · due Fri · source website form · discovery booked\n\n" +
-        "LEAD-902 company blank\n" +
-        "owner: · due TBD · form half-filled\n\n" +
-        "LEAD-903 Maple Works\n" +
-        "owner Riley · due Wed · wants pilot quote",
-      delivery:
-        "JOB-331 Northline Supplies\n" +
-        "driver Sam · window 09:00-11:00 · notes 12 cartons · confirmed\n\n" +
-        "JOB-332 customer missing\n" +
-        "driver: · window TBD · notes rush pack · incomplete\n\n" +
-        "JOB-333 Bright Harbor\n" +
-        "driver Alex · window 14:00-16:00 · notes restock · confirmed",
-      stock:
-        "SKU-4410 Blue widget\n" +
-        "owner Okoro · due Fri · count 48 · shelf B2\n\n" +
-        "SKU-4411 Red widget\n" +
-        "owner unassigned · due today · count ?? · shelf unknown\n\n" +
-        "SKU-4412 Green widget\n" +
-        "owner Patel · due Mon · count 12 · shelf A1"
+    /* —— Locked demo samples (fictional; no client brands) —— */
+    var JOB_SAMPLES = {
+      "batch-a":
+        "FROM\n" +
+        "Demo Dealer North\n" +
+        "Industrial Estate\n" +
+        "Demo Town North\n" +
+        "XX1 1AA\n" +
+        "Tel: 01000 000001\n" +
+        "TO\n" +
+        "Central Logistics Hub\n" +
+        "Yard Road\n" +
+        "Demo City\n" +
+        "XX2 2BB\n" +
+        "Tel: 01000 000002\n" +
+        "JOB NO KEY LOC BARCODE\n" +
+        "1000001 N/A 0\n" +
+        "MAKE MODEL COLOUR REGISTRATION CHASSIS\n" +
+        "JEEP COMPASS Black AA00AAA S10001\n" +
+        "COMMENTS\n" +
+        "ORIGIN WARNINGS DESTINATION WARNINGS\n" +
+        "VALUE\n" +
+        "155.39\n" +
+        "FROM\n" +
+        "Demo Motors West\n" +
+        "Retail Park\n" +
+        "Demo Town West\n" +
+        "XX3 3CC\n" +
+        "Tel: 01000 000003\n" +
+        "TO\n" +
+        "Regional Store Hub\n" +
+        "Warehouse Lane\n" +
+        "Demo Town East\n" +
+        "XX4 4DD\n" +
+        "Tel: 01000 000004\n" +
+        "JOB NO KEY LOC BARCODE\n" +
+        "1000002 N/A 0\n" +
+        "MAKE MODEL COLOUR REGISTRATION CHASSIS\n" +
+        "AUDI Q2 Grey BB11BBB S10002\n" +
+        "COMMENTS\n" +
+        "ORIGIN WARNINGS DESTINATION WARNINGS\n" +
+        "1. Call before arrival — no roadside parking.\n" +
+        "VALUE\n" +
+        "158.03",
+      "batch-b":
+        "FROM\n" +
+        "Compound Alpha\n" +
+        "Ops Yard\n" +
+        "Demo Vale\n" +
+        "XX5 5EE\n" +
+        "Tel: 01000 000005\n" +
+        "TO\n" +
+        "City Store North\n" +
+        "Storage Compound\n" +
+        "Demo Metro\n" +
+        "XX6 6FF\n" +
+        "Tel: 01000 000006\n" +
+        "JOB NO KEY LOC BARCODE\n" +
+        "1000003 N/A 0\n" +
+        "MAKE MODEL COLOUR REGISTRATION CHASSIS\n" +
+        "RENAULT MEGANE E-TECH Grey CC22CCC S10003\n" +
+        "COMMENTS\n" +
+        "ORIGIN WARNINGS DESTINATION WARNINGS\n" +
+        "VALUE\n" +
+        "70.79\n" +
+        "FROM\n" +
+        "Dealer Park South\n" +
+        "Trade Avenue\n" +
+        "Demo Port\n" +
+        "XX7 7GG\n" +
+        "Tel: 01000 000007\n" +
+        "TO\n" +
+        "Van Compound West\n" +
+        "Dock Road\n" +
+        "Demo Quay\n" +
+        "XX8 8HH\n" +
+        "Tel: 01000 000008\n" +
+        "JOB NO KEY LOC BARCODE\n" +
+        "1000004 N/A 0\n" +
+        "MAKE MODEL COLOUR REGISTRATION CHASSIS\n" +
+        "NISSAN X-TRAIL Grey DD33DDD S10004\n" +
+        "COMMENTS\n" +
+        "ORIGIN WARNINGS DESTINATION WARNINGS\n" +
+        "VALUE\n" +
+        "32.56\n" +
+        "FROM\n" +
+        "Showroom Hill\n" +
+        "High Street Site\n" +
+        "Demo Spa\n" +
+        "XX9 9JJ\n" +
+        "Tel: 01000 000009\n" +
+        "TO\n" +
+        "Central Logistics Hub\n" +
+        "Yard Road\n" +
+        "Demo City\n" +
+        "XX2 2BB\n" +
+        "Tel: 01000 000002\n" +
+        "JOB NO KEY LOC BARCODE\n" +
+        "1000005 N/A 0\n" +
+        "MAKE MODEL COLOUR REGISTRATION CHASSIS\n" +
+        "MG HS Blue EE44EEE S10005\n" +
+        "COMMENTS\n" +
+        "ORIGIN WARNINGS DESTINATION WARNINGS\n" +
+        "VALUE\n" +
+        "127.01",
+      mixed:
+        "Driver assigned to:\nManifest Created:\n01/11/2026 10:03:00\nManifest Ref:\nPage 1 of 3\n" +
+        "FROM\n" +
+        "Trade Centre A\n" +
+        "Estate Road\n" +
+        "Demo Borough\n" +
+        "XA1 1AA\n" +
+        "Tel: 01000 000010\n" +
+        "TO\n" +
+        "Motorstore B\n" +
+        "Close Lane\n" +
+        "Demo Shire\n" +
+        "XA2 2BB\n" +
+        "Tel: 01000 000011\n" +
+        "JOB NO KEY LOC BARCODE\n" +
+        "1000101 N/A 0\n" +
+        "MAKE MODEL COLOUR REGISTRATION CHASSIS\n" +
+        "VAUXHALL CORSA White FF55FFF S10006\n" +
+        "COMMENTS\n" +
+        "ORIGIN WARNINGS DESTINATION WARNINGS\n" +
+        "VALUE\n" +
+        "88.40\n" +
+        "FROM\n" +
+        "Fleet Hub C\n" +
+        "Ring Road Site\n" +
+        "Demo Ridings\n" +
+        "XA3 3CC\n" +
+        "Tel: 01000 000012\n" +
+        "TO\n" +
+        "Harbor Depot D\n" +
+        "Quayside Plot\n" +
+        "Demo Coast\n" +
+        "XA4 4DD\n" +
+        "Tel: 01000 000013\n" +
+        "JOB NO\n" +
+        "1000102\n" +
+        "MAKE MODEL COLOUR REGISTRATION CHASSIS\n" +
+        "FORD TRANSIT Silver GG66GGG S10007\n" +
+        "COMMENTS\n" +
+        "ORIGIN WARNINGS DESTINATION WARNINGS\n" +
+        "VALUE\n" +
+        "\n" +
+        "FROM\n" +
+        "Cedar Works E\n" +
+        "Business Park\n" +
+        "Demo West\n" +
+        "XA5 5EE\n" +
+        "TO\n" +
+        "Maple Depot F\n" +
+        "Ocean Plot\n" +
+        "Demo South\n" +
+        "XA6 6FF\n" +
+        "JOB NO KEY LOC BARCODE\n" +
+        "1000103 N/A 0\n" +
+        "MAKE MODEL COLOUR REGISTRATION CHASSIS\n" +
+        "TOYOTA YARIS Red  \n" +
+        "COMMENTS\n" +
+        "VALUE\n" +
+        "64.20"
     };
 
-    var LAYOUTS = {
-      ops: ["Ref", "Type", "Owner", "Due", "Detail", "Status"],
-      finance: ["Ref", "Customer", "Owner", "Due", "Amount", "Status"],
-      delivery: ["Job", "Customer", "Window", "Driver", "Notes", "Status"],
-      report: ["Ref", "Category", "Owner", "Period", "Figure", "Status"]
+    var REPORT_SAMPLES = {
+      "daily-a": {
+        label: "Morning dump · 4 Nov",
+        rows: [
+          { customer: "Northline Fleet", to_be_planned: 4, allocated: 12, collected: 9, late: 1, customer_sla: "1 day", notes: "1 late · wait at dealer" },
+          { customer: "Harbor Motors", to_be_planned: 2, allocated: 6, collected: 11, late: 0, customer_sla: "on the day", notes: "" },
+          { customer: "Cedar Logistics", to_be_planned: 7, allocated: 3, collected: 5, late: 2, customer_sla: "3 days", notes: "2 late · weather hold" },
+          { customer: "Bright Van Hire", to_be_planned: 0, allocated: 8, collected: 14, late: 0, customer_sla: "given dates", notes: "" },
+          { customer: "Maple Works", to_be_planned: 1, allocated: 2, collected: 4, late: 1, customer_sla: "1 day", notes: "Key missing at collect" },
+          { customer: "Gridline Transit", to_be_planned: 5, allocated: 1, collected: 0, late: 0, customer_sla: "7 days", notes: "" },
+          { customer: "Apex Runners", to_be_planned: 3, allocated: 9, collected: 7, late: 0, customer_sla: "3 days", notes: "" },
+          { customer: "Quayside Autos", to_be_planned: 0, allocated: 0, collected: 6, late: 3, customer_sla: "on the day", notes: "3 late · dock backlog" }
+        ]
+      },
+      "daily-b": {
+        label: "Week window · ±1 month",
+        rows: [
+          { customer: "Northline Fleet", to_be_planned: 11, allocated: 28, collected: 41, late: 2, customer_sla: "1 day", notes: "2 late · parts delay" },
+          { customer: "Harbor Motors", to_be_planned: 6, allocated: 19, collected: 33, late: 1, customer_sla: "on the day", notes: "1 late · no driver" },
+          { customer: "Cedar Logistics", to_be_planned: 18, allocated: 14, collected: 22, late: 4, customer_sla: "3 days", notes: "4 late · SLA watch" },
+          { customer: "Bright Van Hire", to_be_planned: 2, allocated: 21, collected: 55, late: 0, customer_sla: "given dates", notes: "" },
+          { customer: "Maple Works", to_be_planned: 4, allocated: 8, collected: 17, late: 1, customer_sla: "1 day", notes: "" },
+          { customer: "Gridline Transit", to_be_planned: 15, allocated: 9, collected: 12, late: 0, customer_sla: "7 days", notes: "" },
+          { customer: "Apex Runners", to_be_planned: 9, allocated: 24, collected: 30, late: 2, customer_sla: "3 days", notes: "2 late · compound closed" },
+          { customer: "Quayside Autos", to_be_planned: 1, allocated: 5, collected: 19, late: 5, customer_sla: "on the day", notes: "5 late · dock backlog" },
+          { customer: "Oakfield Vans", to_be_planned: 0, allocated: 3, collected: 8, late: 0, customer_sla: "", notes: "" },
+          { customer: "Ridgeway Motors", to_be_planned: 3, allocated: 7, collected: 16, late: 0, customer_sla: "1 day", notes: "" }
+        ]
+      }
     };
 
-    var paste = document.getElementById("job-paste");
+    var JOB_HEADERS = ["Reg", "Chassis", "Make", "Model", "Job no", "From", "To", "Value", "Status"];
+    var REPORT_HEADERS = ["Customer", "To be planned", "Allocated", "Collected", "Late", "Customer SLA", "Notes"];
+    var SPECIAL_INSTRUCTIONS = "Must call 1 hour before collection and get a name";
+
     var sourceView = document.getElementById("source-view");
     var extractFeed = document.getElementById("extract-feed");
     var previewEl = document.getElementById("preview");
@@ -1079,25 +1337,42 @@
     var scanline = document.getElementById("scanline");
     var footSummary = document.getElementById("foot-summary");
     var fieldMap = document.getElementById("field-map");
+    var dateRemind = document.getElementById("date-remind");
+    var historyRail = document.getElementById("history-rail");
+    var progressSteps = document.getElementById("progress-steps");
+    var jobTools = document.getElementById("job-tools");
+    var reportTools = document.getElementById("report-tools");
+    var jobSteps = document.getElementById("job-steps");
+    var reportStepsEl = document.getElementById("report-steps");
+    var sourceLabel = document.getElementById("source-label");
+    var extractLabel = document.getElementById("extract-label");
+    var outLabel = document.getElementById("out-label");
     var statRows = document.getElementById("stat-rows");
     var statFields = document.getElementById("stat-fields");
     var statFlags = document.getElementById("stat-flags");
     var statMs = document.getElementById("stat-ms");
-    var chips = Array.prototype.slice.call(document.querySelectorAll(".chip"));
-    var layoutBtns = Array.prototype.slice.call(document.querySelectorAll(".layout-btn"));
-    var steps = Array.prototype.slice.call(document.querySelectorAll(".pstep"));
+    var statRowsLabel = document.getElementById("stat-rows-label");
+    var statFieldsLabel = document.getElementById("stat-fields-label");
+    var statFlagsLabel = document.getElementById("stat-flags-label");
+
+    var moduleBtns = Array.prototype.slice.call(document.querySelectorAll(".module-btn"));
     var allRows = [];
-    var currentLayout = "ops";
+    var currentModule = "jobs";
+    var currentSample = "batch-a";
+    var currentSource = "";
     var toastTimer = null;
     var demoTimer = null;
     var rowTimers = [];
     var parseGen = 0;
+    var history = [];
     var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var collectionDate = "05/11/2026";
+    var deliveryDate = "06/11/2026";
 
     function clock() {
       var d = new Date();
       var el = document.getElementById("desk-clock");
-      if (el) el.textContent = d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+      if (el) el.textContent = d.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/London" }) + " UK";
     }
     clock();
     setInterval(clock, 30000);
@@ -1106,52 +1381,23 @@
       toastEl.textContent = msg;
       toastEl.classList.add("show");
       clearTimeout(toastTimer);
-      toastTimer = setTimeout(function () { toastEl.classList.remove("show"); }, 1500);
+      toastTimer = setTimeout(function () { toastEl.classList.remove("show"); }, 1600);
+    }
+
+    function esc(s) {
+      return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function activeSteps() {
+      return Array.prototype.slice.call((currentModule === "report" ? reportStepsEl : jobSteps).querySelectorAll(".pstep"));
     }
 
     function setStep(n) {
-      steps.forEach(function (el, i) {
+      activeSteps().forEach(function (el, i) {
         el.classList.remove("is-on", "is-done");
         if (i < n) el.classList.add("is-done");
         if (i === n) el.classList.add("is-on");
       });
-    }
-
-    function setFields(on) {
-      Array.prototype.forEach.call(fieldMap.querySelectorAll("span"), function (span) {
-        span.classList.toggle("on", !!on);
-      });
-      var heads = LAYOUTS[currentLayout] || LAYOUTS.ops;
-      Array.prototype.forEach.call(fieldMap.querySelectorAll("span"), function (span, i) {
-        if (heads[i]) span.textContent = heads[i].toLowerCase();
-      });
-    }
-
-    function applyLayout(key) {
-      currentLayout = LAYOUTS[key] ? key : "ops";
-      layoutBtns.forEach(function (btn) {
-        btn.setAttribute("aria-pressed", btn.getAttribute("data-layout") === currentLayout ? "true" : "false");
-      });
-      var heads = LAYOUTS[currentLayout];
-      headRow.innerHTML = heads.map(function (h) { return "<th>" + h + "</th>"; }).join("");
-      setFields(allRows.length > 0);
-      if (allRows.length) renderImmediate(allRows);
-    }
-
-    function rowCells(row) {
-      var customer = row.customer || "—";
-      var amount = row.amount || row.detail || "—";
-      var figure = row.detail || "—";
-      if (currentLayout === "finance") {
-        return [row.ref, customer, row.owner, row.due, amount, row.status];
-      }
-      if (currentLayout === "delivery") {
-        return [row.ref, customer, row.due, row.owner, row.detail, row.status];
-      }
-      if (currentLayout === "report") {
-        return [row.ref, row.type, row.owner, row.due, figure, row.status];
-      }
-      return [row.ref, row.type, row.owner, row.due, row.detail, row.status];
     }
 
     function setStatus(mode, text) {
@@ -1159,198 +1405,16 @@
       statusPill.textContent = text;
     }
 
-    function clearRowTimers() {
-      rowTimers.forEach(clearTimeout);
-      rowTimers = [];
-    }
-
-    var REF_TOKEN = /\b((?:INV|TKT|LEAD|SKU|ORD|JOB|DEL|[A-Z]{2,5})-?\d{2,6})\b/i;
-    var KNOWN_REF = /\b(?:INV|TKT|LEAD|SKU|ORD|JOB|DEL)-[0-9]+\b/i;
-
-    function splitBlocks(text) {
-      var raw = text.replace(/\r/g, "").trim();
-      if (!raw) return [];
-
-      // Prefer blank-line paragraphs for free-form paste
-      var byBlank = raw.split(/\n\s*\n+/).map(function (s) { return s.trim(); }).filter(Boolean);
-      if (byBlank.length > 1) return byBlank;
-
-      // Numbered / bulleted list items
-      if (/(?:^|\n)\s*(?:\d+[\).\]]|-|\*|•)\s+\S/.test(raw)) {
-        var parts = raw.split(/(?:^|\n)\s*(?=(?:\d+[\).\]]|-|\*|•)\s+)/).map(function (s) {
-          return s.replace(/^\s*(?:\d+[\).\]]|-|\*|•)\s+/, "").trim();
-        }).filter(Boolean);
-        if (parts.length > 1) return parts;
-      }
-
-      // Known sample-style refs starting a new block
-      if (KNOWN_REF.test(raw)) {
-        var lines = raw.split("\n");
-        var blocks = [];
-        var cur = [];
-        lines.forEach(function (line) {
-          if (KNOWN_REF.test(line) && cur.length) {
-            blocks.push(cur.join("\n").trim());
-            cur = [line];
-          } else {
-            cur.push(line);
-          }
-        });
-        if (cur.length) blocks.push(cur.join("\n").trim());
-        if (blocks.length > 1) return blocks.filter(Boolean);
-      }
-
-      // Long single dump: split on lines that look like new items (Name — … / Name needs…)
-      var loose = raw.split(/\n+/).map(function (s) { return s.trim(); }).filter(Boolean);
-      if (loose.length >= 3) {
-        var grouped = [];
-        var buf = [];
-        loose.forEach(function (line, idx) {
-          var startsItem = /^(?:[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?\b|REF\b|order\b|ticket\b|lead\b|job\b)/i.test(line)
-            && (/\b(due|owner|by|needs|call|chase|follow)\b/i.test(line) || line.length < 80);
-          if (startsItem && buf.length && idx > 0) {
-            grouped.push(buf.join("\n"));
-            buf = [line];
-          } else {
-            buf.push(line);
-          }
-        });
-        if (buf.length) grouped.push(buf.join("\n"));
-        if (grouped.length > 1) return grouped;
-      }
-
-      // Last resort: one row per non-empty line (if several), else whole text
-      if (loose.length >= 2 && loose.length <= 12 && loose.every(function (l) { return l.length < 120; })) {
-        return loose;
-      }
-      return [raw];
-    }
-
-    function fieldAfter(label, text) {
-      var re = new RegExp("\\b" + label + "\\s*[:\\-–—]?\\s*([^·\\n|/]+)", "i");
-      var m = text.match(re);
-      if (!m) return "";
-      return String(m[1]).replace(/\s+/g, " ").trim();
-    }
-
-    function cleanOwner(owner) {
-      owner = String(owner || "").replace(/^[^A-Za-z]+/, "").replace(/\s+/g, " ").trim();
-      if (!owner) return "";
-      if (/^(nobody|unassigned|blank|listed|missing|n\/?a|tbd|\?\?\?)(?:\s|$)/i.test(owner)) return "";
-      if (/nobody assigned|no owner|not assigned|unassigned|owner listed/i.test(owner)) return "";
-      if (owner.length > 28) owner = owner.slice(0, 26) + "…";
-      return owner;
-    }
-
-    function guessOwner(block) {
-      if (/\b(no owner|nobody assigned|unassigned|owner\s*:\s*$|owner\s*:\s*·)/i.test(block)) return "";
-      var owner = cleanOwner(fieldAfter("owner", block) || fieldAfter("driver", block));
-      if (owner) return owner;
-      var owns = block.match(/\b([A-Z][a-z]{1,20})\s+owns\b/);
-      if (owns) return owns[1];
-      var dash = block.match(/[—–-]\s*([A-Z][a-z]{1,20})\b/);
-      if (dash && !/due|today|tomorrow|mon|tue|wed|thu|fri/i.test(dash[1])) return dash[1];
-      var leadName = block.match(/^([A-Z][a-z]{1,20}(?:\s+[A-Z][a-z]{1,20})?)\b/);
-      if (leadName && !/order|ticket|lead|invoice|job|stock|chase|call/i.test(leadName[1])) return leadName[1];
-      return "";
-    }
-
-    function guessDue(block) {
-      var due = fieldAfter("due", block) || fieldAfter("window", block) || fieldAfter("by", block);
-      if (due) {
-        due = due.replace(/\s*(qty|priority|notes|source|count|shelf|net|driver|about)\b.*$/i, "").trim();
-        return due;
-      }
-      var m = block.match(/\b(today|tomorrow|mon|tue|wed|thu|fri|sat|sun|monday|tuesday|wednesday|thursday|friday|tbd)\b/i);
-      if (m) return m[1];
-      var time = block.match(/\b(\d{1,2}:\d{2}(?:\s*-\s*\d{1,2}:\d{2})?)\b/);
-      if (time) return time[1];
-      return "";
-    }
-
-    function parseBlock(block, index) {
-      var refMatch = block.match(REF_TOKEN);
-      var ref = refMatch ? refMatch[1].toUpperCase().replace(/^(INV|TKT|LEAD|SKU|ORD|JOB|DEL)(\d)/i, function (_, a, d) { return a.toUpperCase() + "-" + d; }) : "";
-      if (ref && !/-/.test(ref) && /[A-Z]+\d+/.test(ref)) {
-        ref = ref.replace(/([A-Z]+)(\d+)/, "$1-$2");
-      }
-      if (!ref) ref = "ROW-" + String(index + 1).padStart(3, "0");
-
-      var titleLine = block.split("\n")[0]
-        .replace(REF_TOKEN, "")
-        .replace(/^\s*(?:\d+[\).\]]|-|\*|•)\s+/, "")
-        .trim();
-      var customer = titleLine.replace(/^\(|\)$/g, "").trim() || "—";
-      customer = customer.replace(/\b(owner|due|driver|window|by)\b.*$/i, "").trim() || customer;
-      if (/missing|blank|\?\?\?|nobody/i.test(customer) || customer.length < 2) customer = "—";
-      if (customer.length > 28) customer = customer.slice(0, 26) + "…";
-
-      var type = "Note";
-      if (/INV-/i.test(ref) || /\binvoice\b/i.test(block)) type = "Invoice";
-      else if (/TKT-/i.test(ref) || /\bticket\b/i.test(block)) type = "Ticket";
-      else if (/LEAD-/i.test(ref) || /\blead\b/i.test(block)) type = "Lead";
-      else if (/SKU-/i.test(ref) || /\bstock\b|\bcount\b/i.test(block)) type = "Stock";
-      else if (/JOB-|DEL-|ORD-/i.test(ref) || /\bdriver\b|\bwindow\b|\bdelivery\b|\border\b/i.test(block)) type = "Delivery";
-      else if (/\bquote\b|\bchase\b|\bcall back\b/i.test(block)) type = "Chase";
-
-      var owner = cleanOwner(guessOwner(block));
-      if (!owner) owner = "—";
-
-      var due = guessDue(block);
-      if (!due || /^(tbd|\(blank\)|\?\?\?)$/i.test(due)) due = "—";
-
-      var detail = "";
-      var amount = "";
-      if (fieldAfter("net", block)) {
-        amount = fieldAfter("net", block);
-        detail = amount;
-      } else if (fieldAfter("qty", block) || /\bqty\b|\bunits?\b/i.test(block)) {
-        var q = fieldAfter("qty", block) || (block.match(/\b(\d+)\s*units?\b/i) || [])[1] || "";
-        detail = q ? "qty " + q : "";
-        amount = detail;
-      } else if (fieldAfter("count", block)) {
-        detail = "count " + fieldAfter("count", block);
-        var shelf = fieldAfter("shelf", block);
-        if (shelf) detail += " · " + shelf;
-      } else if (fieldAfter("notes", block)) {
-        detail = fieldAfter("notes", block);
-      } else if (fieldAfter("priority", block)) {
-        detail = fieldAfter("priority", block);
-      } else if (fieldAfter("source", block)) {
-        detail = fieldAfter("source", block);
-      }
-      if (!detail) {
-        detail = titleLine.slice(0, 34) || block.replace(/\s+/g, " ").slice(0, 34) || "—";
-      }
-      if (detail.length > 34) detail = detail.slice(0, 32) + "…";
-      if (!amount) amount = detail;
-
-      var status = "Ready";
-      if (owner === "—" || due === "—" || customer === "—" || /TBD|missing|blank|\?\?|unknown|incomplete|half-filled|awaiting|nobody/i.test(block)) {
-        status = "Flag";
-      }
-
-      return {
-        ref: ref,
-        type: type,
-        owner: owner,
-        due: due,
-        detail: detail,
-        customer: customer,
-        amount: amount,
-        status: status
-      };
-    }
-
-    function esc(s) {
-      return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    }
-
     function setStats(rows, fields, flags, ms) {
       if (statRows) statRows.textContent = String(rows);
       if (statFields) statFields.textContent = String(fields);
       if (statFlags) statFlags.textContent = String(flags);
       if (statMs) statMs.textContent = String(ms);
+    }
+
+    function clearRowTimers() {
+      rowTimers.forEach(clearTimeout);
+      rowTimers = [];
     }
 
     function clearExtract() {
@@ -1364,101 +1428,269 @@
       chip.className = "xchip" + (isFlag ? " is-flag" : "");
       chip.innerHTML = '<span class="k">' + esc(label) + '</span><span class="v">' + esc(value) + "</span>";
       extractFeed.prepend(chip);
-      while (extractFeed.children.length > 10) extractFeed.removeChild(extractFeed.lastChild);
+      while (extractFeed.children.length > 12) extractFeed.removeChild(extractFeed.lastChild);
     }
 
-    function showSourceEdit() {
-      paste.classList.remove("is-hidden");
-      sourceView.classList.remove("is-on");
-      sourceView.innerHTML = "";
-      sourceView.setAttribute("aria-hidden", "true");
+    function setFieldMap(heads, on) {
+      fieldMap.innerHTML = heads.map(function (h) {
+        return "<span" + (on ? ' class="on"' : "") + ">" + esc(h.toLowerCase()) + "</span>";
+      }).join("");
     }
 
-    function showSourceHighlight(html) {
-      paste.classList.add("is-hidden");
-      sourceView.classList.add("is-on");
-      sourceView.setAttribute("aria-hidden", "false");
-      sourceView.innerHTML = html;
-      var beam = document.createElement("div");
-      beam.className = "beam";
-      sourceView.appendChild(beam);
-      var hint = document.createElement("div");
-      hint.className = "edit-hint";
-      hint.textContent = "Click to edit paste";
-      sourceView.appendChild(hint);
+    function showSource(html) {
+      sourceView.innerHTML = html + '<div class="lock-hint">Locked sample · production accepts your real paste / ZIP</div>';
     }
 
-    sourceView.addEventListener("click", function () {
-      showSourceEdit();
-      paste.focus();
-    });
+    function showPlainSource(text) {
+      showSource(esc(text));
+    }
 
-    function highlightText(text, rows) {
+    function updateRemind() {
+      if (currentModule === "jobs") {
+        dateRemind.classList.add("is-on");
+        dateRemind.innerHTML = "<strong>Date reminder</strong> · Collection " + esc(collectionDate) +
+          " · Delivery " + esc(deliveryDate) + " · " + esc(SPECIAL_INSTRUCTIONS);
+      } else {
+        dateRemind.classList.add("is-on");
+        var stamp = new Date().toLocaleString("en-GB", {
+          weekday: "long", day: "2-digit", month: "short", year: "numeric",
+          hour: "2-digit", minute: "2-digit", timeZone: "Europe/London"
+        });
+        dateRemind.innerHTML = "<strong>Daily orders</strong> · as of " + esc(stamp) + " UK · status buckets To be planned / Allocated / Collected / Late";
+      }
+    }
+
+    function pushHistory(label, detail) {
+      history.unshift({ label: label, detail: detail, at: new Date() });
+      if (history.length > 5) history.pop();
+      historyRail.innerHTML = history.map(function (h) {
+        var t = h.at.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/London" });
+        return '<span class="hchip"><strong>' + esc(h.label) + "</strong> · " + esc(h.detail) + " · " + esc(t) + "</span>";
+      }).join("");
+    }
+
+    /* —— AC01-style job sheet parser (demo) —— */
+    function cleanNoise(text) {
+      return String(text || "")
+        .replace(/\r/g, "")
+        .replace(/Page \d+ of \d+/gi, "")
+        .replace(/Driver assigned to:.*?\n/gi, "")
+        .replace(/Manifest Created:.*?\n/gi, "")
+        .replace(/Manifest Ref:.*?\n/gi, "")
+        .replace(/^\d{2}\/\d{2}\/\d{4}\s+\d{2}:\d{2}:\d{2}\s*$/gm, "")
+        .replace(/Škoda/g, "Skoda").replace(/škoda/g, "Skoda");
+    }
+
+    function siteName(block) {
+      var lines = String(block || "").split("\n").map(function (l) { return l.trim(); }).filter(Boolean);
+      for (var i = 0; i < lines.length; i++) {
+        var u = lines[i].toUpperCase();
+        if (/^(TEL|TELEPHONE|PHONE|T)[:.\s]/.test(u)) continue;
+        if (/^[A-Z]{1,2}\d{1,2}[A-Z]?\s*\d[A-Z]{2}$/i.test(lines[i])) continue;
+        if (lines[i].length > 2) return lines[i].slice(0, 34);
+      }
+      return "—";
+    }
+
+    function parseJobBlock(jobText) {
+      var job = {
+        reg: "", chassis: "", make: "", model: "", colour: "",
+        jobNo: "", from: "", to: "", value: "", status: "Ready"
+      };
+      var fromM = jobText.match(/FROM\n([\s\S]*?)(?=\nTO\b)/i);
+      var toM = jobText.match(/\nTO\n([\s\S]*?)(?=\n(?:JOB\s*NO|MAKE\s+MODEL)|$)/i);
+      if (fromM) job.from = siteName(fromM[1]);
+      if (toM) job.to = siteName(toM[1]);
+
+      var jobNo = jobText.match(/JOB\s*NO(?:\s+KEY\s+LOC\s+BARCODE)?\s*\n\s*(\d{5,8})/i);
+      if (!jobNo) jobNo = jobText.match(/JOB\s*NO\s*\n\s*(\d{5,8})/i);
+      if (jobNo) job.jobNo = jobNo[1];
+
+      var veh = jobText.match(/MAKE\s+MODEL\s+COLOU?R\s+REGISTRATION(?:\s+CHASSIS)?\s*\n([^\n]+)/i);
+      if (veh) {
+        var parts = veh[1].trim().split(/\s+/);
+        if (parts.length >= 2) {
+          job.make = parts[0];
+          // find UK-ish reg near end
+          var regIdx = -1;
+          for (var i = parts.length - 1; i >= 0; i--) {
+            if (/^[A-Z]{2}\d{2}[A-Z]{3}$/i.test(parts[i]) || /^[A-Z]\d{1,3}[A-Z]{3}$/i.test(parts[i])) {
+              regIdx = i;
+              break;
+            }
+          }
+          if (regIdx > 1) {
+            job.model = parts.slice(1, regIdx - (parts[regIdx - 1] && !/^\d/.test(parts[regIdx - 1]) ? 1 : 0)).join(" ");
+            // colour is usually just before reg
+            var maybeColour = parts[regIdx - 1];
+            if (maybeColour && /^(Black|White|Blue|Grey|Gray|Red|Silver|Green|Yellow|Orange|Purple|Brown|Gold)$/i.test(maybeColour)) {
+              job.colour = maybeColour;
+              job.model = parts.slice(1, regIdx - 1).join(" ");
+            } else {
+              job.model = parts.slice(1, regIdx).join(" ");
+            }
+            job.reg = parts[regIdx].toUpperCase();
+            if (parts[regIdx + 1]) job.chassis = parts[regIdx + 1];
+          } else {
+            job.model = parts.slice(1).join(" ");
+          }
+        }
+      }
+
+      var val = jobText.match(/\nVALUE\s*\n\s*([0-9]+(?:\.[0-9]+)?)/i);
+      if (val) job.value = val[1];
+
+      if (!job.make || !job.model || !job.reg || !job.jobNo || !job.from || !job.to || !job.value) {
+        job.status = "Flag";
+      }
+      if (!job.make && !job.model && !job.reg && !job.jobNo) return null;
+      return job;
+    }
+
+    function parseJobs(text) {
+      text = cleanNoise(text);
+      var chunks = text.split(/(?=FROM\n)/);
+      var jobs = [];
+      chunks.forEach(function (chunk) {
+        if (!/FROM/i.test(chunk) || !/\nTO\n/i.test(chunk)) return;
+        var job = parseJobBlock(chunk);
+        if (job) jobs.push(job);
+      });
+      return jobs;
+    }
+
+    function jobCells(row) {
+      return [
+        row.reg || "—",
+        row.chassis || "—",
+        row.make || "—",
+        row.model || "—",
+        row.jobNo || "—",
+        row.from || "—",
+        row.to || "—",
+        row.value || "—",
+        row.status
+      ];
+    }
+
+    function reportCells(row) {
+      return [
+        row.customer,
+        String(row.to_be_planned),
+        String(row.allocated),
+        String(row.collected),
+        String(row.late),
+        row.customer_sla || "—",
+        row.notes || "—"
+      ];
+    }
+
+    function highlightJobs(text, rows) {
       var html = esc(text);
       rows.forEach(function (row) {
-        if (row.ref && row.ref !== "—") {
-          html = html.replace(new RegExp(esc(row.ref), "i"), '<mark class="mk-ref">' + esc(row.ref) + "</mark>");
-        }
-        if (row.owner && row.owner !== "—") {
-          html = html.replace(new RegExp("\\b(" + esc(row.owner) + ")\\b"), '<mark class="mk-owner">$1</mark>');
-        }
-        if (row.due && row.due !== "—") {
-          html = html.replace(new RegExp("(" + esc(row.due).replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")"), '<mark class="mk-due">$1</mark>');
-        }
+        if (row.jobNo) html = html.replace(new RegExp("\\b(" + esc(row.jobNo) + ")\\b"), '<mark class="mk-job">$1</mark>');
+        if (row.reg) html = html.replace(new RegExp("\\b(" + esc(row.reg) + ")\\b", "i"), '<mark class="mk-ref">$1</mark>');
+        if (row.make) html = html.replace(new RegExp("\\b(" + esc(row.make) + ")\\b"), '<mark class="mk-veh">$1</mark>');
+        if (row.value) html = html.replace(new RegExp("(" + esc(row.value).replace(/\./g, "\\.") + ")"), '<mark class="mk-detail">$1</mark>');
       });
       return html;
     }
 
-    function renderImmediate(rows, opts) {
+    function highlightReport(sample) {
+      var lines = ["Customer dump · " + sample.label, ""];
+      sample.rows.forEach(function (r) {
+        lines.push(
+          r.customer +
+          " | plan " + r.to_be_planned +
+          " · alloc " + r.allocated +
+          " · collected " + r.collected +
+          " · late " + r.late +
+          (r.notes ? " · " + r.notes : "")
+        );
+      });
+      var html = esc(lines.join("\n"));
+      html = html.replace(/\b(late \d+)\b/g, '<mark class="mk-due">$1</mark>');
+      html = html.replace(/\b(plan \d+)\b/g, '<mark class="mk-ref">$1</mark>');
+      html = html.replace(/\b(alloc \d+)\b/g, '<mark class="mk-owner">$1</mark>');
+      html = html.replace(/\b(collected \d+)\b/g, '<mark class="mk-detail">$1</mark>');
+      return html;
+    }
+
+    function renderTable(rows, opts) {
       opts = opts || {};
       body.textContent = "";
       clearRowTimers();
+      var isReport = currentModule === "report";
+      var heads = isReport ? REPORT_HEADERS : JOB_HEADERS;
+      headRow.innerHTML = heads.map(function (h) { return "<th>" + esc(h) + "</th>"; }).join("");
+      table.classList.toggle("report-board", isReport);
+
       if (!rows.length) {
         table.hidden = true;
         meta.hidden = true;
         empty.hidden = false;
         csvBtn.disabled = true;
         copyBtn.disabled = true;
-        footSummary.textContent = "Waiting for paste";
-        setFields(false);
+        setFieldMap(heads, false);
         setStatus("", "Idle");
         setStats(0, 0, 0, 0);
         clearExtract();
-        showSourceEdit();
+        footSummary.textContent = "Waiting for a sample";
         previewEl.classList.remove("is-live");
         return;
       }
+
       empty.hidden = true;
       table.hidden = false;
       meta.hidden = false;
       csvBtn.disabled = false;
       copyBtn.disabled = false;
-      var flags = rows.filter(function (r) { return r.status === "Flag"; }).length;
-      var fieldCount = rows.length * 5;
-      countEl.textContent = rows.length + " rows" + (flags ? " · " + flags + " flagged" : " · all clear");
-      setStatus(flags ? "flag" : "ready", flags ? flags + " flagged" : "Ready");
-      setFields(true);
-      footSummary.textContent = rows.length + " rows · " + currentLayout + " layout" + (flags ? " · " + flags + " need a look" : " · ready for Excel");
-      if (!opts.keepStats) setStats(rows.length, fieldCount, flags, opts.ms || 0);
+      setFieldMap(heads, true);
 
-      rows.forEach(function (row, i) {
+      var flags = 0;
+      if (isReport) {
+        flags = rows.reduce(function (n, r) { return n + (Number(r.late) || 0); }, 0);
+        var planned = rows.reduce(function (n, r) { return n + (Number(r.to_be_planned) || 0); }, 0);
+        var alloc = rows.reduce(function (n, r) { return n + (Number(r.allocated) || 0); }, 0);
+        var coll = rows.reduce(function (n, r) { return n + (Number(r.collected) || 0); }, 0);
+        countEl.textContent = rows.length + " customers · " + (planned + alloc + coll) + " jobs on board · " + flags + " late";
+        setStatus(flags ? "flag" : "ready", flags ? flags + " late" : "Board ready");
+        footSummary.textContent = "Daily orders board · " + rows.length + " customers · download when ready";
+        if (!opts.keepStats) setStats(rows.length, planned + alloc + coll, flags, opts.ms || 0);
+      } else {
+        flags = rows.filter(function (r) { return r.status === "Flag"; }).length;
+        countEl.textContent = rows.length + " vehicles" + (flags ? " · " + flags + " flagged" : " · all clear");
+        setStatus(flags ? "flag" : "ready", flags ? flags + " flagged" : "Sheet ready");
+        footSummary.textContent = rows.length + " rows · transport sheet · " + (flags ? flags + " need a look" : "ready for Excel");
+        if (!opts.keepStats) setStats(rows.length, rows.length * 8, flags, opts.ms || 0);
+      }
+
+      function appendRow(cells, row, isTotals) {
         var tr = document.createElement("tr");
-        if (row.status === "Flag") tr.className = "warn";
-        var cells = rowCells(row);
+        if (isTotals) tr.className = "totals";
+        else if (!isReport && row.status === "Flag") tr.className = "warn";
+        else if (isReport && Number(row.late) > 0) tr.className = "warn";
         cells.forEach(function (cell, idx) {
           var td = document.createElement("td");
-          if (idx === cells.length - 1) {
+          if (!isReport && idx === cells.length - 1) {
             td.innerHTML = row.status === "Flag"
               ? '<span class="badge badge-warn">Flag</span>'
               : '<span class="badge badge-ok">Ready</span>';
+          } else if (isReport && idx >= 1 && idx <= 4) {
+            td.innerHTML = '<span class="bucket' + (idx === 4 && Number(cell) > 0 ? " is-late" : "") + '">' + esc(cell) + "</span>";
           } else {
-            if (cell === "—" && (idx === 1 || idx === 2 || idx === 3)) td.className = "miss";
+            if (cell === "—" && !isReport && (idx <= 4)) td.className = "miss";
             td.textContent = cell;
           }
           tr.appendChild(td);
         });
         body.appendChild(tr);
+        return tr;
+      }
 
+      rows.forEach(function (row, i) {
+        var cells = isReport ? reportCells(row) : jobCells(row);
+        var tr = appendRow(cells, row, false);
         if (reduceMotion || opts.instant) {
           tr.classList.add("show");
           Array.prototype.forEach.call(tr.children, function (td) {
@@ -1470,33 +1702,84 @@
             Array.prototype.forEach.call(tr.children, function (td, ci) {
               rowTimers.push(setTimeout(function () {
                 td.classList.add("show-cell");
-                rowTimers.push(setTimeout(function () { td.classList.add("settled"); }, 280));
-              }, ci * 55));
+                rowTimers.push(setTimeout(function () { td.classList.add("settled"); }, 260));
+              }, ci * 40));
             });
-          }, 80 + i * 220));
+          }, 70 + i * 160));
         }
+      });
+
+      if (isReport) {
+        var totals = {
+          customer: "Totals",
+          to_be_planned: rows.reduce(function (n, r) { return n + Number(r.to_be_planned || 0); }, 0),
+          allocated: rows.reduce(function (n, r) { return n + Number(r.allocated || 0); }, 0),
+          collected: rows.reduce(function (n, r) { return n + Number(r.collected || 0); }, 0),
+          late: rows.reduce(function (n, r) { return n + Number(r.late || 0); }, 0),
+          customer_sla: "",
+          notes: ""
+        };
+        var trow = appendRow(reportCells(totals), totals, true);
+        trow.classList.add("show");
+        Array.prototype.forEach.call(trow.children, function (td) {
+          td.classList.add("show-cell", "settled");
+        });
+      }
+    }
+
+    function setChip(key) {
+      var tools = currentModule === "report" ? reportTools : jobTools;
+      Array.prototype.forEach.call(tools.querySelectorAll(".chip"), function (c) {
+        c.setAttribute("aria-pressed", c.getAttribute("data-sample") === key ? "true" : "false");
       });
     }
 
-    function runParse(opts) {
+    function loadSample(key, autoRun) {
+      currentSample = key;
+      setChip(key);
+      setStep(0);
+      clearExtract();
+      progressSteps.classList.remove("is-on");
+      progressSteps.innerHTML = "";
+      if (currentModule === "jobs") {
+        currentSource = JOB_SAMPLES[key] || JOB_SAMPLES["batch-a"];
+        showPlainSource(currentSource);
+        allRows = [];
+        renderTable([]);
+        empty.textContent = "Run parse — fields light up, then land in the transport sheet.";
+        if (autoRun !== false) runJobs();
+      } else {
+        var sample = REPORT_SAMPLES[key] || REPORT_SAMPLES["daily-a"];
+        currentSource = sample.label;
+        showSource(highlightReport(sample).replace(/<\/?mark[^>]*>/g, "") +
+          '<div class="lock-hint">Locked sample · production builds from your masterreport</div>');
+        // show plain first
+        var plain = ["Customer dump · " + sample.label, ""].concat(sample.rows.map(function (r) {
+          return r.customer + " | plan " + r.to_be_planned + " · alloc " + r.allocated +
+            " · collected " + r.collected + " · late " + r.late + (r.notes ? " · " + r.notes : "");
+        })).join("\n");
+        showPlainSource(plain);
+        allRows = [];
+        renderTable([]);
+        empty.textContent = "Build Daily orders — statuses bucket into the board.";
+        if (autoRun !== false) runReport();
+      }
+      updateRemind();
+    }
+
+    function runJobs(opts) {
       opts = opts || {};
-      var text = paste.value.trim();
       clearRowTimers();
       var gen = ++parseGen;
       var started = performance.now();
-      if (!text) {
-        allRows = [];
-        renderImmediate([]);
-        parseBtn.disabled = false;
-        parseBtn.textContent = "Parse to Excel";
-        return;
-      }
-
+      var text = currentSource;
+      var parsed = parseJobs(text);
+      allRows = parsed;
       previewEl.classList.add("is-live");
       setStep(1);
       setStatus("busy", "Scanning…");
-      setFields(true);
-      footSummary.textContent = "Highlighting fields in the paste…";
+      setFieldMap(JOB_HEADERS, true);
+      footSummary.textContent = "Highlighting FROM / TO / JOB NO / vehicle fields…";
       clearExtract();
       setStats(0, 0, 0, 0);
       scanline.classList.remove("is-run");
@@ -1504,7 +1787,6 @@
       scanline.classList.add("is-run");
       parseBtn.disabled = true;
       parseBtn.textContent = "Parsing…";
-
       empty.hidden = true;
       table.hidden = false;
       body.textContent = "";
@@ -1512,179 +1794,300 @@
       csvBtn.disabled = true;
       copyBtn.disabled = true;
 
-      var blocks = splitBlocks(text);
-      var parsed = blocks.map(function (b, i) { return parseBlock(b, i); }).filter(function (r) {
-        return r && r.ref && String(r.detail || "").replace(/[—\s.]/g, "").length > 0;
-      });
-      // Cap very large pastes in the demo so the animation stays readable
-      if (parsed.length > 20) parsed = parsed.slice(0, 20);
-      allRows = parsed;
-
       if (reduceMotion || opts.instant) {
-        showSourceHighlight(highlightText(text, parsed));
+        showSource(highlightJobs(text, parsed));
         parsed.forEach(function (row) {
-          pushExtract("ref", row.ref, false);
-          pushExtract("owner", row.owner, row.owner === "—");
-          pushExtract("due", row.due, row.due === "—");
+          pushExtract("job", row.jobNo || "—", !row.jobNo);
+          pushExtract("reg", row.reg || "missing", !row.reg);
+          pushExtract("route", (row.from || "?") + " → " + (row.to || "?"), !row.from || !row.to);
         });
-        var msFast = Math.max(12, Math.round(performance.now() - started));
-        renderImmediate(parsed, { instant: true, ms: msFast });
+        var msFast = Math.max(10, Math.round(performance.now() - started));
+        renderTable(parsed, { instant: true, ms: msFast });
         setStep(parsed.length ? 3 : 0);
         parseBtn.disabled = false;
-        parseBtn.textContent = "Parse to Excel";
-        if (opts.toast !== false) toast(parsed.length ? "Ready for Excel · " + parsed.length + " rows" : "Nothing found");
+        parseBtn.textContent = "Run parse";
+        pushHistory("Module 01", parsed.length + " vehicles");
+        if (opts.toast !== false) toast(parsed.length ? "Transport sheet ready · " + parsed.length : "Nothing found");
         return;
       }
 
-      // Act 1 — plain source + beam
-      showSourceHighlight(esc(text));
+      showPlainSource(text);
       var fieldTally = 0;
       var flagTally = 0;
 
-      // Act 2 — highlight + extract chips staggered
       rowTimers.push(setTimeout(function () {
         if (gen !== parseGen) return;
-        showSourceHighlight(highlightText(text, parsed));
+        showSource(highlightJobs(text, parsed));
         setStatus("busy", "Extracting…");
-        setStep(1);
-
         parsed.forEach(function (row, ri) {
           rowTimers.push(setTimeout(function () {
             if (gen !== parseGen) return;
-            pushExtract("ref", row.ref, false);
+            pushExtract("job", row.jobNo || "—", !row.jobNo);
             fieldTally += 1;
+            if (!row.jobNo) flagTally += 1;
             setStats(0, fieldTally, flagTally, Math.round(performance.now() - started));
-          }, ri * 280));
+          }, ri * 240));
           rowTimers.push(setTimeout(function () {
             if (gen !== parseGen) return;
-            pushExtract("owner", row.owner === "—" ? "missing" : row.owner, row.owner === "—");
-            fieldTally += 1;
-            if (row.owner === "—") flagTally += 1;
+            pushExtract("vehicle", (row.make || "?") + " " + (row.model || "") + " · " + (row.reg || "no reg"), !row.reg || !row.make);
+            fieldTally += 2;
+            if (!row.reg || !row.make) flagTally += 1;
             setStats(0, fieldTally, flagTally, Math.round(performance.now() - started));
-          }, ri * 280 + 90));
+          }, ri * 240 + 80));
           rowTimers.push(setTimeout(function () {
             if (gen !== parseGen) return;
-            pushExtract("due", row.due === "—" ? "missing" : row.due, row.due === "—");
+            pushExtract("route", (row.from || "?") + " → " + (row.to || "?"), !row.from || !row.to);
             fieldTally += 1;
-            if (row.due === "—" && row.owner !== "—") flagTally += 1;
             setStats(0, fieldTally, flagTally, Math.round(performance.now() - started));
-          }, ri * 280 + 170));
+          }, ri * 240 + 150));
         });
-      }, 450));
+      }, 380));
 
-      // Act 3 — build sheet cell by cell
-      var buildAt = 450 + Math.max(1, parsed.length) * 280 + 420;
+      var buildAt = 380 + Math.max(1, parsed.length) * 240 + 380;
       rowTimers.push(setTimeout(function () {
         if (gen !== parseGen) return;
         setStep(2);
         setStatus("busy", "Building sheet…");
-        footSummary.textContent = "Dropping values into your Excel layout…";
+        footSummary.textContent = "Writing transport request columns…";
         var ms = Math.round(performance.now() - started);
-        renderImmediate(parsed, { ms: ms, keepStats: true });
-        setStats(parsed.length, fieldTally || parsed.length * 3, parsed.filter(function (r) { return r.status === "Flag"; }).length, ms);
-
+        renderTable(parsed, { ms: ms, keepStats: true });
+        setStats(parsed.length, fieldTally || parsed.length * 4, parsed.filter(function (r) { return r.status === "Flag"; }).length, ms);
         rowTimers.push(setTimeout(function () {
           if (gen !== parseGen) return;
           setStep(parsed.length ? 3 : 0);
           setStatus(parsed.some(function (r) { return r.status === "Flag"; }) ? "flag" : "ready",
             parsed.some(function (r) { return r.status === "Flag"; }) ? "Gaps flagged" : "Sheet ready");
           parseBtn.disabled = false;
-          parseBtn.textContent = "Parse to Excel";
-          footSummary.textContent = parsed.length + " rows sorted · " + currentLayout + " layout · download when ready";
-          if (opts.toast !== false) toast(parsed.length ? "Sorted into Excel · " + parsed.length + " rows" : "Nothing found");
-        }, 700 + parsed.length * 220));
+          parseBtn.textContent = "Run parse";
+          pushHistory("Module 01", parsed.length + " vehicles");
+          if (opts.toast !== false) toast(parsed.length ? "Sorted into Excel · " + parsed.length + " vehicles" : "Nothing found");
+        }, 620 + parsed.length * 160));
       }, buildAt));
     }
 
-    function setChip(key) {
-      chips.forEach(function (c) {
-        c.setAttribute("aria-pressed", c.getAttribute("data-sample") === key ? "true" : "false");
-      });
+    function runReport(opts) {
+      opts = opts || {};
+      clearRowTimers();
+      var gen = ++parseGen;
+      var started = performance.now();
+      var sample = REPORT_SAMPLES[currentSample] || REPORT_SAMPLES["daily-a"];
+      var rows = sample.rows.slice();
+      allRows = rows;
+      previewEl.classList.add("is-live");
+      setStep(0);
+      setStatus("busy", "Loading dump…");
+      clearExtract();
+      setStats(0, 0, 0, 0);
+      parseBtn.disabled = true;
+      parseBtn.textContent = "Building…";
+      csvBtn.disabled = true;
+      copyBtn.disabled = true;
+      empty.hidden = true;
+      table.hidden = false;
+      body.textContent = "";
+      meta.hidden = true;
+      scanline.classList.remove("is-run");
+      void scanline.offsetWidth;
+      scanline.classList.add("is-run");
+
+      var steps = [
+        "Read customer dump",
+        "Map status columns",
+        "Bucket To be planned / Allocated / Collected / Late",
+        "Write Daily orders board"
+      ];
+      progressSteps.classList.add("is-on");
+      progressSteps.innerHTML = steps.map(function (s, i) {
+        return "<span data-i=\"" + i + "\">0" + (i + 1) + " · " + esc(s) + "</span>";
+      }).join("");
+
+      function markProgress(i) {
+        Array.prototype.forEach.call(progressSteps.querySelectorAll("span"), function (el, idx) {
+          el.classList.remove("is-on", "is-done");
+          if (idx < i) el.classList.add("is-done");
+          if (idx === i) el.classList.add("is-on");
+        });
+        setStep(Math.min(i, 3));
+      }
+
+      function finish() {
+        var ms = Math.round(performance.now() - started);
+        showSource(highlightReport(sample));
+        rows.forEach(function (r) {
+          pushExtract(r.customer, "plan " + r.to_be_planned + " · late " + r.late, Number(r.late) > 0);
+        });
+        renderTable(rows, { instant: !!opts.instant || reduceMotion, ms: ms });
+        markProgress(3);
+        Array.prototype.forEach.call(progressSteps.querySelectorAll("span"), function (el) {
+          el.classList.remove("is-on");
+          el.classList.add("is-done");
+        });
+        parseBtn.disabled = false;
+        parseBtn.textContent = "Build board";
+        pushHistory("Daily report", rows.length + " customers");
+        if (opts.toast !== false) toast("Daily orders board ready");
+      }
+
+      if (reduceMotion || opts.instant) {
+        markProgress(3);
+        finish();
+        return;
+      }
+
+      markProgress(0);
+      showPlainSource(["Customer dump · " + sample.label, ""].concat(rows.map(function (r) {
+        return r.customer + " | plan " + r.to_be_planned + " · alloc " + r.allocated +
+          " · collected " + r.collected + " · late " + r.late;
+      })).join("\n"));
+
+      rowTimers.push(setTimeout(function () {
+        if (gen !== parseGen) return;
+        markProgress(1);
+        setStatus("busy", "Mapping…");
+        pushExtract("window", "±1 calendar month", false);
+      }, 320));
+      rowTimers.push(setTimeout(function () {
+        if (gen !== parseGen) return;
+        markProgress(2);
+        setStatus("busy", "Bucketing…");
+        var late = rows.reduce(function (n, r) { return n + Number(r.late || 0); }, 0);
+        pushExtract("late total", String(late), late > 0);
+        setStats(0, rows.length * 4, late, Math.round(performance.now() - started));
+      }, 780));
+      rowTimers.push(setTimeout(function () {
+        if (gen !== parseGen) return;
+        markProgress(3);
+        setStatus("busy", "Writing board…");
+        finish();
+      }, 1280));
     }
 
-    function loadSample(key, autoParse) {
-      if (!SAMPLES[key]) return;
-      paste.value = SAMPLES[key];
-      setChip(key);
-      setStep(0);
-      if (key === "delivery") applyLayout("delivery");
-      else if (key === "invoices") applyLayout("finance");
-      else if (currentLayout === "delivery" || currentLayout === "finance") applyLayout("ops");
-      if (autoParse !== false) runParse();
-      else {
-        allRows = [];
-        renderImmediate([]);
-        setStatus("", "Idle");
+    function runActive(opts) {
+      if (currentModule === "report") runReport(opts);
+      else runJobs(opts);
+    }
+
+    function setModule(mod) {
+      currentModule = mod === "report" ? "report" : "jobs";
+      moduleBtns.forEach(function (b) {
+        b.setAttribute("aria-pressed", b.getAttribute("data-module") === currentModule ? "true" : "false");
+      });
+      jobTools.hidden = currentModule !== "jobs";
+      reportTools.hidden = currentModule !== "report";
+      jobSteps.hidden = currentModule !== "jobs";
+      reportStepsEl.hidden = currentModule !== "report";
+      sourceLabel.textContent = currentModule === "report" ? "Status dump sample" : "Job sheet sample";
+      extractLabel.textContent = currentModule === "report" ? "Status map" : "Live extract";
+      outLabel.textContent = currentModule === "report" ? "Daily orders board" : "Transport sheet";
+      parseBtn.textContent = currentModule === "report" ? "Build board" : "Run parse";
+      statRowsLabel.textContent = currentModule === "report" ? "customers" : "rows";
+      statFieldsLabel.textContent = currentModule === "report" ? "jobs" : "fields";
+      statFlagsLabel.textContent = currentModule === "report" ? "late" : "flagged";
+      currentSample = currentModule === "report" ? "daily-a" : "batch-a";
+      stopDemo();
+      clearRowTimers();
+      parseGen++;
+      parseBtn.disabled = false;
+      loadSample(currentSample, false);
+      updateRemind();
+    }
+
+    function stopDemo() {
+      if (demoTimer) { clearTimeout(demoTimer); demoTimer = null; }
+      parseGen++;
+    }
+
+    function playDemo() {
+      stopDemo();
+      clearRowTimers();
+      parseBtn.disabled = false;
+      if (currentModule === "report") {
+        loadSample(currentSample || "daily-a", false);
+        demoTimer = setTimeout(function () { runReport({ toast: true }); }, reduceMotion ? 0 : 220);
+      } else {
+        loadSample(currentSample || "batch-a", false);
+        // cinematic: briefly show plain, then parse
+        showPlainSource(currentSource);
+        setStatus("busy", "Loading sample…");
+        demoTimer = setTimeout(function () { runJobs({ toast: true }); }, reduceMotion ? 0 : 420);
       }
     }
 
-    chips.forEach(function (c) {
+    moduleBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        setModule(btn.getAttribute("data-module"));
+      });
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll(".chip"), function (c) {
       c.addEventListener("click", function () {
         stopDemo();
         clearRowTimers();
         parseBtn.disabled = false;
-        parseBtn.textContent = "Parse to Excel";
+        parseBtn.textContent = currentModule === "report" ? "Build board" : "Run parse";
         loadSample(c.getAttribute("data-sample"), true);
-      });
-    });
-
-    layoutBtns.forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        applyLayout(btn.getAttribute("data-layout"));
-        toast("Layout · " + currentLayout);
       });
     });
 
     parseBtn.addEventListener("click", function () {
       stopDemo();
       clearRowTimers();
-      chips.forEach(function (c) { c.setAttribute("aria-pressed", "false"); });
-      setStep(0);
-      runParse();
+      runActive();
     });
 
-    document.getElementById("btn-clear").addEventListener("click", function () {
+    document.getElementById("btn-reset").addEventListener("click", function () {
       stopDemo();
-      paste.value = "";
-      setChip("");
-      chips.forEach(function (c) { c.setAttribute("aria-pressed", "false"); });
-      allRows = [];
-      setStep(0);
-      clearExtract();
-      showSourceEdit();
-      renderImmediate([]);
-      paste.focus();
+      clearRowTimers();
+      parseBtn.disabled = false;
+      parseBtn.textContent = currentModule === "report" ? "Build board" : "Run parse";
+      loadSample(currentSample, false);
+      toast("Demo reset");
     });
 
-    function copyText(text) {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(function () { toast("Copied"); });
-      } else toast("Copied");
+    function exportRows() {
+      if (!allRows.length) return null;
+      var isReport = currentModule === "report";
+      var heads = isReport ? REPORT_HEADERS : JOB_HEADERS;
+      var lines = [heads];
+      allRows.forEach(function (r) {
+        lines.push(isReport ? reportCells(r) : jobCells(r));
+      });
+      if (isReport) {
+        lines.push([
+          "Totals",
+          String(allRows.reduce(function (n, r) { return n + Number(r.to_be_planned || 0); }, 0)),
+          String(allRows.reduce(function (n, r) { return n + Number(r.allocated || 0); }, 0)),
+          String(allRows.reduce(function (n, r) { return n + Number(r.collected || 0); }, 0)),
+          String(allRows.reduce(function (n, r) { return n + Number(r.late || 0); }, 0)),
+          "",
+          ""
+        ]);
+      }
+      return lines;
     }
 
     copyBtn.addEventListener("click", function () {
-      if (!allRows.length) return;
-      var heads = LAYOUTS[currentLayout];
-      var lines = [heads.join("\t")];
-      allRows.forEach(function (r) {
-        lines.push(rowCells(r).join("\t"));
-      });
-      copyText(lines.join("\n"));
+      var lines = exportRows();
+      if (!lines) return;
+      var text = lines.map(function (r) { return r.join("\t"); }).join("\n");
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { toast("Copied"); });
+      } else toast("Copied");
       setStep(3);
     });
 
     csvBtn.addEventListener("click", function () {
-      if (!allRows.length) return;
-      var heads = LAYOUTS[currentLayout];
-      var lines = [heads.join(",")];
-      allRows.forEach(function (r) {
-        lines.push(rowCells(r).map(function (c) {
-          return '"' + String(c).replace(/"/g, '""') + '"';
-        }).join(","));
-      });
+      var lines = exportRows();
+      if (!lines) return;
+      var csv = lines.map(function (r) {
+        return r.map(function (c) { return '"' + String(c).replace(/"/g, '""') + '"'; }).join(",");
+      }).join("\n");
       var a = document.createElement("a");
-      a.href = URL.createObjectURL(new Blob(["\uFEFF" + lines.join("\n")], { type: "text/csv;charset=utf-8" }));
-      a.download = "fastenly-" + currentLayout + "-sheet.csv";
+      var name = currentModule === "report"
+        ? "Daily-orders-status-update-2026.csv"
+        : "fastenly-transport-request.csv";
+      a.href = URL.createObjectURL(new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8" }));
+      a.download = name;
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -1692,62 +2095,23 @@
       setStep(3);
     });
 
-    /* —— Cinematic replay: type paste → highlight → extract → sheet —— */
-    function stopDemo() {
-      if (demoTimer) { clearTimeout(demoTimer); demoTimer = null; }
-      paste.classList.remove("is-typing");
-      parseGen++;
-      showSourceEdit();
-    }
-
-    function typeText(text, done) {
-      showSourceEdit();
-      paste.value = "";
-      paste.classList.add("is-typing");
-      setStep(0);
-      setStatus("busy", "Pasting…");
-      footSummary.textContent = "Dropping a messy lump onto the desk…";
-      clearExtract();
-      setStats(0, 0, 0, 0);
-      var i = 0;
-      function tick() {
-        if (i >= text.length) {
-          paste.classList.remove("is-typing");
-          done();
-          return;
-        }
-        var step = Math.min(4 + Math.floor(Math.random() * 5), text.length - i);
-        paste.value += text.slice(i, i + step);
-        i += step;
-        paste.scrollTop = paste.scrollHeight;
-        demoTimer = setTimeout(tick, reduceMotion ? 0 : 10);
+    document.addEventListener("keydown", function (e) {
+      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+        e.preventDefault();
+        stopDemo();
+        clearRowTimers();
+        runActive();
       }
-      tick();
-    }
-
-    function playDemo(sampleKey) {
-      stopDemo();
-      clearRowTimers();
-      var key = sampleKey || "invoices";
-      setChip(key);
-      if (key === "delivery") applyLayout("delivery");
-      else if (key === "invoices") applyLayout("finance");
-      allRows = [];
-      body.textContent = "";
-      table.hidden = true;
-      empty.hidden = false;
-      typeText(SAMPLES[key], function () {
-        demoTimer = setTimeout(function () { runParse({ toast: true }); }, reduceMotion ? 0 : 280);
-      });
-    }
+    });
 
     document.getElementById("btn-replay").addEventListener("click", function () {
       document.getElementById("preview").scrollIntoView({ behavior: "smooth", block: "center" });
-      playDemo("invoices");
+      if (currentModule !== "jobs") setModule("jobs");
+      currentSample = "batch-a";
+      playDemo();
     });
     document.getElementById("btn-replay-foot").addEventListener("click", function () {
-      var active = document.querySelector('.chip[aria-pressed="true"]');
-      playDemo((active && active.getAttribute("data-sample")) || "invoices");
+      playDemo();
     });
 
     document.querySelectorAll('a[href^="#"]').forEach(function (link) {
@@ -1771,24 +2135,22 @@
       document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("is-in"); });
     }
 
-    applyLayout("ops");
-    // First paint: load invoices quietly, then autoplay demo once in view
-    loadSample("invoices", false);
+    // Boot locked Module 01
+    setModule("jobs");
     var played = false;
-    var preview = document.getElementById("preview");
     if ("IntersectionObserver" in window && !reduceMotion) {
       var pio = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting && !played) {
             played = true;
-            playDemo("invoices");
+            playDemo();
             pio.disconnect();
           }
         });
       }, { threshold: 0.35 });
-      pio.observe(preview);
+      pio.observe(previewEl);
     } else {
-      runParse({ instant: true, toast: false });
+      runJobs({ instant: true, toast: false });
     }
   })();
   </script>
