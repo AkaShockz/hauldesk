@@ -4,22 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Fastenly — Turn messy repeat work into clean sheets</title>
-  <meta name="description" content="Fastenly builds your company a private website that turns messy notes, forms and dumps into clean rows — then adds more automations on the same login." />
+  <meta name="description" content="Fastenly builds your company a private website that turns messy notes into clean rows — then adds more automations on the same login." />
   <meta name="theme-color" content="#0e0e12" />
-  <meta property="og:title" content="Fastenly — Private automation for work that repeats" />
-  <meta property="og:description" content="A private website for your company that turns messy repeat work into clean sheets — then stacks more automations on the same login." />
+  <meta property="og:title" content="Fastenly — Turn messy repeat work into clean sheets" />
+  <meta property="og:description" content="A private website for your company. Paste messy work, get clean rows, flag the gaps." />
   <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111114'/%3E%3Ccircle cx='16' cy='16' r='7.5' fill='none' stroke='%23e85d04' stroke-width='2.5'/%3E%3Cpath d='M16 11.5v9M12.5 16h7' stroke='%23e85d04' stroke-width='2' stroke-linecap='square'/%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230e0e12'/%3E%3Ccircle cx='16' cy='16' r='7.5' fill='none' stroke='%23e85d04' stroke-width='2.5'/%3E%3Cpath d='M16 11.5v9M12.5 16h7' stroke='%23e85d04' stroke-width='2' stroke-linecap='square'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #0e0e12;
-      --bg-2: #17171d;
       --paper: #eceef1;
-      --paper-2: #e2e5ea;
+      --paper-2: #e3e6eb;
       --ink: #121318;
       --mute: #5a5d68;
       --line: rgba(18, 19, 24, 0.12);
@@ -27,7 +25,6 @@
       --accent: #e85d04;
       --accent-2: #c44d03;
       --ok: #1f7a4c;
-      --warn: #b45309;
       --white: #f4f5f7;
       --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
       --sans: "IBM Plex Sans", system-ui, sans-serif;
@@ -36,1041 +33,23 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
       font-family: var(--sans);
       color: var(--ink);
-      background:
-        radial-gradient(ellipse 70% 40% at 0% 0%, rgba(232, 93, 4, 0.045), transparent 55%),
-        linear-gradient(180deg, #f3f4f6 0%, var(--paper) 28%, var(--paper) 100%);
+      background: var(--paper);
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
     }
 
-    img, svg { display: block; max-width: 100%; }
     a { color: inherit; }
     button, input, textarea { font: inherit; }
 
     .wrap {
-      width: min(1080px, calc(100% - 2rem));
+      width: min(980px, calc(100% - 2rem));
       margin-inline: auto;
     }
-
-    /* —— Hero —— */
-    .hero {
-      position: relative;
-      min-height: 100svh;
-      display: grid;
-      align-items: end;
-      overflow: hidden;
-      color: var(--white);
-      background:
-        radial-gradient(ellipse 70% 55% at 85% 15%, rgba(232, 93, 4, 0.2), transparent 50%),
-        radial-gradient(ellipse 45% 40% at 10% 80%, rgba(232, 93, 4, 0.08), transparent 55%),
-        linear-gradient(165deg, #09090c 0%, var(--bg) 42%, #15151b 100%);
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.035;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
-
-    .hero-rail {
-      position: absolute;
-      inset: 0 auto 0 0;
-      width: 3px;
-      background: var(--accent);
-      transform: scaleY(0);
-      transform-origin: top;
-      animation: railIn 0.9s ease forwards 0.15s;
-    }
-
-    @keyframes railIn {
-      to { transform: scaleY(1); }
-    }
-
-    .hero-ui {
-      position: absolute;
-      right: max(1.25rem, 6vw);
-      top: 12%;
-      bottom: 18%;
-      width: min(46vw, 520px);
-      border: 1px solid var(--line-dark);
-      background: rgba(255, 255, 255, 0.02);
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      opacity: 0;
-      transform: translateY(12px);
-      animation: rise 0.8s ease forwards 0.35s;
-      pointer-events: none;
-    }
-
-    .hero-ui-bar {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.65rem 0.85rem;
-      border-bottom: 1px solid var(--line-dark);
-      font-size: 0.72rem;
-      letter-spacing: 0.04em;
-      color: rgba(247, 246, 242, 0.45);
-      font-family: var(--mono);
-    }
-
-    .hero-ui-bar i {
-      width: 0.45rem;
-      height: 0.45rem;
-      border-radius: 50%;
-      background: rgba(247, 246, 242, 0.2);
-    }
-
-    .hero-ui-bar i:first-child { background: var(--accent); }
-
-    .hero-ui-body {
-      padding: 1rem;
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      line-height: 1.55;
-      color: rgba(247, 246, 242, 0.72);
-      overflow: hidden;
-    }
-
-    .hero-ui-body .hi { color: var(--white); }
-    .hero-ui-body .ac { color: var(--accent); }
-
-    .hero-ui-foot {
-      padding: 0.75rem 1rem;
-      border-top: 1px solid var(--line-dark);
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.5rem;
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      line-height: 1.35;
-      color: rgba(247, 246, 242, 0.55);
-    }
-
-    .hero-ui-foot strong {
-      display: block;
-      color: var(--white);
-      font-weight: 500;
-      margin-bottom: 0.15rem;
-    }
-
-    .hero-inner {
-      position: relative;
-      z-index: 1;
-      padding: 3rem 0 4.5rem;
-      max-width: min(34rem, 100%);
-    }
-
-    .brand {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: clamp(3.2rem, 10vw, 6rem);
-      letter-spacing: -0.045em;
-      line-height: 0.9;
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: rise 0.75s ease forwards 0.05s;
-    }
-
-    .brand span { color: var(--accent); }
-
-    .hero h1 {
-      font-family: var(--display);
-      font-weight: 500;
-      font-size: clamp(1.55rem, 3.6vw, 2.15rem);
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-      max-width: 14ch;
-      margin-bottom: 0.9rem;
-      opacity: 0;
-      animation: rise 0.75s ease forwards 0.18s;
-    }
-
-    .hero-lead {
-      font-size: 1.02rem;
-      color: rgba(247, 246, 242, 0.68);
-      max-width: 34ch;
-      margin-bottom: 1.75rem;
-      opacity: 0;
-      animation: rise 0.75s ease forwards 0.3s;
-    }
-
-    .cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.65rem;
-      opacity: 0;
-      animation: rise 0.75s ease forwards 0.42s;
-    }
-
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(14px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 2.85rem;
-      padding: 0.7rem 1.2rem;
-      border: 1px solid transparent;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.92rem;
-      cursor: pointer;
-      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
-    }
-
-    .btn:hover { transform: translateY(-1px); }
-    .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-    .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #1a0a00;
-      border-color: var(--accent);
-    }
-    .btn-primary:hover:not(:disabled) { background: var(--accent-2); border-color: var(--accent-2); }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--white);
-      border-color: rgba(247, 246, 242, 0.28);
-    }
-    .btn-ghost:hover:not(:disabled) { border-color: var(--white); }
-
-    .btn-ink {
-      background: var(--ink);
-      color: var(--white);
-      border-color: var(--ink);
-    }
-    .btn-ink:hover { background: #2a2a32; }
-
-    .btn-line {
-      background: transparent;
-      color: var(--ink);
-      border-color: var(--line);
-    }
-    .btn-line:hover { border-color: var(--ink); }
-
-    /* —— Sections —— */
-    section { padding: 4.75rem 0; content-visibility: auto; contain-intrinsic-size: 800px; }
-    section + section { border-top: 1px solid var(--line); }
-
-    .kicker {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--mute);
-      margin-bottom: 0.85rem;
-    }
-
-    h2 {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: clamp(1.7rem, 3.4vw, 2.35rem);
-      letter-spacing: -0.035em;
-      line-height: 1.1;
-      margin-bottom: 0.7rem;
-      max-width: 16ch;
-    }
-
-    .lead {
-      color: var(--mute);
-      max-width: 42ch;
-      margin-bottom: 2rem;
-      font-size: 1.02rem;
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-      counter-reset: step;
-    }
-
-    .steps.steps-4 { grid-template-columns: repeat(4, 1fr); }
-
-    .promise {
-      margin-top: 1.75rem;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.85rem;
-    }
-
-    .promise article {
-      padding: 0.95rem 1rem;
-      border: 1px solid var(--line);
-      background: var(--paper-2);
-    }
-
-    .promise h3 {
-      font-family: var(--display);
-      font-size: 1.05rem;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.3rem;
-    }
-
-    .promise p {
-      color: var(--mute);
-      font-size: 0.9rem;
-    }
-
-    .step {
-      padding-top: 1rem;
-      border-top: 2px solid var(--ink);
-      counter-increment: step;
-    }
-
-    .step::before {
-      content: counter(step, decimal-leading-zero);
-      display: block;
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      color: var(--accent);
-      margin-bottom: 0.65rem;
-    }
-
-    .step h3 {
-      font-family: var(--display);
-      font-size: 1.2rem;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.35rem;
-    }
-
-    .step p { color: var(--mute); font-size: 0.95rem; }
-
-    .demo {
-      margin-top: 0.5rem;
-      border: 1px solid var(--line);
-      background:
-        linear-gradient(135deg, rgba(232, 93, 4, 0.06), transparent 42%),
-        var(--paper-2);
-      overflow: hidden;
-    }
-
-    .demo-top {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.85rem 1rem;
-      border-bottom: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.35);
-    }
-
-    .demo-stages {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-    }
-
-    .demo-stage {
-      appearance: none;
-      border: 1px solid var(--line);
-      background: transparent;
-      color: var(--mute);
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 0.35rem 0.55rem;
-      cursor: pointer;
-    }
-
-    .demo-stage[aria-current="true"] {
-      background: var(--ink);
-      border-color: var(--ink);
-      color: var(--white);
-    }
-
-    .demo-body {
-      display: grid;
-      grid-template-columns: 1fr 1.15fr;
-      min-height: 280px;
-    }
-
-    .demo-pane {
-      padding: 1.15rem 1.2rem;
-      min-width: 0;
-    }
-
-    .demo-pane + .demo-pane {
-      border-left: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.45);
-    }
-
-    .demo-pane .label { color: var(--mute); margin-bottom: 0.65rem; }
-
-    .demo-copy {
-      font-size: 0.95rem;
-      color: var(--ink);
-      max-width: 36ch;
-      margin-bottom: 0.85rem;
-      line-height: 1.45;
-    }
-
-    .demo-copy strong { color: var(--accent-2); font-weight: 600; }
-
-    .demo-source,
-    .demo-out {
-      font-family: var(--mono);
-      font-size: 0.74rem;
-      line-height: 1.55;
-      min-height: 9.5rem;
-      padding: 0.8rem;
-      border: 1px solid var(--line);
-      background: #fff;
-      color: var(--ink);
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    .demo-source.is-scanning {
-      box-shadow: inset 3px 0 0 var(--accent);
-      animation: scanPulse 0.9s ease;
-    }
-
-    @keyframes scanPulse {
-      from { background: #fff7f0; }
-      to { background: #fff; }
-    }
-
-    .demo-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.74rem;
-      font-variant-numeric: tabular-nums;
-      background: #fff;
-      border: 1px solid var(--line);
-    }
-
-    .demo-table th,
-    .demo-table td {
-      text-align: left;
-      padding: 0.45rem 0.5rem;
-      border-bottom: 1px solid var(--line);
-      white-space: nowrap;
-    }
-
-    .demo-table th {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--mute);
-      font-weight: 500;
-      background: rgba(244, 242, 236, 0.8);
-    }
-
-    .demo-table tr { animation: rowIn 0.28s ease both; }
-    .demo-table td.warn { color: var(--warn); font-weight: 600; }
-
-    .demo-badge {
-      display: inline-block;
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 0.12rem 0.35rem;
-    }
-
-    .demo-badge.ok { background: rgba(31, 122, 76, 0.14); color: var(--ok); }
-    .demo-badge.flag { background: rgba(232, 93, 4, 0.14); color: var(--accent-2); }
-
-    .demo-export {
-      display: grid;
-      gap: 0.45rem;
-    }
-
-    .demo-export li {
-      list-style: none;
-      display: flex;
-      gap: 0.55rem;
-      align-items: baseline;
-      font-size: 0.9rem;
-      color: var(--ink);
-      padding: 0.55rem 0.65rem;
-      border: 1px solid var(--line);
-      background: #fff;
-      animation: rowIn 0.28s ease both;
-    }
-
-    .demo-export li span {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent-2);
-      min-width: 3.5rem;
-    }
-
-    .demo-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-      align-items: center;
-      padding: 0.9rem 1rem 1.05rem;
-      border-top: 1px solid var(--line);
-    }
-
-    .demo-note {
-      font-size: 0.85rem;
-      color: var(--mute);
-      max-width: 46ch;
-    }
-
-    .uses {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.25rem;
-    }
-
-    .uses article {
-      padding-top: 0.9rem;
-      border-top: 1px solid var(--line);
-    }
-
-    .uses h3 {
-      font-family: var(--display);
-      font-size: 1.1rem;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.3rem;
-    }
-
-    .uses p { color: var(--mute); font-size: 0.92rem; }
-
-    .mod-list { list-style: none; max-width: 620px; }
-
-    .mod-list li {
-      display: grid;
-      grid-template-columns: 6.5rem 1fr;
-      gap: 1rem;
-      padding: 0.95rem 0;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .tag {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding-top: 0.35rem;
-      color: var(--mute);
-    }
-
-    .tag.live { color: var(--accent); }
-
-    .mod-list h3 {
-      font-family: var(--display);
-      font-size: 1.12rem;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.2rem;
-    }
-
-    .mod-list p { color: var(--mute); font-size: 0.92rem; }
-
-    /* —— Desk —— */
-    .desk {
-      background: var(--bg);
-      color: var(--white);
-      padding: 4.75rem 0;
-      scroll-margin-top: 0.5rem;
-    }
-
-    .desk .kicker { color: var(--accent); }
-    .desk h2 { color: var(--white); }
-    .desk .lead { color: rgba(247, 246, 242, 0.58); }
-
-    .tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .tab,
-    .chip,
-    .filter {
-      appearance: none;
-      border: 1px solid var(--line-dark);
-      background: transparent;
-      color: rgba(247, 246, 242, 0.7);
-      padding: 0.45rem 0.75rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-    }
-
-    .tab[aria-selected="true"],
-    .chip[aria-pressed="true"],
-    .filter[aria-pressed="true"] {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #1a0a00;
-    }
-
-    .tab:hover,
-    .chip:hover,
-    .filter:hover { border-color: rgba(247, 246, 242, 0.4); color: var(--white); }
-
-    .tab[aria-selected="true"]:hover,
-    .chip[aria-pressed="true"]:hover,
-    .filter[aria-pressed="true"]:hover {
-      color: #1a0a00;
-      border-color: var(--accent);
-    }
-
-    .panel[hidden] { display: none !important; }
-
-    .chips,
-    .filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      align-items: center;
-      margin-bottom: 0.9rem;
-    }
-
-    .hint {
-      font-size: 0.78rem;
-      color: rgba(247, 246, 242, 0.4);
-    }
-
-    .board {
-      display: grid;
-      grid-template-columns: 1fr 1.08fr;
-      border: 1px solid var(--line-dark);
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .pane {
-      padding: 1.15rem;
-      min-width: 0;
-    }
-
-    .pane-in {
-      border-right: 1px solid var(--line-dark);
-      background: rgba(0, 0, 0, 0.28);
-      display: flex;
-      flex-direction: column;
-      gap: 0.7rem;
-    }
-
-    .label {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(247, 246, 242, 0.42);
-    }
-
-    .editor {
-      width: 100%;
-      min-height: 210px;
-      resize: vertical;
-      font-family: var(--mono);
-      font-size: 0.76rem;
-      line-height: 1.55;
-      color: var(--white);
-      background: #0a0a0c;
-      border: 1px solid var(--line-dark);
-      padding: 0.8rem;
-    }
-
-    .editor:focus {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-    }
-
-    .editor.is-drop { border-color: var(--accent); }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-    }
-
-    .actions .btn {
-      min-height: 2.3rem;
-      padding: 0.45rem 0.8rem;
-      font-size: 0.82rem;
-    }
-
-    .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem 1rem;
-      font-size: 0.8rem;
-      color: rgba(247, 246, 242, 0.5);
-    }
-
-    .meta strong { color: var(--accent); font-weight: 600; }
-
-    .history {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-    }
-
-    .hist {
-      appearance: none;
-      border: 1px solid var(--line-dark);
-      background: rgba(0, 0, 0, 0.25);
-      color: rgba(247, 246, 242, 0.6);
-      font-size: 0.7rem;
-      padding: 0.28rem 0.5rem;
-      cursor: pointer;
-    }
-
-    .hist:hover { color: var(--white); }
-
-    .table {
-      width: 100%;
-      border-collapse: collapse;
-      font-variant-numeric: tabular-nums;
-      font-size: 0.78rem;
-    }
-
-    .table th,
-    .table td {
-      text-align: left;
-      padding: 0.5rem 0.4rem;
-      border-bottom: 1px solid var(--line-dark);
-      white-space: nowrap;
-    }
-
-    .table th {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(247, 246, 242, 0.42);
-      font-weight: 500;
-    }
-
-    .table tr.warn td:nth-child(3),
-    .table tr.warn td:nth-child(4) { color: #ffb070; }
-
-    .badge {
-      display: inline-block;
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 0.12rem 0.35rem;
-    }
-
-    .badge-ok { background: rgba(31, 122, 76, 0.28); color: #8fd4ae; }
-    .badge-warn { background: rgba(232, 93, 4, 0.2); color: #ffb070; }
-
-    .empty {
-      color: rgba(247, 246, 242, 0.42);
-      font-size: 0.9rem;
-      padding: 1.25rem 0;
-    }
-
-    #parse-body tr { animation: rowIn 0.22s ease both; }
-
-    @keyframes rowIn {
-      from { opacity: 0; transform: translateY(5px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .preview {
-      border: 1px solid var(--line-dark);
-      padding: 1.35rem;
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .preview h3 {
-      font-family: var(--display);
-      font-size: 1.3rem;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.45rem;
-    }
-
-    .preview p {
-      color: rgba(247, 246, 242, 0.58);
-      max-width: 48ch;
-      margin-bottom: 1rem;
-    }
-
-    .preview ul {
-      list-style: none;
-      display: grid;
-      gap: 0.45rem;
-      max-width: 34rem;
-    }
-
-    .preview li {
-      padding: 0.65rem 0.75rem;
-      border: 1px solid var(--line-dark);
-      font-size: 0.9rem;
-      color: rgba(247, 246, 242, 0.78);
-    }
-
-    .preview strong { color: var(--accent); }
-
-    /* —— Offer —— */
-    .offer {
-      background:
-        linear-gradient(105deg, rgba(232, 93, 4, 0.09), transparent 42%),
-        var(--paper-2);
-      padding: 4.75rem 0;
-      border-block: 1px solid var(--line);
-    }
-
-    .offer-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 2.5rem;
-      align-items: end;
-    }
-
-    .price-block {
-      border-top: 2px solid var(--ink);
-      padding-top: 1.15rem;
-    }
-
-    .price-was {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--mute);
-      margin-bottom: 0.35rem;
-    }
-
-    .price {
-      font-family: var(--display);
-      font-size: clamp(2.4rem, 5vw, 3.25rem);
-      letter-spacing: -0.045em;
-      font-weight: 700;
-      margin: 0 0 0.35rem;
-      line-height: 1;
-    }
-
-    .price span {
-      font-family: var(--sans);
-      font-size: 1.05rem;
-      font-weight: 400;
-      color: var(--mute);
-    }
-
-    .price-why {
-      color: var(--mute);
-      font-size: 0.95rem;
-      max-width: 34ch;
-      margin: 0.65rem 0 1.25rem;
-    }
-
-    .includes {
-      list-style: none;
-      margin: 0 0 1.25rem;
-    }
-
-    .includes li {
-      position: relative;
-      padding: 0.45rem 0 0.45rem 1rem;
-      border-bottom: 1px solid var(--line);
-      color: var(--mute);
-      font-size: 0.95rem;
-    }
-
-    .includes li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0.9rem;
-      width: 0.35rem;
-      height: 0.35rem;
-      background: var(--accent);
-    }
-
-    .note {
-      color: var(--mute);
-      max-width: 40ch;
-      margin-bottom: 1.25rem;
-      font-size: 0.92rem;
-    }
-
-    .compare {
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.35);
-      padding: 1.15rem 1.2rem;
-    }
-
-    .compare h3 {
-      font-family: var(--display);
-      font-size: 1.05rem;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
-    }
-
-    .compare dl {
-      display: grid;
-      gap: 0.55rem;
-    }
-
-    .compare div {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 0.75rem;
-      padding-bottom: 0.55rem;
-      border-bottom: 1px solid var(--line);
-      font-size: 0.9rem;
-    }
-
-    .compare dt { color: var(--mute); }
-    .compare dd {
-      font-family: var(--mono);
-      font-size: 0.78rem;
-      color: var(--ink);
-    }
-
-    .compare div:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .compare div:last-child dd { color: var(--accent); font-weight: 600; }
-
-    .fit {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-    }
-
-    .fit h3 {
-      font-family: var(--display);
-      font-size: 1.1rem;
-      margin-bottom: 0.35rem;
-    }
-
-    .fit ul { list-style: none; margin-top: 0.6rem; }
-
-    .fit li {
-      padding: 0.6rem 0;
-      border-bottom: 1px solid var(--line);
-      color: var(--mute);
-    }
-
-    .fit strong { color: var(--ink); font-weight: 600; }
-
-    .faq { max-width: 40rem; }
-
-    .faq details {
-      border-bottom: 1px solid var(--line);
-      padding: 0.95rem 0;
-    }
-
-    .faq summary {
-      font-family: var(--display);
-      font-size: 1.08rem;
-      letter-spacing: -0.02em;
-      cursor: pointer;
-      list-style: none;
-    }
-
-    .faq summary::-webkit-details-marker { display: none; }
-    .faq summary::after {
-      content: "+";
-      float: right;
-      color: var(--accent);
-      font-weight: 500;
-    }
-    .faq details[open] summary::after { content: "–"; }
-
-    .faq p {
-      color: var(--mute);
-      margin-top: 0.55rem;
-      max-width: 52ch;
-    }
-
-    .close { padding: 4.75rem 0; }
-
-    footer {
-      padding: 2rem 0 2.75rem;
-      border-top: 1px solid var(--line);
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 0.75rem;
-      color: var(--mute);
-      font-size: 0.88rem;
-    }
-
-    footer .mark {
-      font-family: var(--display);
-      font-weight: 700;
-      color: var(--ink);
-    }
-
-    .toast {
-      position: fixed;
-      left: 50%;
-      bottom: 1.25rem;
-      transform: translateX(-50%) translateY(120%);
-      background: var(--bg);
-      color: var(--white);
-      border: 1px solid rgba(232, 93, 4, 0.45);
-      padding: 0.7rem 1rem;
-      font-size: 0.86rem;
-      font-weight: 600;
-      z-index: 50;
-      opacity: 0;
-      transition: transform 0.2s ease, opacity 0.2s ease;
-      pointer-events: none;
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-      pointer-events: auto;
-      z-index: 90;
-    }
-
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-    }
-
-    @media (max-width: 900px) {
-      .hero-ui { display: none; }
-      .uses { grid-template-columns: 1fr 1fr; }
-    }
-
-    @media (max-width: 760px) {
-      .steps, .steps.steps-4, .board, .fit, .offer-grid, .demo-body, .promise { grid-template-columns: 1fr; }
-      .demo-pane + .demo-pane { border-left: 0; border-top: 1px solid var(--line); }
-      .pane-in { border-right: none; border-bottom: 1px solid var(--line-dark); }
-      .mod-list li { grid-template-columns: 5.5rem 1fr; }
-      .hero-inner { padding-top: 4rem; }
-    }
-
-    @media (max-width: 520px) {
-      .uses { grid-template-columns: 1fr; }
-      .mod-list li { grid-template-columns: 1fr; gap: 0.25rem; }
-    }
-
 
     .skip {
       position: fixed;
@@ -1086,617 +65,134 @@
     }
     .skip:focus { clip-path: none; }
 
-    .progress {
-      position: fixed;
-      inset: 0 0 auto 0;
-      height: 2px;
-      z-index: 60;
-      background: transparent;
-      pointer-events: none;
-    }
-    .progress > span {
-      display: block;
-      height: 100%;
-      width: 0%;
-      background: var(--accent);
-      transition: width 0.08s linear;
-    }
-
-    .topnav {
-      position: fixed;
-      inset: 0 0 auto 0;
-      z-index: 50;
-      display: flex;
-      justify-content: space-between;
+    .btn {
+      display: inline-flex;
       align-items: center;
-      gap: 1rem;
-      padding: 0.7rem max(1rem, calc((100% - 1080px) / 2 + 1rem));
-      background: rgba(14, 14, 18, 0.72);
-      border-bottom: 1px solid transparent;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      transform: translateY(-110%);
-      transition: transform 0.35s var(--ease), border-color 0.2s ease;
-    }
-    .topnav.is-on {
-      transform: translateY(0);
-      border-bottom-color: var(--line-dark);
-    }
-    .topnav .mark {
-      font-family: var(--display);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      color: var(--white);
+      justify-content: center;
+      min-height: 2.85rem;
+      padding: 0.7rem 1.25rem;
+      border: 1px solid transparent;
       text-decoration: none;
-      font-size: 1.05rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
     }
-    .topnav .mark span { color: var(--accent); }
-    .topnav-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem 0.85rem;
-      align-items: center;
-    }
-    .topnav-links a {
-      color: rgba(244, 245, 247, 0.62);
-      text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 500;
-    }
-    .topnav-links a:hover { color: var(--white); }
-    .topnav .btn {
-      min-height: 2.1rem;
-      padding: 0.35rem 0.8rem;
-      font-size: 0.8rem;
-    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .btn-primary { background: var(--accent); color: #1a0a00; border-color: var(--accent); }
+    .btn-primary:hover:not(:disabled) { background: var(--accent-2); border-color: var(--accent-2); }
+    .btn-ghost { background: transparent; color: var(--white); border-color: rgba(244, 245, 247, 0.28); }
+    .btn-ghost:hover:not(:disabled) { border-color: var(--white); }
+    .btn-ink { background: var(--ink); color: var(--white); border-color: var(--ink); }
+    .btn-ink:hover { background: #2a2a32; }
 
+    /* Hero */
     .hero {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      color: var(--white);
       background:
-        radial-gradient(ellipse 70% 55% at 85% 15%, rgba(232, 93, 4, 0.2), transparent 50%),
-        radial-gradient(ellipse 45% 40% at 10% 80%, rgba(232, 93, 4, 0.08), transparent 55%),
-        linear-gradient(165deg, #09090c 0%, var(--bg) 42%, #15151b 100%);
+        radial-gradient(ellipse 70% 55% at 88% 12%, rgba(232, 93, 4, 0.22), transparent 52%),
+        linear-gradient(165deg, #09090c 0%, var(--bg) 45%, #15151b 100%);
     }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .hero-rail {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 3px;
+      background: var(--accent);
+      transform: scaleY(0);
+      transform-origin: top;
+      animation: railIn 0.9s var(--ease) forwards 0.15s;
+    }
+    @keyframes railIn { to { transform: scaleY(1); } }
 
     .hero-ui {
-      box-shadow: 0 30px 80px rgba(0,0,0,0.35);
-      backdrop-filter: blur(8px);
-    }
-
-    .hero-ui-body .line {
+      position: absolute;
+      right: max(1.25rem, 6vw);
+      top: 14%;
+      bottom: 16%;
+      width: min(44vw, 500px);
+      border: 1px solid var(--line-dark);
+      background: rgba(255, 255, 255, 0.025);
+      display: grid;
+      grid-template-rows: auto 1fr;
       opacity: 0;
-      transform: translateY(6px);
-      animation: lineIn 0.45s var(--ease) forwards;
+      transform: translateY(14px);
+      animation: rise 0.8s var(--ease) forwards 0.35s;
+      pointer-events: none;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
     }
-    @keyframes lineIn {
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .hero-ui-body .caret {
-      display: inline-block;
-      width: 0.45rem;
-      height: 0.9em;
-      background: var(--accent);
-      margin-left: 0.15rem;
-      vertical-align: -0.1em;
-      animation: blink 1s steps(1) infinite;
-    }
-    @keyframes blink {
-      50% { opacity: 0; }
+    .hero-ui-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid var(--line-dark);
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      color: rgba(244, 245, 247, 0.45);
     }
     .pulse {
       width: 0.45rem;
       height: 0.45rem;
       border-radius: 50%;
       background: var(--accent);
-      box-shadow: 0 0 0 0 rgba(232, 93, 4, 0.55);
+      box-shadow: 0 0 0 0 rgba(232, 93, 4, 0.5);
       animation: pulse 1.8s ease-out infinite;
     }
     @keyframes pulse {
       70% { box-shadow: 0 0 0 0.55rem rgba(232, 93, 4, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(232, 93, 4, 0); }
     }
-
-    .scroll-cue {
-      position: absolute;
-      left: 50%;
-      bottom: 1.35rem;
-      transform: translateX(-50%);
-      z-index: 2;
-      display: grid;
-      gap: 0.35rem;
-      justify-items: center;
-      color: rgba(244, 245, 247, 0.45);
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      text-decoration: none;
-      animation: cueFloat 2.2s ease-in-out infinite;
-    }
-    .scroll-cue i {
-      width: 1px;
-      height: 1.6rem;
-      background: linear-gradient(var(--accent), transparent);
-    }
-    @keyframes cueFloat {
-      0%, 100% { transform: translate(-50%, 0); opacity: 0.7; }
-      50% { transform: translate(-50%, 4px); opacity: 1; }
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
-    }
-    .reveal.is-in {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .demo-track {
-      height: 2px;
-      background: var(--line);
-      margin: 0;
-    }
-    .demo-track > span {
-      display: block;
-      height: 100%;
-      width: 25%;
-      background: var(--accent);
-      transition: width 0.45s var(--ease), margin-left 0.45s var(--ease);
-    }
-
-    .desk-chrome {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.65rem 1.25rem;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-      padding: 0.7rem 0.85rem;
-      border: 1px solid var(--line-dark);
-      background: rgba(255,255,255,0.02);
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.04em;
-      color: rgba(244, 245, 247, 0.5);
-    }
-    .desk-chrome strong { color: var(--white); font-weight: 500; }
-    .desk-chrome kbd {
-      display: inline-block;
-      padding: 0.1rem 0.3rem;
-      border: 1px solid var(--line-dark);
-      color: rgba(244, 245, 247, 0.7);
-      font-size: 0.65rem;
-    }
-
-    .live-board {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      border: 1px solid var(--line-dark);
-      background: rgba(255,255,255,0.02);
-      margin-top: 0.85rem;
-    }
-    .live-board .pane { min-height: 220px; }
-    .live-board .pane + .pane { border-left: 1px solid var(--line-dark); }
-    .issue {
-      display: grid;
-      gap: 0.35rem;
-      margin-top: 0.55rem;
-    }
-    .issue button {
-      appearance: none;
-      text-align: left;
-      border: 1px solid var(--line-dark);
-      background: rgba(0,0,0,0.25);
-      color: rgba(244, 245, 247, 0.82);
-      padding: 0.55rem 0.65rem;
-      cursor: pointer;
-      font-size: 0.82rem;
-    }
-    .issue button:hover { border-color: rgba(244,245,247,0.35); }
-    .issue button .why {
-      display: block;
-      margin-top: 0.15rem;
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.04em;
-      color: #ffb070;
-    }
-    .merge-cols {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1.2fr;
-      gap: 0.65rem;
-      margin-top: 0.85rem;
-    }
-    .merge-col {
-      border: 1px solid var(--line-dark);
-      background: rgba(0,0,0,0.22);
-      padding: 0.75rem;
-      min-height: 180px;
-    }
-    .merge-col pre {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      line-height: 1.5;
-      color: rgba(244,245,247,0.75);
-      white-space: pre-wrap;
-    }
-    .merge-col .table { font-size: 0.72rem; }
-    .custom-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.55rem;
-      margin-top: 0.85rem;
-    }
-    .custom-pick {
-      appearance: none;
-      border: 1px solid var(--line-dark);
-      background: rgba(0,0,0,0.22);
-      color: rgba(244,245,247,0.85);
-      padding: 0.85rem 0.75rem;
-      text-align: left;
-      cursor: pointer;
-      transition: border-color 0.15s ease, background 0.15s ease;
-    }
-    .custom-pick:hover, .custom-pick[aria-pressed="true"] {
-      border-color: var(--accent);
-      background: rgba(232, 93, 4, 0.08);
-    }
-    .custom-pick strong {
-      display: block;
-      font-family: var(--display);
-      font-size: 1rem;
-      letter-spacing: -0.02em;
-      color: var(--white);
-      margin-bottom: 0.25rem;
-    }
-    .custom-pick span {
-      font-size: 0.8rem;
-      color: rgba(244,245,247,0.55);
-    }
-
-    section.alt {
-      background:
-        linear-gradient(180deg, rgba(18,19,24,0.03), transparent 40%),
-        var(--paper-2);
-    }
-
-    @media (max-width: 900px) {
-      .merge-cols, .custom-grid, .live-board { grid-template-columns: 1fr; }
-      .live-board .pane + .pane, .merge-col + .merge-col { border-left: 0; border-top: 1px solid var(--line-dark); }
-      .topnav-links .hide-sm { display: none; }
-      .scroll-cue { display: none; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .reveal { opacity: 1; transform: none; transition: none; }
-      .scroll-cue, .pulse, .caret { animation: none !important; }
-      .topnav { transition: none; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation: none !important;
-        transition: none !important;
-      }
-      .brand, .hero h1, .hero-lead, .cta-row, .hero-ui, .hero-rail {
-        opacity: 1;
-        transform: none;
-      }
-      html { scroll-behavior: auto; }
-    }
-
-    /* —— Pass: 5 new + 5 improved —— */
-    .cmd {
-      position: fixed;
-      inset: 0;
-      z-index: 80;
-      display: none;
-      place-items: start center;
-      padding-top: min(18vh, 8rem);
-      background: rgba(8, 8, 12, 0.55);
-      backdrop-filter: blur(6px);
-    }
-    .cmd.is-open { display: grid; }
-    .cmd-box {
-      width: min(34rem, calc(100% - 2rem));
-      border: 1px solid var(--line-dark);
-      background: #121218;
-      color: var(--white);
-      box-shadow: 0 28px 80px rgba(0,0,0,0.45);
-    }
-    .cmd-box input {
-      width: 100%;
-      border: 0;
-      border-bottom: 1px solid var(--line-dark);
-      background: transparent;
-      color: var(--white);
-      padding: 0.95rem 1rem;
-      font-size: 0.95rem;
-      outline: none;
-    }
-    .cmd-list { max-height: 18rem; overflow: auto; padding: 0.35rem; }
-    .cmd-item {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      width: 100%;
-      appearance: none;
-      border: 0;
-      background: transparent;
-      color: rgba(244,245,247,0.78);
-      text-align: left;
-      padding: 0.65rem 0.7rem;
-      cursor: pointer;
-      font-size: 0.88rem;
-    }
-    .cmd-item:hover, .cmd-item.is-active {
-      background: rgba(232, 93, 4, 0.14);
-      color: var(--white);
-    }
-    .cmd-item kbd {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      color: rgba(244,245,247,0.4);
-      letter-spacing: 0.04em;
-    }
-    .cmd-hint {
-      padding: 0.55rem 0.85rem 0.7rem;
-      border-top: 1px solid var(--line-dark);
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: rgba(244,245,247,0.4);
-    }
-
-    .calc {
-      margin-top: 1.5rem;
-      padding-top: 1.15rem;
-      border-top: 1px solid var(--line);
-    }
-    .calc-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.75rem;
-      margin-bottom: 0.85rem;
-    }
-    .calc label {
-      display: grid;
-      gap: 0.35rem;
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--mute);
-    }
-    .calc input {
-      width: 100%;
-      border: 1px solid var(--line);
-      background: #fff;
-      color: var(--ink);
-      padding: 0.55rem 0.65rem;
-      font-size: 1rem;
-      font-variant-numeric: tabular-nums;
-    }
-    .calc-out {
-      font-family: var(--display);
-      font-size: clamp(1.35rem, 2.5vw, 1.7rem);
-      letter-spacing: -0.03em;
-      line-height: 1.25;
-    }
-    .calc-out strong { color: var(--accent-2); }
-    .calc-note { color: var(--mute); font-size: 0.85rem; margin-top: 0.35rem; max-width: 42ch; }
-
-    .monday {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-      margin-top: 0.5rem;
-      border-top: 2px solid var(--ink);
-    }
-    .monday article {
-      padding: 1.15rem 1rem 1.15rem 0;
-      border-right: 1px solid var(--line);
-    }
-    .monday article:last-child { border-right: 0; padding-right: 0; }
-    .monday .when {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.45rem;
-    }
-    .monday h3 {
-      font-family: var(--display);
-      font-size: 1.12rem;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.3rem;
-    }
-    .monday p { color: var(--mute); font-size: 0.92rem; max-width: 28ch; }
-
-    .diff-toggle {
-      display: flex;
-      gap: 0.35rem;
-      margin-bottom: 0.7rem;
-    }
-    .diff-toggle button {
-      appearance: none;
-      border: 1px solid var(--line-dark);
-      background: transparent;
-      color: rgba(244,245,247,0.65);
-      padding: 0.35rem 0.6rem;
-      font-size: 0.72rem;
-      font-family: var(--mono);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      cursor: pointer;
-    }
-    .diff-toggle button[aria-pressed="true"] {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #1a0a00;
-    }
-    .diff-view {
-      display: none;
-      grid-template-columns: 1fr 1fr;
-      border: 1px solid var(--line-dark);
-      background: rgba(0,0,0,0.28);
-      margin-bottom: 0.85rem;
-    }
-    .diff-view.is-on { display: grid; }
-    .diff-view .side {
-      padding: 0.75rem;
-      min-width: 0;
-      max-height: 180px;
-      overflow: auto;
-    }
-    .diff-view .side + .side { border-left: 1px solid var(--line-dark); }
-    .diff-view pre {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      line-height: 1.45;
-      color: rgba(244,245,247,0.72);
-      white-space: pre-wrap;
-    }
-    .diff-view .hit { color: #ffb070; }
-
-    .desk.is-focus {
-      position: relative;
-      z-index: 40;
-      min-height: 100svh;
-      padding-top: 5.5rem;
-      box-shadow: 0 0 0 100vmax rgba(8,8,12,0.72);
-    }
-    .focus-btn {
-      appearance: none;
-      border: 1px solid var(--line-dark);
-      background: transparent;
-      color: rgba(244,245,247,0.65);
-      padding: 0.25rem 0.45rem;
-      font-size: 0.65rem;
-      font-family: var(--mono);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      cursor: pointer;
-    }
-    .focus-btn:hover { color: var(--white); border-color: rgba(244,245,247,0.4); }
-
-    .toast {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    .toast button {
-      appearance: none;
-      border: 0;
-      background: transparent;
-      color: var(--accent);
-      font-weight: 600;
-      font-size: 0.78rem;
-      cursor: pointer;
-      text-decoration: underline;
-      text-underline-offset: 2px;
-    }
-
-    .demo-stage {
-      position: relative;
-    }
-    .demo.is-paused .demo-stage[aria-current="true"]::after {
-      content: "paused";
-      position: absolute;
-      right: -0.2rem;
-      top: -0.55rem;
-      font-size: 0.55rem;
-      letter-spacing: 0.08em;
-      color: var(--accent-2);
-    }
-    .demo-pct {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.06em;
-      color: var(--mute);
-      margin-left: auto;
-      margin-right: 0.5rem;
-    }
-
-    .topnav-links a.is-active { color: var(--white); }
-    .topnav-links a.is-active::after {
-      content: "";
-      display: block;
-      height: 2px;
-      margin-top: 0.15rem;
-      background: var(--accent);
-    }
-
-    .sev {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      margin: 0.55rem 0 0.75rem;
-    }
-    .sev span {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 0.25rem 0.45rem;
-      border: 1px solid var(--line-dark);
-      color: rgba(244,245,247,0.7);
-    }
-    .sev .bad { border-color: rgba(232,93,4,0.45); color: #ffb070; }
-    .sev .ok { border-color: rgba(31,122,76,0.45); color: #8fd4ae; }
-
-    @media (max-width: 900px) {
-      .monday, .calc-grid, .diff-view.is-on { grid-template-columns: 1fr; }
-      .monday article { border-right: 0; border-bottom: 1px solid var(--line); padding-right: 0; }
-      .diff-view .side + .side { border-left: 0; border-top: 1px solid var(--line-dark); }
-    }
-
-
     .hero-split {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
-      gap: 0;
       min-height: 0;
-      height: 100%;
     }
     .hero-pane {
-      padding: 0.85rem 0.9rem;
+      padding: 1rem 0.95rem;
       min-width: 0;
       overflow: hidden;
     }
-    .hero-pane + .hero-pane { border-left: 0; }
-    .hero-pane .tagline {
+    .hero-pane .tag {
       font-family: var(--mono);
       font-size: 0.62rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: rgba(244,245,247,0.42);
-      margin-bottom: 0.55rem;
+      margin-bottom: 0.65rem;
     }
-    .hero-pane.messy .tagline { color: #ffb070; }
-    .hero-pane.clean .tagline { color: #8fd4ae; }
+    .hero-pane.messy .tag { color: #ffb070; }
+    .hero-pane.clean .tag { color: #8fd4ae; }
     .hero-pane pre {
       font-family: var(--mono);
-      font-size: 0.68rem;
-      line-height: 1.5;
-      color: rgba(244,245,247,0.7);
+      font-size: 0.7rem;
+      line-height: 1.55;
+      color: rgba(244, 245, 247, 0.58);
       white-space: pre-wrap;
-      word-break: break-word;
     }
-    .hero-pane.messy pre { color: rgba(244,245,247,0.55); }
     .hero-pane table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.68rem;
+      font-size: 0.7rem;
       font-variant-numeric: tabular-nums;
     }
-    .hero-pane th, .hero-pane td {
+    .hero-pane th,
+    .hero-pane td {
       text-align: left;
-      padding: 0.28rem 0.2rem;
+      padding: 0.32rem 0.2rem;
       border-bottom: 1px solid var(--line-dark);
       white-space: nowrap;
     }
@@ -1705,95 +201,519 @@
       font-size: 0.56rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: rgba(244,245,247,0.4);
+      color: rgba(244, 245, 247, 0.4);
       font-weight: 500;
     }
     .hero-pane td.warn { color: #ffb070; }
     .hero-arrow {
       display: grid;
       place-items: center;
-      padding: 0.4rem;
+      padding: 0.5rem 0.35rem;
       border-left: 1px solid var(--line-dark);
       border-right: 1px solid var(--line-dark);
       background: rgba(232, 93, 4, 0.08);
       font-family: var(--mono);
       font-size: 0.58rem;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--accent);
       writing-mode: vertical-rl;
       transform: rotate(180deg);
-      text-align: center;
-    }
-    .plain {
-      border-bottom: 1px solid var(--line);
-      background: var(--paper);
-      padding: 1.35rem 0;
-    }
-    .plain-inner {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 1rem 1.5rem;
-      align-items: baseline;
-    }
-    .plain .say {
-      font-family: var(--mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      padding-top: 0.2rem;
-    }
-    .plain p {
-      font-family: var(--display);
-      font-size: clamp(1.15rem, 2.4vw, 1.45rem);
-      letter-spacing: -0.025em;
-      line-height: 1.35;
-      max-width: 38ch;
-      color: var(--ink);
-    }
-    .plain p em {
-      font-style: normal;
-      color: var(--accent-2);
-    }
-    @media (max-width: 900px) {
-      .plain-inner { grid-template-columns: 1fr; gap: 0.35rem; }
     }
 
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      padding: 3.5rem 0 4.75rem;
+      max-width: min(32rem, 100%);
+    }
+    .brand {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(3.2rem, 10vw, 5.6rem);
+      letter-spacing: -0.045em;
+      line-height: 0.9;
+      margin-bottom: 1.4rem;
+      opacity: 0;
+      animation: rise 0.75s var(--ease) forwards 0.05s;
+    }
+    .brand span { color: var(--accent); }
+    .hero h1 {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      max-width: 13ch;
+      margin-bottom: 0.9rem;
+      opacity: 0;
+      animation: rise 0.75s var(--ease) forwards 0.18s;
+    }
+    .hero-lead {
+      font-size: 1.05rem;
+      color: rgba(244, 245, 247, 0.68);
+      max-width: 32ch;
+      margin-bottom: 1.75rem;
+      opacity: 0;
+      animation: rise 0.75s var(--ease) forwards 0.3s;
+    }
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      opacity: 0;
+      animation: rise 0.75s var(--ease) forwards 0.42s;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Sections */
+    section { padding: 4.25rem 0; }
+    section + section { border-top: 1px solid var(--line); }
+
+    .kicker {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mute);
+      margin-bottom: 0.75rem;
+    }
+    h2 {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(1.7rem, 3.2vw, 2.25rem);
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+      margin-bottom: 0.65rem;
+      max-width: 16ch;
+    }
+    .lead {
+      color: var(--mute);
+      max-width: 40ch;
+      margin-bottom: 1.75rem;
+      font-size: 1.02rem;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      counter-reset: step;
+    }
+    .step {
+      padding-top: 1rem;
+      border-top: 2px solid var(--ink);
+      counter-increment: step;
+    }
+    .step::before {
+      content: counter(step, decimal-leading-zero);
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      margin-bottom: 0.55rem;
+    }
+    .step h3 {
+      font-family: var(--display);
+      font-size: 1.2rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.3rem;
+    }
+    .step p { color: var(--mute); font-size: 0.95rem; }
+
+    /* Demo */
+    .demo {
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(232, 93, 4, 0.05), transparent 40%),
+        var(--paper-2);
+      overflow: hidden;
+    }
+    .demo-stages {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.35);
+    }
+    .demo-stage {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--mute);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.55rem;
+      cursor: pointer;
+    }
+    .demo-stage[aria-current="true"] {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--white);
+    }
+    .demo-track { height: 2px; background: var(--line); }
+    .demo-track > span {
+      display: block;
+      height: 100%;
+      width: 25%;
+      background: var(--accent);
+      transition: width 0.4s var(--ease), margin-left 0.4s var(--ease);
+    }
+    .demo-body {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      min-height: 260px;
+    }
+    .demo-pane {
+      padding: 1.15rem 1.2rem;
+      min-width: 0;
+    }
+    .demo-pane + .demo-pane {
+      border-left: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.45);
+    }
+    .label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mute);
+      margin-bottom: 0.55rem;
+    }
+    .demo-copy {
+      font-size: 0.95rem;
+      max-width: 34ch;
+      margin-bottom: 0.8rem;
+      line-height: 1.45;
+    }
+    .demo-source,
+    .demo-out {
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      line-height: 1.55;
+      min-height: 8.5rem;
+      padding: 0.8rem;
+      border: 1px solid var(--line);
+      background: #fff;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .demo-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.74rem;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+    .demo-table th,
+    .demo-table td {
+      text-align: left;
+      padding: 0.45rem 0.5rem;
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    .demo-table th {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--mute);
+      font-weight: 500;
+    }
+    .demo-badge {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.12rem 0.35rem;
+    }
+    .demo-badge.ok { background: rgba(31, 122, 76, 0.14); color: var(--ok); }
+    .demo-badge.flag { background: rgba(232, 93, 4, 0.14); color: var(--accent-2); }
+    .demo-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      align-items: center;
+      padding: 0.9rem 1rem;
+      border-top: 1px solid var(--line);
+    }
+    .demo-note { font-size: 0.85rem; color: var(--mute); }
+
+    /* Desk */
+    .desk {
+      background: var(--bg);
+      color: var(--white);
+      padding: 4.25rem 0;
+    }
+    .desk .kicker { color: var(--accent); }
+    .desk h2 { color: var(--white); }
+    .desk .lead { color: rgba(244, 245, 247, 0.58); }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+      margin-bottom: 0.9rem;
+    }
+    .chip {
+      appearance: none;
+      border: 1px solid var(--line-dark);
+      background: transparent;
+      color: rgba(244, 245, 247, 0.7);
+      padding: 0.4rem 0.7rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .chip[aria-pressed="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #1a0a00;
+    }
+    .hint { font-size: 0.78rem; color: rgba(244, 245, 247, 0.4); }
+
+    .board {
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      border: 1px solid var(--line-dark);
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .pane { padding: 1.1rem; min-width: 0; }
+    .pane-in {
+      border-right: 1px solid var(--line-dark);
+      background: rgba(0, 0, 0, 0.28);
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .desk .label { color: rgba(244, 245, 247, 0.42); }
+    .editor {
+      width: 100%;
+      min-height: 200px;
+      resize: vertical;
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      line-height: 1.55;
+      color: var(--white);
+      background: #0a0a0c;
+      border: 1px solid var(--line-dark);
+      padding: 0.8rem;
+    }
+    .editor:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .actions .btn {
+      min-height: 2.25rem;
+      padding: 0.4rem 0.75rem;
+      font-size: 0.82rem;
+    }
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem 1rem;
+      font-size: 0.8rem;
+      color: rgba(244, 245, 247, 0.5);
+    }
+    .meta strong { color: var(--accent); font-weight: 600; }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .table th,
+    .table td {
+      text-align: left;
+      padding: 0.5rem 0.35rem;
+      border-bottom: 1px solid var(--line-dark);
+      white-space: nowrap;
+    }
+    .table th {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(244, 245, 247, 0.42);
+      font-weight: 500;
+    }
+    .table tr.warn td:nth-child(3),
+    .table tr.warn td:nth-child(4) { color: #ffb070; }
+    .badge {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.12rem 0.35rem;
+    }
+    .badge-ok { background: rgba(31, 122, 76, 0.28); color: #8fd4ae; }
+    .badge-warn { background: rgba(232, 93, 4, 0.2); color: #ffb070; }
+    .empty {
+      color: rgba(244, 245, 247, 0.42);
+      font-size: 0.9rem;
+      padding: 1.1rem 0;
+    }
+    #parse-body tr { animation: rowIn 0.22s ease both; }
+    @keyframes rowIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Offer */
+    .offer {
+      padding: 4.25rem 0;
+      background:
+        linear-gradient(105deg, rgba(232, 93, 4, 0.08), transparent 40%),
+        var(--paper-2);
+      border-block: 1px solid var(--line);
+    }
+    .price {
+      font-family: var(--display);
+      font-size: clamp(2.5rem, 5vw, 3.4rem);
+      letter-spacing: -0.045em;
+      font-weight: 700;
+      line-height: 1;
+      margin: 0.35rem 0 0.75rem;
+    }
+    .price span {
+      font-family: var(--sans);
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--mute);
+    }
+    .price-note {
+      color: var(--mute);
+      max-width: 38ch;
+      margin-bottom: 1.5rem;
+    }
+    .includes {
+      list-style: none;
+      max-width: 28rem;
+      margin-bottom: 1.5rem;
+    }
+    .includes li {
+      position: relative;
+      padding: 0.5rem 0 0.5rem 1rem;
+      border-bottom: 1px solid var(--line);
+      color: var(--mute);
+    }
+    .includes li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.95rem;
+      width: 0.35rem;
+      height: 0.35rem;
+      background: var(--accent);
+    }
+
+    .close {
+      padding: 4.5rem 0;
+      text-align: left;
+    }
+
+    footer {
+      padding: 1.75rem 0 2.5rem;
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.75rem;
+      color: var(--mute);
+      font-size: 0.9rem;
+    }
+    footer .mark { color: var(--ink); font-weight: 600; }
+    footer .mark span { color: var(--accent); }
+    footer a { text-decoration: none; }
+    footer a:hover { color: var(--ink); }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 1.25rem;
+      transform: translateX(-50%) translateY(120%);
+      background: var(--bg);
+      color: var(--white);
+      border: 1px solid rgba(232, 93, 4, 0.45);
+      padding: 0.7rem 1rem;
+      font-size: 0.86rem;
+      font-weight: 600;
+      z-index: 90;
+      opacity: 0;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      pointer-events: none;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
+    }
+    .reveal.is-in { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      .hero-ui { display: none; }
+      .hero-inner { padding-top: 5rem; max-width: 100%; }
+      .steps, .demo-body, .board { grid-template-columns: 1fr; }
+      .demo-pane + .demo-pane,
+      .pane-in { border-left: 0; border-top: 1px solid var(--line); }
+      .pane-in { border-right: 0; border-bottom: 1px solid var(--line-dark); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+      .brand, .hero h1, .hero-lead, .cta-row, .hero-ui, .hero-rail, .reveal {
+        opacity: 1;
+        transform: none;
+      }
+      html { scroll-behavior: auto; }
+    }
   </style>
 </head>
 <body>
-  <a class="skip" href="#automation">Skip to automation</a>
-  <div class="progress" aria-hidden="true"><span id="scroll-progress"></span></div>
-  <nav class="topnav" id="topnav" aria-label="Primary">
-    <a class="mark" href="#">Fasten<span>ly</span></a>
-    <div class="topnav-links">
-      <a class="hide-sm" href="#automation" data-nav="automation">Automation</a>
-      <a class="hide-sm" href="#desk" data-nav="desk">Desk</a>
-      <a class="hide-sm" href="#monday" data-nav="monday">Monday</a>
-      <a class="hide-sm" href="#process" data-nav="process">Process</a>
-      <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Email a sample</a>
-    </div>
-  </nav>
+  <a class="skip" href="#demo">Skip to demo</a>
+
   <header class="hero">
     <div class="hero-rail" aria-hidden="true"></div>
     <aside class="hero-ui" aria-hidden="true">
-      <div class="hero-ui-bar"><span class="pulse" aria-hidden="true"></span><i></i><i></i><span>what Fastenly does</span></div>
+      <div class="hero-ui-bar"><span class="pulse"></span><span>what Fastenly does</span></div>
       <div class="hero-split">
         <div class="hero-pane messy">
-          <p class="tagline">Your messy notes</p>
+          <p class="tag">Messy notes in</p>
           <pre>ORD-4821 Northline
-owner Sam due today
+owner Sam · due today
 
 ORD-4822 customer TBD
-owner — due tomorrow
+owner — · due tomorrow
 
 TKT-118 access reset
-owner Alex due Thu</pre>
+owner Alex · due Thu</pre>
         </div>
-        <div class="hero-arrow">Fastenly</div>
+        <div class="hero-arrow">becomes</div>
         <div class="hero-pane clean">
-          <p class="tagline">Clean rows out</p>
+          <p class="tag">Clean rows out</p>
           <table>
             <thead><tr><th>Ref</th><th>Owner</th><th>Due</th><th></th></tr></thead>
             <tbody>
@@ -1804,56 +724,61 @@ owner Alex due Thu</pre>
           </table>
         </div>
       </div>
-      <div class="hero-ui-foot">
-        <div><strong>private</strong> site for your company</div>
-        <div><strong>first module</strong> in ~2 weeks</div>
-        <div><strong>then</strong> add more on same login</div>
-      </div>
     </aside>
 
     <div class="wrap hero-inner">
       <p class="brand">Fasten<span>ly</span></p>
-      <h1>Turn messy repeat work into clean sheets.</h1>
+      <h1>Messy work in. Clean sheets out.</h1>
       <p class="hero-lead">
-        We build your company a private website that does the weekly retyping — paste notes in, get clean rows out, flag the gaps.
+        A private website for your company that does the weekly retyping — then grows with more automations on the same login.
       </p>
       <div class="cta-row">
         <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Send a messy sample</a>
-        <a class="btn btn-ghost" href="#automation">Watch a 20-second demo</a>
+        <a class="btn btn-ghost" href="#demo">See it work</a>
       </div>
     </div>
-    <a class="scroll-cue" href="#plain"><span>What this is</span><i></i></a>
   </header>
 
-  <div class="plain" id="plain">
-    <div class="wrap plain-inner">
-      <p class="say">In one line</p>
-      <p>Fastenly is <em>not</em> shared SaaS. It’s a private desk we build for your team — start with one painful workflow, then stack more automations on the same login.</p>
-    </div>
-  </div>
-
-  <section id="automation" class="reveal">
+  <section id="how" class="reveal">
     <div class="wrap">
-      <p class="kicker">The job it does</p>
-      <h2>Paste messy work. Get a clean board.</h2>
-      <p class="lead">This is the first module most teams start with: notes and dumps become rows you can copy or export — with gaps flagged before handoff.</p>
+      <p class="kicker">How it works</p>
+      <h2>Three steps. That’s it.</h2>
+      <p class="lead">No shared SaaS. We build a private desk for your team.</p>
+      <div class="steps">
+        <article class="step">
+          <h3>Send a sample</h3>
+          <p>One redacted messy workflow. We return a clean test free.</p>
+        </article>
+        <article class="step">
+          <h3>We build your desk</h3>
+          <p>Private login, your columns, live in about two weeks.</p>
+        </article>
+        <article class="step">
+          <h3>Add more later</h3>
+          <p>Checks, merges, chase lists — same site, no rebuild.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo" class="reveal">
+    <div class="wrap">
+      <p class="kicker">Watch once</p>
+      <h2>Paste → clean board.</h2>
+      <p class="lead">This is the first job most teams automate.</p>
 
       <div class="demo" id="auto-demo" aria-live="polite">
-        <div class="demo-top">
-          <div class="demo-stages" role="tablist" aria-label="Automation stages">
-            <button type="button" class="demo-stage" data-stage="0" aria-current="true">01 Paste</button>
-            <button type="button" class="demo-stage" data-stage="1" aria-current="false">02 Parse</button>
-            <button type="button" class="demo-stage" data-stage="2" aria-current="false">03 Flag</button>
-            <button type="button" class="demo-stage" data-stage="3" aria-current="false">04 Export</button>
-          </div>
-          <span class="demo-pct" id="demo-pct">1 / 4</span>
-          <button type="button" class="btn btn-ghost" id="btn-demo-replay" style="min-height:2.1rem;padding:0.35rem 0.7rem;font-size:0.8rem;border-color:var(--line);color:var(--ink)">Replay</button>
+        <div class="demo-stages" role="tablist" aria-label="Steps">
+          <button type="button" class="demo-stage" data-stage="0" aria-current="true">01 Paste</button>
+          <button type="button" class="demo-stage" data-stage="1" aria-current="false">02 Parse</button>
+          <button type="button" class="demo-stage" data-stage="2" aria-current="false">03 Flag</button>
+          <button type="button" class="demo-stage" data-stage="3" aria-current="false">04 Export</button>
         </div>
         <div class="demo-track" aria-hidden="true"><span id="demo-track-bar"></span></div>
         <div class="demo-body">
           <div class="demo-pane">
-            <p class="label" id="demo-left-label">Inbound text</p>
-            <p class="demo-copy" id="demo-explain">Someone pastes the week’s messy notes, forms, or dumps — no cleanup first.</p>
+            <p class="label" id="demo-left-label">Messy input</p>
+            <p class="demo-copy" id="demo-explain">Someone pastes the week’s notes — no cleanup first.</p>
             <div class="demo-source" id="demo-source"></div>
           </div>
           <div class="demo-pane">
@@ -1862,1375 +787,408 @@ owner Alex due Thu</pre>
           </div>
         </div>
         <div class="demo-actions">
-          <button type="button" class="btn btn-ink" id="btn-see-run">Open the live desk with this sample</button>
-          <p class="demo-note">Loads the same example below so you can paste, filter, copy, and export yourself.</p>
+          <button type="button" class="btn btn-ink" id="btn-see-run">Try it yourself below</button>
+          <p class="demo-note">Opens the live desk with this sample.</p>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section id="how" class="reveal">
-    <div class="wrap">
-      <p class="kicker">How buying works</p>
-      <h2>One workflow first. More later.</h2>
-      <p class="lead">You keep your spreadsheets and tools. Fastenly sits beside them as your private automation desk.</p>
-      <div class="steps">
-        <article class="step">
-          <h3>Pick the worst loop</h3>
-          <p>The thing someone still retypes, rebuilds, or chases every week.</p>
-        </article>
-        <article class="step">
-          <h3>We build Module 01</h3>
-          <p>Your private login, your columns, preview + export — live in about two weeks.</p>
-        </article>
-        <article class="step">
-          <h3>Add the next jobs</h3>
-          <p>Checks, merges, chase lists, reports — same desk, no starting over.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="uses" class="reveal alt">
-    <div class="wrap">
-      <p class="kicker">Use it for</p>
-      <h2>Any messy-to-clean loop</h2>
-      <p class="lead">Ops, admin, sales, support, finance, logistics — if it repeats, it belongs here.</p>
-      <div class="uses">
-        <article>
-          <h3>Parse</h3>
-          <p>Turn notes, forms, and dumps into the sheet layout you already run.</p>
-        </article>
-        <article>
-          <h3>Check</h3>
-          <p>Catch blanks, bad fields, and “TBD” before work moves on.</p>
-        </article>
-        <article>
-          <h3>Merge</h3>
-          <p>Combine sources into one board without rebuilding columns.</p>
-        </article>
-        <article>
-          <h3>Chase</h3>
-          <p>Pull exceptions into a short list someone can actually finish.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="modules" class="reveal">
-    <div class="wrap">
-      <p class="kicker">Modules</p>
-      <h2>A desk, not a one-off script</h2>
-      <p class="lead">Start wherever it hurts. Leave room for everything else.</p>
-      <ul class="mod-list">
-        <li>
-          <span class="tag live">Live demo</span>
-          <div>
-            <h3>Parse → clean rows</h3>
-            <p>Paste or upload. Preview. Copy or CSV. Mapped to your columns in production.</p>
-          </div>
-        </li>
-        <li>
-          <span class="tag">Next</span>
-          <div>
-            <h3>Quality checks</h3>
-            <p>Missing owners, dues, IDs, addresses — flagged before handoff.</p>
-          </div>
-        </li>
-        <li>
-          <span class="tag">Next</span>
-          <div>
-            <h3>Format normaliser</h3>
-            <p>Different inbound templates, one consistent export.</p>
-          </div>
-        </li>
-        <li>
-          <span class="tag">Next</span>
-          <div>
-            <h3>Board merge</h3>
-            <p>Multiple sources into one working board, with history.</p>
-          </div>
-        </li>
-        <li>
-          <span class="tag">Next</span>
-          <div>
-            <h3>Chase &amp; report packs</h3>
-            <p>Weekly digests and exception lists without the rebuild.</p>
-          </div>
-        </li>
-        <li>
-          <span class="tag">Next</span>
-          <div>
-            <h3>Your workflow</h3>
-            <p>If the team does it every week, we can usually automate it from samples.</p>
-          </div>
-        </li>
-      </ul>
     </div>
   </section>
 
   <div class="desk reveal" id="desk">
     <div class="wrap">
-      <p class="kicker">Try the desk</p>
-      <h2>This is the product — click around.</h2>
-      <p class="lead">Parse turns messy text into rows. Checks finds gaps. Merge combines sources. Yours is where we scope your workflow.</p>
+      <p class="kicker">Try it</p>
+      <h2>Paste your own. Or use a sample.</h2>
+      <p class="lead">Live demo — production uses your columns and layout.</p>
 
-      <div class="desk-chrome">
-        <span><strong id="desk-clock">--:--</strong> desk session</span>
-        <span>module <strong id="desk-module">parse</strong></span>
-        <span>shortcuts <kbd>1</kbd>–<kbd>4</kbd> · <kbd>⌘</kbd>/<kbd>Ctrl</kbd>+<kbd>Enter</kbd> · <kbd>⌘</kbd>/<kbd>Ctrl</kbd>+<kbd>K</kbd></span>
-        <button type="button" class="focus-btn" id="btn-focus" aria-pressed="false">Focus desk</button>
+      <div class="chips" role="group" aria-label="Samples">
+        <button type="button" class="chip" data-sample="orders" aria-pressed="false">Orders</button>
+        <button type="button" class="chip" data-sample="leads" aria-pressed="false">Leads</button>
+        <button type="button" class="chip" data-sample="tickets" aria-pressed="false">Tickets</button>
+        <button type="button" class="chip" data-sample="ops" aria-pressed="false">Ops</button>
+        <span class="hint">or paste anything</span>
       </div>
 
-      <div class="tabs" role="tablist" aria-label="Modules">
-        <button type="button" class="tab" role="tab" id="tab-parse" aria-controls="panel-parse" aria-selected="true" data-panel="parse">01 Parse</button>
-        <button type="button" class="tab" role="tab" id="tab-checks" aria-controls="panel-checks" aria-selected="false" data-panel="checks">02 Checks</button>
-        <button type="button" class="tab" role="tab" id="tab-merge" aria-controls="panel-merge" aria-selected="false" data-panel="merge">03 Merge</button>
-        <button type="button" class="tab" role="tab" id="tab-custom" aria-controls="panel-custom" aria-selected="false" data-panel="custom">04 Yours</button>
-      </div>
-
-      <div class="panel" id="panel-parse" role="tabpanel" aria-labelledby="tab-parse">
-        <div class="chips" role="group" aria-label="Samples">
-          <button type="button" class="chip" data-sample="orders" aria-pressed="false">Orders</button>
-          <button type="button" class="chip" data-sample="leads" aria-pressed="false">Leads</button>
-          <button type="button" class="chip" data-sample="tickets" aria-pressed="false">Tickets</button>
-          <button type="button" class="chip" data-sample="ops" aria-pressed="false">Ops</button>
-          <span class="hint">or drop a .txt file</span>
-        </div>
-
-        <div class="board">
-          <div class="pane pane-in">
-            <p class="label">Input</p>
-            <label class="sr-only" for="job-paste">Paste</label>
-            <textarea id="job-paste" class="editor" spellcheck="false" placeholder="Paste messy workflow text…"></textarea>
-            <input type="file" id="job-file" class="sr-only" accept=".txt,text/plain" />
-            <div class="actions">
-              <button type="button" class="btn btn-primary" id="btn-parse">Parse</button>
-              <button type="button" class="btn btn-ghost" id="btn-upload">Upload</button>
-              <button type="button" class="btn btn-ghost" id="btn-clear">Clear</button>
-              <button type="button" class="btn btn-ghost" id="btn-copy" disabled>Copy</button>
-              <button type="button" class="btn btn-ghost" id="btn-csv" disabled>CSV</button>
-            </div>
-            <div class="meta">
-              <span><strong>Live</strong> as you type</span>
-              <span><strong>Reads</strong> ref · type · owner · due</span>
-            </div>
-            <div>
-              <p class="label" style="margin-bottom:0.4rem">Recent</p>
-              <div class="history" id="history-strip"></div>
-            </div>
-          </div>
-          <div class="pane">
-            <p class="label">Preview</p>
-            <div class="diff-toggle" role="group" aria-label="View mode">
-              <button type="button" id="view-rows" aria-pressed="true">Rows</button>
-              <button type="button" id="view-diff" aria-pressed="false">Diff</button>
-            </div>
-            <div class="diff-view" id="diff-view" aria-hidden="true">
-              <div class="side"><p class="label">Raw</p><pre id="diff-raw"></pre></div>
-              <div class="side"><p class="label">Structured</p><pre id="diff-structured"></pre></div>
-            </div>
-            <div class="filters" role="group" aria-label="Filter">
-              <button type="button" class="filter" data-filter="all" aria-pressed="true">All</button>
-              <button type="button" class="filter" data-filter="Order" aria-pressed="false">Orders</button>
-              <button type="button" class="filter" data-filter="Lead" aria-pressed="false">Leads</button>
-              <button type="button" class="filter" data-filter="Ticket" aria-pressed="false">Tickets</button>
-              <button type="button" class="filter" data-filter="Job" aria-pressed="false">Ops</button>
-              <button type="button" class="filter" data-filter="Check" aria-pressed="false">Flags</button>
-            </div>
-            <div id="parse-empty" class="empty">Load a sample or paste to preview rows.</div>
-            <table class="table" id="parse-table" hidden>
-              <thead>
-                <tr>
-                  <th>Ref</th>
-                  <th>Type</th>
-                  <th>Owner</th>
-                  <th>Due</th>
-                  <th>Detail</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody id="parse-body"></tbody>
-            </table>
-            <div class="meta" id="parse-meta" hidden>
-              <span id="parse-count"></span>
-              <span>Demo · production uses <strong>your</strong> columns</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel" id="panel-checks" role="tabpanel" aria-labelledby="tab-checks" hidden>
-        <div class="preview">
-          <h3>Quality checks</h3>
-          <p>Run the checker on the current parse — or load a sample with known gaps.</p>
+      <div class="board">
+        <div class="pane pane-in">
+          <p class="label">Input</p>
+          <label class="sr-only" for="job-paste">Paste</label>
+          <textarea id="job-paste" class="editor" spellcheck="false" placeholder="Paste messy workflow text…"></textarea>
           <div class="actions">
-            <button type="button" class="btn btn-primary" id="btn-run-checks">Run checks</button>
-            <button type="button" class="btn btn-ghost" id="btn-checks-sample">Load gappy sample</button>
+            <button type="button" class="btn btn-primary" id="btn-parse">Parse</button>
+            <button type="button" class="btn btn-ghost" id="btn-clear">Clear</button>
+            <button type="button" class="btn btn-ghost" id="btn-copy" disabled>Copy</button>
+            <button type="button" class="btn btn-ghost" id="btn-csv" disabled>CSV</button>
           </div>
-          <div class="live-board">
-            <div class="pane">
-              <p class="label">Exceptions</p>
-              <div class="issue" id="checks-list"><p class="empty">Run checks to list gaps.</p></div>
-            </div>
-            <div class="pane">
-              <p class="label">Summary</p>
-              <div class="meta" id="checks-summary"><span>Waiting…</span></div>
-              <div class="sev" id="checks-sev" hidden>
-                <span class="bad" id="sev-bad">0 flags</span>
-                <span class="ok" id="sev-ok">0 ready</span>
-              </div>
-              <div class="actions">
-                <button type="button" class="btn btn-ghost" id="btn-copy-flags" disabled>Copy exceptions</button>
-              </div>
-              <ul style="margin-top:0.85rem">
-                <li><strong>Flag</strong> missing owners, dues, IDs</li>
-                <li><strong>Highlight</strong> TBD / incomplete values</li>
-                <li><strong>Export</strong> clean board + exceptions list</li>
-              </ul>
-            </div>
+          <div class="meta">
+            <span><strong>Live</strong> as you type</span>
           </div>
         </div>
-      </div>
-
-      <div class="panel" id="panel-merge" role="tabpanel" aria-labelledby="tab-merge" hidden>
-        <div class="preview">
-          <h3>Board merge</h3>
-          <p>Two inbound formats into one working board — duplicates and missing keys surface automatically.</p>
-          <div class="actions">
-            <button type="button" class="btn btn-primary" id="btn-run-merge">Merge sources</button>
-            <button type="button" class="btn btn-ghost" id="btn-reset-merge">Reset</button>
-          </div>
-          <div class="merge-cols">
-            <div class="merge-col">
-              <p class="label">Source A · CRM</p>
-              <pre id="merge-a">LEAD-901 · Cedar &amp; Co · Jordan · Fri
-LEAD-902 · Unknown · — · TBD
-LEAD-904 · Harbor Ltd · Sam · Mon</pre>
-            </div>
-            <div class="merge-col">
-              <p class="label">Source B · Forms</p>
-              <pre id="merge-b">LEAD-902 · Unknown · Riley · Wed
-LEAD-903 · Maple Works · Riley · Wed
-LEAD-904 · Harbor Ltd · Sam · Mon</pre>
-            </div>
-            <div class="merge-col">
-              <p class="label">Merged board</p>
-              <div id="merge-out"><p class="empty">Hit merge to combine.</p></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel" id="panel-custom" role="tabpanel" aria-labelledby="tab-custom" hidden>
-        <div class="preview">
-          <h3>Your workflow</h3>
-          <p>Pick the loop that burns the most time — we’ll scope Module 01 from a redacted sample.</p>
-          <div class="custom-grid" role="group" aria-label="Workflow types">
-            <button type="button" class="custom-pick" data-flow="Orders / fulfilment" aria-pressed="false"><strong>Orders</strong><span>Notes → clean board + flags</span></button>
-            <button type="button" class="custom-pick" data-flow="Leads / chase list" aria-pressed="false"><strong>Leads</strong><span>Dumps → owners and dues</span></button>
-            <button type="button" class="custom-pick" data-flow="Tickets / support" aria-pressed="false"><strong>Tickets</strong><span>Paste → triage board</span></button>
-            <button type="button" class="custom-pick" data-flow="Ops / run sheet" aria-pressed="false"><strong>Ops</strong><span>Job notes → daily sheet</span></button>
-            <button type="button" class="custom-pick" data-flow="Finance exceptions" aria-pressed="false"><strong>Finance</strong><span>Dumps → exception list</span></button>
-            <button type="button" class="custom-pick" data-flow="Custom weekly loop" aria-pressed="false"><strong>Custom</strong><span>Any messy-to-clean loop</span></button>
-          </div>
-          <div class="actions" style="margin-top:1rem">
-            <a class="btn btn-primary" id="btn-custom-mail" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Email this sample</a>
-            <span class="hint" id="custom-hint">Choose a workflow first</span>
+        <div class="pane">
+          <p class="label">Clean rows</p>
+          <div id="parse-empty" class="empty">Load a sample or paste to preview.</div>
+          <table class="table" id="parse-table" hidden>
+            <thead>
+              <tr>
+                <th>Ref</th>
+                <th>Type</th>
+                <th>Owner</th>
+                <th>Due</th>
+                <th>Detail</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="parse-body"></tbody>
+          </table>
+          <div class="meta" id="parse-meta" hidden>
+            <span id="parse-count"></span>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"><span id="toast-msg"></span><button type="button" id="toast-action" hidden>Undo</button></div>
-
-  <div class="cmd" id="cmd" role="dialog" aria-modal="true" aria-label="Command palette" hidden>
-    <div class="cmd-box">
-      <input id="cmd-input" type="text" placeholder="Jump, load sample, run module…" autocomplete="off" />
-      <div class="cmd-list" id="cmd-list"></div>
-      <div class="cmd-hint">Esc close · ↑↓ move · Enter run · ⌘K / Ctrl K open</div>
-    </div>
-  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <div class="offer reveal" id="pilot">
     <div class="wrap">
-      <p class="kicker">Pilot pricing</p>
-      <h2>Start small. Stay private. Keep growing.</h2>
-      <p class="lead">Built to be affordable for real ops teams — not enterprise theatre.</p>
-      <div class="offer-grid">
-        <div class="price-block">
-          <p class="price-was">Simple pilot · no annual lock-in</p>
-          <p class="price">£795 <span>+ £49/month</span></p>
-          <p class="price-why">Roughly a couple of days of manual ops time — then the desk keeps working every week.</p>
-          <ul class="includes">
-            <li>Private multi-module desk for your staff</li>
-            <li>First automation of your choosing</li>
-            <li>Preview, export, flags where useful</li>
-            <li>Room to add modules without a rebuild</li>
-            <li>Training call + 14 days email support</li>
-          </ul>
-          <p class="note">Extra modules from £195 once scoped. Cancel hosting anytime — keep every file you exported.</p>
-          <div class="calc" id="roi-calc">
-            <div class="calc-grid">
-              <label>Hours / week wasted<input id="roi-hours" type="number" min="1" max="40" value="4" /></label>
-              <label>People on the loop<input id="roi-people" type="number" min="1" max="30" value="2" /></label>
-              <label>£ / hour (loaded)<input id="roi-rate" type="number" min="10" max="200" value="35" /></label>
-            </div>
-            <p class="calc-out" id="roi-out">About <strong>£1,120</strong> / month of grind</p>
-            <p class="calc-note">Pilot pays back when you clear roughly one busy afternoon a week.</p>
-          </div>
-          <a class="btn btn-ink" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20pilot">Start for £795</a>
-        </div>
-        <aside class="compare" aria-label="Cost comparison">
-          <h3>Compared to doing nothing</h3>
-          <dl>
-            <div>
-              <dt>Freelance rebuild each time</dt>
-              <dd>£400–£900+</dd>
-            </div>
-            <div>
-              <dt>Shared SaaS seats / year</dt>
-              <dd>£600–£2k+</dd>
-            </div>
-            <div>
-              <dt>Hours lost retyping weekly</dt>
-              <dd>adds up fast</dd>
-            </div>
-            <div>
-              <dt>Fastenly pilot</dt>
-              <dd>£795 + £49/mo</dd>
-            </div>
-          </dl>
-        </aside>
-      </div>
+      <p class="kicker">Price</p>
+      <h2>Simple pilot.</h2>
+      <p class="price">£795 <span>+ £49/month</span></p>
+      <p class="price-note">Private desk + first automation. Extra modules from £195. Cancel hosting anytime.</p>
+      <ul class="includes">
+        <li>Private site for your staff only</li>
+        <li>First workflow live in ~2 weeks</li>
+        <li>Room to add more modules later</li>
+        <li>Training call + 14 days support</li>
+      </ul>
+      <a class="btn btn-ink" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20pilot">Start for £795</a>
     </div>
   </div>
-
-
-  <section id="monday" class="reveal">
-    <div class="wrap">
-      <p class="kicker">After go-live</p>
-      <h2>What Monday morning looks like</h2>
-      <p class="lead">The desk is already warm. Your team opens one login and the worst loop is gone.</p>
-      <div class="monday">
-        <article>
-          <p class="when">09:05</p>
-          <h3>Paste the pile</h3>
-          <p>Inbound notes land in Module 01 — no retyping into the sheet.</p>
-        </article>
-        <article>
-          <p class="when">09:07</p>
-          <h3>Flags surface</h3>
-          <p>Missing owners and TBD dues light up before anything is handed off.</p>
-        </article>
-        <article>
-          <p class="when">09:10</p>
-          <h3>Export once</h3>
-          <p>Copy or CSV into the board you already run. History stays on the desk.</p>
-        </article>
-        <article>
-          <p class="when">Later</p>
-          <h3>Stack the next</h3>
-          <p>Checks, merge, chase — same login, no rebuild when the next grind shows up.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="fit" class="reveal">
-    <div class="wrap">
-      <p class="kicker">Fit</p>
-      <h2>Built for teams with a pile, not a toy problem</h2>
-      <p class="lead">If people still copy, check, and rebuild the same work by hand, you’re in range.</p>
-      <div class="fit">
-        <div>
-          <h3>Strong fit</h3>
-          <ul>
-            <li><strong>Ops &amp; admin</strong> with several weekly manual loops</li>
-            <li><strong>Mixed inbound formats</strong> that still end in the same sheet</li>
-            <li><strong>Private tooling</strong> you can grow module by module</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Skip if</h3>
-          <ul>
-            <li><strong>One platform already covers</strong> the whole workflow</li>
-            <li><strong>You want shared multi-tenant SaaS</strong> only</li>
-            <li><strong>You need a throwaway script</strong> with no desk behind it</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="process" class="reveal alt">
-    <div class="wrap">
-      <p class="kicker">How we work with you</p>
-      <h2>Sample first. Pilot next. Stack forever.</h2>
-      <p class="lead">No generic automation pitch. You feel the work before you pay.</p>
-      <div class="steps steps-4">
-        <article class="step">
-          <h3>Send a sample</h3>
-          <p>One redacted messy workflow. Same-week clean test back — free.</p>
-        </article>
-        <article class="step">
-          <h3>Busywork Audit</h3>
-          <p>20 minutes. Rank your top loops. Leave with a module shortlist.</p>
-        </article>
-        <article class="step">
-          <h3>Pilot the desk</h3>
-          <p>£795 + £49/mo. Module 01 live in ~2 weeks on your private login.</p>
-        </article>
-        <article class="step">
-          <h3>Stack &amp; refer</h3>
-          <p>Add modules from £195. Twin £100 credits when intros close.</p>
-        </article>
-      </div>
-      <div class="promise">
-        <article>
-          <h3>Same-week sample SLA</h3>
-          <p>In by Wednesday → clean test by Friday.</p>
-        </article>
-        <article>
-          <h3>Risk reversal</h3>
-          <p>Unused in 14 days → free Module 02 scope or build-fee refund.</p>
-        </article>
-        <article>
-          <h3>Open Desk Hour</h3>
-          <p>Weekly live slot: paste a workflow, leave with a clean test.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="faq" class="reveal">
-    <div class="wrap">
-      <p class="kicker">FAQ</p>
-      <h2>Before the call</h2>
-      <div class="faq">
-        <details>
-          <summary>Is this industry-locked?</summary>
-          <p>No. Any team with repeat messy-to-clean work. Ops, admin, sales, support, finance, logistics — same desk idea.</p>
-        </details>
-        <details>
-          <summary>Is it only parse-to-spreadsheet?</summary>
-          <p>That’s the live demo and a common first module. The product is built for many automations on one private site.</p>
-        </details>
-        <details>
-          <summary>Shared SaaS?</summary>
-          <p>No. Private build and login per customer.</p>
-        </details>
-        <details>
-          <summary>How do extra modules work?</summary>
-          <p>Same desk, new scope — from £195 after samples. Hosting is £49/mo and cancel-anytime.</p>
-        </details>
-        <details>
-          <summary>What if Module 01 doesn’t stick?</summary>
-          <p>If it isn’t in real use within 14 days, you get a free Module 02 scope pass or a refund of the £795 build fee.</p>
-        </details>
-        <details>
-          <summary>Can I try before paying?</summary>
-          <p>Yes — email a redacted sample for a free clean test, or join Open Desk Hour and paste one live.</p>
-        </details>
-      </div>
-    </div>
-  </section>
 
   <section class="close reveal" id="contact">
     <div class="wrap">
       <p class="kicker">Next</p>
-      <h2>Send one messy example. We’ll send a clean test back.</h2>
-      <p class="lead">Free, same week. If it’s useful, we build your private desk around that workflow for £795 + £49/mo.</p>
+      <h2>Send one messy example.</h2>
+      <p class="lead">We’ll return a clean test the same week — free. If it helps, we build the desk.</p>
       <div class="cta-row" style="opacity:1;animation:none">
         <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample" style="color:#1a0a00">Email a sample</a>
-        <a class="btn btn-ink" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20Busywork%20Audit">Book a Busywork Audit</a>
-        <a class="btn btn-line" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20Open%20Desk%20Hour">Ask about Open Desk Hour</a>
+        <a class="btn btn-ink" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20pilot">Book a call</a>
       </div>
     </div>
   </section>
 
   <footer class="wrap">
-    <p><span class="mark">Fastenly</span> — private desks that turn messy repeat work into clean sheets</p>
+    <p><span class="mark">Fasten<span>ly</span></span> — messy work in, clean sheets out</p>
     <p><a href="mailto:YOU@EXAMPLE.com">YOU@EXAMPLE.com</a></p>
   </footer>
 
   <script>
-    (function () {
-      var stages = [
-        {
-          left: "Inbound text",
-          right: "Waiting",
-          explain: "Someone pastes the week’s messy notes, forms, or dumps — <strong>no cleanup first</strong>.",
-          source: "REF ORD-4821\nType: Order\nCustomer: Northline Supplies\nOwner: Sam\nDue: Today\n\nREF ORD-4822\nType: Order\nCustomer: TBD\nOwner:\nDue: Tomorrow",
-          result: "idle"
-        },
-        {
-          left: "Inbound text",
-          right: "Parsing…",
-          explain: "Fastenly reads refs, types, owners, and dues — the same fields your sheet already uses.",
-          source: "REF ORD-4821\nType: Order\nCustomer: Northline Supplies\nOwner: Sam\nDue: Today\n\nREF ORD-4822\nType: Order\nCustomer: TBD\nOwner:\nDue: Tomorrow",
-          result: "scanning"
-        },
-        {
-          left: "Inbound text",
-          right: "Clean rows + flags",
-          explain: "Rows land in a preview. Missing owner or TBD values get <strong>flagged</strong> before handoff.",
-          source: "REF ORD-4821\nType: Order\nCustomer: Northline Supplies\nOwner: Sam\nDue: Today\n\nREF ORD-4822\nType: Order\nCustomer: TBD\nOwner:\nDue: Tomorrow",
-          result: "table"
-        },
-        {
-          left: "Inbound text",
-          right: "Ready to hand off",
-          explain: "Copy or CSV out. History stays on the desk. Next module stacks on the <strong>same login</strong>.",
-          source: "REF ORD-4821\nType: Order\nCustomer: Northline Supplies\nOwner: Sam\nDue: Today\n\nREF ORD-4822\nType: Order\nCustomer: TBD\nOwner:\nDue: Tomorrow",
-          result: "export"
-        }
-      ];
+  (function () {
+    var stages = [
+      {
+        left: "Messy input",
+        right: "Waiting",
+        explain: "Someone pastes the week’s notes — no cleanup first.",
+        source: "REF ORD-4821\nType: Order\nCustomer: Northline\nOwner: Sam\nDue: Today\n\nREF ORD-4822\nType: Order\nCustomer: TBD\nOwner:\nDue: Tomorrow",
+        result: "idle"
+      },
+      {
+        left: "Messy input",
+        right: "Parsing…",
+        explain: "Fastenly reads refs, owners, and dues into your sheet layout.",
+        source: "REF ORD-4821\nType: Order\nCustomer: Northline\nOwner: Sam\nDue: Today\n\nREF ORD-4822\nType: Order\nCustomer: TBD\nOwner:\nDue: Tomorrow",
+        result: "scanning"
+      },
+      {
+        left: "Messy input",
+        right: "Clean rows",
+        explain: "Gaps get flagged before anything is handed off.",
+        source: "REF ORD-4821\nType: Order\nCustomer: Northline\nOwner: Sam\nDue: Today\n\nREF ORD-4822\nType: Order\nCustomer: TBD\nOwner:\nDue: Tomorrow",
+        result: "table"
+      },
+      {
+        left: "Messy input",
+        right: "Ready",
+        explain: "Copy or CSV out. Next module stacks on the same login.",
+        source: "REF ORD-4821\nType: Order\nCustomer: Northline\nOwner: Sam\nDue: Today\n\nREF ORD-4822\nType: Order\nCustomer: TBD\nOwner:\nDue: Tomorrow",
+        result: "export"
+      }
+    ];
 
-      var idx = 0;
-      var timer = null;
-      var sourceEl = document.getElementById("demo-source");
-      var resultEl = document.getElementById("demo-result");
-      var explainEl = document.getElementById("demo-explain");
-      var leftLabel = document.getElementById("demo-left-label");
-      var rightLabel = document.getElementById("demo-right-label");
-      var stageBtns = Array.prototype.slice.call(document.querySelectorAll(".demo-stage"));
-      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var idx = 0;
+    var timer = null;
+    var sourceEl = document.getElementById("demo-source");
+    var resultEl = document.getElementById("demo-result");
+    var explainEl = document.getElementById("demo-explain");
+    var leftLabel = document.getElementById("demo-left-label");
+    var rightLabel = document.getElementById("demo-right-label");
+    var stageBtns = Array.prototype.slice.call(document.querySelectorAll(".demo-stage"));
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      function renderResult(kind) {
-        resultEl.textContent = "";
-        if (kind === "idle") {
-          resultEl.innerHTML = '<div class="demo-out">Paste lands here.\nNothing leaves until you export.</div>';
-          return;
-        }
-        if (kind === "scanning") {
-          resultEl.innerHTML = '<div class="demo-out">Reading blocks…\nMapping: ref · type · owner · due\nChecking blanks…</div>';
-          sourceEl.classList.add("is-scanning");
-          setTimeout(function () { sourceEl.classList.remove("is-scanning"); }, 900);
-          return;
-        }
-        if (kind === "table") {
-          resultEl.innerHTML =
-            '<table class="demo-table"><thead><tr><th>Ref</th><th>Owner</th><th>Due</th><th>Status</th></tr></thead><tbody>' +
-            '<tr style="animation-delay:0s"><td>ORD-4821</td><td>Sam</td><td>Today</td><td><span class="demo-badge ok">Ready</span></td></tr>' +
-            '<tr style="animation-delay:0.08s"><td>ORD-4822</td><td class="warn">—</td><td>Tomorrow</td><td><span class="demo-badge flag">Flag</span></td></tr>' +
-            "</tbody></table>";
-          return;
-        }
+    function renderResult(kind) {
+      resultEl.textContent = "";
+      if (kind === "idle") {
+        resultEl.innerHTML = '<div class="demo-out">Paste lands here.\nNothing leaves until you export.</div>';
+        return;
+      }
+      if (kind === "scanning") {
+        resultEl.innerHTML = '<div class="demo-out">Reading blocks…\nMapping: ref · owner · due\nChecking blanks…</div>';
+        return;
+      }
+      if (kind === "table") {
         resultEl.innerHTML =
-          '<ul class="demo-export">' +
-          '<li style="animation-delay:0s"><span>Copy</span> Tab-ready rows for your sheet</li>' +
-          '<li style="animation-delay:0.06s"><span>CSV</span> Download for the next handoff</li>' +
-          '<li style="animation-delay:0.12s"><span>Flags</span> Gaps listed before work moves</li>' +
-          '<li style="animation-delay:0.18s"><span>Next</span> Checks / merge / chase on same desk</li>' +
-          "</ul>";
+          '<table class="demo-table"><thead><tr><th>Ref</th><th>Owner</th><th>Due</th><th>Status</th></tr></thead><tbody>' +
+          '<tr><td>ORD-4821</td><td>Sam</td><td>Today</td><td><span class="demo-badge ok">Ready</span></td></tr>' +
+          '<tr><td>ORD-4822</td><td style="color:#b45309">—</td><td>Tomorrow</td><td><span class="demo-badge flag">Flag</span></td></tr>' +
+          "</tbody></table>";
+        return;
       }
+      resultEl.innerHTML = '<div class="demo-out">CSV / copy ready\nFlags listed\nNext module can land\non the same desk</div>';
+    }
 
-      function showStage(n, userDriven) {
-        idx = (n + stages.length) % stages.length;
-        var s = stages[idx];
-        leftLabel.textContent = s.left;
-        rightLabel.textContent = s.right;
-        explainEl.innerHTML = s.explain;
-        sourceEl.textContent = s.source;
-        stageBtns.forEach(function (btn, i) {
-          btn.setAttribute("aria-current", i === idx ? "true" : "false");
-        });
-        var bar = document.getElementById("demo-track-bar");
-        if (bar) {
-          bar.style.width = (100 / stages.length) + "%";
-          bar.style.marginLeft = (idx * (100 / stages.length)) + "%";
-        }
-        var pct = document.getElementById("demo-pct");
-        if (pct) pct.textContent = (idx + 1) + " / " + stages.length;
-        renderResult(s.result);
-        if (userDriven) restartAuto();
-      }
-
-      function nextStage() { showStage(idx + 1, false); }
-
-      function restartAuto() {
-        clearInterval(timer);
-        if (reduceMotion) return;
-        timer = setInterval(nextStage, 2600);
-      }
-
-      stageBtns.forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          showStage(parseInt(btn.getAttribute("data-stage"), 10) || 0, true);
-        });
+    function showStage(n) {
+      idx = (n + stages.length) % stages.length;
+      var s = stages[idx];
+      leftLabel.textContent = s.left;
+      rightLabel.textContent = s.right;
+      explainEl.textContent = s.explain;
+      sourceEl.textContent = s.source;
+      stageBtns.forEach(function (btn, i) {
+        btn.setAttribute("aria-current", i === idx ? "true" : "false");
       });
-
-      var replay = document.getElementById("btn-demo-replay");
-      if (replay) {
-        replay.addEventListener("click", function () {
-          showStage(0, true);
-        });
+      var bar = document.getElementById("demo-track-bar");
+      if (bar) {
+        bar.style.width = (100 / stages.length) + "%";
+        bar.style.marginLeft = (idx * (100 / stages.length)) + "%";
       }
+      renderResult(s.result);
+    }
 
-      showStage(0, false);
-      restartAuto();
+    function restartAuto() {
+      clearInterval(timer);
+      if (reduceMotion) return;
+      timer = setInterval(function () { showStage(idx + 1); }, 2600);
+    }
 
-      var demoRoot = document.getElementById("auto-demo");
-      if (demoRoot && !reduceMotion) {
-        demoRoot.addEventListener("mouseenter", function () {
-          clearInterval(timer);
-          demoRoot.classList.add("is-paused");
-        });
-        demoRoot.addEventListener("mouseleave", function () {
-          demoRoot.classList.remove("is-paused");
-          restartAuto();
-        });
-      }
-
-      if ("IntersectionObserver" in window && !reduceMotion) {
-        var demo = document.getElementById("auto-demo");
-        var observer = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) restartAuto();
-            else clearInterval(timer);
-          });
-        }, { threshold: 0.35 });
-        if (demo) observer.observe(demo);
-      }
-    })();
-
-
-    (function () {
-      var stream = document.getElementById("hero-stream");
-      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      var lines = [];
-      var lineEls = [];
-      function setupLines() {
-        if (!stream) return;
-        stream.innerHTML = "";
-        lineEls = [];
-        lines.forEach(function (line, i) {
-          var div = document.createElement("div");
-          if (line.cls) div.className = line.cls;
-          div.classList.add("line");
-          if (i === 4) div.style.marginTop = "0.85rem";
-          stream.appendChild(div);
-          lineEls.push(div);
-        });
-      }
-      function typeLine(i, done) {
-        if (!lineEls[i]) { if (done) done(); return; }
-        var full = lines[i].text;
-        var el = lineEls[i];
-        el.textContent = "";
-        var caret = document.createElement("span");
-        caret.className = "caret";
-        caret.setAttribute("aria-hidden", "true");
-        el.appendChild(caret);
-        var n = 0;
-        function step() {
-          n += 1;
-          el.textContent = full.slice(0, n);
-          if (n < full.length) {
-            el.appendChild(caret);
-            setTimeout(step, reduce ? 0 : 12);
-          } else {
-            if (i === lines.length - 1) el.appendChild(caret);
-            else caret.remove();
-            if (done) done();
-          }
-        }
-        step();
-      }
-      function runHero() {
-        setupLines();
-        if (reduce) {
-          lines.forEach(function (line, i) { lineEls[i].textContent = line.text; });
-          return;
-        }
-        var i = 0;
-        function next() {
-          typeLine(i, function () {
-            i += 1;
-            if (i < lines.length) setTimeout(next, 90);
-            else setTimeout(runHero, 4200);
-          });
-        }
-        next();
-      }
-      if (stream) runHero();
-
-      var progress = document.getElementById("scroll-progress");
-      var topnav = document.getElementById("topnav");
-      var navLinks = Array.prototype.slice.call(document.querySelectorAll("#topnav [data-nav]"));
-      var navTargets = navLinks.map(function (a) {
-        return { id: a.getAttribute("data-nav"), el: document.getElementById(a.getAttribute("data-nav")), a: a };
-      }).filter(function (t) { return t.el; });
-      function onScroll() {
-        var max = document.documentElement.scrollHeight - window.innerHeight;
-        var p = max > 0 ? (window.scrollY / max) * 100 : 0;
-        if (progress) progress.style.width = p + "%";
-        if (topnav) topnav.classList.toggle("is-on", window.scrollY > window.innerHeight * 0.72);
-        var active = null;
-        navTargets.forEach(function (t) {
-          var top = t.el.getBoundingClientRect().top;
-          if (top <= 120) active = t;
-        });
-        navLinks.forEach(function (a) { a.classList.toggle("is-active", active && a.getAttribute("data-nav") === active.id); });
-      }
-      window.addEventListener("scroll", onScroll, { passive: true });
-      onScroll();
-
-      if ("IntersectionObserver" in window) {
-        var io = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) entry.target.classList.add("is-in");
-          });
-        }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
-        document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
-      } else {
-        document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("is-in"); });
-      }
-    })();
-
-    (function () {
-      var SAMPLES = {
-        orders: "REF ORD-4821\nType: Order\nCustomer: Northline Supplies\nOwner: Sam\nDue: Today\nItems: 12 units · SO14 3HG\n\nREF ORD-4822\nType: Order\nCustomer: TBD\nOwner:\nDue: Tomorrow\nItems: rush pack · M34 2AB\n\nREF ORD-4823\nType: Order\nCustomer: Bright Harbor\nOwner: Alex\nDue: Thu\nItems: restock · BN1 4GH",
-        leads: "REF LEAD-901\nType: Lead\nCompany: Cedar & Co\nOwner: Jordan\nDue: Fri\nNotes: discovery booked\n\nREF LEAD-902\nType: Lead\nCompany: Unknown\nOwner:\nDue: TBD\nNotes: form incomplete\n\nREF LEAD-903\nType: Lead\nCompany: Maple Works\nOwner: Riley\nDue: Wed\nNotes: wants pilot quote",
-        tickets: "REF TKT-118\nType: Ticket\nSubject: Access reset\nOwner: Alex\nDue: Thu\nPriority: normal\n\nREF TKT-119\nType: Ticket\nSubject: Export failing\nOwner:\nDue: Today\nPriority: high\n\nREF TKT-120\nType: Ticket\nSubject: New user setup\nOwner: Sam\nDue: Mon\nPriority: normal",
-        ops: "REF JOB-331\nType: Job\nMode: Collection\nOwner: Desk A\nDue: 14:00\nDetail: Southampton · SO14 3HG\n\nREF JOB-332\nType: Job\nMode: Delivery\nOwner:\nDue: TBD\nDetail: address incomplete\n\nREF JOB-333\nType: Job\nMode: Transfer\nOwner: Desk B\nDue: 16:30\nDetail: Birmingham · B6 7RN"
-      };
-
-      var KEY = "fastenly_demo_v2";
-      var paste = document.getElementById("job-paste");
-      var fileInput = document.getElementById("job-file");
-      var body = document.getElementById("parse-body");
-      var table = document.getElementById("parse-table");
-      var empty = document.getElementById("parse-empty");
-      var meta = document.getElementById("parse-meta");
-      var countEl = document.getElementById("parse-count");
-      var csvBtn = document.getElementById("btn-csv");
-      var copyBtn = document.getElementById("btn-copy");
-      var historyStrip = document.getElementById("history-strip");
-      var toastEl = document.getElementById("toast");
-      var chips = document.querySelectorAll(".chip");
-      var filters = document.querySelectorAll(".filter");
-      var tabs = document.querySelectorAll(".tab");
-      var panels = {
-        parse: document.getElementById("panel-parse"),
-        checks: document.getElementById("panel-checks"),
-        merge: document.getElementById("panel-merge"),
-        custom: document.getElementById("panel-custom")
-      };
-
-      var allRows = [];
-      var activeFilter = "all";
-      var timer = null;
-      var toastTimer = null;
-
-      var REF = /\b(?:REF|JOB|ORD|LEAD|TKT)[:\s#-]*([A-Z]{2,5}-?\d{2,6}|\d{3,6})\b/i;
-      var TYPE = /\bType:\s*([A-Za-z &/-]+)/i;
-      var OWNER = /\bOwner:\s*([^\n]+)/i;
-      var DUE = /\bDue:\s*([^\n]+)/i;
-      var DETAIL = /\b(?:Detail|Notes|Items|Subject|Customer|Company|Mode):\s*([^\n]+)/i;
-
-      var toastMsg = document.getElementById("toast-msg");
-      var toastAction = document.getElementById("toast-action");
-      var undoHandler = null;
-      function toast(msg, actionLabel, actionFn) {
-        if (toastMsg) toastMsg.textContent = msg;
-        else toastEl.textContent = msg;
-        if (toastAction) {
-          if (actionLabel && actionFn) {
-            toastAction.hidden = false;
-            toastAction.textContent = actionLabel;
-            undoHandler = actionFn;
-          } else {
-            toastAction.hidden = true;
-            undoHandler = null;
-          }
-        }
-        toastEl.classList.add("show");
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(function () {
-          toastEl.classList.remove("show");
-          if (toastAction) toastAction.hidden = true;
-          undoHandler = null;
-        }, actionLabel ? 4000 : 1800);
-      }
-      if (toastAction) {
-        toastAction.addEventListener("click", function () {
-          if (undoHandler) undoHandler();
-          toastEl.classList.remove("show");
-          toastAction.hidden = true;
-          undoHandler = null;
-        });
-      }
-
-      function splitBlocks(text) {
-        var chunks = text.split(/\n(?=REF\b|JOB\b|ORD\b|LEAD\b|TKT\b)/i).map(function (s) { return s.trim(); }).filter(Boolean);
-        return chunks.length ? chunks : (text.trim() ? [text.trim()] : []);
-      }
-
-      function clean(v) {
-        v = String(v || "").trim();
-        return v || "—";
-      }
-
-      function parseBlock(block) {
-        var type = (block.match(TYPE) || [])[1];
-        type = type ? type.trim() : "—";
-        if (type === "—") {
-          if (/order/i.test(block)) type = "Order";
-          else if (/lead/i.test(block)) type = "Lead";
-          else if (/ticket/i.test(block)) type = "Ticket";
-          else if (/\bjob\b|collection|delivery|transfer/i.test(block)) type = "Job";
-        }
-        var owner = clean((block.match(OWNER) || [])[1]);
-        var due = clean((block.match(DUE) || [])[1]);
-        var detail = clean((block.match(DETAIL) || [])[1]);
-        if (detail.length > 28) detail = detail.slice(0, 26) + "…";
-        var status = (owner === "—" || due === "—" || /TBD|unknown|incomplete|check/i.test(block)) ? "Check" : "Ready";
-        var refMatch = block.match(REF);
-        var ref = "—";
-        if (refMatch) {
-          ref = refMatch[0].replace(/^(REF|JOB|ORD|LEAD|TKT)[:\s#-]*/i, "").toUpperCase();
-          if (!ref && refMatch[1]) ref = refMatch[1].toUpperCase();
-        }
-        return { ref: ref, type: type, owner: owner, due: due, detail: detail, status: status };
-      }
-
-      function esc(s) {
-        return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-      }
-
-      function filtered() {
-        if (activeFilter === "all") return allRows;
-        if (activeFilter === "Check") return allRows.filter(function (r) { return r.status === "Check"; });
-        return allRows.filter(function (r) { return r.type.toLowerCase().indexOf(activeFilter.toLowerCase()) === 0; });
-      }
-
-      function setEnabled(on) {
-        csvBtn.disabled = !on;
-        copyBtn.disabled = !on;
-      }
-
-      function render() {
-        var rows = filtered();
-        body.textContent = "";
-        if (!allRows.length) {
-          table.hidden = true; meta.hidden = true; empty.hidden = false;
-          empty.textContent = "Load a sample or paste to preview rows.";
-          setEnabled(false); return;
-        }
-        if (!rows.length) {
-          table.hidden = true; meta.hidden = true; empty.hidden = false;
-          empty.textContent = "No rows match this filter.";
-          setEnabled(true); return;
-        }
-        empty.hidden = true; table.hidden = false; meta.hidden = false; setEnabled(true);
-        var checks = allRows.filter(function (r) { return r.status === "Check"; }).length;
-        countEl.textContent = rows.length + " shown / " + allRows.length + (checks ? " · " + checks + " flagged" : " · clear");
-        var frag = document.createDocumentFragment();
-        rows.forEach(function (row, i) {
-          var tr = document.createElement("tr");
-          if (row.status === "Check") tr.className = "warn";
-          tr.style.animationDelay = Math.min(i, 8) * 0.025 + "s";
-          tr.innerHTML =
-            "<td>" + esc(row.ref) + "</td><td>" + esc(row.type) + "</td><td>" + esc(row.owner) + "</td><td>" + esc(row.due) + "</td><td>" + esc(row.detail) + "</td><td>" +
-            (row.status === "Check" ? '<span class="badge badge-warn">Flag</span>' : '<span class="badge badge-ok">Ready</span>') + "</td>";
-          frag.appendChild(tr);
-        });
-        body.appendChild(frag);
-      }
-
-      function runParse(save) {
-        var text = paste.value.trim();
-        if (!text) { allRows = []; render(); return; }
-        allRows = splitBlocks(text).map(parseBlock);
-        if (activeFilter !== "all" && !filtered().length && allRows.length) {
-          activeFilter = "all";
-          filters.forEach(function (f) { f.setAttribute("aria-pressed", f.getAttribute("data-filter") === "all" ? "true" : "false"); });
-        }
-        render();
-        if (save) pushHistory(text, allRows.length);
-      }
-
-      function schedule() {
-        clearTimeout(timer);
-        timer = setTimeout(function () { runParse(false); }, 180);
-      }
-
-      function setChip(key) {
-        chips.forEach(function (c) { c.setAttribute("aria-pressed", c.getAttribute("data-sample") === key ? "true" : "false"); });
-      }
-
-      function loadSample(key) {
-        if (!SAMPLES[key]) return;
-        paste.value = SAMPLES[key];
-        setChip(key);
-        runParse(true);
-        toast("Loaded " + key);
-      }
-
-      function readHist() {
-        try { return JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { return []; }
-      }
-
-      function writeHist(items) {
-        try { localStorage.setItem(KEY, JSON.stringify(items.slice(0, 5))); } catch (e) {}
-      }
-
-      function pushHistory(text, count) {
-        var items = readHist().filter(function (h) { return h.text !== text; });
-        items.unshift({
-          label: count + " · " + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-          text: text
-        });
-        writeHist(items);
-        renderHist();
-      }
-
-      function renderHist() {
-        var items = readHist();
-        historyStrip.textContent = "";
-        if (!items.length) {
-          historyStrip.innerHTML = '<span class="hint">History appears after you parse</span>';
-          return;
-        }
-        items.forEach(function (item) {
-          var btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "hist";
-          btn.textContent = item.label;
-          btn.addEventListener("click", function () {
-            paste.value = item.text;
-            setChip("");
-            runParse(false);
-            toast("Restored");
-          });
-          historyStrip.appendChild(btn);
-        });
-      }
-
-      function switchPanel(name) {
-        tabs.forEach(function (t) { t.setAttribute("aria-selected", t.getAttribute("data-panel") === name ? "true" : "false"); });
-        Object.keys(panels).forEach(function (k) { panels[k].hidden = k !== name; });
-        var mod = document.getElementById("desk-module");
-        if (mod) mod.textContent = name;
-        if (name === "checks") renderChecks();
-        if (name === "merge" && !mergeDone) { /* wait for click */ }
-      }
-
-      var mergeDone = false;
-      var checksList = document.getElementById("checks-list");
-      var checksSummary = document.getElementById("checks-summary");
-
-      function renderChecks() {
-        if (!checksList) return;
-        var rows = allRows.length ? allRows : [];
-        var flags = rows.filter(function (r) { return r.status === "Check"; });
-        checksList.textContent = "";
-        if (!rows.length) {
-          checksList.innerHTML = '<p class="empty">Parse something first, or load the gappy sample.</p>';
-          if (checksSummary) checksSummary.innerHTML = "<span>No rows loaded</span>";
-          return;
-        }
-        if (!flags.length) {
-          checksList.innerHTML = '<p class="empty">All clear — no gaps flagged.</p>';
-          if (checksSummary) checksSummary.innerHTML = "<span><strong>" + rows.length + "</strong> rows · <strong>0</strong> flags</span>";
-          return;
-        }
-        flags.forEach(function (r) {
-          var why = [];
-          if (r.owner === "—") why.push("missing owner");
-          if (r.due === "—" || /TBD/i.test(r.due)) why.push("due unclear");
-          if (/TBD|unknown|incomplete/i.test(r.detail)) why.push("detail incomplete");
-          var btn = document.createElement("button");
-          btn.type = "button";
-          btn.innerHTML = "<strong>" + esc(r.ref) + "</strong> · " + esc(r.type) + '<span class="why">' + esc(why.join(" · ") || "needs review") + "</span>";
-          btn.addEventListener("click", function () {
-            switchPanel("parse");
-            activeFilter = "Check";
-            filters.forEach(function (f) { f.setAttribute("aria-pressed", f.getAttribute("data-filter") === "Check" ? "true" : "false"); });
-            render();
-            toast("Showing flags");
-          });
-          checksList.appendChild(btn);
-        });
-        if (checksSummary) {
-          checksSummary.innerHTML = "<span><strong>" + rows.length + "</strong> rows · <strong>" + flags.length + "</strong> flagged</span>";
-        }
-        var sev = document.getElementById("checks-sev");
-        var sevBad = document.getElementById("sev-bad");
-        var sevOk = document.getElementById("sev-ok");
-        var copyFlags = document.getElementById("btn-copy-flags");
-        if (sev) sev.hidden = false;
-        if (sevBad) sevBad.textContent = flags.length + " flags";
-        if (sevOk) sevOk.textContent = (rows.length - flags.length) + " ready";
-        if (copyFlags) copyFlags.disabled = !flags.length;
-        window.__flagRows = flags;
-      }
-
-      var runChecksBtn = document.getElementById("btn-run-checks");
-      if (runChecksBtn) runChecksBtn.addEventListener("click", function () {
-        if (!allRows.length) loadSample("orders");
-        renderChecks();
-        toast(allRows.filter(function (r) { return r.status === "Check"; }).length ? "Flags listed" : "All clear");
+    stageBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        showStage(parseInt(btn.getAttribute("data-stage"), 10) || 0);
+        restartAuto();
       });
-      var checksSampleBtn = document.getElementById("btn-checks-sample");
-      if (checksSampleBtn) checksSampleBtn.addEventListener("click", function () {
-        loadSample("orders");
-        switchPanel("checks");
-        renderChecks();
-      });
-      var copyFlagsBtn = document.getElementById("btn-copy-flags");
-      if (copyFlagsBtn) copyFlagsBtn.addEventListener("click", function () {
-        var flags = window.__flagRows || [];
-        if (!flags.length) return;
-        var lines = flags.map(function (r) { return [r.ref, r.type, r.owner, r.due, r.status].join("\t"); });
-        copyText("Ref\tType\tOwner\tDue\tStatus\n" + lines.join("\n"));
-      });
+    });
 
-      function runMerge() {
-        var a = [
-          { ref: "LEAD-901", owner: "Jordan", due: "Fri", src: "A" },
-          { ref: "LEAD-902", owner: "—", due: "TBD", src: "A" },
-          { ref: "LEAD-904", owner: "Sam", due: "Mon", src: "A" }
-        ];
-        var b = [
-          { ref: "LEAD-902", owner: "Riley", due: "Wed", src: "B" },
-          { ref: "LEAD-903", owner: "Riley", due: "Wed", src: "B" },
-          { ref: "LEAD-904", owner: "Sam", due: "Mon", src: "B" }
-        ];
-        var map = {};
-        a.concat(b).forEach(function (row) {
-          if (!map[row.ref]) map[row.ref] = { ref: row.ref, owner: row.owner, due: row.due, sources: [row.src], status: "Ready" };
-          else {
-            var cur = map[row.ref];
-            if (cur.sources.indexOf(row.src) === -1) cur.sources.push(row.src);
-            if (cur.owner === "—" && row.owner !== "—") cur.owner = row.owner;
-            if ((cur.due === "—" || /TBD/i.test(cur.due)) && row.due && !/TBD/i.test(row.due)) cur.due = row.due;
-            if (cur.sources.length > 1) cur.status = "Dup";
-          }
-          if (map[row.ref].owner === "—" || /TBD/i.test(map[row.ref].due)) map[row.ref].status = "Check";
+    showStage(0);
+    restartAuto();
+
+    var demo = document.getElementById("auto-demo");
+    if (demo && !reduceMotion) {
+      demo.addEventListener("mouseenter", function () { clearInterval(timer); });
+      demo.addEventListener("mouseleave", restartAuto);
+    }
+
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) entry.target.classList.add("is-in");
         });
-        var rows = Object.keys(map).sort().map(function (k) { return map[k]; });
-        var out = document.getElementById("merge-out");
-        var htmlOut = '<table class="table"><thead><tr><th>Ref</th><th>Owner</th><th>Due</th><th>Sources</th><th>Status</th></tr></thead><tbody>';
-        rows.forEach(function (r, i) {
-          var badge = r.status === "Check" ? '<span class="badge badge-warn">Flag</span>' : (r.status === "Dup" ? '<span class="badge badge-warn">Merged</span>' : '<span class="badge badge-ok">Ready</span>');
-          htmlOut += '<tr style="animation-delay:' + (i * 0.04) + 's"' + (r.status !== "Ready" ? ' class="warn"' : '') + "><td>" + esc(r.ref) + "</td><td>" + esc(r.owner) + "</td><td>" + esc(r.due) + "</td><td>" + esc(r.sources.join("+")) + "</td><td>" + badge + "</td></tr>";
-        });
-        htmlOut += "</tbody></table>";
-        out.innerHTML = htmlOut;
-        mergeDone = true;
-        toast("Merged " + rows.length + " rows");
+      }, { threshold: 0.12 });
+      document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+    } else {
+      document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("is-in"); });
+    }
+
+    /* —— Live desk —— */
+    var SAMPLES = {
+      orders: "REF ORD-4821\nType: Order\nCustomer: Northline Supplies\nOwner: Sam\nDue: Today\nItems: 12 units · SO14 3HG\n\nREF ORD-4822\nType: Order\nCustomer: TBD\nOwner:\nDue: Tomorrow\nItems: rush pack · M34 2AB\n\nREF ORD-4823\nType: Order\nCustomer: Bright Harbor\nOwner: Alex\nDue: Thu\nItems: restock · BN1 4GH",
+      leads: "REF LEAD-901\nType: Lead\nCompany: Cedar & Co\nOwner: Jordan\nDue: Fri\nNotes: discovery booked\n\nREF LEAD-902\nType: Lead\nCompany: Unknown\nOwner:\nDue: TBD\nNotes: form incomplete\n\nREF LEAD-903\nType: Lead\nCompany: Maple Works\nOwner: Riley\nDue: Wed\nNotes: wants pilot quote",
+      tickets: "REF TKT-118\nType: Ticket\nSubject: Access reset\nOwner: Alex\nDue: Thu\nPriority: normal\n\nREF TKT-119\nType: Ticket\nSubject: Export failing\nOwner:\nDue: Today\nPriority: high\n\nREF TKT-120\nType: Ticket\nSubject: New user setup\nOwner: Sam\nDue: Mon\nPriority: normal",
+      ops: "REF JOB-331\nType: Job\nMode: Collection\nOwner: Desk A\nDue: 14:00\nDetail: Southampton · SO14 3HG\n\nREF JOB-332\nType: Job\nMode: Delivery\nOwner:\nDue: TBD\nDetail: address incomplete\n\nREF JOB-333\nType: Job\nMode: Transfer\nOwner: Desk B\nDue: 16:30\nDetail: Birmingham · B6 7RN"
+    };
+
+    var paste = document.getElementById("job-paste");
+    var body = document.getElementById("parse-body");
+    var table = document.getElementById("parse-table");
+    var empty = document.getElementById("parse-empty");
+    var meta = document.getElementById("parse-meta");
+    var countEl = document.getElementById("parse-count");
+    var csvBtn = document.getElementById("btn-csv");
+    var copyBtn = document.getElementById("btn-copy");
+    var toastEl = document.getElementById("toast");
+    var chips = Array.prototype.slice.call(document.querySelectorAll(".chip"));
+    var allRows = [];
+    var parseTimer = null;
+    var toastTimer = null;
+    var REF = /\b(?:REF|JOB|ORD|LEAD|TKT)[:\s#-]*([A-Z0-9-]+)/i;
+    var TYPE = /\bType:\s*([A-Za-z &/-]+)/i;
+    var OWNER = /\bOwner:\s*([^\n]+)/i;
+    var DUE = /\bDue:\s*([^\n]+)/i;
+    var DETAIL = /\b(?:Detail|Notes|Items|Subject|Customer|Company|Mode):\s*([^\n]+)/i;
+
+    function toast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { toastEl.classList.remove("show"); }, 1600);
+    }
+
+    function splitBlocks(text) {
+      var chunks = text.split(/\n(?=REF\b|JOB\b|ORD\b|LEAD\b|TKT\b)/i).map(function (s) { return s.trim(); }).filter(Boolean);
+      return chunks.length ? chunks : (text.trim() ? [text.trim()] : []);
+    }
+
+    function clean(v) {
+      v = String(v || "").trim();
+      return v || "—";
+    }
+
+    function parseBlock(block) {
+      var type = (block.match(TYPE) || [])[1];
+      type = type ? type.trim() : "—";
+      if (type === "—") {
+        if (/order/i.test(block)) type = "Order";
+        else if (/lead/i.test(block)) type = "Lead";
+        else if (/ticket/i.test(block)) type = "Ticket";
+        else if (/\bjob\b|collection|delivery|transfer/i.test(block)) type = "Job";
       }
-      var mergeBtn = document.getElementById("btn-run-merge");
-      if (mergeBtn) mergeBtn.addEventListener("click", runMerge);
-      var resetMerge = document.getElementById("btn-reset-merge");
-      if (resetMerge) resetMerge.addEventListener("click", function () {
-        mergeDone = false;
-        document.getElementById("merge-out").innerHTML = '<p class="empty">Hit merge to combine.</p>';
+      var owner = clean((block.match(OWNER) || [])[1]);
+      var due = clean((block.match(DUE) || [])[1]);
+      var detail = clean((block.match(DETAIL) || [])[1]);
+      if (detail.length > 28) detail = detail.slice(0, 26) + "…";
+      var status = (owner === "—" || due === "—" || /TBD|unknown|incomplete/i.test(block)) ? "Check" : "Ready";
+      var refMatch = block.match(REF);
+      var ref = "—";
+      if (refMatch) {
+        ref = refMatch[0].replace(/^(REF|JOB|ORD|LEAD|TKT)[:\s#-]*/i, "").toUpperCase();
+        if (!ref && refMatch[1]) ref = refMatch[1].toUpperCase();
+      }
+      return { ref: ref, type: type, owner: owner, due: due, detail: detail, status: status };
+    }
+
+    function esc(s) {
+      return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function render() {
+      body.textContent = "";
+      if (!allRows.length) {
+        table.hidden = true;
+        meta.hidden = true;
+        empty.hidden = false;
+        csvBtn.disabled = true;
+        copyBtn.disabled = true;
+        return;
+      }
+      empty.hidden = true;
+      table.hidden = false;
+      meta.hidden = false;
+      csvBtn.disabled = false;
+      copyBtn.disabled = false;
+      var checks = allRows.filter(function (r) { return r.status === "Check"; }).length;
+      countEl.textContent = allRows.length + " rows" + (checks ? " · " + checks + " flagged" : "");
+      var frag = document.createDocumentFragment();
+      allRows.forEach(function (row, i) {
+        var tr = document.createElement("tr");
+        if (row.status === "Check") tr.className = "warn";
+        tr.style.animationDelay = Math.min(i, 8) * 0.025 + "s";
+        tr.innerHTML =
+          "<td>" + esc(row.ref) + "</td><td>" + esc(row.type) + "</td><td>" + esc(row.owner) + "</td><td>" + esc(row.due) + "</td><td>" + esc(row.detail) + "</td><td>" +
+          (row.status === "Check" ? '<span class="badge badge-warn">Flag</span>' : '<span class="badge badge-ok">Ready</span>') + "</td>";
+        frag.appendChild(tr);
       });
+      body.appendChild(frag);
+    }
 
-      var customPicks = Array.prototype.slice.call(document.querySelectorAll(".custom-pick"));
-      var customMail = document.getElementById("btn-custom-mail");
-      var customHint = document.getElementById("custom-hint");
-      customPicks.forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          customPicks.forEach(function (b) { b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
-          var flow = btn.getAttribute("data-flow");
-          if (customMail) customMail.href = "mailto:YOU@EXAMPLE.com?subject=" + encodeURIComponent("Fastenly sample — " + flow);
-          if (customHint) customHint.textContent = "Selected: " + flow;
-          toast(flow);
-        });
-      });
-
-      function tickClock() {
-        var el = document.getElementById("desk-clock");
-        if (!el) return;
-        el.textContent = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-      }
-      tickClock();
-      setInterval(tickClock, 30000);
-
-      document.addEventListener("keydown", function (e) {
-        if (e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
-        var desk = document.getElementById("desk");
-        if (!desk) return;
-        var r = desk.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > window.innerHeight) return;
-        var map = { "1": "parse", "2": "checks", "3": "merge", "4": "custom" };
-        if (map[e.key]) {
-          e.preventDefault();
-          switchPanel(map[e.key]);
-        }
-      });
-
-      function ingest(file) {
-        if (!file) return;
-        var reader = new FileReader();
-        reader.onload = function () {
-          paste.value = String(reader.result || "");
-          setChip("");
-          runParse(true);
-          toast(file.name);
-        };
-        reader.readAsText(file);
-      }
-
-      tabs.forEach(function (t) { t.addEventListener("click", function () { switchPanel(t.getAttribute("data-panel")); }); });
-      chips.forEach(function (c) { c.addEventListener("click", function () { loadSample(c.getAttribute("data-sample")); }); });
-      filters.forEach(function (f) {
-        f.addEventListener("click", function () {
-          activeFilter = f.getAttribute("data-filter");
-          filters.forEach(function (x) { x.setAttribute("aria-pressed", x === f ? "true" : "false"); });
-          render();
-        });
-      });
-
-      document.getElementById("btn-parse").addEventListener("click", function () { setChip(""); runParse(true); toast(allRows.length ? "Updated" : "Nothing to parse"); });
-      document.getElementById("btn-clear").addEventListener("click", function () {
-        var prev = paste.value;
-        if (!prev) { paste.value = ""; setChip(""); allRows = []; render(); paste.focus(); return; }
-        paste.value = ""; setChip(""); allRows = []; render(); paste.focus();
-        toast("Cleared", "Undo", function () {
-          paste.value = prev;
-          runParse(false);
-          updateDiff();
-          toast("Restored");
-        });
-      });
-      document.getElementById("btn-upload").addEventListener("click", function () { fileInput.click(); });
-      fileInput.addEventListener("change", function () { if (fileInput.files[0]) ingest(fileInput.files[0]); fileInput.value = ""; });
-
-      var seeRun = document.getElementById("btn-see-run");
-      if (seeRun) {
-        seeRun.addEventListener("click", function () {
-          switchPanel("parse");
-          loadSample("orders");
-          var desk = document.getElementById("desk");
-          if (desk) desk.scrollIntoView({ behavior: "smooth", block: "start" });
-        });
-      }
-
-      ["dragenter", "dragover"].forEach(function (evt) {
-        paste.addEventListener(evt, function (e) { e.preventDefault(); paste.classList.add("is-drop"); });
-      });
-      ["dragleave", "drop"].forEach(function (evt) {
-        paste.addEventListener(evt, function (e) { e.preventDefault(); paste.classList.remove("is-drop"); });
-      });
-      paste.addEventListener("drop", function (e) {
-        var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
-        if (f) ingest(f);
-      });
-
-      function copyText(text) {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).then(function () { toast("Copied"); }).catch(fallback);
-        } else fallback();
-        function fallback() {
-          var ta = document.createElement("textarea");
-          ta.value = text; document.body.appendChild(ta); ta.select();
-          try { document.execCommand("copy"); toast("Copied"); } catch (e) { toast("Copy failed"); }
-          ta.remove();
-        }
-      }
-
-      copyBtn.addEventListener("click", function () {
-        var rows = filtered(); if (!rows.length) return;
-        var lines = ["Ref\tType\tOwner\tDue\tDetail\tStatus"];
-        rows.forEach(function (r) { lines.push([r.ref, r.type, r.owner, r.due, r.detail, r.status].join("\t")); });
-        copyText(lines.join("\n"));
-      });
-
-      csvBtn.addEventListener("click", function () {
-        var rows = filtered(); if (!rows.length) return;
-        var lines = ["Ref,Type,Owner,Due,Detail,Status"];
-        rows.forEach(function (r) {
-          lines.push([r.ref, r.type, r.owner, r.due, r.detail, r.status].map(function (c) { return '"' + String(c).replace(/"/g, '""') + '"'; }).join(","));
-        });
-        var a = document.createElement("a");
-        a.href = URL.createObjectURL(new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8" }));
-        a.download = "fastenly-preview.csv";
-        document.body.appendChild(a); a.click(); a.remove();
-        toast("CSV ready");
-      });
-
-      paste.addEventListener("input", function () { setChip(""); schedule(); });
-      paste.addEventListener("keydown", function (e) {
-        if ((e.metaKey || e.ctrlKey) && e.key === "Enter") { e.preventDefault(); runParse(true); }
-      });
-
-      document.querySelectorAll('a[href^="#"]').forEach(function (link) {
-        link.addEventListener("click", function (e) {
-          var id = link.getAttribute("href").slice(1);
-          var el = document.getElementById(id);
-          if (!el) return;
-          e.preventDefault();
-          el.scrollIntoView({ behavior: "smooth", block: "start" });
-          if (history.replaceState) history.replaceState(null, "", "#" + id);
-        });
-      });
-
-
-      function updateDiff() {
-        var raw = document.getElementById("diff-raw");
-        var structured = document.getElementById("diff-structured");
-        if (!raw || !structured) return;
-        raw.textContent = paste.value.trim() || "—";
-        if (!allRows.length) {
-          structured.textContent = "—";
-          return;
-        }
-        structured.innerHTML = allRows.map(function (r) {
-          var line = r.ref + " · " + r.type + " · " + r.owner + " · " + r.due + " · " + r.status;
-          if (r.status === "Check") return '<span class="hit">' + esc(line) + "</span>";
-          return esc(line);
-        }).join("\n");
-      }
-
-      var viewRows = document.getElementById("view-rows");
-      var viewDiff = document.getElementById("view-diff");
-      var diffView = document.getElementById("diff-view");
-      function setDiffMode(on) {
-        if (!diffView) return;
-        diffView.classList.toggle("is-on", on);
-        diffView.setAttribute("aria-hidden", on ? "false" : "true");
-        if (viewRows) viewRows.setAttribute("aria-pressed", on ? "false" : "true");
-        if (viewDiff) viewDiff.setAttribute("aria-pressed", on ? "true" : "false");
-        if (on) updateDiff();
-      }
-      if (viewRows) viewRows.addEventListener("click", function () { setDiffMode(false); });
-      if (viewDiff) viewDiff.addEventListener("click", function () { setDiffMode(true); });
-
-      var _render = render;
-      render = function () {
-        _render();
-        updateDiff();
-      };
-
-      var focusBtn = document.getElementById("btn-focus");
-      var deskEl = document.getElementById("desk");
-      if (focusBtn && deskEl) {
-        focusBtn.addEventListener("click", function () {
-          var on = !deskEl.classList.contains("is-focus");
-          deskEl.classList.toggle("is-focus", on);
-          focusBtn.setAttribute("aria-pressed", on ? "true" : "false");
-          focusBtn.textContent = on ? "Exit focus" : "Focus desk";
-          if (on) deskEl.scrollIntoView({ behavior: "smooth", block: "start" });
-        });
-      }
-
-      function calcRoi() {
-        var h = Number((document.getElementById("roi-hours") || {}).value || 0);
-        var p = Number((document.getElementById("roi-people") || {}).value || 0);
-        var r = Number((document.getElementById("roi-rate") || {}).value || 0);
-        var monthly = Math.round(h * p * r * 4.3);
-        var out = document.getElementById("roi-out");
-        if (out) out.innerHTML = "About <strong>£" + monthly.toLocaleString("en-GB") + "</strong> / month of grind";
-      }
-      ["roi-hours", "roi-people", "roi-rate"].forEach(function (id) {
-        var el = document.getElementById(id);
-        if (el) el.addEventListener("input", calcRoi);
-      });
-      calcRoi();
-
-      var cmd = document.getElementById("cmd");
-      var cmdInput = document.getElementById("cmd-input");
-      var cmdList = document.getElementById("cmd-list");
-      var cmdIndex = 0;
-      var cmdItems = [];
-      function cmdCommands() {
-        return [
-          { label: "Go to automation", hint: "jump", run: function () { document.getElementById("automation").scrollIntoView({ behavior: "smooth" }); } },
-          { label: "Go to desk", hint: "jump", run: function () { document.getElementById("desk").scrollIntoView({ behavior: "smooth" }); } },
-          { label: "Go to Monday morning", hint: "jump", run: function () { document.getElementById("monday").scrollIntoView({ behavior: "smooth" }); } },
-          { label: "Go to pricing", hint: "jump", run: function () { document.getElementById("pilot").scrollIntoView({ behavior: "smooth" }); } },
-          { label: "Load Orders sample", hint: "sample", run: function () { switchPanel("parse"); loadSample("orders"); document.getElementById("desk").scrollIntoView({ behavior: "smooth" }); } },
-          { label: "Load Leads sample", hint: "sample", run: function () { switchPanel("parse"); loadSample("leads"); document.getElementById("desk").scrollIntoView({ behavior: "smooth" }); } },
-          { label: "Load Tickets sample", hint: "sample", run: function () { switchPanel("parse"); loadSample("tickets"); document.getElementById("desk").scrollIntoView({ behavior: "smooth" }); } },
-          { label: "Load Ops sample", hint: "sample", run: function () { switchPanel("parse"); loadSample("ops"); document.getElementById("desk").scrollIntoView({ behavior: "smooth" }); } },
-          { label: "Open Checks module", hint: "module", run: function () { document.getElementById("desk").scrollIntoView({ behavior: "smooth" }); switchPanel("checks"); renderChecks(); } },
-          { label: "Run merge now", hint: "action", run: function () { document.getElementById("desk").scrollIntoView({ behavior: "smooth" }); switchPanel("merge"); runMerge(); } },
-          { label: "Open Merge module", hint: "module", run: function () { document.getElementById("desk").scrollIntoView({ behavior: "smooth" }); switchPanel("merge"); } },
-          { label: "Toggle focus desk", hint: "action", run: function () { if (focusBtn) focusBtn.click(); } },
-          { label: "Email a sample", hint: "cta", run: function () { window.location.href = "mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample"; } }
-        ];
-      }
-      function openCmd() {
-        if (!cmd) return;
-        cmd.hidden = false;
-        cmd.classList.add("is-open");
-        renderCmd("");
-        setTimeout(function () { if (cmdInput) { cmdInput.value = ""; cmdInput.focus(); } }, 10);
-      }
-      function closeCmd() {
-        if (!cmd) return;
-        cmd.classList.remove("is-open");
-        cmd.hidden = true;
-      }
-      function renderCmd(q) {
-        if (!cmdList) return;
-        var all = cmdCommands();
-        var query = (q || "").toLowerCase().trim();
-        cmdItems = all.filter(function (c) { return !query || c.label.toLowerCase().indexOf(query) !== -1 || c.hint.indexOf(query) !== -1; });
-        cmdIndex = 0;
-        cmdList.innerHTML = "";
-        if (!cmdItems.length) {
-          cmdList.innerHTML = '<div class="cmd-item">No matches</div>';
-          return;
-        }
-        cmdItems.forEach(function (c, i) {
-          var btn = document.createElement("button");
-          btn.type = "button";
-          btn.className = "cmd-item" + (i === 0 ? " is-active" : "");
-          btn.innerHTML = "<span>" + c.label + "</span><kbd>" + c.hint + "</kbd>";
-          btn.addEventListener("click", function () { c.run(); closeCmd(); });
-          cmdList.appendChild(btn);
-        });
-      }
-      function runActiveCmd() {
-        if (!cmdItems[cmdIndex]) return;
-        cmdItems[cmdIndex].run();
-        closeCmd();
-      }
-      if (cmdInput) {
-        cmdInput.addEventListener("input", function () { renderCmd(cmdInput.value); });
-        cmdInput.addEventListener("keydown", function (e) {
-          if (e.key === "Escape") { e.preventDefault(); closeCmd(); }
-          if (e.key === "ArrowDown") {
-            e.preventDefault();
-            cmdIndex = Math.min(cmdIndex + 1, cmdItems.length - 1);
-            Array.prototype.forEach.call(cmdList.children, function (el, i) { el.classList.toggle("is-active", i === cmdIndex); });
-          }
-          if (e.key === "ArrowUp") {
-            e.preventDefault();
-            cmdIndex = Math.max(cmdIndex - 1, 0);
-            Array.prototype.forEach.call(cmdList.children, function (el, i) { el.classList.toggle("is-active", i === cmdIndex); });
-          }
-          if (e.key === "Enter") { e.preventDefault(); runActiveCmd(); }
-        });
-      }
-      if (cmd) cmd.addEventListener("click", function (e) { if (e.target === cmd) closeCmd(); });
-      document.addEventListener("keydown", function (e) {
-        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-          e.preventDefault();
-          if (cmd && cmd.classList.contains("is-open")) closeCmd();
-          else openCmd();
-        }
-        if (e.key === "/" && !/INPUT|TEXTAREA|SELECT/.test((e.target || {}).tagName || "")) {
-          e.preventDefault();
-          openCmd();
-        }
-        if (e.key === "Escape") {
-          closeCmd();
-          if (deskEl && deskEl.classList.contains("is-focus") && focusBtn) focusBtn.click();
-        }
-      });
-
-      renderHist();
+    function runParse() {
+      var text = paste.value.trim();
+      if (!text) { allRows = []; render(); return; }
+      allRows = splitBlocks(text).map(parseBlock);
       render();
-    })();
+    }
+
+    function loadSample(key) {
+      if (!SAMPLES[key]) return;
+      paste.value = SAMPLES[key];
+      chips.forEach(function (c) {
+        c.setAttribute("aria-pressed", c.getAttribute("data-sample") === key ? "true" : "false");
+      });
+      runParse();
+      toast("Loaded " + key);
+    }
+
+    chips.forEach(function (c) {
+      c.addEventListener("click", function () { loadSample(c.getAttribute("data-sample")); });
+    });
+
+    document.getElementById("btn-parse").addEventListener("click", function () {
+      chips.forEach(function (c) { c.setAttribute("aria-pressed", "false"); });
+      runParse();
+      toast(allRows.length ? "Updated" : "Nothing to parse");
+    });
+    document.getElementById("btn-clear").addEventListener("click", function () {
+      paste.value = "";
+      chips.forEach(function (c) { c.setAttribute("aria-pressed", "false"); });
+      allRows = [];
+      render();
+      paste.focus();
+    });
+
+    function copyText(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { toast("Copied"); });
+      } else {
+        toast("Copied");
+      }
+    }
+
+    copyBtn.addEventListener("click", function () {
+      if (!allRows.length) return;
+      var lines = ["Ref\tType\tOwner\tDue\tDetail\tStatus"];
+      allRows.forEach(function (r) {
+        lines.push([r.ref, r.type, r.owner, r.due, r.detail, r.status].join("\t"));
+      });
+      copyText(lines.join("\n"));
+    });
+
+    csvBtn.addEventListener("click", function () {
+      if (!allRows.length) return;
+      var lines = ["Ref,Type,Owner,Due,Detail,Status"];
+      allRows.forEach(function (r) {
+        lines.push([r.ref, r.type, r.owner, r.due, r.detail, r.status].map(function (c) {
+          return '"' + String(c).replace(/"/g, '""') + '"';
+        }).join(","));
+      });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8" }));
+      a.download = "fastenly-preview.csv";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      toast("CSV ready");
+    });
+
+    paste.addEventListener("input", function () {
+      chips.forEach(function (c) { c.setAttribute("aria-pressed", "false"); });
+      clearTimeout(parseTimer);
+      parseTimer = setTimeout(runParse, 180);
+    });
+
+    document.getElementById("btn-see-run").addEventListener("click", function () {
+      loadSample("orders");
+      document.getElementById("desk").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+      link.addEventListener("click", function (e) {
+        var id = link.getAttribute("href").slice(1);
+        var el = document.getElementById(id);
+        if (!el) return;
+        e.preventDefault();
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    render();
+  })();
   </script>
 </body>
 </html>
