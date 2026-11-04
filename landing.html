@@ -416,18 +416,19 @@
       background: #0a0a0d; min-height: 260px;
     }
     .table {
-      width: 100%; border-collapse: collapse;
-      font-size: 0.78rem; font-variant-numeric: tabular-nums;
+      width: max-content; min-width: 100%; border-collapse: collapse;
+      font-size: 0.72rem; font-variant-numeric: tabular-nums;
     }
     .table th, .table td {
-      text-align: left; padding: 0.55rem 0.55rem;
+      text-align: left; padding: 0.42rem 0.48rem;
       border-bottom: 1px solid var(--line-dark); white-space: nowrap;
+      max-width: 14rem; overflow: hidden; text-overflow: ellipsis;
     }
     .table th {
       position: sticky; top: 0; background: #121218;
-      font-family: var(--mono); font-size: 0.6rem;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      color: rgba(244,245,247,0.4); font-weight: 500; z-index: 1;
+      font-family: var(--mono); font-size: 0.55rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: rgba(244,245,247,0.45); font-weight: 500; z-index: 1;
     }
     .table tr { opacity: 0; transform: translateY(6px); }
     .table tr.show {
@@ -1293,6 +1294,31 @@
       .preview-band { padding: 2.25rem 0 2.5rem; }
       .preview-actions .btn { flex: 1 1 auto; }
     }
+
+    /* —— Intertechnic-like dense transport preview —— */
+    .pane-out .table-wrap {
+      overflow: auto;
+    }
+    .parser .table {
+      font-size: 0.7rem;
+      min-width: 1280px;
+    }
+    .parser .table th {
+      white-space: nowrap;
+      font-size: 0.55rem;
+      padding: 0.4rem 0.35rem;
+    }
+    .parser .table td {
+      white-space: nowrap;
+      max-width: 9.5rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 0.4rem 0.35rem;
+    }
+    .parser .table td.miss { color: var(--warn); }
+    .preview-band .lead-light {
+      max-width: 48ch;
+    }
   </style>
 </head>
 <body>
@@ -1359,7 +1385,7 @@
     <div class="wrap">
       <p class="kicker kicker-light">Try it</p>
       <h2 class="preview-title">See a batch sort itself.</h2>
-      <p class="lead lead-light">Locked demo — parsing logic only. No plates or street addresses. Production uses your real formats.</p>
+      <p class="lead lead-light">Locked demo with the same sheet shape as a live ops parser — address lines, postcodes, phones, dates. Demo sites only.</p>
       <div class="preview-actions">
         <button type="button" class="btn btn-primary" id="btn-replay">Play the batch</button>
         <a class="btn btn-ghost" href="#pilot">See pricing</a>
@@ -1396,7 +1422,7 @@
           <button type="button" class="chip" data-sample="batch-b" aria-pressed="false">Batch B</button>
           <button type="button" class="chip" data-sample="mixed" aria-pressed="false">Mixed</button>
           <button type="button" class="chip" data-sample="rush" aria-pressed="false">Rush · 8</button>
-          <span class="chip-hint">instant batch · demo structure only</span>
+          <span class="chip-hint">ADDR1–4 · postcodes · phones · demo sites</span>
         </div>
         <div class="parser-tools" id="report-tools" hidden>
           <button type="button" class="chip" data-sample="daily-a" aria-pressed="true">Morning dump</button>
@@ -1445,7 +1471,7 @@
 
           <div class="pane pane-out">
             <div class="out-head">
-              <p class="label" style="margin:0" id="out-label">Transport sheet</p>
+              <p class="label" style="margin:0" id="out-label">Transport request</p>
               <span class="status-pill" id="status-pill">Idle</span>
             </div>
             <div class="scanline" id="scanline" aria-hidden="true"><i></i></div>
@@ -1654,51 +1680,150 @@
     /* —— Locked demo samples (fictional; no client brands) —— */
     var JOB_SAMPLES = {
       "batch-a":
-        "FROM\nCollection site 01\nTO\nDelivery hub A\n" +
-        "JOB NO\n1000001\n" +
-        "MAKE MODEL COLOUR\nJEEP COMPASS Black\n" +
-        "VALUE\n155.39\n" +
-        "FROM\nCollection site 02\nTO\nDelivery hub B\n" +
-        "JOB NO\n1000002\n" +
-        "MAKE MODEL COLOUR\nAUDI Q2 Grey\n" +
-        "COMMENTS\n1. Call before arrival.\n" +
-        "VALUE\n158.03",
+        "FROM\n" +
+        "Demo Dealer North\n" +
+        "Unit 4 Trade Park\n" +
+        "Demo Town North\n" +
+        "Northshire\n" +
+        "XX1 1AA\n" +
+        "Tel: 01000 111001\n" +
+        "TO\n" +
+        "Central Logistics Hub\n" +
+        "Bay 12 Yard Road\n" +
+        "Demo City\n" +
+        "Midlands\n" +
+        "XX2 2BB\n" +
+        "Tel: 01000 222002\n" +
+        "JOB NO KEY LOC BARCODE\n" +
+        "1000001 N/A 0\n" +
+        "MAKE MODEL COLOUR REGISTRATION CHASSIS\n" +
+        "JEEP COMPASS Black\n" +
+        "COMMENTS\n" +
+        "ORIGIN WARNINGS DESTINATION WARNINGS\n" +
+        "VALUE\n" +
+        "155.39\n" +
+        "FROM\n" +
+        "Demo Motors West\n" +
+        "Retail Park Link\n" +
+        "Demo Town West\n" +
+        "Westshire\n" +
+        "XX3 3CC\n" +
+        "Tel: 01000 333003\n" +
+        "TO\n" +
+        "Regional Store Hub\n" +
+        "Warehouse Lane\n" +
+        "Demo Town East\n" +
+        "Eastshire\n" +
+        "XX4 4DD\n" +
+        "Tel: 01000 444004\n" +
+        "JOB NO KEY LOC BARCODE\n" +
+        "1000002 N/A 0\n" +
+        "MAKE MODEL COLOUR REGISTRATION CHASSIS\n" +
+        "AUDI Q2 Grey\n" +
+        "COMMENTS\n" +
+        "1. Call before arrival.\n" +
+        "VALUE\n" +
+        "158.03",
       "batch-b":
-        "FROM\nCollection site 03\nTO\nDelivery hub C\n" +
-        "JOB NO\n1000003\n" +
-        "MAKE MODEL COLOUR\nRENAULT MEGANE E-TECH Grey\n" +
-        "VALUE\n70.79\n" +
-        "FROM\nCollection site 04\nTO\nDelivery hub D\n" +
-        "JOB NO\n1000004\n" +
-        "MAKE MODEL COLOUR\nNISSAN X-TRAIL Grey\n" +
-        "VALUE\n32.56\n" +
-        "FROM\nCollection site 05\nTO\nDelivery hub A\n" +
-        "JOB NO\n1000005\n" +
-        "MAKE MODEL COLOUR\nMG HS Blue\n" +
-        "VALUE\n127.01",
+        "FROM\n" +
+        "Compound Alpha\n" +
+        "Ops Yard Gate 2\n" +
+        "Demo Vale\n" +
+        "Mids\n" +
+        "XX5 5EE\n" +
+        "Tel: 01000 555005\n" +
+        "TO\n" +
+        "City Store North\n" +
+        "Storage Compound\n" +
+        "Demo Metro\n" +
+        "Metroshire\n" +
+        "XX6 6FF\n" +
+        "Tel: 01000 666006\n" +
+        "JOB NO KEY LOC BARCODE\n" +
+        "1000003 N/A 0\n" +
+        "MAKE MODEL COLOUR REGISTRATION CHASSIS\n" +
+        "RENAULT MEGANE E-TECH Grey\n" +
+        "COMMENTS\nVALUE\n70.79\n" +
+        "FROM\n" +
+        "Dealer Park South\n" +
+        "Trade Avenue\n" +
+        "Demo Port\n" +
+        "Coastshire\n" +
+        "XX7 7GG\n" +
+        "Tel: 01000 777007\n" +
+        "TO\n" +
+        "Van Compound West\n" +
+        "Dock Road Bay 3\n" +
+        "Demo Quay\n" +
+        "Quayside\n" +
+        "XX8 8HH\n" +
+        "Tel: 01000 888008\n" +
+        "JOB NO KEY LOC BARCODE\n" +
+        "1000004 N/A 0\n" +
+        "MAKE MODEL COLOUR REGISTRATION CHASSIS\n" +
+        "NISSAN X-TRAIL Grey\n" +
+        "COMMENTS\nVALUE\n32.56\n" +
+        "FROM\n" +
+        "Showroom Hill\n" +
+        "High Street Site\n" +
+        "Demo Spa\n" +
+        "Spa County\n" +
+        "XX9 9JJ\n" +
+        "Tel: 01000 999009\n" +
+        "TO\n" +
+        "Central Logistics Hub\n" +
+        "Bay 12 Yard Road\n" +
+        "Demo City\n" +
+        "Midlands\n" +
+        "XX2 2BB\n" +
+        "Tel: 01000 222002\n" +
+        "JOB NO KEY LOC BARCODE\n" +
+        "1000005 N/A 0\n" +
+        "MAKE MODEL COLOUR REGISTRATION CHASSIS\n" +
+        "MG HS Blue\n" +
+        "COMMENTS\nVALUE\n127.01",
       mixed:
         "Manifest Created:\nPage 1 of 3\n" +
-        "FROM\nCollection site 06\nTO\nDelivery hub E\n" +
-        "JOB NO\n1000101\n" +
-        "MAKE MODEL COLOUR\nVAUXHALL CORSA White\n" +
-        "VALUE\n88.40\n" +
-        "FROM\nCollection site 07\nTO\nDelivery hub F\n" +
+        "FROM\nTrade Centre A\nEstate Road\nDemo Borough\nBoroughshire\nXA1 1AA\nTel: 01000 101010\n" +
+        "TO\nMotorstore B\nClose Lane\nDemo Shire\nShireland\nXA2 2BB\nTel: 01000 202020\n" +
+        "JOB NO KEY LOC BARCODE\n1000101 N/A 0\n" +
+        "MAKE MODEL COLOUR REGISTRATION CHASSIS\nVAUXHALL CORSA White\n" +
+        "COMMENTS\nVALUE\n88.40\n" +
+        "FROM\nFleet Hub C\nRing Road Site\nDemo Ridings\nRidings\nXA3 3CC\nTel: 01000 303030\n" +
+        "TO\nHarbor Depot D\nQuayside Plot\nDemo Coast\nCoastland\nXA4 4DD\nTel: 01000 404040\n" +
         "JOB NO\n1000102\n" +
-        "MAKE MODEL COLOUR\nFORD TRANSIT Silver\n" +
-        "VALUE\n\n" +
-        "FROM\nCollection site 08\nTO\nDelivery hub G\n" +
-        "JOB NO\n1000103\n" +
-        "MAKE MODEL COLOUR\nTOYOTA YARIS Red\n" +
-        "VALUE\n64.20",
+        "MAKE MODEL COLOUR REGISTRATION CHASSIS\nFORD TRANSIT Silver\n" +
+        "COMMENTS\nVALUE\n\n" +
+        "FROM\nCedar Works E\nBusiness Park\nDemo West\nWestland\nXA5 5EE\n" +
+        "TO\nMaple Depot F\nOcean Plot\nDemo South\nSouthland\nXA6 6FF\nTel: 01000 606060\n" +
+        "JOB NO KEY LOC BARCODE\n1000103 N/A 0\n" +
+        "MAKE MODEL COLOUR REGISTRATION CHASSIS\nTOYOTA YARIS Red\n" +
+        "COMMENTS\nVALUE\n64.20",
       rush:
-        "FROM\nCollection site 11\nTO\nDelivery hub A\nJOB NO\n2000001\nMAKE MODEL COLOUR\nBMW 1SERIES White\nVALUE\n90.00\n" +
-        "FROM\nCollection site 12\nTO\nDelivery hub B\nJOB NO\n2000002\nMAKE MODEL COLOUR\nFORD FOCUS Blue\nVALUE\n84.50\n" +
-        "FROM\nCollection site 13\nTO\nDelivery hub A\nJOB NO\n2000003\nMAKE MODEL COLOUR\nVW GOLF Grey\nVALUE\n91.20\n" +
-        "FROM\nCollection site 14\nTO\nDelivery hub C\nJOB NO\n2000004\nMAKE MODEL COLOUR\nKIA SPORTAGE Black\nVALUE\n110.00\n" +
-        "FROM\nCollection site 15\nTO\nDelivery hub B\nJOB NO\n2000005\nMAKE MODEL COLOUR\nTOYOTA COROLLA Silver\nVALUE\n76.40\n" +
-        "FROM\nCollection site 16\nTO\nDelivery hub D\nJOB NO\n2000006\nMAKE MODEL COLOUR\nHYUNDAI TUCSON Red\nVALUE\n102.10\n" +
-        "FROM\nCollection site 17\nTO\nDelivery hub A\nJOB NO\n2000007\nMAKE MODEL COLOUR\nSKODA OCTAVIA White\nVALUE\n88.80\n" +
-        "FROM\nCollection site 18\nTO\nDelivery hub E\nJOB NO\n2000008\nMAKE MODEL COLOUR\nPEUGEOT 208 Grey\nVALUE\n69.90"
+        "FROM\nNorth Gate\nBay 1 Access\nDemo Zone\nZoneshire\nXB1 1AA\nTel: 01000 111111\n" +
+        "TO\nHub One\nBay A Compound\nDemo Hub\nHubshire\nXB2 2BB\nTel: 01000 222221\n" +
+        "JOB NO KEY LOC BARCODE\n2000001 N/A 0\nMAKE MODEL COLOUR REGISTRATION CHASSIS\nBMW 1SERIES White\nVALUE\n90.00\n" +
+        "FROM\nEast Gate\nBay 2 Access\nDemo Zone\nZoneshire\nXB3 3CC\nTel: 01000 333331\n" +
+        "TO\nHub Two\nBay B Compound\nDemo Hub\nHubshire\nXB4 4DD\nTel: 01000 444441\n" +
+        "JOB NO KEY LOC BARCODE\n2000002 N/A 0\nMAKE MODEL COLOUR REGISTRATION CHASSIS\nFORD FOCUS Blue\nVALUE\n84.50\n" +
+        "FROM\nSouth Gate\nBay 3 Access\nDemo Zone\nZoneshire\nXB5 5EE\nTel: 01000 555551\n" +
+        "TO\nHub One\nBay A Compound\nDemo Hub\nHubshire\nXB2 2BB\nTel: 01000 222221\n" +
+        "JOB NO KEY LOC BARCODE\n2000003 N/A 0\nMAKE MODEL COLOUR REGISTRATION CHASSIS\nVW GOLF Grey\nVALUE\n91.20\n" +
+        "FROM\nWest Gate\nBay 4 Access\nDemo Zone\nZoneshire\nXB6 6FF\nTel: 01000 666661\n" +
+        "TO\nHub Three\nBay C Compound\nDemo Hub\nHubshire\nXB7 7GG\nTel: 01000 777771\n" +
+        "JOB NO KEY LOC BARCODE\n2000004 N/A 0\nMAKE MODEL COLOUR REGISTRATION CHASSIS\nKIA SPORTAGE Black\nVALUE\n110.00\n" +
+        "FROM\nYard Five\nBay 5 Access\nDemo Zone\nZoneshire\nXB8 8HH\nTel: 01000 888881\n" +
+        "TO\nHub Two\nBay B Compound\nDemo Hub\nHubshire\nXB4 4DD\nTel: 01000 444441\n" +
+        "JOB NO KEY LOC BARCODE\n2000005 N/A 0\nMAKE MODEL COLOUR REGISTRATION CHASSIS\nTOYOTA COROLLA Silver\nVALUE\n76.40\n" +
+        "FROM\nYard Six\nBay 6 Access\nDemo Zone\nZoneshire\nXB9 9JJ\nTel: 01000 999991\n" +
+        "TO\nHub Four\nBay D Compound\nDemo Hub\nHubshire\nXC1 1AA\nTel: 01000 121212\n" +
+        "JOB NO KEY LOC BARCODE\n2000006 N/A 0\nMAKE MODEL COLOUR REGISTRATION CHASSIS\nHYUNDAI TUCSON Red\nVALUE\n102.10\n" +
+        "FROM\nYard Seven\nBay 7 Access\nDemo Zone\nZoneshire\nXC2 2BB\nTel: 01000 131313\n" +
+        "TO\nHub One\nBay A Compound\nDemo Hub\nHubshire\nXB2 2BB\nTel: 01000 222221\n" +
+        "JOB NO KEY LOC BARCODE\n2000007 N/A 0\nMAKE MODEL COLOUR REGISTRATION CHASSIS\nSKODA OCTAVIA White\nVALUE\n88.80\n" +
+        "FROM\nYard Eight\nBay 8 Access\nDemo Zone\nZoneshire\nXC3 3CC\nTel: 01000 141414\n" +
+        "TO\nHub Five\nBay E Compound\nDemo Hub\nHubshire\nXC4 4DD\nTel: 01000 151515\n" +
+        "JOB NO KEY LOC BARCODE\n2000008 N/A 0\nMAKE MODEL COLOUR REGISTRATION CHASSIS\nPEUGEOT 208 Grey\nVALUE\n69.90"
     };
 
     var REPORT_SAMPLES = {
@@ -1732,7 +1857,16 @@
       }
     };
 
-    var JOB_HEADERS = ["Job no", "Make", "Model", "Colour", "From", "To", "Value", "Status"];
+    var JOB_HEADERS = [
+      "YOUR REF NO", "MAKE", "MODEL", "COLOUR",
+      "COLLECTION DATE",
+      "COLLECTION ADDR1", "COLLECTION ADDR2", "COLLECTION ADDR3", "COLLECTION ADDR4",
+      "COLLECTION POSTCODE", "COLLECTION PHONE",
+      "DELIVERY DATE",
+      "DELIVERY ADDR1", "DELIVERY ADDR2", "DELIVERY ADDR3", "DELIVERY ADDR4",
+      "DELIVERY POSTCODE", "DELIVERY CONTACT PHONE",
+      "SPECIAL INSTRUCTIONS", "PRICE", "STATUS"
+    ];
     var REPORT_HEADERS = ["Customer", "To be planned", "Allocated", "Collected", "Late", "Customer SLA", "Notes"];
     var SPECIAL_INSTRUCTIONS = "Must call 1 hour before collection and get a name";
 
@@ -1881,18 +2015,20 @@
 
 
     function analyzeJobs(rows) {
-      var missing = { jobNo: 0, make: 0, model: 0, value: 0, route: 0 };
+      var missing = { jobNo: 0, make: 0, model: 0, price: 0, addr: 0, postcode: 0, phone: 0 };
       var jobNos = {};
       var sites = {};
       rows.forEach(function (r) {
         if (!r.jobNo) missing.jobNo += 1;
         if (!r.make) missing.make += 1;
         if (!r.model) missing.model += 1;
-        if (!r.value) missing.value += 1;
-        if (!r.from || !r.to || r.from === "—" || r.to === "—") missing.route += 1;
+        if (!r.price) missing.price += 1;
+        if (!r.coll1 || !r.del1) missing.addr += 1;
+        if (!r.collPc || !r.delPc) missing.postcode += 1;
+        if (!r.collPhone || !r.delPhone) missing.phone += 1;
         if (r.jobNo) jobNos[r.jobNo] = (jobNos[r.jobNo] || 0) + 1;
-        if (r.from && r.from !== "—") sites[r.from] = true;
-        if (r.to && r.to !== "—") sites[r.to] = true;
+        if (r.coll1) sites[r.coll1] = true;
+        if (r.del1) sites[r.del1] = true;
       });
       var dups = 0;
       Object.keys(jobNos).forEach(function (k) { if (jobNos[k] > 1) dups += 1; });
@@ -1900,7 +2036,7 @@
         r.duplicate = !!(r.jobNo && jobNos[r.jobNo] > 1);
         if (r.duplicate && r.status !== "Flag") r.status = "Flag";
       });
-      var gapCount = missing.jobNo + missing.make + missing.model + missing.value + missing.route;
+      var gapCount = missing.jobNo + missing.make + missing.model + missing.price + missing.addr + missing.postcode + missing.phone;
       return {
         missing: missing,
         dups: dups,
@@ -1956,8 +2092,10 @@
       if (m.jobNo) bits.push("<span><b>" + m.jobNo + "</b> missing job no</span>");
       if (m.make) bits.push("<span><b>" + m.make + "</b> missing make</span>");
       if (m.model) bits.push("<span><b>" + m.model + "</b> missing model</span>");
-      if (m.value) bits.push("<span><b>" + m.value + "</b> missing value</span>");
-      if (m.route) bits.push("<span><b>" + m.route + "</b> incomplete route</span>");
+      if (m.price) bits.push("<span><b>" + m.price + "</b> missing price</span>");
+      if (m.addr) bits.push("<span><b>" + m.addr + "</b> incomplete address</span>");
+      if (m.postcode) bits.push("<span><b>" + m.postcode + "</b> missing postcode</span>");
+      if (m.phone) bits.push("<span><b>" + m.phone + "</b> missing phone</span>");
       if (analysis.dups) bits.push("<span><b>" + analysis.dups + "</b> duplicate job no</span>");
       gapList.innerHTML = bits.join("");
       gapList.classList.add("is-on");
@@ -1984,26 +2122,103 @@
         .replace(/Škoda/g, "Skoda").replace(/škoda/g, "Skoda");
     }
 
-    function siteName(block) {
+    function isPostcode(line) {
+      return /^[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}$/i.test(String(line || "").trim());
+    }
+
+    function isPhoneLine(line) {
+      return /(?:Tel(?:ephone)?|Phone)\b|^T\s*[:.]/i.test(String(line || ""));
+    }
+
+    function cleanPhone(value) {
+      var digits = String(value == null ? "" : value).replace(/[^\d+]/g, " ").replace(/\s+/g, " ").trim();
+      return digits;
+    }
+
+    function extractPhone(line) {
+      var m = String(line || "").match(/(?:(?:Tel(?:ephone)?|Phone)\b|^T)\s*[:.]+\s*([+\d()/\s-]*)/i);
+      if (!m) return { phone: "", rest: String(line || "") };
+      return {
+        phone: cleanPhone(m[1] || ""),
+        rest: (String(line || "").slice(0, m.index) + String(line || "").slice(m.index + m[0].length)).replace(/^[,;\-\s]+|[,;\-\s]+$/g, "")
+      };
+    }
+
+    function siteFields(block) {
       var lines = String(block || "").split("\n").map(function (l) { return l.trim(); }).filter(Boolean);
-      for (var i = 0; i < lines.length; i++) {
-        var u = lines[i].toUpperCase();
-        if (/^(TEL|TELEPHONE|PHONE|T)[:.\s]/.test(u)) continue;
-        if (/^[A-Z]{1,2}\d{1,2}[A-Z]?\s*\d[A-Z]{2}$/i.test(lines[i])) continue;
-        if (lines[i].length > 2) return lines[i].slice(0, 34);
+      var rawAddrs = [];
+      var postcode = "";
+      var phone = "";
+      lines.forEach(function (line) {
+        var upper = line.toUpperCase();
+        if (upper === "FROM" || upper === "TO") return;
+        var raw = line;
+        if (isPhoneLine(raw)) {
+          var extracted = extractPhone(raw);
+          if (extracted.phone && !phone) phone = extracted.phone;
+          raw = extracted.rest;
+          if (!raw) return;
+        }
+        if (isPostcode(raw)) {
+          postcode = raw.toUpperCase().replace(/\s+/, " ");
+          return;
+        }
+        // town + postcode on same line (Intertechnic-style)
+        var split = raw.match(/^(.*?)(\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2})$/i);
+        if (split) {
+          postcode = split[2].toUpperCase().replace(/\s+/, " ");
+          raw = split[1].replace(/^[,;\-\s]+|[,;\-\s]+$/g, "");
+          if (!raw) return;
+        }
+        rawAddrs.push(raw);
+      });
+
+      // Smart ADDR1–4 distribution (same rules as production AC01 parser)
+      var addr1 = "", addr2 = "", addr3 = "", addr4 = "";
+      if (rawAddrs.length >= 1) addr1 = rawAddrs[0];
+      if (rawAddrs.length === 2) {
+        addr4 = rawAddrs[1];
+      } else if (rawAddrs.length === 3) {
+        addr2 = rawAddrs[1];
+        addr4 = rawAddrs[2];
+      } else if (rawAddrs.length >= 4) {
+        addr2 = rawAddrs[1];
+        addr3 = rawAddrs[2];
+        addr4 = rawAddrs[3];
       }
-      return "—";
+
+      return {
+        addr1: addr1,
+        addr2: addr2,
+        addr3: addr3,
+        addr4: addr4,
+        postcode: postcode,
+        phone: phone,
+        name: addr1 || "—"
+      };
     }
 
     function parseJobBlock(jobText) {
       var job = {
-        reg: "", chassis: "", make: "", model: "", colour: "",
-        jobNo: "", from: "", to: "", value: "", status: "Ready"
+        jobNo: "", make: "", model: "", colour: "",
+        collDate: collectionDate, delDate: deliveryDate,
+        coll1: "", coll2: "", coll3: "", coll4: "", collPc: "", collPhone: "",
+        del1: "", del2: "", del3: "", del4: "", delPc: "", delPhone: "",
+        notes: SPECIAL_INSTRUCTIONS, price: "", status: "Ready",
+        from: "", to: ""
       };
       var fromM = jobText.match(/FROM\n([\s\S]*?)(?=\nTO\b)/i);
       var toM = jobText.match(/\nTO\n([\s\S]*?)(?=\n(?:JOB\s*NO|MAKE\s+MODEL)|$)/i);
-      if (fromM) job.from = siteName(fromM[1]);
-      if (toM) job.to = siteName(toM[1]);
+      if (fromM) {
+        var coll = siteFields(fromM[1]);
+        job.coll1 = coll.addr1; job.coll2 = coll.addr2; job.coll3 = coll.addr3; job.coll4 = coll.addr4;
+        job.collPc = coll.postcode; job.collPhone = coll.phone; job.from = coll.name;
+      }
+      if (toM) {
+        var del = siteFields(toM[1]);
+        job.del1 = del.addr1; job.del2 = del.addr2; job.del3 = del.addr3; job.del4 = del.addr4;
+        job.delPc = del.postcode; job.delPhone = del.phone; job.to = del.name;
+      }
 
       var jobNo = jobText.match(/JOB\s*NO(?:\s+KEY\s+LOC\s+BARCODE)?\s*\n\s*(\d{5,8})/i);
       if (!jobNo) jobNo = jobText.match(/JOB\s*NO\s*\n\s*(\d{5,8})/i);
@@ -2012,7 +2227,6 @@
       var veh = jobText.match(/MAKE\s+MODEL\s+COLOU?R(?:\s+REGISTRATION(?:\s+CHASSIS)?)?\s*\n([^\n]+)/i);
       if (veh) {
         var parts = veh[1].trim().split(/\s+/).filter(Boolean);
-        // Demo never surfaces regs/chassis — strip plate-like tokens if present in source
         parts = parts.filter(function (p) {
           return !/^REG-\d{1,3}$/i.test(p) && !/^[A-Z]{2}\d{2}[A-Z]{3}$/i.test(p) && !/^[A-Z]\d{1,3}[A-Z]{3}$/i.test(p) && !/^S\d{4,}$/i.test(p);
         });
@@ -2035,9 +2249,14 @@
       }
 
       var val = jobText.match(/\nVALUE\s*\n\s*([0-9]+(?:\.[0-9]+)?)/i);
-      if (val) job.value = val[1];
+      if (val) job.price = val[1];
+      var comments = jobText.match(/\nCOMMENTS\s*\n([\s\S]*?)(?=\nORIGIN|\nVALUE|$)/i);
+      if (comments) {
+        var note = comments[1].replace(/\nORIGIN WARNINGS[\s\S]*$/i, "").replace(/\nDESTINATION WARNINGS[\s\S]*$/i, "").trim();
+        if (note) job.notes = note;
+      }
 
-      if (!job.make || !job.model || !job.jobNo || !job.from || !job.to || !job.value) {
+      if (!job.make || !job.model || !job.jobNo || !job.coll1 || !job.del1 || !job.collPc || !job.delPc || !job.price) {
         job.status = "Flag";
       }
       if (!job.make && !job.model && !job.jobNo) return null;
@@ -2062,9 +2281,22 @@
         row.make || "—",
         row.model || "—",
         row.colour || "—",
-        row.from || "—",
-        row.to || "—",
-        row.value || "—",
+        row.collDate || "—",
+        row.coll1 || "—",
+        row.coll2 || "—",
+        row.coll3 || "—",
+        row.coll4 || "—",
+        row.collPc || "—",
+        row.collPhone || "—",
+        row.delDate || "—",
+        row.del1 || "—",
+        row.del2 || "—",
+        row.del3 || "—",
+        row.del4 || "—",
+        row.delPc || "—",
+        row.delPhone || "—",
+        row.notes || "—",
+        row.price || "—",
         row.status
       ];
     }
@@ -2086,9 +2318,11 @@
       rows.forEach(function (row) {
         if (row.jobNo) html = html.replace(new RegExp("\\b(" + esc(row.jobNo) + ")\\b"), '<mark class="mk-job">$1</mark>');
         if (row.make) html = html.replace(new RegExp("\\b(" + esc(row.make) + ")\\b"), '<mark class="mk-veh">$1</mark>');
-        if (row.from) html = html.replace(new RegExp("(" + esc(row.from).replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")"), '<mark class="mk-ref">$1</mark>');
-        if (row.to) html = html.replace(new RegExp("(" + esc(row.to).replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")"), '<mark class="mk-owner">$1</mark>');
-        if (row.value) html = html.replace(new RegExp("(" + esc(row.value).replace(/\./g, "\\.") + ")"), '<mark class="mk-detail">$1</mark>');
+        if (row.collPc) html = html.replace(new RegExp("(" + esc(row.collPc).replace(/\\s+/g, "\\\\s+") + ")", "i"), '<mark class="mk-ref">$1</mark>');
+        if (row.delPc) html = html.replace(new RegExp("(" + esc(row.delPc).replace(/\\s+/g, "\\\\s+") + ")", "i"), '<mark class="mk-owner">$1</mark>');
+        if (row.collPhone) html = html.replace(new RegExp("(" + esc(row.collPhone).replace(/\\s+/g, "\\\\s*") + ")"), '<mark class="mk-due">$1</mark>');
+        if (row.delPhone) html = html.replace(new RegExp("(" + esc(row.delPhone).replace(/\\s+/g, "\\\\s*") + ")"), '<mark class="mk-due">$1</mark>');
+        if (row.price) html = html.replace(new RegExp("(" + esc(row.price).replace(/\\./g, "\\\\.") + ")"), '<mark class="mk-detail">$1</mark>');
       });
       return html;
     }
@@ -2166,7 +2400,7 @@
         countEl.textContent = rows.length + " vehicles" + (flags ? " · " + flags + " flagged" : " · all clear");
         setStatus(flags ? "flag" : "ready", flags ? flags + " flagged" : "Sheet ready");
         footSummary.textContent = rows.length + " jobs sorted in one pass · " + (flags ? flags + " need a look" : "ready for Excel");
-        if (!opts.keepStats) setStats(rows.length, rows.length * 8, flags, opts.ms || 0);
+        if (!opts.keepStats) setStats(rows.length, rows.length * 16, flags, opts.ms || 0);
         setSmartRail({ jobs: rows.length, sites: analysis.sites, dups: analysis.dups, gapCount: analysis.gapCount }, "jobs");
         setGapList(analysis);
         if (opts.ms != null) setThroughput(rows.length, opts.ms);
@@ -2186,7 +2420,7 @@
           } else if (isReport && idx >= 1 && idx <= 4) {
             td.innerHTML = '<span class="bucket' + (idx === 4 && Number(cell) > 0 ? " is-late" : "") + '">' + esc(cell) + "</span>";
           } else {
-            if (cell === "—" && !isReport && (idx <= 6)) td.className = "miss";
+            if (cell === "—" && !isReport && idx !== 18 && idx !== 20) td.className = "miss";
             if (!isReport && idx === 0 && row.duplicate) {
               td.innerHTML = esc(cell) + '<span class="dup-tag">dup</span>';
             } else {
@@ -2310,7 +2544,8 @@
         parsed.forEach(function (row) {
           pushExtract("job", row.jobNo || "—", !row.jobNo);
           pushExtract("vehicle", ((row.make || "?") + " " + (row.model || "")).trim(), !row.make || !row.model);
-          pushExtract("route", (row.from || "?") + " → " + (row.to || "?"), !row.from || !row.to);
+          pushExtract("coll", (row.coll1 || "?") + " · " + (row.collPc || "no PC") + " · " + (row.collPhone || "no tel"), !row.collPc || !row.collPhone);
+          pushExtract("del", (row.del1 || "?") + " · " + (row.delPc || "no PC") + " · " + (row.delPhone || "no tel"), !row.delPc || !row.delPhone);
         });
         var msFast = Math.max(10, Math.round(performance.now() - started));
         renderTable(parsed, { instant: true, ms: msFast });
@@ -2344,13 +2579,21 @@
             fieldTally += 2;
             if (!row.make || !row.model) flagTally += 1;
             setStats(0, fieldTally, flagTally, Math.round(performance.now() - started));
-          }, ri * (parsed.length > 5 ? 90 : 200) + 50));
+          }, ri * (parsed.length > 5 ? 90 : 200) + 40));
           rowTimers.push(setTimeout(function () {
             if (gen !== parseGen) return;
-            pushExtract("route", (row.from || "?") + " → " + (row.to || "?"), !row.from || !row.to);
+            pushExtract("coll PC", row.collPc || "missing", !row.collPc);
+            pushExtract("del PC", row.delPc || "missing", !row.delPc);
+            fieldTally += 2;
+            if (!row.collPc || !row.delPc) flagTally += 1;
+            setStats(0, fieldTally, flagTally, Math.round(performance.now() - started));
+          }, ri * (parsed.length > 5 ? 90 : 200) + 80));
+          rowTimers.push(setTimeout(function () {
+            if (gen !== parseGen) return;
+            pushExtract("phones", (row.collPhone || "—") + " / " + (row.delPhone || "—"), !row.collPhone || !row.delPhone);
             fieldTally += 1;
             setStats(0, fieldTally, flagTally, Math.round(performance.now() - started));
-          }, ri * (parsed.length > 5 ? 90 : 200) + 90));
+          }, ri * (parsed.length > 5 ? 90 : 200) + 110));
         });
       }, 380));
 
@@ -2490,7 +2733,7 @@
       reportStepsEl.hidden = currentModule !== "report";
       sourceLabel.textContent = currentModule === "report" ? "Status dump sample" : "Job sheet sample";
       extractLabel.textContent = currentModule === "report" ? "Status map" : "Live extract";
-      outLabel.textContent = currentModule === "report" ? "Daily orders board" : "Transport sheet";
+      outLabel.textContent = currentModule === "report" ? "Daily orders board" : "Transport request";
       parseBtn.textContent = currentModule === "report" ? "Build board" : "Run parse";
       statRowsLabel.textContent = currentModule === "report" ? "customers" : "rows";
       statFieldsLabel.textContent = currentModule === "report" ? "jobs" : "fields";
@@ -2597,7 +2840,7 @@
       var a = document.createElement("a");
       var name = currentModule === "report"
         ? "Daily-orders-status-update-2026.csv"
-        : "fastenly-transport-request.csv";
+        : "Transport-Request-demo.csv";
       a.href = URL.createObjectURL(new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8" }));
       a.download = name;
       document.body.appendChild(a);
