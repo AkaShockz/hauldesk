@@ -1,31 +1,25 @@
-# LinkedIn outreach (Hauldesk)
+# LinkedIn outreach (Flowdesk)
 
-Aimed at UK **vehicle logistics** ops / traffic / allocator managers.
+Aimed at ops / admin / operations managers who still run repeat manual workflows.
 
 Personalise every **{{bracket}}**. Cap at ~10 connection notes/day.
 
 Replace `YOU@EXAMPLE.com`, add your Loom, optional Calendly.
 
-Lead with a **multi-workflow desk**. Job sheets can be the example — not the whole pitch.
+Lead with a **multi-workflow desk** — not one industry, not one script.
 
 ---
 
 ## Connection note (≤300 characters)
 
 ```
-Hi {{First name}} — I build private automation desks for UK vehicle logistics ops (job sheets, checks, board merges, chase lists — stacked as modules). Curious how {{Company}} handles morning planning. Open to a quick chat?
+Hi {{First name}} — I build private automation desks for teams drowning in repeat work (parse, checks, merges, chase lists — stacked as modules). Curious how {{Company}} handles the weekly grind. Open to a quick chat?
 ```
 
 Shorter variant:
 
 ```
-Hi {{First name}}, I help vehicle logistics desks automate the repeat morning grind — not just one script, a private desk that grows. Worth 15 mins if ops still hurts at {{Company}}?
-```
-
-Ops angle:
-
-```
-{{First name}} — ops question: how many manual workflows still sit on the {{Company}} allocator desk each morning? I automate them module by module on a private site.
+Hi {{First name}}, I help ops/admin desks automate the work people keep retyping — a private desk that grows module by module. Worth 15 mins if that still hurts at {{Company}}?
 ```
 
 ---
@@ -35,11 +29,11 @@ Ops angle:
 ```
 Thanks for connecting, {{First name}}.
 
-Quick context: I build private web desks for UK vehicle logistics firms. First module is whatever burns the most time — often job sheets → Excel, sometimes checks or board merges. Same desk takes more automations later.
+Quick context: I build private web desks where automations stack — documents → sheets, quality checks, board merges, chase lists, and other repeat workflows. First module is whichever burns the most time.
 
 45-second walkthrough: {{LOOM_LINK}}
 
-If mornings at {{Company}} still involve a pile of repeatable retyping / checking, happy to run a free sample on one redacted workflow and say straight whether a pilot is worth it.
+If {{Company}} still has a pile of messy-to-clean busywork, happy to run a free sample on one redacted workflow.
 ```
 
 ---
@@ -57,7 +51,7 @@ If it is: fixed pilot to get the desk live in ~2 weeks (£2,500 + £149/mo hosti
 ## Day 7 last touch
 
 ```
-Last note from me: send one redacted sample workflow to YOU@EXAMPLE.com and I’ll return a clean test the same week — no charge, no login for that test.
+Last note from me: send one redacted sample workflow to YOU@EXAMPLE.com and I’ll return a clean test the same week — no charge.
 
 Either way, appreciate the connect.
 ```
@@ -68,9 +62,9 @@ Either way, appreciate the connect.
 
 Ask only:
 
-1. What repeatable work burns the most allocator time (jobs, checks, merges, chase lists, something else)?
-2. What else would you put on the same desk if module one stuck?
+1. What repeatable work burns the most time?
+2. What else would go on the same desk if module one stuck?
 3. What must the output look like?
 4. Who uses it day to day?
 
-Then: propose the pilot (£2,500 + £149/mo) to **get the desk live with module one**. Send `pilot-proposal.md` the same day — keep module two+ as a shortlist, not scope creep.
+Then: propose the pilot (£2,500 + £149/mo). Send `pilot-proposal.md` the same day.

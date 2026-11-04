@@ -1,20 +1,20 @@
-# Hauldesk pilot proposal
+# Flowdesk pilot proposal
 
 Copy into email or PDF after a good discovery call.
 
 **To:** {{Company}}  
 **From:** {{Your name}}  
 **Date:** {{Date}}  
-**Module 01 in scope:** {{agreed first workflow — e.g. job sheet → Excel / address checks / board merge / other}}  
+**Module 01 in scope:** {{agreed first workflow}}  
 **Module shortlist for later (not in this pilot):** {{list}}
 
 ---
 
 ## Goal
 
-Stand up a **private automation desk** for your ops team — starting with one module that removes the worst repeatable work, with a clear path to add more workflows on the same site.
+Stand up a **private automation desk** for your team — starting with one module that removes the worst repeatable work, with a clear path to add more workflows on the same site.
 
-Hauldesk is not a single-purpose converter. The desk is built to hold many automations over time.
+Flowdesk is not a single-purpose converter and not locked to one industry. The desk is built to hold many automations over time.
 
 ## What’s included (pilot)
 
@@ -47,11 +47,10 @@ Hauldesk is not a single-purpose converter. The desk is built to hold many autom
 
 ## Out of scope (this pilot)
 
-- Full TMS replacement
-- Driver mobile apps / handheld workflows
+- Full platform replacement for tools you already love
 - Modules we have not agreed samples for
 - Automatic inbox scraping (possible later module)
-- Changes to accounting, payroll, or insurance tools
+- Changes to accounting, payroll, or core ERP/CRM systems
 
 ## Success check
 
@@ -60,7 +59,7 @@ After two weeks of live use: the team runs Module 01 without falling back to ful
 ## What I need from you to start
 
 1. Samples for Module 01 (redacted)  
-2. Target output template / board layout  
+2. Target output template  
 3. Staff emails who need login  
 4. Preferred kickoff week  
 5. Optional: ranked list of later modules  
@@ -71,5 +70,5 @@ Reply with a preferred kickoff week and the Module 01 sample pack. I’ll confir
 
 —
 {{Your name}}  
-Hauldesk  
+Flowdesk  
 {{YOU@EXAMPLE.com}}

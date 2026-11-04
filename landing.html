@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hauldesk — Private automation desk for vehicle logistics</title>
-  <meta name="description" content="Private multi-workflow automation for UK vehicle logistics ops desks. Job sheets, checks, merges, exceptions, and the repeat work your allocators still do by hand." />
+  <title>Flowdesk — Private automation for every repeat workflow</title>
+  <meta name="description" content="Flowdesk is a private multi-module automation desk for your business. Stack document parsing, checks, merges, chase lists, reports, and custom workflows — one solid module at a time." />
   <meta name="theme-color" content="#0d241a" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect fill='%230d241a' width='32' height='32'/%3E%3Ctext x='4' y='23' font-size='16' fill='%23d6b23a' font-family='Georgia,serif'%3EH%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect fill='%230d241a' width='32' height='32'/%3E%3Ctext x='4' y='23' font-size='16' fill='%23d6b23a' font-family='Georgia,serif'%3EF%3C/text%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
@@ -191,35 +191,19 @@
       50% { opacity: 1; }
     }
 
-    .hero-road {
+    .hero-glow {
       position: absolute;
       inset: auto 0 0 0;
-      height: 26%;
-      background:
-        linear-gradient(to top, rgba(8, 18, 12, 0.92), transparent),
-        repeating-linear-gradient(
-          90deg,
-          transparent 0,
-          transparent 68px,
-          rgba(243, 247, 242, 0.08) 68px,
-          rgba(243, 247, 242, 0.08) 72px
-        );
-      transform: perspective(420px) rotateX(54deg);
-      transform-origin: bottom center;
-      opacity: 0.48;
-      animation: roadPulse 6s ease-in-out infinite;
-    }
-
-    @keyframes roadPulse {
-      0%, 100% { opacity: 0.32; }
-      50% { opacity: 0.55; }
+      height: 28%;
+      background: linear-gradient(to top, rgba(8, 18, 12, 0.92), transparent);
+      opacity: 0.7;
     }
 
     .hero-inner {
       position: relative;
       z-index: 2;
       padding: 2.25rem 0 4.75rem;
-      max-width: min(520px, 100%);
+      max-width: min(540px, 100%);
     }
 
     .brand {
@@ -284,20 +268,10 @@
     }
 
     .btn:hover { transform: translateY(-1px); }
-    .btn:disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
-      transform: none;
-    }
-    .btn:focus-visible {
-      outline: 2px solid var(--signal);
-      outline-offset: 3px;
-    }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+    .btn:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
 
-    .btn-primary {
-      background: var(--signal);
-      color: var(--signal-ink);
-    }
+    .btn-primary { background: var(--signal); color: var(--signal-ink); }
     .btn-primary:hover:not(:disabled) { background: var(--signal-hover); }
 
     .btn-ghost {
@@ -307,10 +281,7 @@
     }
     .btn-ghost:hover:not(:disabled) { border-color: var(--cream); }
 
-    .btn-dark {
-      background: var(--field);
-      color: var(--cream);
-    }
+    .btn-dark { background: var(--field); color: var(--cream); }
     .btn-dark:hover { background: var(--field-mid); }
 
     section { padding: 5rem 0; }
@@ -371,10 +342,7 @@
       margin-bottom: 0.4rem;
     }
 
-    .flow-step p {
-      color: var(--ink-soft);
-      font-size: 0.98rem;
-    }
+    .flow-step p { color: var(--ink-soft); font-size: 0.98rem; }
 
     .work {
       display: grid;
@@ -393,15 +361,9 @@
       margin-bottom: 0.35rem;
     }
 
-    .work p {
-      color: var(--ink-soft);
-      font-size: 0.95rem;
-    }
+    .work p { color: var(--ink-soft); font-size: 0.95rem; }
 
-    .module-list {
-      list-style: none;
-      max-width: 640px;
-    }
+    .module-list { list-style: none; max-width: 640px; }
 
     .module-list li {
       display: grid;
@@ -422,11 +384,7 @@
       margin-top: 0.15rem;
     }
 
-    .module-tag.live {
-      background: var(--field);
-      color: var(--cream);
-    }
-
+    .module-tag.live { background: var(--field); color: var(--cream); }
     .module-tag.next {
       color: #9a7d1f;
       border: 1px solid rgba(154, 125, 31, 0.45);
@@ -439,10 +397,7 @@
       margin-bottom: 0.25rem;
     }
 
-    .module-list p {
-      color: var(--ink-soft);
-      font-size: 0.95rem;
-    }
+    .module-list p { color: var(--ink-soft); font-size: 0.95rem; }
 
     .desk {
       background: var(--field-deep);
@@ -562,66 +517,7 @@
       outline-offset: 2px;
     }
 
-    .drop-hint {
-      font-size: 0.8rem;
-      color: rgba(243, 247, 242, 0.45);
-    }
-
-    .job-editor.is-drop {
-      border-color: var(--signal);
-      box-shadow: inset 0 0 0 1px rgba(214, 178, 58, 0.35);
-    }
-
-    .history-strip {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      margin-top: 0.35rem;
-    }
-
-    .history-chip {
-      appearance: none;
-      font-family: inherit;
-      font-size: 0.72rem;
-      padding: 0.3rem 0.55rem;
-      cursor: pointer;
-      color: rgba(243, 247, 242, 0.65);
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(243, 247, 242, 0.12);
-    }
-
-    .history-chip:hover { color: var(--cream); border-color: rgba(243, 247, 242, 0.3); }
-
-    .toast {
-      position: fixed;
-      left: 50%;
-      bottom: 1.5rem;
-      transform: translateX(-50%) translateY(120%);
-      background: var(--field);
-      color: var(--cream);
-      border: 1px solid rgba(214, 178, 58, 0.45);
-      padding: 0.75rem 1.1rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-      z-index: 40;
-      opacity: 0;
-      transition: transform 0.25s ease, opacity 0.25s ease;
-      pointer-events: none;
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    #parse-body tr {
-      animation: rowIn 0.28s ease both;
-    }
-
-    @keyframes rowIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .drop-hint { font-size: 0.8rem; color: rgba(243, 247, 242, 0.45); }
 
     .desk-board {
       display: grid;
@@ -671,6 +567,11 @@
       outline-offset: 2px;
     }
 
+    .job-editor.is-drop {
+      border-color: var(--signal);
+      box-shadow: inset 0 0 0 1px rgba(214, 178, 58, 0.35);
+    }
+
     .desk-actions {
       display: flex;
       flex-wrap: wrap;
@@ -690,10 +591,27 @@
       color: rgba(243, 247, 242, 0.58);
     }
 
-    .desk-meta strong {
-      color: var(--signal);
-      font-weight: 600;
+    .desk-meta strong { color: var(--signal); font-weight: 600; }
+
+    .history-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.35rem;
     }
+
+    .history-chip {
+      appearance: none;
+      font-family: inherit;
+      font-size: 0.72rem;
+      padding: 0.3rem 0.55rem;
+      cursor: pointer;
+      color: rgba(243, 247, 242, 0.65);
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(243, 247, 242, 0.12);
+    }
+
+    .history-chip:hover { color: var(--cream); border-color: rgba(243, 247, 242, 0.3); }
 
     .desk-output .excel-table { font-size: 0.8rem; }
     .desk-output .excel-table th { padding: 0.5rem 0.4rem; }
@@ -723,6 +641,35 @@
       color: rgba(243, 247, 242, 0.5);
       font-size: 0.92rem;
       padding: 1.5rem 0;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 1.5rem;
+      transform: translateX(-50%) translateY(120%);
+      background: var(--field);
+      color: var(--cream);
+      border: 1px solid rgba(214, 178, 58, 0.45);
+      padding: 0.75rem 1.1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      z-index: 40;
+      opacity: 0;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    #parse-body tr { animation: rowIn 0.28s ease both; }
+
+    @keyframes rowIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .offer-block {
@@ -791,10 +738,7 @@
       margin-bottom: 0.35rem;
     }
 
-    .fit ul {
-      list-style: none;
-      margin-top: 0.75rem;
-    }
+    .fit ul { list-style: none; margin-top: 0.75rem; }
 
     .fit li {
       padding: 0.7rem 0;
@@ -802,16 +746,9 @@
       color: var(--ink-soft);
     }
 
-    .fit li strong {
-      color: var(--ink);
-      font-weight: 600;
-    }
+    .fit li strong { color: var(--ink); font-weight: 600; }
 
-    .faq {
-      display: grid;
-      gap: 0;
-      max-width: 720px;
-    }
+    .faq { display: grid; gap: 0; max-width: 720px; }
 
     .faq details {
       border-bottom: 1px solid var(--line);
@@ -921,67 +858,67 @@
       <div class="hero-grid"></div>
       <div class="product-plane">
         <div class="sheet-pane">
-          <p class="pane-label">Job sheet · inbound</p>
+          <p class="pane-label">Messy input · any workflow</p>
           <div class="sheet-lines">
-            <p class="dim">REF: AVL-48291 · Trade plate</p>
-            <p class="hi">Collect: Audi A4 · AB12 CDE</p>
-            <p>From: Southampton compound · Gate 3</p>
-            <p class="hi">Deliver: Leeds dealer stock bay</p>
-            <p>Service: Inspect notes on collect · by 14:00</p>
-            <p class="dim">Same desk later: checks · merges · chase lists</p>
+            <p class="dim">Orders · leads · tickets · ops notes</p>
+            <p class="hi">Paste, upload, or drop a file</p>
+            <p>Flowdesk reads the fields you need</p>
+            <p class="hi">Flags gaps before anything ships</p>
+            <p>Exports the layout your team already uses</p>
+            <p class="dim">Then add the next automation on the same desk</p>
           </div>
         </div>
         <div class="flow-arrow"></div>
         <div class="excel-pane">
-          <p class="pane-label">Allocator board · Excel</p>
+          <p class="pane-label">Clean output · your format</p>
           <table class="excel-table">
             <thead>
               <tr>
                 <th>Ref</th>
-                <th>VRM</th>
-                <th>Mode</th>
-                <th>Collect</th>
-                <th>Deliver</th>
+                <th>Type</th>
+                <th>Owner</th>
+                <th>Due</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>AVL-48291</td>
-                <td>AB12 CDE</td>
-                <td>TP</td>
-                <td>SO14 3…</td>
-                <td>LS11 5…</td>
+                <td>ORD-4821</td>
+                <td>Order</td>
+                <td>Sam</td>
+                <td>Today</td>
+                <td>Ready</td>
               </tr>
               <tr class="warn">
-                <td>AVL-48302</td>
-                <td>XY98 ZYX</td>
-                <td>I&amp;C</td>
+                <td>LEAD-903</td>
+                <td>Lead</td>
+                <td>—</td>
                 <td>check</td>
-                <td>M34 2…</td>
+                <td>Flag</td>
               </tr>
               <tr>
-                <td>AVL-48310</td>
-                <td>FG45 HIJ</td>
-                <td>TPT</td>
-                <td>BN1 4…</td>
-                <td>B6 7…</td>
+                <td>TKT-118</td>
+                <td>Ticket</td>
+                <td>Alex</td>
+                <td>Thu</td>
+                <td>Ready</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-      <div class="hero-road"></div>
+      <div class="hero-glow"></div>
     </div>
 
     <div class="wrap hero-inner">
-      <p class="brand">Haul<span>desk</span></p>
-      <h1>One private desk. Many automations.</h1>
+      <p class="brand">Flow<span>desk</span></p>
+      <h1>Automate the work you keep repeating.</h1>
       <p class="hero-lead">
-        Built for UK vehicle logistics ops — stack the workflows your allocators still grind through by hand, one solid module at a time.
+        A private desk for your business — stack modules for documents, checks, merges, chase lists, reports, and anything else your team still grinds through by hand.
       </p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Hauldesk%20pilot">Book a 15-minute call</a>
-        <a class="btn btn-ghost" href="#desk">See the desk modules</a>
+        <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Flowdesk%20pilot">Book a 15-minute call</a>
+        <a class="btn btn-ghost" href="#desk">Try the desk</a>
       </div>
     </div>
   </header>
@@ -989,22 +926,22 @@
   <section id="how">
     <div class="wrap">
       <p class="section-label">How it works</p>
-      <h2>Not one tool. A desk that keeps growing.</h2>
+      <h2>Not one bot. A desk that keeps growing.</h2>
       <p class="section-lead">
-        Hauldesk is a private login site for your company. We automate the repeat work that burns allocator time — jobs, checks, merges, exceptions, and whatever else the desk still does by hand.
+        Flowdesk is a private login site for your company. We automate the repeat work that burns time — across ops, admin, sales, support, logistics, finance, and more.
       </p>
       <div class="flow">
         <div class="flow-step">
-          <h3>Map the friction</h3>
-          <p>List the workflows that eat mornings: sheet parsing, address checks, board rebuilds, exception chasing, customer-format cleanup.</p>
+          <h3>Map the pile</h3>
+          <p>List the workflows people still paste, check, rebuild, or chase every week.</p>
         </div>
         <div class="flow-step">
           <h3>Ship the first win</h3>
-          <p>Pick the worst one. We build it on your private site with preview, export, and history — then the desk is live.</p>
+          <p>Pick the worst one. We build it on your private site with preview, export, and history.</p>
         </div>
         <div class="flow-step">
-          <h3>Stack the next modules</h3>
-          <p>Same login, more automations. Add formats, checks, merges, and custom workflows as each one pays back.</p>
+          <h3>Stack more modules</h3>
+          <p>Same login, more automations. Add the next workflow when the first one sticks.</p>
         </div>
       </div>
     </div>
@@ -1013,26 +950,26 @@
   <section id="work">
     <div class="wrap">
       <p class="section-label">Where it fits</p>
-      <h2>Across the ops work you already run</h2>
+      <h2>Built for every kind of repeat work</h2>
       <p class="section-lead">
-        Built for vehicle logistics desks handling trade plate, inspect &amp; collect, transporter, and dealer-handover work — and the admin around it, not just one paste-to-Excel trick.
+        If a team does the same messy-to-clean conversion every week, it belongs on Flowdesk — not locked to one industry.
       </p>
       <div class="work">
         <article>
-          <h3>Inbound jobs</h3>
-          <p>Turn messy sheets and manifests into the planner layout allocators already trust.</p>
+          <h3>Documents → sheets</h3>
+          <p>Orders, invoices, job notes, leads, tickets — into the spreadsheet layout you already trust.</p>
         </article>
         <article>
-          <h3>Quality checks</h3>
-          <p>Catch missing postcodes, TBD collects, and shaky fields before drivers roll.</p>
+          <h3>Checks &amp; flags</h3>
+          <p>Catch missing fields, bad postcodes, blank owners, and shaky dates before work moves on.</p>
         </article>
         <article>
-          <h3>Board assembly</h3>
-          <p>Merge customer formats and sources into one morning board without retyping.</p>
+          <h3>Merges &amp; boards</h3>
+          <p>Combine sources into one morning board or weekly pack without rebuilding columns by hand.</p>
         </article>
         <article>
-          <h3>Exceptions &amp; follow-ups</h3>
-          <p>Surface the jobs that still need chasing — ready-by slips, inspection notes, gaps.</p>
+          <h3>Chase &amp; exceptions</h3>
+          <p>Surface the items that still need a human — overdue, incomplete, or waiting on someone.</p>
         </article>
       </div>
     </div>
@@ -1043,49 +980,49 @@
       <p class="section-label">Desk modules</p>
       <h2>A catalogue of automations — not a single feature</h2>
       <p class="section-lead">
-        The pilot starts with whichever module hurts most. Everything below is fair game for the same private desk once samples exist.
+        Start with whichever module hurts most. Everything below can live on the same private desk once samples exist.
       </p>
       <ul class="module-list">
         <li>
           <span class="module-tag live">Demo live</span>
           <div>
-            <h3>Job sheet → allocator Excel</h3>
-            <p>One common first win: parse VRM, mode, both ends, ready-by — preview and export your planner columns.</p>
+            <h3>Messy text → clean rows</h3>
+            <p>Paste or upload. Parse refs, types, owners, dues. Preview. Export CSV or copy to your board.</p>
           </div>
         </li>
         <li>
           <span class="module-tag next">On the desk</span>
           <div>
-            <h3>Address &amp; postcode checks</h3>
-            <p>Flag shaky collects/delivers before the board goes out to drivers.</p>
+            <h3>Field &amp; quality checks</h3>
+            <p>Flag blanks, bad formats, and “TBD” values before anything is shared downstream.</p>
           </div>
         </li>
         <li>
           <span class="module-tag next">On the desk</span>
           <div>
-            <h3>Customer-format normaliser</h3>
-            <p>Leasing, rental, OEM, AVR sheets — different inbound layouts, one consistent export.</p>
+            <h3>Format normaliser</h3>
+            <p>Different customer or team templates in — one consistent export out.</p>
           </div>
         </li>
         <li>
           <span class="module-tag next">On the desk</span>
           <div>
-            <h3>Board merge &amp; exceptions</h3>
-            <p>Combine sources, surface missing fields, keep history the desk can reopen.</p>
+            <h3>Multi-source merge</h3>
+            <p>Combine inboxes, sheets, and dumps into one working board with history.</p>
           </div>
         </li>
         <li>
           <span class="module-tag next">On the desk</span>
           <div>
-            <h3>Ready-by &amp; chase lists</h3>
-            <p>Pull the jobs that still need chasing into a short list the allocator can work.</p>
+            <h3>Chase lists &amp; reports</h3>
+            <p>Pull exceptions and weekly packs the team can act on without rebuilding from scratch.</p>
           </div>
         </li>
         <li>
           <span class="module-tag next">On the desk</span>
           <div>
             <h3>Your repeat workflow</h3>
-            <p>If the desk does it every week, we can usually automate it — after we have seen real samples.</p>
+            <p>If the team does it every week, we can usually turn it into a module after we see samples.</p>
           </div>
         </li>
       </ul>
@@ -1097,33 +1034,33 @@
       <p class="section-label">Try the desk</p>
       <h2>Flip between modules on the same desk</h2>
       <p class="section-lead">
-        Job sheets is interactive here as an example. The other tabs show more automations that live alongside it — not instead of it.
+        The parse module is interactive here as an example. Other tabs show more automations that live alongside it.
       </p>
 
       <div class="desk-tabs" role="tablist" aria-label="Desk modules">
-        <button type="button" class="desk-tab" role="tab" id="tab-jobs" aria-controls="panel-jobs" aria-selected="true" data-panel="jobs">01 · Job sheets</button>
-        <button type="button" class="desk-tab" role="tab" id="tab-checks" aria-controls="panel-checks" aria-selected="false" data-panel="checks">02 · Address checks</button>
-        <button type="button" class="desk-tab" role="tab" id="tab-merge" aria-controls="panel-merge" aria-selected="false" data-panel="merge">03 · Board merge</button>
+        <button type="button" class="desk-tab" role="tab" id="tab-parse" aria-controls="panel-parse" aria-selected="true" data-panel="parse">01 · Parse</button>
+        <button type="button" class="desk-tab" role="tab" id="tab-checks" aria-controls="panel-checks" aria-selected="false" data-panel="checks">02 · Checks</button>
+        <button type="button" class="desk-tab" role="tab" id="tab-merge" aria-controls="panel-merge" aria-selected="false" data-panel="merge">03 · Merge</button>
         <button type="button" class="desk-tab" role="tab" id="tab-custom" aria-controls="panel-custom" aria-selected="false" data-panel="custom">04 · Your workflow</button>
       </div>
 
-      <div class="desk-panel" id="panel-jobs" role="tabpanel" aria-labelledby="tab-jobs">
-        <div class="sample-row" role="group" aria-label="Sample job packs">
-          <button type="button" class="sample-chip" data-sample="mixed" aria-pressed="false">Mixed morning</button>
-          <button type="button" class="sample-chip" data-sample="tp" aria-pressed="false">Trade plate</button>
-          <button type="button" class="sample-chip" data-sample="ic" aria-pressed="false">Inspect &amp; collect</button>
-          <button type="button" class="sample-chip" data-sample="tpt" aria-pressed="false">Transporter</button>
+      <div class="desk-panel" id="panel-parse" role="tabpanel" aria-labelledby="tab-parse">
+        <div class="sample-row" role="group" aria-label="Sample packs">
+          <button type="button" class="sample-chip" data-sample="orders" aria-pressed="false">Orders</button>
+          <button type="button" class="sample-chip" data-sample="leads" aria-pressed="false">Leads</button>
+          <button type="button" class="sample-chip" data-sample="tickets" aria-pressed="false">Tickets</button>
+          <button type="button" class="sample-chip" data-sample="ops" aria-pressed="false">Ops jobs</button>
           <span class="drop-hint">or drop a .txt file on the paste box</span>
         </div>
 
         <div class="desk-board">
           <div class="desk-input">
-            <p class="desk-kicker">Paste job text</p>
-            <label class="sr-only" for="job-paste">Job sheet paste</label>
-            <textarea id="job-paste" class="job-editor" spellcheck="false" placeholder="Paste a redacted job sheet here, tap a sample, or drop a .txt file…"></textarea>
+            <p class="desk-kicker">Paste workflow text</p>
+            <label class="sr-only" for="job-paste">Workflow paste</label>
+            <textarea id="job-paste" class="job-editor" spellcheck="false" placeholder="Paste messy notes here, tap a sample, or drop a .txt file…"></textarea>
             <input type="file" id="job-file" class="sr-only" accept=".txt,text/plain" />
             <div class="desk-actions">
-              <button type="button" class="btn btn-primary" id="btn-parse">Parse to Excel</button>
+              <button type="button" class="btn btn-primary" id="btn-parse">Parse to rows</button>
               <button type="button" class="btn btn-ghost" id="btn-upload" style="border-color: rgba(243,247,242,0.25); color: rgba(243,247,242,0.75);">Upload .txt</button>
               <button type="button" class="btn btn-ghost" id="btn-clear" style="border-color: rgba(243,247,242,0.25); color: rgba(243,247,242,0.75);">Clear</button>
               <button type="button" class="btn btn-ghost" id="btn-copy" disabled style="border-color: rgba(243,247,242,0.25); color: rgba(243,247,242,0.75);">Copy board</button>
@@ -1131,7 +1068,7 @@
             </div>
             <div class="desk-meta">
               <span><strong>Live parse</strong> as you type</span>
-              <span><strong>Reads</strong> ref, VRM, mode, both ends, ready-by</span>
+              <span><strong>Reads</strong> ref, type, owner, due</span>
             </div>
             <div>
               <p class="desk-kicker" style="margin-bottom:0.45rem;">Recent in this browser</p>
@@ -1139,24 +1076,24 @@
             </div>
           </div>
           <div class="desk-output">
-            <p class="desk-kicker">Preview → Excel rows</p>
+            <p class="desk-kicker">Preview → clean rows</p>
             <div class="filter-row" role="group" aria-label="Filter preview rows">
               <button type="button" class="filter-chip" data-filter="all" aria-pressed="true">All</button>
-              <button type="button" class="filter-chip" data-filter="TP" aria-pressed="false">TP</button>
-              <button type="button" class="filter-chip" data-filter="I&C" aria-pressed="false">I&amp;C</button>
-              <button type="button" class="filter-chip" data-filter="TPT" aria-pressed="false">TPT</button>
-              <button type="button" class="filter-chip" data-filter="Check" aria-pressed="false">Checks only</button>
+              <button type="button" class="filter-chip" data-filter="Order" aria-pressed="false">Orders</button>
+              <button type="button" class="filter-chip" data-filter="Lead" aria-pressed="false">Leads</button>
+              <button type="button" class="filter-chip" data-filter="Ticket" aria-pressed="false">Tickets</button>
+              <button type="button" class="filter-chip" data-filter="Job" aria-pressed="false">Ops</button>
+              <button type="button" class="filter-chip" data-filter="Check" aria-pressed="false">Flags</button>
             </div>
             <div id="parse-empty" class="empty-hint">Choose a sample, paste, or upload to see rows appear.</div>
             <table class="excel-table" id="parse-table" hidden>
               <thead>
                 <tr>
                   <th>Ref</th>
-                  <th>VRM</th>
-                  <th>Mode</th>
-                  <th>Collect PC</th>
-                  <th>Deliver PC</th>
-                  <th>Ready</th>
+                  <th>Type</th>
+                  <th>Owner</th>
+                  <th>Due</th>
+                  <th>Detail</th>
                   <th>Status</th>
                 </tr>
               </thead>
@@ -1172,24 +1109,24 @@
 
       <div class="desk-panel" id="panel-checks" role="tabpanel" aria-labelledby="tab-checks" hidden>
         <div class="module-preview">
-          <h3>Address &amp; postcode checks</h3>
-          <p>Same desk, next module: catch shaky collects and delivers before the board goes to drivers.</p>
+          <h3>Field &amp; quality checks</h3>
+          <p>Same desk, next module: catch gaps before work leaves the team.</p>
           <ul class="preview-list">
-            <li><strong>Flag</strong> missing or malformed UK postcodes on either end</li>
-            <li><strong>Highlight</strong> TBD / “customer address” collects that still need chasing</li>
-            <li><strong>Export</strong> a clean board plus a short exceptions list for the allocator</li>
+            <li><strong>Flag</strong> missing owners, dues, postcodes, or IDs</li>
+            <li><strong>Highlight</strong> TBD / “unknown” values that still need chasing</li>
+            <li><strong>Export</strong> a clean board plus a short exceptions list</li>
           </ul>
         </div>
       </div>
 
       <div class="desk-panel" id="panel-merge" role="tabpanel" aria-labelledby="tab-merge" hidden>
         <div class="module-preview">
-          <h3>Board merge &amp; exceptions</h3>
-          <p>Combine customer formats and portal dumps into one morning board — without rebuilding columns by hand.</p>
+          <h3>Multi-source merge</h3>
+          <p>Combine team dumps, inboxes, and sheets into one board without rebuilding columns.</p>
           <ul class="preview-list">
-            <li><strong>Merge</strong> trade-plate, I&amp;C, and transporter sources into one export</li>
-            <li><strong>Surface</strong> duplicates and missing VRMs before allocation</li>
-            <li><strong>Keep history</strong> so the desk can reopen yesterday’s board</li>
+            <li><strong>Merge</strong> different formats into one consistent export</li>
+            <li><strong>Surface</strong> duplicates and missing keys before anyone acts</li>
+            <li><strong>Keep history</strong> so yesterday’s board is one click away</li>
           </ul>
         </div>
       </div>
@@ -1197,10 +1134,10 @@
       <div class="desk-panel" id="panel-custom" role="tabpanel" aria-labelledby="tab-custom" hidden>
         <div class="module-preview">
           <h3>Your repeat workflow</h3>
-          <p>Hauldesk is not locked to one automation. If the desk repeats it every week, we can usually turn it into a module once we have samples.</p>
+          <p>Flowdesk is not locked to one automation or one industry. If the team repeats it every week, we can usually turn it into a module.</p>
           <ul class="preview-list">
-            <li><strong>Customer-format normalisers</strong> for leasing, rental, OEM, AVR sheets</li>
-            <li><strong>Exception views</strong> for jobs that fail ready-by or fail inspection notes</li>
+            <li><strong>Ops, admin, sales, support, finance</strong> — any messy-to-clean loop</li>
+            <li><strong>Weekly report packs</strong> and chase lists built from your real samples</li>
             <li><strong>Later hooks</strong> like inbox ingest — only after the core desk is solid</li>
           </ul>
         </div>
@@ -1220,35 +1157,35 @@
       <p class="price">£2,500 <span>+ £149/month hosting</span></p>
       <ul class="offer-includes">
         <li>Private login site built for multiple modules</li>
-        <li>First automation of your choosing (jobs, checks, merge, or another agreed workflow)</li>
+        <li>First automation of your choosing</li>
         <li>Preview, export, flags where they apply</li>
         <li>Clear path to add more modules without rebuilding the desk</li>
         <li>Training call + 14 days email support</li>
       </ul>
       <p class="offer-note">Extra modules from £500 once scoped. Cancel hosting anytime — you keep every file you exported.</p>
-      <a class="btn btn-dark" href="mailto:YOU@EXAMPLE.com?subject=Hauldesk%20pilot%20—%20ops%20desk">Start the desk</a>
+      <a class="btn btn-dark" href="mailto:YOU@EXAMPLE.com?subject=Flowdesk%20pilot">Start the desk</a>
     </div>
   </div>
 
   <section id="fit">
     <div class="wrap">
       <p class="section-label">Fit</p>
-      <h2>For vehicle logistics ops desks</h2>
-      <p class="section-lead">If the desk still has a pile of repeatable pastes, checks, and rebuilds — not just one — you are in the right place.</p>
+      <h2>For teams drowning in repeatable busywork</h2>
+      <p class="section-lead">If people still copy, check, and rebuild the same files by hand — across any department — you are in the right place.</p>
       <div class="fit">
         <div>
           <h3>Strong fit</h3>
           <ul>
-            <li><strong>Allocator desks</strong> juggling several manual workflows each morning</li>
-            <li><strong>Multi-customer ops</strong> with different inbound formats and the same Excel board</li>
-            <li><strong>Teams that want a private tool</strong> they can grow module by module</li>
+            <li><strong>Ops &amp; admin desks</strong> with a pile of weekly manual workflows</li>
+            <li><strong>Teams juggling formats</strong> from customers, tools, or sister teams</li>
+            <li><strong>Businesses that want a private tool</strong> they can grow module by module</li>
           </ul>
         </div>
         <div>
           <h3>Skip us if</h3>
           <ul>
-            <li><strong>One TMS with clean APIs</strong> already covers the whole workflow</li>
-            <li><strong>You only want shared multi-tenant SaaS</strong> sitting with other firms</li>
+            <li><strong>One platform already covers</strong> the whole workflow end-to-end</li>
+            <li><strong>You only want shared multi-tenant SaaS</strong> with everyone else’s data next door</li>
             <li><strong>You need a single throwaway script</strong> with no desk to grow on</li>
           </ul>
         </div>
@@ -1262,15 +1199,15 @@
       <h2>Straight answers before a call</h2>
       <div class="faq">
         <details>
-          <summary>Is Hauldesk just job sheets to Excel?</summary>
-          <p>No. Job sheets is a common first module and the one you can try in the browser demo. The product is a private desk for many automations — checks, normalisers, merges, chase lists, and other repeat ops work.</p>
+          <summary>Is this only for one industry?</summary>
+          <p>No. Flowdesk is a private automation desk for any repeat business workflow. Logistics, sales, support, admin, finance — if it’s messy-to-clean and weekly, it fits.</p>
         </details>
         <details>
-          <summary>Do we have to start with job sheets?</summary>
-          <p>No. The pilot starts with whichever agreed workflow hurts most. Job sheets is simply the interactive example on this page.</p>
+          <summary>Is Flowdesk just document-to-spreadsheet?</summary>
+          <p>That’s a common first module and the interactive demo. The product is built for many automations: checks, merges, chase lists, reports, and custom workflows.</p>
         </details>
         <details>
-          <summary>Is this a shared SaaS product?</summary>
+          <summary>Is this shared SaaS?</summary>
           <p>No. Each customer gets a private build and login. Your formats and history stay on your site.</p>
         </details>
         <details>
@@ -1289,31 +1226,31 @@
         Free sample on the first automation you care about. If it looks right, we scope the pilot — and leave the desk ready for the next modules.
       </p>
       <div class="cta-row" style="opacity:1;animation:none;">
-        <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Hauldesk%20—%20redacted%20sample">Email a redacted sample</a>
-        <a class="btn btn-dark" href="mailto:YOU@EXAMPLE.com?subject=Hauldesk%20pilot">Book the 15-minute call</a>
+        <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Flowdesk%20—%20sample%20workflow">Email a redacted sample</a>
+        <a class="btn btn-dark" href="mailto:YOU@EXAMPLE.com?subject=Flowdesk%20pilot">Book the 15-minute call</a>
       </div>
     </div>
   </section>
 
   <footer class="wrap">
-    <p><span class="brand-sm">Hauldesk</span> — private ops automation for UK vehicle logistics</p>
+    <p><span class="brand-sm">Flowdesk</span> — private automation for every repeat workflow</p>
     <p><a href="mailto:YOU@EXAMPLE.com">YOU@EXAMPLE.com</a></p>
   </footer>
 
   <script>
     (function () {
       var SAMPLES = {
-        mixed:
-          "JOB AVL-48291\nMode: Trade plate\nVehicle: Audi A4 · AB12 CDE\nCollect from:\n  Southampton Compound Gate 3\n  SO14 3HG\nDeliver to:\n  Leeds dealer — stock bay B\n  LS11 5QR\nCustomer: leasing desk · ready by 14:00\n\nJOB AVL-48302\nMode: Inspect & collect\nVehicle: VW Golf · XY98 ZYX\nCollect from:\n  Customer address TBD\nDeliver to:\n  Manchester compound\n  M34 2AB\nNotes: AVR collection\n\nJOB AVL-48310\nMode: Transporter\nVehicle: BMW 320d · FG45 HIJ\nCollect from:\n  Brighton holding · BN1 4GH\nDeliver to:\n  Birmingham dealer · B6 7RN\nReady by 16:30",
-        tp:
-          "JOB TP-11021\nMode: Trade plate\nVehicle: Mercedes C220 · LK71 PQR\nCollect from:\n  Northampton compound · NN4 7BE\nDeliver to:\n  Retail handover · customer address\n  SW1A 1AA\nReady by 11:30 · keys in lockbox\n\nJOB TP-11022\nMode: Trade plate\nVehicle: Ford Focus · BX19 LMN\nCollect from:\n  Dealer stock · CV3 4LF\nDeliver to:\n  Rental branch · B90 4AA\nReady by 13:00",
-        ic:
-          "JOB IC-7701\nMode: Inspect & collect\nVehicle: Nissan Qashqai · YE68 HJK\nCollect from:\n  Lessee address TBD\nDeliver to:\n  Remarketing compound · WA14 5UN\nNotes: end-of-lease inspect, photos required\n\nJOB IC-7702\nMode: Inspect & collect\nVehicle: Kia Sportage · GJ21 VWX\nCollect from:\n  Customer site · EH12 9DN\nDeliver to:\n  Holding yard · G51 4TR\nReady by 15:45",
-        tpt:
-          "JOB TPT-301\nMode: Transporter\nVehicle: Skoda Octavia · SG70 ABC\nCollect from:\n  Port compound · SO14 2AQ\nDeliver to:\n  Midlands hub · B6 7ER\n\nJOB TPT-302\nMode: Transporter\nVehicle: Toyota Corolla · VX22 DEF\nCollect from:\n  Port compound · SO14 2AQ\nDeliver to:\n  Dealer prep · LS10 1LT\n\nJOB TPT-303\nMode: Transporter\nVehicle: Hyundai Tucson · NA19 GHI\nCollect from:\n  Holding · BN1 4GH\nDeliver to:\n  Rental prep centre · M17 1FT"
+        orders:
+          "REF ORD-4821\nType: Order\nCustomer: Northline Supplies\nOwner: Sam\nDue: Today\nItems: 12 units · ship to SO14 3HG\n\nREF ORD-4822\nType: Order\nCustomer: TBD\nOwner:\nDue: Tomorrow\nItems: rush pack · deliver M34 2AB\n\nREF ORD-4823\nType: Order\nCustomer: Bright Harbor\nOwner: Alex\nDue: Thu\nItems: restock · BN1 4GH",
+        leads:
+          "REF LEAD-901\nType: Lead\nCompany: Cedar & Co\nOwner: Jordan\nDue: Fri\nNotes: booked discovery call\n\nREF LEAD-902\nType: Lead\nCompany: Unknown\nOwner:\nDue: TBD\nNotes: inbound form incomplete\n\nREF LEAD-903\nType: Lead\nCompany: Maple Works\nOwner: Riley\nDue: Wed\nNotes: wants pilot quote",
+        tickets:
+          "REF TKT-118\nType: Ticket\nSubject: Access reset\nOwner: Alex\nDue: Thu\nPriority: normal\n\nREF TKT-119\nType: Ticket\nSubject: Export failing\nOwner:\nDue: Today\nPriority: high\n\nREF TKT-120\nType: Ticket\nSubject: New user setup\nOwner: Sam\nDue: Mon\nPriority: normal",
+        ops:
+          "REF JOB-331\nType: Job\nMode: Collection\nOwner: Desk A\nDue: 14:00\nDetail: Southampton compound · SO14 3HG\n\nREF JOB-332\nType: Job\nMode: Delivery\nOwner:\nDue: TBD\nDetail: customer address incomplete\n\nREF JOB-333\nType: Job\nMode: Transfer\nOwner: Desk B\nDue: 16:30\nDetail: Birmingham hub · B6 7RN"
       };
 
-      var HISTORY_KEY = "hauldesk_demo_history_v1";
+      var HISTORY_KEY = "flowdesk_demo_history_v1";
       var paste = document.getElementById("job-paste");
       var fileInput = document.getElementById("job-file");
       var body = document.getElementById("parse-body");
@@ -1329,7 +1266,7 @@
       var filterChips = document.querySelectorAll(".filter-chip");
       var tabs = document.querySelectorAll(".desk-tab");
       var panels = {
-        jobs: document.getElementById("panel-jobs"),
+        parse: document.getElementById("panel-parse"),
         checks: document.getElementById("panel-checks"),
         merge: document.getElementById("panel-merge"),
         custom: document.getElementById("panel-custom")
@@ -1340,10 +1277,11 @@
       var parseTimer = null;
       var toastTimer = null;
 
-      var POSTCODE = /\b([A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2})\b/i;
-      var VRM = /\b([A-Z]{2}\d{2}\s*[A-Z]{3})\b/i;
-      var REF = /\b(?:JOB|REF)[:\s#-]*([A-Z]{2,5}-?\d{3,6})\b/i;
-      var READY = /\bready\s*by\s*(\d{1,2}:\d{2})\b/i;
+      var REF = /\b(?:REF|JOB|ORD|LEAD|TKT)[:\s#-]*([A-Z]{2,5}-?\d{2,6}|\d{3,6})\b/i;
+      var TYPE = /\bType:\s*([A-Za-z &/-]+)/i;
+      var OWNER = /\bOwner:\s*([^\n]+)/i;
+      var DUE = /\bDue:\s*([^\n]+)/i;
+      var DETAIL = /\b(?:Detail|Notes|Items|Subject|Customer|Company|Mode):\s*([^\n]+)/i;
 
       function toast(msg) {
         toastEl.textContent = msg;
@@ -1352,47 +1290,45 @@
         toastTimer = setTimeout(function () { toastEl.classList.remove("show"); }, 2200);
       }
 
-      function modeFrom(block) {
-        var t = block.toLowerCase();
-        if (t.indexOf("inspect") !== -1) return "I&C";
-        if (t.indexOf("transport") !== -1) return "TPT";
-        if (t.indexOf("trade") !== -1 || t.indexOf("driven") !== -1 || t.indexOf("handover") !== -1) return "TP";
-        return "—";
-      }
-
-      function splitJobs(text) {
-        var chunks = text.split(/\n(?=JOB\b|REF\b)/i).map(function (s) { return s.trim(); }).filter(Boolean);
+      function splitBlocks(text) {
+        var chunks = text.split(/\n(?=REF\b|JOB\b|ORD\b|LEAD\b|TKT\b)/i).map(function (s) { return s.trim(); }).filter(Boolean);
         if (chunks.length <= 1 && text.trim()) return [text.trim()];
         return chunks;
       }
 
-      function sectionPc(block, startLabel, endLabel) {
-        var start = block.search(new RegExp(startLabel, "i"));
-        if (start < 0) return "—";
-        var slice = block.slice(start);
-        if (endLabel) {
-          var end = slice.search(new RegExp(endLabel, "i"));
-          if (end > 0) slice = slice.slice(0, end);
-        }
-        var m = slice.match(POSTCODE);
-        return m ? m[1].toUpperCase().replace(/\s+/, " ") : "—";
+      function clean(v) {
+        if (!v) return "—";
+        v = String(v).trim();
+        return v ? v : "—";
       }
 
       function parseBlock(block) {
         var refMatch = block.match(REF);
-        var vrmMatch = block.match(VRM);
-        var readyMatch = block.match(READY);
-        var collect = sectionPc(block, "Collect", "Deliver");
-        var deliver = sectionPc(block, "Deliver", null);
+        var typeMatch = block.match(TYPE);
+        var ownerMatch = block.match(OWNER);
+        var dueMatch = block.match(DUE);
+        var detailMatch = block.match(DETAIL);
+        var type = typeMatch ? typeMatch[1].trim() : "—";
+        if (/order/i.test(block) && type === "—") type = "Order";
+        if (/lead/i.test(block) && type === "—") type = "Lead";
+        if (/ticket/i.test(block) && type === "—") type = "Ticket";
+        if (/\bjob\b|\bcollection\b|\bdelivery\b/i.test(block) && type === "—") type = "Job";
+        var owner = ownerMatch ? clean(ownerMatch[1]) : "—";
+        var due = dueMatch ? clean(dueMatch[1]) : "—";
+        var detail = detailMatch ? clean(detailMatch[1]) : "—";
         var status = "Ready";
-        if (collect === "—" || deliver === "—" || /TBD|check|unknown/i.test(block)) status = "Check";
+        if (owner === "—" || due === "—" || /TBD|unknown|incomplete|check/i.test(block)) status = "Check";
+        var ref = "—";
+        if (refMatch) {
+          ref = refMatch[0].replace(/^(REF|JOB|ORD|LEAD|TKT)[:\s#-]*/i, "").toUpperCase();
+          if (!/-/.test(ref) && refMatch[1]) ref = refMatch[1].toUpperCase();
+        }
         return {
-          ref: refMatch ? refMatch[1].toUpperCase() : "—",
-          vrm: vrmMatch ? vrmMatch[1].toUpperCase().replace(/\s+/, " ") : "—",
-          mode: modeFrom(block),
-          collect: collect,
-          deliver: deliver,
-          ready: readyMatch ? readyMatch[1] : "—",
+          ref: ref,
+          type: type.replace(/\s+/g, " "),
+          owner: owner,
+          due: due,
+          detail: detail.length > 28 ? detail.slice(0, 26) + "…" : detail,
           status: status
         };
       }
@@ -1408,7 +1344,9 @@
       function filteredRows() {
         if (activeFilter === "all") return allRows;
         if (activeFilter === "Check") return allRows.filter(function (r) { return r.status === "Check"; });
-        return allRows.filter(function (r) { return r.mode === activeFilter; });
+        return allRows.filter(function (r) {
+          return r.type.toLowerCase().indexOf(activeFilter.toLowerCase()) === 0;
+        });
       }
 
       function setActionsEnabled(on) {
@@ -1441,21 +1379,20 @@
         setActionsEnabled(true);
         var checks = allRows.filter(function (r) { return r.status === "Check"; }).length;
         countEl.textContent = rows.length + " shown / " + allRows.length + " total" +
-          (checks ? " · " + checks + " to check" : " · all ready");
+          (checks ? " · " + checks + " flagged" : " · all ready");
         rows.forEach(function (row, i) {
           var tr = document.createElement("tr");
           if (row.status === "Check") tr.className = "warn";
           tr.style.animationDelay = Math.min(i, 8) * 0.03 + "s";
           var badge = row.status === "Check"
-            ? '<span class="badge-warn">Check</span>'
+            ? '<span class="badge-warn">Flag</span>'
             : '<span class="badge-ok">Ready</span>';
           tr.innerHTML =
             "<td>" + escapeHtml(row.ref) + "</td>" +
-            "<td>" + escapeHtml(row.vrm) + "</td>" +
-            "<td>" + escapeHtml(row.mode) + "</td>" +
-            "<td>" + escapeHtml(row.collect) + "</td>" +
-            "<td>" + escapeHtml(row.deliver) + "</td>" +
-            "<td>" + escapeHtml(row.ready) + "</td>" +
+            "<td>" + escapeHtml(row.type) + "</td>" +
+            "<td>" + escapeHtml(row.owner) + "</td>" +
+            "<td>" + escapeHtml(row.due) + "</td>" +
+            "<td>" + escapeHtml(row.detail) + "</td>" +
             "<td>" + badge + "</td>";
           body.appendChild(tr);
         });
@@ -1468,7 +1405,7 @@
           render();
           return;
         }
-        allRows = splitJobs(text).map(parseBlock);
+        allRows = splitBlocks(text).map(parseBlock);
         if (activeFilter !== "all" && !filteredRows().length && allRows.length) {
           activeFilter = "all";
           filterChips.forEach(function (c) {
@@ -1495,15 +1432,12 @@
         paste.value = SAMPLES[key];
         setActiveChip(key);
         runParse(true);
-        toast("Loaded " + key.replace("ic", "I&C").replace("tpt", "transporter").replace("tp", "trade plate").replace("mixed", "mixed morning") + " sample");
+        toast("Loaded " + key + " sample");
       }
 
       function readHistory() {
-        try {
-          return JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
-        } catch (e) {
-          return [];
-        }
+        try { return JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]"); }
+        catch (e) { return []; }
       }
 
       function writeHistory(items) {
@@ -1514,7 +1448,7 @@
         var items = readHistory().filter(function (h) { return h.text !== text; });
         items.unshift({
           id: String(Date.now()),
-          label: count + " job" + (count === 1 ? "" : "s") + " · " + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+          label: count + " row" + (count === 1 ? "" : "s") + " · " + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
           text: text,
           count: count
         });
@@ -1631,9 +1565,9 @@
       copyBtn.addEventListener("click", function () {
         var rows = filteredRows();
         if (!rows.length) return;
-        var lines = ["Ref\tVRM\tMode\tCollect PC\tDeliver PC\tReady\tStatus"];
+        var lines = ["Ref\tType\tOwner\tDue\tDetail\tStatus"];
         rows.forEach(function (r) {
-          lines.push([r.ref, r.vrm, r.mode, r.collect, r.deliver, r.ready, r.status].join("\t"));
+          lines.push([r.ref, r.type, r.owner, r.due, r.detail, r.status].join("\t"));
         });
         var text = lines.join("\n");
         if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -1657,9 +1591,9 @@
       csvBtn.addEventListener("click", function () {
         var rows = filteredRows();
         if (!rows.length) return;
-        var lines = ["Ref,VRM,Mode,Collect PC,Deliver PC,Ready,Status"];
+        var lines = ["Ref,Type,Owner,Due,Detail,Status"];
         rows.forEach(function (r) {
-          lines.push([r.ref, r.vrm, r.mode, r.collect, r.deliver, r.ready, r.status]
+          lines.push([r.ref, r.type, r.owner, r.due, r.detail, r.status]
             .map(function (c) { return '"' + String(c).replace(/"/g, '""') + '"'; })
             .join(","));
         });
@@ -1667,7 +1601,7 @@
         var url = URL.createObjectURL(blob);
         var a = document.createElement("a");
         a.href = url;
-        a.download = "hauldesk-preview.csv";
+        a.download = "flowdesk-preview.csv";
         document.body.appendChild(a);
         a.click();
         a.remove();
