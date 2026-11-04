@@ -2,7 +2,7 @@
 
 Go-to-market pack for selling a **private multi-workflow automation desk** to any team drowning in repeat work.
 
-Working brand: **Fastenly**. Pilot offer: **£795 + £49/mo hosting** to get the desk live with the first module. Extra modules scoped after that.
+Working brand: **Fastenly**. Build tiers: **Basic £795 · Gold £1,095 · Premium £1,495**. Hosting **£49/mo** or **Priority £129/mo** (+£80 for priority fixes / extra features).
 
 This repo is intentionally separate from any client production app. Do not put customer data here.
 

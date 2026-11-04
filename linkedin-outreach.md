@@ -43,7 +43,7 @@ If {{Company}} still has a pile of messy-to-clean busywork, happy to run a free 
 ```
 {{First name}} — circling back in case the Loom got buried. Even a “not a pain for us” is useful.
 
-If it is: fixed pilot to get the desk live in ~2 weeks (£795 + £49/mo hosting), then stack modules.
+If it is: fixed pilot from £795 Basic (Gold/Premium for visuals; hosting £49 or Priority £129), live in ~2 weeks, then stack modules.
 ```
 
 ---
@@ -90,4 +90,4 @@ Ask only:
 3. What must the output look like?
 4. Who uses it day to day?
 
-Then: propose the pilot (£795 + £49/mo). Send `pilot-proposal.md` the same day. Mention risk reversal (unused in 14 days → free Module 02 scope or build-fee refund).
+Then: propose the pilot (Basic/Gold/Premium + Standard or Priority hosting). Send `pilot-proposal.md` the same day. Mention deposit-after-brief + full refund if undeliverable.

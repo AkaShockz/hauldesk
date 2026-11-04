@@ -24,7 +24,7 @@ What I did:
 
 If this is directionally right, the Fastenly pilot stands up a private desk
 for your team in ~2 weeks with this as Module 01
-(£795 + £49/mo hosting). Extra modules from £195 on the same login.
+(from £795 Basic, or Gold/Premium if you want stronger visuals; hosting £49 or Priority £129/mo). Extra modules from £195 on the same login.
 
 Two easy next steps:
 1) 15-minute call — {{CALENDLY_LINK}}

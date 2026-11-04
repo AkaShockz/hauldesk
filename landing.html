@@ -385,31 +385,118 @@
       background: linear-gradient(105deg, rgba(232,93,4,0.07), transparent 45%), #e3e6eb;
       border-block: 1px solid var(--line);
     }
-    .price {
-      font-family: var(--display); font-size: clamp(2.4rem, 5vw, 3.2rem);
-      letter-spacing: -0.045em; font-weight: 700; line-height: 1;
-      margin: 0.3rem 0 0.65rem;
-    }
-    .price span { font-family: var(--sans); font-size: 1rem; font-weight: 400; color: var(--mute); }
-    .price-note { color: var(--mute); max-width: 38ch; margin-bottom: 1.25rem; }
-    .includes { list-style: none; max-width: 28rem; margin-bottom: 1.35rem; }
-    .includes li {
-      position: relative; padding: 0.45rem 0 0.45rem 1rem;
-      border-bottom: 1px solid var(--line); color: var(--mute);
-    }
-    .includes li::before {
-      content: ""; position: absolute; left: 0; top: 0.9rem;
-      width: 0.35rem; height: 0.35rem; background: var(--accent);
-    }
+    .price-note { color: var(--mute); max-width: 42ch; margin-bottom: 1.5rem; }
     .promise {
-      max-width: 36ch;
-      margin: 0 0 1.35rem;
+      max-width: 42ch;
+      margin: 1.5rem 0 1.25rem;
       padding: 0.85rem 0 0.85rem 0.9rem;
       border-left: 3px solid var(--accent);
       color: var(--ink);
       font-size: 0.95rem;
       font-weight: 500;
       line-height: 1.45;
+    }
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.45);
+      margin-bottom: 1.75rem;
+    }
+    .plan {
+      padding: 1.25rem 1.15rem 1.35rem;
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      min-width: 0;
+    }
+    .plan:last-child { border-right: 0; }
+    .plan.is-featured {
+      background: var(--ink);
+      color: var(--white);
+      border-right-color: transparent;
+    }
+    .plan .tier {
+      font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent); font-weight: 600;
+    }
+    .plan.is-featured .tier { color: #ffb070; }
+    .plan h3 {
+      font-family: var(--display); font-size: 1.35rem;
+      letter-spacing: -0.03em; font-weight: 700; margin: 0;
+    }
+    .plan .amount {
+      font-family: var(--display); font-size: clamp(1.8rem, 3vw, 2.2rem);
+      letter-spacing: -0.04em; font-weight: 700; line-height: 1;
+    }
+    .plan .amount small {
+      font-family: var(--sans); font-size: 0.85rem; font-weight: 400;
+      color: var(--mute); letter-spacing: 0;
+    }
+    .plan.is-featured .amount small { color: rgba(244,245,247,0.55); }
+    .plan .blurb {
+      font-size: 0.9rem; color: var(--mute); line-height: 1.45;
+      min-height: 3.6em;
+    }
+    .plan.is-featured .blurb { color: rgba(244,245,247,0.65); }
+    .plan ul {
+      list-style: none; margin: 0.25rem 0 0.75rem; flex: 1;
+    }
+    .plan li {
+      position: relative; padding: 0.4rem 0 0.4rem 0.9rem;
+      border-bottom: 1px solid var(--line); font-size: 0.88rem; color: var(--mute);
+    }
+    .plan.is-featured li {
+      border-bottom-color: var(--line-dark); color: rgba(244,245,247,0.7);
+    }
+    .plan li::before {
+      content: ""; position: absolute; left: 0; top: 0.85rem;
+      width: 0.3rem; height: 0.3rem; background: var(--accent);
+    }
+    .plan .btn { align-self: flex-start; margin-top: auto; }
+    .plan.is-featured .btn-ink {
+      background: var(--accent); border-color: var(--accent); color: #1a0a00;
+    }
+    .plan.is-featured .btn-ink:hover { background: var(--accent-2); border-color: var(--accent-2); }
+
+    .hosting {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.35);
+      margin-bottom: 0.5rem;
+    }
+    .host-opt {
+      padding: 1.15rem 1.2rem;
+      border-right: 1px solid var(--line);
+    }
+    .host-opt:last-child { border-right: 0; }
+    .host-opt .tier {
+      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--mute); margin-bottom: 0.35rem;
+    }
+    .host-opt h3 {
+      font-family: var(--display); font-size: 1.15rem;
+      letter-spacing: -0.02em; margin-bottom: 0.25rem;
+    }
+    .host-opt .amount {
+      font-family: var(--display); font-size: 1.55rem; font-weight: 700;
+      letter-spacing: -0.03em; margin-bottom: 0.35rem;
+    }
+    .host-opt .amount small {
+      font-family: var(--sans); font-size: 0.85rem; font-weight: 400; color: var(--mute);
+    }
+    .host-opt p { color: var(--mute); font-size: 0.9rem; max-width: 34ch; }
+    .host-opt.is-priority {
+      background: rgba(232,93,4,0.08);
+    }
+    .host-opt.is-priority .tier { color: var(--accent); }
+    .subhead {
+      font-family: var(--display); font-size: 1.05rem;
+      letter-spacing: -0.02em; margin: 0 0 0.65rem;
     }
 
     .close { padding: 3.75rem 0; }
@@ -443,9 +530,12 @@
     .reveal.is-in { opacity: 1; transform: none; }
 
     @media (max-width: 900px) {
-      .parser-board, .steps, .parser-steps, .build-grid { grid-template-columns: 1fr; }
+      .parser-board, .steps, .parser-steps, .build-grid, .plans, .hosting { grid-template-columns: 1fr; }
       .pstep { border-right: 0; border-bottom: 1px solid var(--line-dark); }
       .pane-in { border-right: 0; border-bottom: 1px solid var(--line-dark); }
+      .plan, .host-opt { border-right: 0; border-bottom: 1px solid var(--line); }
+      .plan:last-child, .host-opt:last-child { border-bottom: 0; }
+      .plan.is-featured { border-right: 0; }
       .build-item:nth-child(odd), .build-item:nth-child(even) {
         padding-left: 0; padding-right: 0; border-left: 0;
       }
@@ -652,17 +742,72 @@
   <div class="offer reveal" id="pilot">
     <div class="wrap">
       <p class="kicker">Price</p>
-      <h2>Simple pilot.</h2>
-      <p class="price">£795 <span>+ £49/month</span></p>
-      <p class="price-note">Private desk + first automation. Deposit only after you tell us what you want and we confirm we can do it.</p>
-      <ul class="includes">
-        <li>Deposit after the brief is agreed — not before</li>
-        <li>Full refund if we cannot deliver what you asked for</li>
-        <li>50% to start · 50% on go-live</li>
-        <li>Layout and columns of your choice</li>
-      </ul>
-      <p class="promise" id="refund-promise">Promise: if we say yes and then can’t build it as agreed, your deposit is returned in full.</p>
-      <a class="btn btn-ink" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20pilot">Start with a brief</a>
+      <h2>Basic · Gold · Premium.</h2>
+      <p class="price-note">Same automation core. Visuals step up by tier. Deposit only after you tell us what you want — full refund if we can’t do it.</p>
+
+      <p class="subhead">Build (one-off)</p>
+      <div class="plans">
+        <article class="plan">
+          <p class="tier">Basic</p>
+          <h3>Clean &amp; clear</h3>
+          <p class="amount">£795 <small>one-off</small></p>
+          <p class="blurb">Solid private desk and first automation — functional, fast, no fluff.</p>
+          <ul>
+            <li>First module (Excel, report, delivery, or site start)</li>
+            <li>Your columns / layout</li>
+            <li>Clean default look</li>
+            <li>Training call + 14 days support</li>
+          </ul>
+          <a class="btn btn-ink btn-sm" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20Basic%20brief">Choose Basic</a>
+        </article>
+
+        <article class="plan is-featured">
+          <p class="tier">Gold · most picked</p>
+          <h3>Better visuals</h3>
+          <p class="amount">£1,095 <small>one-off · +£300</small></p>
+          <p class="blurb">Everything in Basic, plus a branded visual pass so the desk looks like your company.</p>
+          <ul>
+            <li>Everything in Basic</li>
+            <li>Brand colours, type, and polished UI</li>
+            <li>Stronger first impression for staff</li>
+            <li>One visual revision round</li>
+          </ul>
+          <a class="btn btn-ink btn-sm" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20Gold%20brief">Choose Gold</a>
+        </article>
+
+        <article class="plan">
+          <p class="tier">Premium</p>
+          <h3>Full custom look</h3>
+          <p class="amount">£1,495 <small>one-off · +£700</small></p>
+          <p class="blurb">Everything in Gold, with a richer custom design — motion, multi-view polish, client-ready finish.</p>
+          <ul>
+            <li>Everything in Gold</li>
+            <li>Custom visual system + motion</li>
+            <li>Extra polish pass across key screens</li>
+            <li>Two visual revision rounds</li>
+          </ul>
+          <a class="btn btn-ink btn-sm" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20Premium%20brief">Choose Premium</a>
+        </article>
+      </div>
+
+      <p class="subhead">Hosting (monthly)</p>
+      <div class="hosting">
+        <article class="host-opt">
+          <p class="tier">Standard</p>
+          <h3>Hosting</h3>
+          <p class="amount">£49 <small>/ month</small></p>
+          <p>Keep the desk live. Normal fixes in the queue. Cancel anytime.</p>
+        </article>
+        <article class="host-opt is-priority">
+          <p class="tier">Priority · +£80</p>
+          <h3>Priority care</h3>
+          <p class="amount">£129 <small>/ month</small></p>
+          <p>Hosting plus priority fixes — and you can request extra features as you need them.</p>
+        </article>
+      </div>
+
+      <p class="promise" id="refund-promise">Deposit after the brief is agreed (50% to start, 50% on go-live). If we can’t build what you asked for, you get a full refund.</p>
+      <a class="btn btn-ink" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20brief">Start with a brief</a>
     </div>
   </div>
 

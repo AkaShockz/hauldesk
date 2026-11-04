@@ -20,8 +20,8 @@ single script, a login site where modules stack: document parsing, checks,
 merges, chase lists, reports, and custom workflows.
 
 We start with whichever workflow hurts most, get that live in about two
-weeks, then add more on the same desk (£795 + £49/mo hosting for the
-pilot).
+weeks, then add more on the same desk (from £795 Basic; Gold/Premium
+for visuals; hosting £49 or Priority £129/mo).
 
 45-second demo: {{LOOM_LINK}}
 Or reply with one redacted sample workflow and I’ll return a clean test free.
@@ -111,7 +111,7 @@ Or skip the call and email a redacted sample to YOU@EXAMPLE.com.
 Hi {{First name}},
 
 I build private automation desks for teams stuck on repeat admin
-(pastes, checks, chase lists). Fixed pilot: £795 + £49/mo.
+(pastes, checks, chase lists). From £795 Basic; Priority hosting +£80/mo.
 
 If you see clients drowning in that work, I’ll pay £100 credit (or 15%
 of Module 01) for every closed intro — and I run a free sample first so

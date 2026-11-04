@@ -37,13 +37,24 @@ Fastenly is not a single-purpose converter and not locked to one industry. The d
 
 ## Investment
 
-| Item | Amount |
-|------|--------|
-| Pilot (desk + first module) | £795 (one-off) |
-| Hosting & support | £49 / month (cancel anytime) |
-| Extra modules later | from £195 each (scoped separately) |
+### Build (one-off) — pick a visual tier
 
-**Payment:** Deposit only after you tell us what you want and we confirm we can do it. Then 50% to start (£397.50), 50% on go-live. Monthly hosting invoiced in advance. No annual lock-in.
+| Tier | Amount | What you get |
+|------|--------|----------------|
+| **Basic** | £795 | Clean functional desk + first automation |
+| **Gold** | £1,095 (+£300) | Basic + branded visual polish (most teams) |
+| **Premium** | £1,495 (+£700) | Gold + full custom look, motion, extra polish |
+
+### Hosting (monthly)
+
+| Plan | Amount | What you get |
+|------|--------|----------------|
+| **Standard** | £49 / month | Hosting + normal support queue |
+| **Priority** | £129 / month (+£80) | Priority fixes + request extra features as you need them |
+
+Extra modules later: from £195 each (scoped separately). Cancel hosting anytime.
+
+**Payment:** Deposit only after you tell us what you want and we confirm we can do it. Then 50% to start, 50% on go-live. Monthly hosting invoiced in advance. No annual lock-in.
 
 **If we cannot deliver:** If we agree the brief and then cannot build what you asked for, you get a **full refund of the deposit** (and any pilot build fee paid).
 
