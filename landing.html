@@ -10,6 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <!-- Plausible: replace YOUR-DOMAIN.com after signup. tagged-events enables CTA click goals. -->
+  <script defer data-domain="YOUR-DOMAIN.com" src="https://plausible.io/js/script.tagged-events.js"></script>
   <style>
     :root {
       --bg: #0e0e12;
@@ -1792,6 +1794,163 @@
       }
       .pstep.is-on::after { transform: none; opacity: 1; }
     }
+
+    /* —— Before / after strip —— */
+    .ba-strip {
+      margin-top: 2rem;
+      padding-top: 1.75rem;
+      border-top: 1px solid rgba(244,245,247,0.08);
+    }
+    .ba-title {
+      font-family: var(--display);
+      font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      color: var(--white);
+      margin: 0.35rem 0 0.45rem;
+      max-width: 18ch;
+    }
+    .ba-lead {
+      color: rgba(244,245,247,0.58);
+      font-size: 0.95rem;
+      max-width: 46ch;
+      margin-bottom: 1.15rem;
+    }
+    .ba-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1.35fr;
+      gap: 0.85rem;
+      align-items: stretch;
+    }
+    .ba-pane {
+      min-width: 0;
+      border: 1px solid rgba(244,245,247,0.1);
+      background: rgba(0,0,0,0.35);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .ba-label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(244,245,247,0.45);
+      padding: 0.55rem 0.75rem;
+      border-bottom: 1px solid rgba(244,245,247,0.08);
+      background: rgba(0,0,0,0.25);
+    }
+    .ba-before .ba-label { color: #ffd27a; }
+    .ba-after .ba-label { color: #8fd4ae; }
+    .ba-dump {
+      margin: 0;
+      padding: 0.75rem 0.85rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      line-height: 1.5;
+      color: rgba(244,245,247,0.72);
+      white-space: pre-wrap;
+      max-height: 220px;
+      overflow: auto;
+    }
+    .ba-arrow {
+      align-self: center;
+      font-family: var(--display);
+      font-size: 1.4rem;
+      color: var(--accent);
+      padding: 0 0.15rem;
+    }
+    .ba-table-wrap {
+      overflow: auto;
+      max-height: 220px;
+    }
+    .ba-table {
+      width: max-content;
+      min-width: 100%;
+      border-collapse: collapse;
+      font-size: 0.68rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .ba-table th, .ba-table td {
+      text-align: left;
+      padding: 0.4rem 0.5rem;
+      border-bottom: 1px solid rgba(244,245,247,0.06);
+      white-space: nowrap;
+    }
+    .ba-table th {
+      position: sticky; top: 0;
+      background: #101015;
+      font-family: var(--mono);
+      font-size: 0.52rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(244,245,247,0.48);
+      font-weight: 500;
+    }
+    .ba-table td { color: var(--white); }
+
+    /* —— Sticky mobile CTA —— */
+    .sticky-cta {
+      display: none;
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 60;
+      padding: 0.65rem 0.85rem calc(0.65rem + env(safe-area-inset-bottom, 0px));
+      background: rgba(10,10,14,0.94);
+      border-top: 1px solid rgba(244,245,247,0.1);
+      backdrop-filter: blur(10px);
+      transform: translateY(110%);
+      transition: transform 0.28s var(--ease), opacity 0.28s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .sticky-cta.is-on {
+      transform: none;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .sticky-cta-inner {
+      width: min(1080px, 100%);
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .sticky-cta-copy {
+      color: rgba(244,245,247,0.7);
+      font-size: 0.82rem;
+      line-height: 1.3;
+      min-width: 0;
+    }
+    .sticky-cta-copy strong {
+      display: block;
+      color: var(--white);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .sticky-cta .btn { flex-shrink: 0; color: #1a0a00; }
+
+    .privacy-line {
+      width: 100%;
+      margin-top: 0.35rem;
+      font-size: 0.82rem;
+      color: var(--mute);
+      max-width: 52ch;
+    }
+
+    @media (max-width: 900px) {
+      .ba-grid {
+        grid-template-columns: 1fr;
+        gap: 0.65rem;
+      }
+      .ba-arrow {
+        display: none;
+      }
+      .sticky-cta { display: block; }
+      body.has-sticky-cta {
+        padding-bottom: 5.5rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1807,15 +1966,15 @@
           <a href="#faq">FAQ</a>
           <a href="#pilot">Price</a>
         </nav>
-        <a class="btn btn-primary btn-sm" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Send a sample</a>
+        <a class="btn btn-primary btn-sm plausible-event-name=Email+Sample plausible-event-location=Nav" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Send a sample</a>
       </div>
 
       <div class="hero-copy">
         <h1>Raw work in. Clean boards out.</h1>
         <p>Private automation desks for Excel, reports, and delivery — or a full website to your brief.</p>
         <div class="cta-row">
-          <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Email a sample</a>
-          <a class="btn btn-ghost" href="#preview" id="btn-try-desk">Try the live desk</a>
+          <a class="btn btn-primary plausible-event-name=Email+Sample plausible-event-location=Hero" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Email a sample</a>
+          <a class="btn btn-ghost plausible-event-name=Try+Desk plausible-event-location=Hero" href="#preview" id="btn-try-desk">Try the live desk</a>
         </div>
       </div>
     </div>
@@ -1875,8 +2034,8 @@
       <h2 class="preview-title">See a batch sort itself.</h2>
       <p class="lead lead-light">Locked demos with the same desk layout — transport sheets, daily boards, delivery runs, chase lists. Demo data only.</p>
       <div class="preview-actions">
-        <button type="button" class="btn btn-primary" id="btn-replay">Play the batch</button>
-        <a class="btn btn-ghost" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Email your sample</a>
+        <button type="button" class="btn btn-primary plausible-event-name=Play+Batch plausible-event-location=Preview" id="btn-replay">Play the batch</button>
+        <a class="btn btn-ghost plausible-event-name=Email+Sample plausible-event-location=Preview" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Email your sample</a>
       </div>
       <div class="parser" id="desk" aria-label="Automation desk preview">
         <div class="parser-chrome">
@@ -2001,6 +2160,73 @@
           <button type="button" class="btn btn-ghost btn-sm" id="btn-replay-foot">Replay</button>
         </div>
       </div>
+
+      <div class="ba-strip reveal" id="before-after" aria-label="Before and after example">
+        <p class="kicker kicker-light">Same layout</p>
+        <h3 class="ba-title">Raw dump in. Clean board out.</h3>
+        <p class="ba-lead">Anonymised demo — fictional sites and numbers only. Your live desk uses your formats.</p>
+        <div class="ba-grid">
+          <div class="ba-pane ba-before">
+            <p class="ba-label">Before · job notes</p>
+            <pre class="ba-dump">FROM
+Yard Gate North
+Bay 2 Access
+Demo Zone
+Zoneshire
+XB1 1AA
+Tel: 01000 111001
+TO
+Hub One
+Bay A Compound
+Demo Hub
+Hubshire
+XB2 2BB
+Tel: 01000 222221
+JOB NO
+2000001
+MAKE MODEL COLOUR
+BMW 1SERIES White
+VALUE
+90.00</pre>
+          </div>
+          <div class="ba-arrow" aria-hidden="true">→</div>
+          <div class="ba-pane ba-after">
+            <p class="ba-label">After · transport sheet</p>
+            <div class="ba-table-wrap">
+              <table class="ba-table">
+                <thead>
+                  <tr>
+                    <th>YOUR REF NO</th>
+                    <th>MAKE</th>
+                    <th>MODEL</th>
+                    <th>COLL ADDR1</th>
+                    <th>COLL PC</th>
+                    <th>COLL PHONE</th>
+                    <th>DEL ADDR1</th>
+                    <th>DEL PC</th>
+                    <th>DEL PHONE</th>
+                    <th>PRICE</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2000001</td>
+                    <td>BMW</td>
+                    <td>1SERIES</td>
+                    <td>Yard Gate North</td>
+                    <td>XB1 1AA</td>
+                    <td>01000 111001</td>
+                    <td>Hub One</td>
+                    <td>XB2 2BB</td>
+                    <td>01000 222221</td>
+                    <td>90.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -2033,7 +2259,7 @@
         </li>
       </ul>
       <div class="bridge-cta">
-        <a class="btn btn-ink" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Send one real sample</a>
+        <a class="btn btn-ink plausible-event-name=Email+Sample plausible-event-location=Outcomes" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Send one real sample</a>
         <p class="hint">Free sort the same week — PDF, Excel, or a screenshot of the board you use now.</p>
       </div>
     </div>
@@ -2128,7 +2354,7 @@
             <li>Clean default look</li>
             <li>Training call + 14 days support</li>
           </ul>
-          <a class="btn btn-ink btn-sm" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20Basic%20desk">Choose Basic</a>
+          <a class="btn btn-ink btn-sm plausible-event-name=Choose+Basic+Desk plausible-event-location=Price" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20Basic%20desk">Choose Basic</a>
         </article>
 
         <article class="plan is-featured">
@@ -2142,7 +2368,7 @@
             <li>Stronger first impression for staff</li>
             <li>One visual revision round</li>
           </ul>
-          <a class="btn btn-ink btn-sm" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20Gold%20desk">Choose Gold</a>
+          <a class="btn btn-ink btn-sm plausible-event-name=Choose+Gold+Desk plausible-event-location=Price" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20Gold%20desk">Choose Gold</a>
         </article>
 
         <article class="plan">
@@ -2156,7 +2382,7 @@
             <li>Extra polish pass across key screens</li>
             <li>Two visual revision rounds</li>
           </ul>
-          <a class="btn btn-ink btn-sm" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20Premium%20desk">Choose Premium</a>
+          <a class="btn btn-ink btn-sm plausible-event-name=Choose+Premium+Desk plausible-event-location=Price" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20Premium%20desk">Choose Premium</a>
         </article>
       </div>
 
@@ -2223,7 +2449,7 @@
       </div>
 
       <p class="promise" id="refund-promise">Deposit after the brief is agreed (50% to start, 50% on go-live). If we can’t build what you asked for, you get a full refund.</p>
-      <a class="btn btn-ink" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20brief">Start with a brief</a>
+      <a class="btn btn-ink plausible-event-name=Start+Brief plausible-event-location=Price" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20brief">Start with a brief</a>
     </div>
   </div>
 
@@ -2234,17 +2460,25 @@
       <p class="lead">We’ll sort a free test the same week.</p>
       <p class="attach-hint">Attach a PDF, Excel export, or a screenshot of the board you use now. Redact plates and customer details if you want — fictionalised samples are fine for a first pass.</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample" style="color:#1a0a00">Email a sample</a>
-        <a class="btn btn-ink" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20pilot">Book a call</a>
+        <a class="btn btn-primary plausible-event-name=Email+Sample plausible-event-location=Contact" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample" style="color:#1a0a00">Email a sample</a>
+        <a class="btn btn-ink plausible-event-name=Book+Call plausible-event-location=Contact" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20pilot">Book a call</a>
       </div>
       <p class="trust-line">Deposit only after the brief is agreed · full refund if we can’t build it · hosting from £49/mo when you want it live.</p>
     </div>
   </section>
 
-  <footer class="wrap">
+  <footer class="wrap" id="site-footer">
     <p><span class="mark">Fasten<span>ly</span></span> — sample in, clean board out</p>
     <p><a href="mailto:YOU@EXAMPLE.com">YOU@EXAMPLE.com</a> · <a href="#faq">FAQ</a> · <a href="#pilot">Price</a></p>
+    <p class="privacy-line">Samples you email are used only to scope your desk — not sold, shared, or used for marketing.</p>
   </footer>
+
+  <div class="sticky-cta" id="sticky-cta" hidden>
+    <div class="sticky-cta-inner">
+      <p class="sticky-cta-copy"><strong>Got a sample?</strong> Free sort the same week.</p>
+      <a class="btn btn-primary btn-sm plausible-event-name=Email+Sample plausible-event-location=Sticky+Bar" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Email a sample</a>
+    </div>
+  </div>
 
   <script>
   (function () {
@@ -3769,6 +4003,33 @@
     } else {
       runJobs({ instant: true, toast: false });
     }
+
+    /* Sticky mobile CTA — show after scroll, hide near contact */
+    var stickyCta = document.getElementById("sticky-cta");
+    var contactEl = document.getElementById("contact");
+    var mqSticky = window.matchMedia("(max-width: 900px)");
+    function syncStickyCta() {
+      if (!stickyCta) return;
+      var mobile = mqSticky.matches;
+      stickyCta.hidden = !mobile;
+      document.body.classList.toggle("has-sticky-cta", mobile);
+      if (!mobile) {
+        stickyCta.classList.remove("is-on");
+        return;
+      }
+      var scrolled = window.scrollY > 420;
+      var nearEnd = false;
+      if (contactEl) {
+        var rect = contactEl.getBoundingClientRect();
+        nearEnd = rect.top < window.innerHeight * 0.72;
+      }
+      stickyCta.classList.toggle("is-on", scrolled && !nearEnd);
+    }
+    window.addEventListener("scroll", syncStickyCta, { passive: true });
+    window.addEventListener("resize", syncStickyCta);
+    if (mqSticky.addEventListener) mqSticky.addEventListener("change", syncStickyCta);
+    else if (mqSticky.addListener) mqSticky.addListener(syncStickyCta);
+    syncStickyCta();
   })();
   </script>
 </body>
