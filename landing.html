@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fastenly — Turn messy repeat work into clean sheets</title>
-  <meta name="description" content="Job sheets to Excel. Daily status boards. Locked sample desk that mirrors a live ops module." />
+  <title>Fastenly — Job sheets to Excel, daily boards, private ops desks</title>
+  <meta name="description" content="Private automation desks for UK ops teams: job sheets to Excel, daily status boards, and delivery run boards — or a full website to your brief. Deposit only after we agree; full refund if we can’t deliver." />
   <meta name="theme-color" content="#0e0e12" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230e0e12'/%3E%3Ccircle cx='16' cy='16' r='7.5' fill='none' stroke='%23e85d04' stroke-width='2.5'/%3E%3Cpath d='M16 11.5v9M12.5 16h7' stroke='%23e85d04' stroke-width='2' stroke-linecap='square'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -1289,10 +1289,155 @@
 
 
     #build .build-grid { margin-top: 0.35rem; }
+
+    /* —— Conversion sections —— */
+    .fit-band {
+      padding: 2.75rem 0;
+      border-block: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, rgba(232,93,4,0.04), transparent 40%),
+        rgba(255,255,255,0.28);
+    }
+    .fit-band h2 { max-width: 16ch; margin-bottom: 0.55rem; }
+    .fit-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem 1.75rem;
+      margin-top: 1.25rem;
+      max-width: 52rem;
+    }
+    .fit-list li {
+      position: relative;
+      padding-left: 1rem;
+      color: var(--mute);
+      font-size: 0.95rem;
+      max-width: 34ch;
+    }
+    .fit-list li::before {
+      content: "";
+      position: absolute; left: 0; top: 0.55rem;
+      width: 0.35rem; height: 0.35rem;
+      background: var(--accent);
+    }
+    .fit-list strong { color: var(--ink); font-weight: 600; }
+
+    .outcomes {
+      padding: 3.25rem 0;
+      background:
+        radial-gradient(ellipse 45% 50% at 100% 20%, rgba(232,93,4,0.05), transparent 55%),
+        transparent;
+    }
+    .outcomes h2 { max-width: 14ch; }
+    .outcome-lines {
+      list-style: none;
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 40rem;
+      border-top: 1px solid var(--line);
+    }
+    .outcome-lines li {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 4.5rem 1fr;
+      gap: 1rem;
+      align-items: baseline;
+    }
+    .outcome-lines .num {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+    }
+    .outcome-lines h3 {
+      font-family: var(--display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      max-width: 28ch;
+    }
+    .outcome-lines p {
+      color: var(--mute);
+      font-size: 0.94rem;
+      max-width: 42ch;
+    }
+    .bridge-cta {
+      margin-top: 1.75rem;
+      display: flex; flex-wrap: wrap; gap: 0.55rem; align-items: center;
+    }
+    .bridge-cta .hint {
+      font-size: 0.85rem;
+      color: var(--mute);
+      max-width: 36ch;
+    }
+
+    .faq-band {
+      padding: 3.25rem 0;
+      background:
+        linear-gradient(180deg, rgba(18,19,24,0.03), transparent 30%),
+        rgba(255,255,255,0.22);
+      border-top: 1px solid var(--line);
+    }
+    .faq-band h2 { max-width: 12ch; margin-bottom: 0.55rem; }
+    .faq-list {
+      margin-top: 1.35rem;
+      max-width: 44rem;
+      border-top: 1px solid var(--line);
+    }
+    .faq-list details {
+      border-bottom: 1px solid var(--line);
+      padding: 0.85rem 0;
+    }
+    .faq-list summary {
+      cursor: pointer;
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: baseline;
+    }
+    .faq-list summary::-webkit-details-marker { display: none; }
+    .faq-list summary::after {
+      content: "+";
+      font-family: var(--mono);
+      font-size: 1rem;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .faq-list details[open] summary::after { content: "–"; }
+    .faq-list details p {
+      margin-top: 0.55rem;
+      color: var(--mute);
+      font-size: 0.95rem;
+      max-width: 48ch;
+      padding-right: 1.5rem;
+    }
+    .close .trust-line {
+      margin-top: 1.15rem;
+      font-size: 0.88rem;
+      color: var(--mute);
+      max-width: 42ch;
+    }
+    .close .attach-hint {
+      margin: 0.85rem 0 1.25rem;
+      font-size: 0.9rem;
+      color: var(--mute);
+      max-width: 40ch;
+    }
+
     @media (max-width: 900px) {
       .hero { padding: 1.35rem 0 2rem !important; }
       .preview-band { padding: 2.25rem 0 2.5rem; }
       .preview-actions .btn { flex: 1 1 auto; }
+      .fit-list { grid-template-columns: 1fr; }
+      .outcome-lines li { grid-template-columns: 3.5rem 1fr; gap: 0.75rem; }
     }
 
     /* —— Intertechnic-like dense transport preview —— */
@@ -1331,6 +1476,7 @@
         <nav aria-label="Page">
           <a href="#build">What we build</a>
           <a href="#preview">Try it</a>
+          <a href="#faq">FAQ</a>
           <a href="#pilot">Price</a>
         </nav>
         <a class="btn btn-primary btn-sm" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Send a sample</a>
@@ -1340,7 +1486,7 @@
         <h1>Messy work in. Clean boards out.</h1>
         <p>Private automation desks for Excel, reports, and delivery — or a full website to your brief.</p>
         <div class="cta-row">
-          <a class="btn btn-primary" href="#build">See what we build</a>
+          <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Email a sample</a>
           <a class="btn btn-ghost" href="#preview" id="btn-try-desk">Try the live desk</a>
         </div>
       </div>
@@ -1381,6 +1527,20 @@
     </div>
   </section>
 
+  <section id="fit" class="fit-band reveal">
+    <div class="wrap">
+      <p class="kicker">Who it’s for</p>
+      <h2>Ops teams still stuck in copy-paste.</h2>
+      <p class="lead">If mornings start with PDFs, emails, and a master sheet — and someone retypes the same fields every day — this is built for you.</p>
+      <ul class="fit-list">
+        <li><strong>Transport &amp; yard desks</strong> — job sheets into a transport request Excel</li>
+        <li><strong>Fleet / hire ops</strong> — collections, deliveries, status boards</li>
+        <li><strong>Admin packs</strong> — daily dumps into planned / allocated / late</li>
+        <li><strong>Owners who want a real site</strong> — full website path, no automation required</li>
+      </ul>
+    </div>
+  </section>
+
   <section id="preview" class="preview-band reveal">
     <div class="wrap">
       <p class="kicker kicker-light">Try it</p>
@@ -1388,7 +1548,7 @@
       <p class="lead lead-light">Locked demo with the same sheet shape as a live ops parser — address lines, postcodes, phones, dates. Demo sites only.</p>
       <div class="preview-actions">
         <button type="button" class="btn btn-primary" id="btn-replay">Play the batch</button>
-        <a class="btn btn-ghost" href="#pilot">See pricing</a>
+        <a class="btn btn-ghost" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Email your sample</a>
       </div>
       <div class="parser" id="desk" aria-label="Automation desk preview">
         <div class="parser-chrome">
@@ -1504,6 +1664,41 @@
     </div>
   </section>
 
+  <section id="outcomes" class="outcomes reveal">
+    <div class="wrap">
+      <p class="kicker">What changes</p>
+      <h2>Same work. Far less retyping.</h2>
+      <p class="lead">You keep your formats. We build the desk that fills them — private, on your machine or hosted.</p>
+      <ul class="outcome-lines">
+        <li>
+          <span class="num">01</span>
+          <div>
+            <h3>Morning boards without the retype</h3>
+            <p>Paste or load the dump you already get — rows land in the sheet shape your team uses.</p>
+          </div>
+        </li>
+        <li>
+          <span class="num">02</span>
+          <div>
+            <h3>Gaps flagged before anyone leaves</h3>
+            <p>Missing postcodes, phones, prices, or refs show up in the run — not halfway to a site.</p>
+          </div>
+        </li>
+        <li>
+          <span class="num">03</span>
+          <div>
+            <h3>Deposit only when the brief is clear</h3>
+            <p>If we can’t build what you asked for, you get a full refund. No argument.</p>
+          </div>
+        </li>
+      </ul>
+      <div class="bridge-cta">
+        <a class="btn btn-ink" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Send one real sample</a>
+        <p class="hint">Free sort the same week — PDF, Excel, or a screenshot of the board you use now.</p>
+      </div>
+    </div>
+  </section>
+
 <section id="how" class="reveal">
     <div class="wrap">
       <p class="kicker">How it works</p>
@@ -1536,6 +1731,40 @@
           <li><strong>Rota & leave</strong> — who’s off, who’s covering</li>
           <li><strong>Stock counts</strong> — recount flags overnight</li>
         </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="faq-band reveal">
+    <div class="wrap">
+      <p class="kicker">FAQ</p>
+      <h2>Straight answers.</h2>
+      <p class="lead">The questions ops buyers usually ask before they send a sample.</p>
+      <div class="faq-list">
+        <details open>
+          <summary>Do I need IT or a big software project?</summary>
+          <p>No. You send a sample of the work that hurts. We build a private desk that matches your columns — not a platform you’ll spend months configuring.</p>
+        </details>
+        <details>
+          <summary>Will it match our Excel exactly?</summary>
+          <p>That’s the point. ADDR lines, postcodes, phones, dates, status buckets — your headers and layout, not a generic template we force on you.</p>
+        </details>
+        <details>
+          <summary>Where does our data live?</summary>
+          <p>Desks can run privately for your team, or we host them. The public demo uses fictional sites only. Production work uses your formats on the path you choose.</p>
+        </details>
+        <details>
+          <summary>How long until something useful is live?</summary>
+          <p>Most first modules land in days to a couple of weeks once the sample and brief are clear. Full websites take longer — that’s why they’re priced separately.</p>
+        </details>
+        <details>
+          <summary>What if you can’t do what we asked?</summary>
+          <p>No deposit until we agree the job is clear. If we can’t deliver it, you get a full refund of the deposit. Written into the offer.</p>
+        </details>
+        <details>
+          <summary>Desk or full website — which do I pick?</summary>
+          <p>Pick a desk when the pain is Excel, reports, or delivery boards. Pick a full website when you need a complete public site. Same Basic · Gold · Premium visual steps on both paths.</p>
+        </details>
       </div>
     </div>
   </section>
@@ -1663,16 +1892,18 @@
       <p class="kicker">Next</p>
       <h2>Send one messy example.</h2>
       <p class="lead">We’ll sort a free test the same week.</p>
+      <p class="attach-hint">Attach a PDF, Excel export, or a screenshot of the board you use now. Redact plates and customer details if you want — fictionalised samples are fine for a first pass.</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample" style="color:#1a0a00">Email a sample</a>
         <a class="btn btn-ink" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20pilot">Book a call</a>
       </div>
+      <p class="trust-line">Deposit only after the brief is agreed · full refund if we can’t build it · hosting from £49/mo when you want it live.</p>
     </div>
   </section>
 
   <footer class="wrap">
     <p><span class="mark">Fasten<span>ly</span></span> — sample in, clean board out</p>
-    <p><a href="mailto:YOU@EXAMPLE.com">YOU@EXAMPLE.com</a></p>
+    <p><a href="mailto:YOU@EXAMPLE.com">YOU@EXAMPLE.com</a> · <a href="#faq">FAQ</a> · <a href="#pilot">Price</a></p>
   </footer>
 
   <script>
