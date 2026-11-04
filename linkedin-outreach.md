@@ -1,6 +1,6 @@
 # LinkedIn outreach (Hauldesk)
 
-Aimed at UK **vehicle logistics** ops / traffic / allocator managers.
+Aimed at UK **vehicle logistics** ops / traffic / allocator managers — trade plate, inspect & collect, transporter, dealer handover desks.
 
 Personalise every **{{bracket}}**. Cap at ~10 connection notes/day.
 
@@ -11,19 +11,19 @@ Replace `YOU@EXAMPLE.com`, add your Loom, optional Calendly.
 ## Connection note (≤300 characters)
 
 ```
-Hi {{First name}} — I build private ops automation desks for UK vehicle logistics teams (start with job sheet → Excel, then add more workflows). Curious how {{Company}} handles morning planning. Open to a quick chat?
+Hi {{First name}} — I build private automation desks for UK vehicle logistics allocators (trade plate / I&C / transporter sheets → morning Excel). Curious how {{Company}} handles planning. Open to a quick chat?
 ```
 
 Shorter variant:
 
 ```
-Hi {{First name}}, I help vehicle logistics desks stop retyping the same jobs into Excel — and grow that into a private automation desk. Worth 15 mins if mornings still hurt at {{Company}}?
+Hi {{First name}}, I help vehicle logistics desks stop retyping job sheets into Excel — then grow that into more ops automations. Worth 15 mins if mornings still hurt at {{Company}}?
 ```
 
-Ops angle:
+Allocator angle:
 
 ```
-{{First name}} — ops question: does {{Company}} still copy job sheets into Excel by hand? I automate that as module one on a private desk, then add the other repeatable workflows.
+{{First name}} — ops question: does {{Company}} still copy trade-plate or inspect-and-collect jobs into the morning Excel by hand? I automate that as module one on a private desk.
 ```
 
 ---
@@ -33,11 +33,11 @@ Ops angle:
 ```
 Thanks for connecting, {{First name}}.
 
-Quick context: I build private web desks for UK vehicle logistics firms. First module is usually paste/upload job sheets → the Excel board planners already run, with address checks. Same desk can take more automations later.
+Quick context: I build private web desks for UK vehicle logistics firms. First module is usually paste/upload job sheets → the Excel board allocators already run, with address checks. Same desk can take more workflows later.
 
 45-second walkthrough: {{LOOM_LINK}}
 
-If mornings at {{Company}} still involve retyping, happy to parse one redacted sample free and say straight whether a pilot is worth it.
+If mornings at {{Company}} still involve retyping leasing / rental / OEM / AVR work, happy to parse one redacted sample free and say straight whether a pilot is worth it.
 ```
 
 ---
@@ -66,9 +66,9 @@ Either way, appreciate the connect.
 
 Ask only:
 
-1. What repeatable work burns the most allocator time (job sheets, checks, merges, something else)?
-2. Who does it, and how long on a busy morning?
-3. What must the output look like (Excel template / columns)?
-4. What would be module two if module one sticks?
+1. Mix of work — trade plate, inspect & collect, transporter, dealer handover?
+2. Where jobs arrive (email, portal, PDF) and who builds the morning board?
+3. Exact Excel columns (or a blank template)?
+4. Which format / customer is ~80% of the retyping pain — and what would be module two?
 
 Then: propose the pilot (£2,500 + £149/mo) for **module one only**. Send `pilot-proposal.md` the same day.

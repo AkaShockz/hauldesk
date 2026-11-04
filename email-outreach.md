@@ -1,28 +1,30 @@
 # Email outreach (Hauldesk)
 
-For direct ops / traffic / allocator emails at UK vehicle logistics firms.
+For direct ops / traffic / allocator emails at UK vehicle logistics firms
+(trade plate, inspect & collect, transporter, dealer handover desks).
 
 Replace `{{LOOM_LINK}}`, `YOU@EXAMPLE.com`, and your name before sending.
 
-Lead with the painful first workflow. Mention that the desk grows — do not oversell a finished platform.
+Lead with the painful first workflow. Mention the desk grows — do not oversell a finished platform.
 
 ---
 
 ## Cold email 1
 
-**Subject:** Ops desk automation at {{Company}}?
+**Subject:** Allocator board automation at {{Company}}?
 
 ```
 Hi {{First name}},
 
 I build private automation desks for UK vehicle logistics teams. The usual
-first module turns job sheets (paste or PDF) into the Excel board planners
-already use — with a quick address check before download.
+first module turns job sheets (paste or PDF) into the Excel board allocators
+already run — with a quick address check before download.
 
-Same desk can take more workflows later (extra formats, checks, merges);
-we just don’t pretend those are live on day one.
+Trade-plate, inspect-and-collect, and transporter formats are the usual fit.
+Same desk can take more workflows later; we just don’t pretend those are
+live on day one.
 
-If someone at {{Company}} still copies sheets into spreadsheets, I’m
+If someone at {{Company}} still copies from sheets into spreadsheets, I’m
 offering a fixed pilot: first module live in about two weeks (£2,500 +
 £149/mo hosting).
 
@@ -40,8 +42,8 @@ Or reply with one redacted sample and I’ll return a test Excel free.
 **Subject:** Morning board prep at {{Company}}
 
 ```
-{{First name}} — quick question: does anyone on your ops desk still retype
-vehicle job sheets into Excel?
+{{First name}} — quick question: does anyone on your allocator desk still
+retype vehicle job sheets into Excel?
 
 If yes, I run a small pilot that automates that as module one on a private
 desk. Happy to parse a redacted sample this week at no charge.
@@ -52,20 +54,21 @@ desk. Happy to parse a redacted sample this week at no charge.
 
 ---
 
-## Cold email 3 (broader friction)
+## Cold email 3 (leasing / AVR / compound angle)
 
-**Subject:** Repeat work on the {{Company}} ops desk
+**Subject:** Inspect & collect → Excel at {{Company}}
 
 ```
 Hi {{First name}},
 
-Most vehicle logistics desks I talk to don’t have one problem — they have
-a pile of repeatable pastes, checks, and rebuilds.
+Leasing, rental, OEM and AVR work often lands as PDFs or portal dumps that
+someone still keys into the morning planner.
 
-I start with the worst one (often job sheet → Excel), ship it on a private
-login site, then add the next module once it sticks.
+I build a private desk that does that parse once, flags shaky postcodes,
+and exports the columns your allocators already trust — then adds more
+modules once the first one sticks.
 
-Worth a free test on one redacted {{Company}} sample?
+Worth a free test on one redacted {{Company}} sheet?
 
 {{Your name}}
 ```
@@ -74,7 +77,7 @@ Worth a free test on one redacted {{Company}} sample?
 
 ## Follow-up (no reply, +4 days)
 
-**Subject:** Re: Ops desk automation at {{Company}}?
+**Subject:** Re: Allocator board automation at {{Company}}?
 
 ```
 Circling this up once. Even a “we’re fine / already on a TMS” helps me
@@ -93,7 +96,7 @@ If useful: YOU@EXAMPLE.com — one redacted sheet in, sample Excel back.
 Hi {{First name}},
 
 Attached is a first-pass Excel from the redacted sheet you sent.
-Columns are a best guess — happy to remap to your real planner template.
+Columns are a best guess — happy to remap to your real allocator template.
 
 If this is close, the pilot is straightforward: private desk, first module
 live in ~2 weeks, £2,500 + £149/mo hosting. Extra modules scoped after.

@@ -5,21 +5,21 @@ Copy into email or PDF after a good discovery call.
 **To:** {{Company}}  
 **From:** {{Your name}}  
 **Date:** {{Date}}  
-**Module 01 in scope:** {{e.g. job sheet → Excel for customer / format name}}  
+**Module 01 in scope:** {{e.g. trade plate / inspect & collect / transporter job sheet → Excel}}  
 **Future modules discussed (not in this pilot):** {{optional list}}
 
 ---
 
 ## Goal
 
-Give your ops desk a **private automation site** — starting with one module that removes the worst repeatable retyping or checking work. Extra modules land on the same desk later.
+Give your allocator desk a **private automation site** — starting with one module that removes the worst repeatable retyping or checking work. Extra modules land on the same desk later.
 
 ## What’s included (Module 01)
 
 - Private hosted web app (login for your staff only)
 - One agreed automation (usually job sheet → Excel for one format)
 - On-screen preview before download
-- Export matching a template you approve
+- Excel export matching a template you approve (allocator board columns)
 - Basic address / postcode warnings where issues can be detected
 - History so the desk can re-check earlier runs
 - Architecture ready for additional modules on the same site
@@ -30,9 +30,9 @@ Give your ops desk a **private automation site** — starting with one module th
 
 | Week | What happens |
 |------|----------------|
-| 0 | You send 5–10 redacted samples + target output layout |
+| 0 | You send 5–10 redacted samples + target Excel layout |
 | 1 | First draft on a staging URL for your review |
-| 2 | Fixes, go-live, training call |
+| 2 | Fixes, go-live, training call with allocators |
 
 ## Investment
 
@@ -47,19 +47,19 @@ Give your ops desk a **private automation site** — starting with one module th
 ## Out of scope (this pilot)
 
 - Full TMS replacement
-- Driver mobile apps
+- Driver mobile apps / handheld workflows
 - Automatic inbox scraping (possible later module)
 - Modules we have not seen samples for
 - Changes to accounting, payroll, or insurance tools
 
 ## Success check
 
-After two weeks of live use: the desk can complete the agreed Module 01 workflow without falling back to full manual retyping — and you have a clear shortlist for Module 02 if wanted.
+After two weeks of live use: allocators can produce the morning Excel from the new desk for the agreed format without falling back to full manual retyping — and you have a clear shortlist for Module 02 if wanted.
 
 ## What I need from you to start
 
-1. 5–10 redacted samples for Module 01  
-2. Blank or anonymised output template (column headers are enough)  
+1. 5–10 redacted samples of the #1 format  
+2. Blank or anonymised Excel template (column headers are enough)  
 3. List of staff emails who need login  
 4. Preferred kickoff week  
 
