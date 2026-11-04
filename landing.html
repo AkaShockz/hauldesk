@@ -44,6 +44,7 @@
     button, textarea { font: inherit; }
 
     .wrap { width: min(1080px, calc(100% - 2rem)); margin-inline: auto; }
+    .hero .wrap { width: min(1180px, calc(100% - 2rem)); }
     .skip {
       position: fixed; left: 1rem; top: 1rem; z-index: 100;
       background: var(--accent); color: #1a0a00; padding: 0.55rem 0.85rem;
@@ -177,10 +178,35 @@
     }
     .chip-hint { font-size: 0.78rem; color: rgba(244,245,247,0.35); margin-left: 0.25rem; }
 
+    .stat-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid var(--line-dark);
+      background: rgba(0,0,0,0.4);
+    }
+    .stat {
+      padding: 0.75rem 0.9rem;
+      border-right: 1px solid var(--line-dark);
+      font-family: var(--mono); font-size: 0.65rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(244,245,247,0.4);
+    }
+    .stat:last-child { border-right: 0; }
+    .stat strong {
+      display: block;
+      font-family: var(--display); font-size: 1.45rem;
+      letter-spacing: -0.03em; color: var(--white);
+      font-weight: 700; line-height: 1.1; margin-bottom: 0.15rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .stat strong.is-accent { color: var(--accent); }
+    .stat strong.is-warn { color: var(--warn); }
+    .stat strong.is-ok { color: #8fd4ae; }
+
     .parser-board {
       display: grid;
-      grid-template-columns: 1fr 1.15fr;
-      min-height: 420px;
+      grid-template-columns: 1.15fr 0.72fr 1.2fr;
+      min-height: 460px;
     }
     .pane {
       min-width: 0; display: flex; flex-direction: column;
@@ -190,26 +216,104 @@
       border-right: 1px solid var(--line-dark);
       background: rgba(0,0,0,0.28);
       gap: 0.65rem;
+      position: relative;
+    }
+    .pane-mid {
+      border-right: 1px solid var(--line-dark);
+      background: rgba(232,93,4,0.04);
+      gap: 0.55rem;
     }
     .label {
       font-family: var(--mono); font-size: 0.65rem;
       letter-spacing: 0.1em; text-transform: uppercase;
       color: rgba(244,245,247,0.4); margin-bottom: 0.35rem;
     }
+    .source-stage {
+      position: relative;
+      flex: 1;
+      min-height: 260px;
+    }
     .editor {
-      flex: 1; width: 100%; min-height: 260px; resize: vertical;
+      width: 100%; height: 100%; min-height: 260px; resize: vertical;
       font-family: var(--mono); font-size: 0.78rem; line-height: 1.55;
       color: var(--white); background: #0a0a0d;
       border: 1px solid var(--line-dark); padding: 0.85rem;
     }
     .editor:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
     .editor.is-typing { border-color: rgba(232,93,4,0.55); }
+    .editor.is-hidden { display: none; }
+    .source-view {
+      display: none;
+      position: absolute; inset: 0;
+      overflow: auto;
+      font-family: var(--mono); font-size: 0.78rem; line-height: 1.55;
+      color: rgba(244,245,247,0.72); background: #0a0a0d;
+      border: 1px solid var(--line-dark); padding: 0.85rem;
+      white-space: pre-wrap; word-break: break-word;
+    }
+    .source-view.is-on { display: block; }
+    .source-view .beam {
+      position: absolute; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0; pointer-events: none;
+      animation: beamSweep 1.15s var(--ease) forwards;
+    }
+    @keyframes beamSweep {
+      0% { top: 8%; opacity: 0; }
+      15% { opacity: 1; }
+      100% { top: 92%; opacity: 0; }
+    }
+    mark {
+      color: #1a0a00; font-weight: 600; padding: 0.05em 0.15em;
+      border-radius: 0;
+    }
+    mark.mk-ref { background: var(--accent); }
+    mark.mk-owner { background: #8fd4ae; }
+    mark.mk-due { background: #ffd27a; }
+    mark.mk-detail { background: rgba(244,245,247,0.85); }
+    mark.is-pop { animation: markPop 0.35s var(--ease); }
+    @keyframes markPop {
+      from { filter: brightness(1.5); transform: scale(1.04); }
+      to { filter: none; transform: none; }
+    }
+
     .pane-actions { display: flex; flex-wrap: wrap; gap: 0.4rem; }
     .run-meta {
       font-size: 0.78rem; color: rgba(244,245,247,0.45);
       display: flex; flex-wrap: wrap; gap: 0.35rem 0.9rem;
     }
     .run-meta b { color: var(--accent); font-weight: 600; }
+
+    .extract-feed {
+      flex: 1; overflow: auto; min-height: 260px;
+      display: flex; flex-direction: column; gap: 0.4rem;
+      padding-right: 0.15rem;
+    }
+    .extract-feed .idle {
+      color: rgba(244,245,247,0.35); font-size: 0.85rem; padding: 1rem 0;
+    }
+    .xchip {
+      display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 0.55rem;
+      align-items: baseline;
+      border: 1px solid var(--line-dark);
+      background: rgba(0,0,0,0.35);
+      padding: 0.45rem 0.55rem;
+      opacity: 0; transform: translateX(-10px) scale(0.96);
+      animation: xIn 0.35s var(--ease) forwards;
+    }
+    .xchip .k {
+      font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--accent);
+    }
+    .xchip .v {
+      font-size: 0.84rem; color: var(--white); font-weight: 600;
+      word-break: break-word;
+    }
+    .xchip.is-flag .k { color: var(--warn); }
+    .xchip.is-flag { border-color: rgba(232,163,23,0.35); }
+    @keyframes xIn {
+      to { opacity: 1; transform: none; }
+    }
 
     .pane-out { gap: 0.55rem; background: rgba(255,255,255,0.015); }
     .out-head {
@@ -231,7 +335,7 @@
       display: block; height: 100%; width: 0%; background: var(--accent);
       transition: width 0.35s linear;
     }
-    .scanline.is-run > i { width: 100%; transition: width 1.1s linear; }
+    .scanline.is-run > i { width: 100%; transition: width 1.35s linear; }
 
     .table-wrap {
       flex: 1; overflow: auto; border: 1px solid var(--line-dark);
@@ -258,9 +362,16 @@
     }
     .table tr.flash { background: rgba(232,93,4,0.1); }
     .table tr.warn td.miss { color: var(--warn); }
-    .cell-hit {
-      animation: cellHit 0.55s ease;
+    .table td {
+      opacity: 0; transform: translateY(4px);
     }
+    .table td.show-cell {
+      opacity: 1; transform: none;
+      transition: opacity 0.22s ease, transform 0.22s ease, background 0.35s ease;
+      background: rgba(232,93,4,0.12);
+    }
+    .table td.show-cell.settled { background: transparent; }
+    .cell-hit { animation: cellHit 0.55s ease; }
     @keyframes cellHit {
       0% { background: rgba(232,93,4,0.35); }
       100% { background: transparent; }
@@ -295,6 +406,11 @@
       font-size: 0.84rem; color: rgba(244,245,247,0.5);
     }
     .parser-foot strong { color: var(--white); font-weight: 600; }
+    .parser.is-live {
+      box-shadow:
+        0 40px 100px rgba(0,0,0,0.45),
+        0 0 0 1px rgba(232,93,4,0.25);
+    }
 
     /* rest of page */
     section { padding: 3.75rem 0; }
@@ -530,9 +646,9 @@
     .reveal.is-in { opacity: 1; transform: none; }
 
     @media (max-width: 900px) {
-      .parser-board, .steps, .parser-steps, .build-grid, .plans, .hosting { grid-template-columns: 1fr; }
-      .pstep { border-right: 0; border-bottom: 1px solid var(--line-dark); }
-      .pane-in { border-right: 0; border-bottom: 1px solid var(--line-dark); }
+      .parser-board, .steps, .parser-steps, .build-grid, .plans, .hosting, .stat-bar { grid-template-columns: 1fr; }
+      .pstep, .stat { border-right: 0; border-bottom: 1px solid var(--line-dark); }
+      .pane-in, .pane-mid { border-right: 0; border-bottom: 1px solid var(--line-dark); }
       .plan, .host-opt { border-right: 0; border-bottom: 1px solid var(--line); }
       .plan:last-child, .host-opt:last-child { border-bottom: 0; }
       .plan.is-featured { border-right: 0; }
@@ -541,12 +657,14 @@
       }
       .extra-list li { width: 100%; }
       .topbar nav { display: none; }
-      .editor, .table-wrap { min-height: 200px; }
+      .editor, .table-wrap, .extract-feed, .source-stage { min-height: 180px; }
+      .pane-mid { display: none; }
+      .parser-board { grid-template-columns: 1fr; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
       .reveal { opacity: 1; transform: none; }
-      .table tr { opacity: 1; transform: none; }
+      .table tr, .table td, .xchip { opacity: 1; transform: none; }
       html { scroll-behavior: auto; }
     }
   </style>
@@ -567,10 +685,10 @@
       </div>
 
       <div class="hero-copy">
-        <h1>Messy text in. Excel, reports, and desks out.</h1>
-        <p>Private automations for your company — parse into sheets with your layout, build reports, run delivery boards, or get a website built your way.</p>
+        <h1>Watch messy text sort itself into Excel.</h1>
+        <p>Live extraction — fields light up in the paste, land in your sheet layout, and gaps get flagged before anyone acts.</p>
         <div class="cta-row">
-          <button type="button" class="btn btn-primary" id="btn-replay">Watch Excel parse</button>
+          <button type="button" class="btn btn-primary" id="btn-replay">Play the parse</button>
           <a class="btn btn-ghost" href="#build">See everything</a>
         </div>
       </div>
@@ -580,16 +698,16 @@
         <div class="parser-chrome">
           <div class="chrome-left">
             <span class="dot" aria-hidden="true"></span>
-            <span><strong>Parse</strong> · private desk</span>
+            <span><strong>Live extract</strong> · private desk</span>
           </div>
           <span id="desk-clock">--:--</span>
         </div>
 
         <div class="parser-steps" aria-hidden="true">
           <div class="pstep is-on" data-step="0"><span>01</span><em>Paste</em></div>
-          <div class="pstep" data-step="1"><span>02</span><em>Read fields</em></div>
-          <div class="pstep" data-step="2"><span>03</span><em>Flag gaps</em></div>
-          <div class="pstep" data-step="3"><span>04</span><em>Export</em></div>
+          <div class="pstep" data-step="1"><span>02</span><em>Highlight fields</em></div>
+          <div class="pstep" data-step="2"><span>03</span><em>Build sheet</em></div>
+          <div class="pstep" data-step="3"><span>04</span><em>Ready</em></div>
         </div>
 
         <div class="parser-tools">
@@ -598,15 +716,23 @@
           <button type="button" class="chip" data-sample="leads" aria-pressed="false">Leads</button>
           <button type="button" class="chip" data-sample="delivery" aria-pressed="false">Delivery</button>
           <button type="button" class="chip" data-sample="stock" aria-pressed="false">Stock</button>
-          <span class="chip-hint">big lump → clean rows</span>
+          <span class="chip-hint">pick a lump · watch it sort</span>
+        </div>
+
+        <div class="stat-bar" aria-live="polite">
+          <div class="stat"><strong id="stat-rows" class="is-accent">0</strong> rows</div>
+          <div class="stat"><strong id="stat-fields">0</strong> fields found</div>
+          <div class="stat"><strong id="stat-flags" class="is-warn">0</strong> flagged</div>
+          <div class="stat"><strong id="stat-ms" class="is-ok">0</strong> ms</div>
         </div>
 
         <div class="parser-board">
           <div class="pane pane-in">
-            <div>
-              <p class="label">Raw paste</p>
+            <p class="label">Messy paste</p>
+            <div class="source-stage">
               <label class="sr-only" for="job-paste">Raw paste</label>
               <textarea id="job-paste" class="editor" spellcheck="false" placeholder="Paste messy notes, emails, or chat dumps…"></textarea>
+              <pre class="source-view" id="source-view" aria-hidden="true"></pre>
             </div>
             <div class="pane-actions">
               <button type="button" class="btn btn-primary btn-sm" id="btn-parse">Parse to Excel</button>
@@ -615,13 +741,20 @@
               <button type="button" class="btn btn-ghost btn-sm" id="btn-csv" disabled>Download Excel</button>
             </div>
             <div class="run-meta">
-              <span>A couple of clicks — layout is yours in production</span>
+              <span>Colours = <b>ref</b> · <b style="color:#8fd4ae">owner</b> · <b style="color:#ffd27a">due</b> · detail</span>
+            </div>
+          </div>
+
+          <div class="pane pane-mid">
+            <p class="label">Live extract</p>
+            <div class="extract-feed" id="extract-feed">
+              <p class="idle">Fields appear here as they’re found…</p>
             </div>
           </div>
 
           <div class="pane pane-out">
             <div class="out-head">
-              <p class="label" style="margin:0">Excel layout</p>
+              <p class="label" style="margin:0">Excel sheet</p>
               <span class="status-pill" id="status-pill">Idle</span>
             </div>
             <div class="layout-row" role="group" aria-label="Sheet layout">
@@ -641,7 +774,7 @@
               <span data-f="c5">status</span>
             </div>
             <div class="table-wrap" id="table-wrap">
-              <div id="parse-empty" class="empty">Load a sample or hit Parse to Excel.</div>
+              <div id="parse-empty" class="empty">Hit Play — watch fields light up and land in Excel.</div>
               <table class="table" id="parse-table" hidden>
                 <thead>
                   <tr id="parse-head">
@@ -664,7 +797,7 @@
 
         <div class="parser-foot">
           <p><strong id="foot-summary">Waiting for paste</strong> — production matches the Excel layout you choose.</p>
-          <button type="button" class="btn btn-ghost btn-sm" id="btn-replay-foot">Replay demo</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="btn-replay-foot">Replay the magic</button>
         </div>
       </div>
     </div>
@@ -922,6 +1055,9 @@
     };
 
     var paste = document.getElementById("job-paste");
+    var sourceView = document.getElementById("source-view");
+    var extractFeed = document.getElementById("extract-feed");
+    var previewEl = document.getElementById("preview");
     var body = document.getElementById("parse-body");
     var headRow = document.getElementById("parse-head");
     var table = document.getElementById("parse-table");
@@ -936,6 +1072,10 @@
     var scanline = document.getElementById("scanline");
     var footSummary = document.getElementById("foot-summary");
     var fieldMap = document.getElementById("field-map");
+    var statRows = document.getElementById("stat-rows");
+    var statFields = document.getElementById("stat-fields");
+    var statFlags = document.getElementById("stat-flags");
+    var statMs = document.getElementById("stat-ms");
     var chips = Array.prototype.slice.call(document.querySelectorAll(".chip"));
     var layoutBtns = Array.prototype.slice.call(document.querySelectorAll(".layout-btn"));
     var steps = Array.prototype.slice.call(document.querySelectorAll(".pstep"));
@@ -1119,7 +1259,62 @@
       return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
 
-    function renderImmediate(rows) {
+    function setStats(rows, fields, flags, ms) {
+      if (statRows) statRows.textContent = String(rows);
+      if (statFields) statFields.textContent = String(fields);
+      if (statFlags) statFlags.textContent = String(flags);
+      if (statMs) statMs.textContent = String(ms);
+    }
+
+    function clearExtract() {
+      extractFeed.innerHTML = '<p class="idle">Fields appear here as they’re found…</p>';
+    }
+
+    function pushExtract(label, value, isFlag) {
+      var idle = extractFeed.querySelector(".idle");
+      if (idle) idle.remove();
+      var chip = document.createElement("div");
+      chip.className = "xchip" + (isFlag ? " is-flag" : "");
+      chip.innerHTML = '<span class="k">' + esc(label) + '</span><span class="v">' + esc(value) + "</span>";
+      extractFeed.prepend(chip);
+      while (extractFeed.children.length > 10) extractFeed.removeChild(extractFeed.lastChild);
+    }
+
+    function showSourceEdit() {
+      paste.classList.remove("is-hidden");
+      sourceView.classList.remove("is-on");
+      sourceView.innerHTML = "";
+      sourceView.setAttribute("aria-hidden", "true");
+    }
+
+    function showSourceHighlight(html) {
+      paste.classList.add("is-hidden");
+      sourceView.classList.add("is-on");
+      sourceView.setAttribute("aria-hidden", "false");
+      sourceView.innerHTML = html;
+      var beam = document.createElement("div");
+      beam.className = "beam";
+      sourceView.appendChild(beam);
+    }
+
+    function highlightText(text, rows) {
+      var html = esc(text);
+      rows.forEach(function (row) {
+        if (row.ref && row.ref !== "—") {
+          html = html.replace(new RegExp(esc(row.ref), "i"), '<mark class="mk-ref">' + esc(row.ref) + "</mark>");
+        }
+        if (row.owner && row.owner !== "—") {
+          html = html.replace(new RegExp("\\b(" + esc(row.owner) + ")\\b"), '<mark class="mk-owner">$1</mark>');
+        }
+        if (row.due && row.due !== "—") {
+          html = html.replace(new RegExp("(" + esc(row.due).replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")"), '<mark class="mk-due">$1</mark>');
+        }
+      });
+      return html;
+    }
+
+    function renderImmediate(rows, opts) {
+      opts = opts || {};
       body.textContent = "";
       clearRowTimers();
       if (!rows.length) {
@@ -1129,8 +1324,12 @@
         csvBtn.disabled = true;
         copyBtn.disabled = true;
         footSummary.textContent = "Waiting for paste";
-        setFields([]);
+        setFields(false);
         setStatus("", "Idle");
+        setStats(0, 0, 0, 0);
+        clearExtract();
+        showSourceEdit();
+        previewEl.classList.remove("is-live");
         return;
       }
       empty.hidden = true;
@@ -1139,36 +1338,46 @@
       csvBtn.disabled = false;
       copyBtn.disabled = false;
       var flags = rows.filter(function (r) { return r.status === "Flag"; }).length;
+      var fieldCount = rows.length * 5;
       countEl.textContent = rows.length + " rows" + (flags ? " · " + flags + " flagged" : " · all clear");
-      footSummary.textContent = rows.length + " rows parsed" + (flags ? " · " + flags + " need a look" : " · ready to export");
       setStatus(flags ? "flag" : "ready", flags ? flags + " flagged" : "Ready");
       setFields(true);
       footSummary.textContent = rows.length + " rows · " + currentLayout + " layout" + (flags ? " · " + flags + " need a look" : " · ready for Excel");
+      if (!opts.keepStats) setStats(rows.length, fieldCount, flags, opts.ms || 0);
 
       rows.forEach(function (row, i) {
         var tr = document.createElement("tr");
         if (row.status === "Flag") tr.className = "warn";
         var cells = rowCells(row);
-        tr.innerHTML = cells.map(function (cell, idx) {
+        cells.forEach(function (cell, idx) {
+          var td = document.createElement("td");
           if (idx === cells.length - 1) {
-            return "<td>" + (row.status === "Flag"
+            td.innerHTML = row.status === "Flag"
               ? '<span class="badge badge-warn">Flag</span>'
-              : '<span class="badge badge-ok">Ready</span>') + "</td>";
+              : '<span class="badge badge-ok">Ready</span>';
+          } else {
+            if (cell === "—" && (idx === 1 || idx === 2 || idx === 3)) td.className = "miss";
+            td.textContent = cell;
           }
-          var miss = (cell === "—" && (idx === 1 || idx === 2 || idx === 3)) ? " miss" : "";
-          return "<td class=\"" + miss.trim() + "\">" + esc(cell) + "</td>";
-        }).join("");
+          tr.appendChild(td);
+        });
         body.appendChild(tr);
-        if (reduceMotion) {
+
+        if (reduceMotion || opts.instant) {
           tr.classList.add("show");
+          Array.prototype.forEach.call(tr.children, function (td) {
+            td.classList.add("show-cell", "settled");
+          });
         } else {
           rowTimers.push(setTimeout(function () {
-            tr.classList.add("show", "flash");
-            Array.prototype.forEach.call(tr.children, function (td) {
-              td.classList.add("cell-hit");
+            tr.classList.add("show");
+            Array.prototype.forEach.call(tr.children, function (td, ci) {
+              rowTimers.push(setTimeout(function () {
+                td.classList.add("show-cell");
+                rowTimers.push(setTimeout(function () { td.classList.add("settled"); }, 280));
+              }, ci * 55));
             });
-            setTimeout(function () { tr.classList.remove("flash"); }, 420);
-          }, 90 + i * 160));
+          }, 80 + i * 220));
         }
       });
     }
@@ -1178,6 +1387,7 @@
       var text = paste.value.trim();
       clearRowTimers();
       var gen = ++parseGen;
+      var started = performance.now();
       if (!text) {
         allRows = [];
         renderImmediate([]);
@@ -1186,10 +1396,13 @@
         return;
       }
 
+      previewEl.classList.add("is-live");
       setStep(1);
-      setStatus("busy", "Reading…");
+      setStatus("busy", "Scanning…");
       setFields(true);
-      footSummary.textContent = "Reading fields into your layout…";
+      footSummary.textContent = "Highlighting fields in the paste…";
+      clearExtract();
+      setStats(0, 0, 0, 0);
       scanline.classList.remove("is-run");
       void scanline.offsetWidth;
       scanline.classList.add("is-run");
@@ -1206,21 +1419,80 @@
       var parsed = splitBlocks(text).map(parseBlock).filter(function (r) { return r.ref !== "—"; });
       allRows = parsed;
 
-      var delay = reduceMotion || opts.instant ? 0 : 700;
-      setTimeout(function () {
+      if (reduceMotion || opts.instant) {
+        showSourceHighlight(highlightText(text, parsed));
+        parsed.forEach(function (row) {
+          pushExtract("ref", row.ref, false);
+          pushExtract("owner", row.owner, row.owner === "—");
+          pushExtract("due", row.due, row.due === "—");
+        });
+        var msFast = Math.max(12, Math.round(performance.now() - started));
+        renderImmediate(parsed, { instant: true, ms: msFast });
+        setStep(parsed.length ? 3 : 0);
+        parseBtn.disabled = false;
+        parseBtn.textContent = "Parse to Excel";
+        if (opts.toast !== false) toast(parsed.length ? "Ready for Excel · " + parsed.length + " rows" : "Nothing found");
+        return;
+      }
+
+      // Act 1 — plain source + beam
+      showSourceHighlight(esc(text));
+      var fieldTally = 0;
+      var flagTally = 0;
+
+      // Act 2 — highlight + extract chips staggered
+      rowTimers.push(setTimeout(function () {
+        if (gen !== parseGen) return;
+        showSourceHighlight(highlightText(text, parsed));
+        setStatus("busy", "Extracting…");
+        setStep(1);
+
+        parsed.forEach(function (row, ri) {
+          rowTimers.push(setTimeout(function () {
+            if (gen !== parseGen) return;
+            pushExtract("ref", row.ref, false);
+            fieldTally += 1;
+            setStats(0, fieldTally, flagTally, Math.round(performance.now() - started));
+          }, ri * 280));
+          rowTimers.push(setTimeout(function () {
+            if (gen !== parseGen) return;
+            pushExtract("owner", row.owner === "—" ? "missing" : row.owner, row.owner === "—");
+            fieldTally += 1;
+            if (row.owner === "—") flagTally += 1;
+            setStats(0, fieldTally, flagTally, Math.round(performance.now() - started));
+          }, ri * 280 + 90));
+          rowTimers.push(setTimeout(function () {
+            if (gen !== parseGen) return;
+            pushExtract("due", row.due === "—" ? "missing" : row.due, row.due === "—");
+            fieldTally += 1;
+            if (row.due === "—" && row.owner !== "—") flagTally += 1;
+            setStats(0, fieldTally, flagTally, Math.round(performance.now() - started));
+          }, ri * 280 + 170));
+        });
+      }, 450));
+
+      // Act 3 — build sheet cell by cell
+      var buildAt = 450 + Math.max(1, parsed.length) * 280 + 420;
+      rowTimers.push(setTimeout(function () {
         if (gen !== parseGen) return;
         setStep(2);
-        setFields(true);
-        setStatus("busy", "Flagging…");
-        setTimeout(function () {
+        setStatus("busy", "Building sheet…");
+        footSummary.textContent = "Dropping values into your Excel layout…";
+        var ms = Math.round(performance.now() - started);
+        renderImmediate(parsed, { ms: ms, keepStats: true });
+        setStats(parsed.length, fieldTally || parsed.length * 3, parsed.filter(function (r) { return r.status === "Flag"; }).length, ms);
+
+        rowTimers.push(setTimeout(function () {
           if (gen !== parseGen) return;
-          renderImmediate(parsed);
           setStep(parsed.length ? 3 : 0);
+          setStatus(parsed.some(function (r) { return r.status === "Flag"; }) ? "flag" : "ready",
+            parsed.some(function (r) { return r.status === "Flag"; }) ? "Gaps flagged" : "Sheet ready");
           parseBtn.disabled = false;
           parseBtn.textContent = "Parse to Excel";
-          if (opts.toast !== false) toast(parsed.length ? "Ready for Excel · " + parsed.length + " rows" : "Nothing found");
-        }, reduceMotion || opts.instant ? 0 : 380);
-      }, delay);
+          footSummary.textContent = parsed.length + " rows sorted · " + currentLayout + " layout · download when ready";
+          if (opts.toast !== false) toast(parsed.length ? "Sorted into Excel · " + parsed.length + " rows" : "Nothing found");
+        }, 700 + parsed.length * 220));
+      }, buildAt));
     }
 
     function setChip(key) {
@@ -1277,6 +1549,8 @@
       chips.forEach(function (c) { c.setAttribute("aria-pressed", "false"); });
       allRows = [];
       setStep(0);
+      clearExtract();
+      showSourceEdit();
       renderImmediate([]);
       paste.focus();
     });
@@ -1317,19 +1591,23 @@
       setStep(3);
     });
 
-    /* —— Cinematic replay: type paste → parse —— */
+    /* —— Cinematic replay: type paste → highlight → extract → sheet —— */
     function stopDemo() {
       if (demoTimer) { clearTimeout(demoTimer); demoTimer = null; }
       paste.classList.remove("is-typing");
       parseGen++;
+      showSourceEdit();
     }
 
     function typeText(text, done) {
+      showSourceEdit();
       paste.value = "";
       paste.classList.add("is-typing");
       setStep(0);
       setStatus("busy", "Pasting…");
-      footSummary.textContent = "Loading sample into the desk…";
+      footSummary.textContent = "Dropping a messy lump onto the desk…";
+      clearExtract();
+      setStats(0, 0, 0, 0);
       var i = 0;
       function tick() {
         if (i >= text.length) {
@@ -1337,11 +1615,11 @@
           done();
           return;
         }
-        var step = Math.min(3 + Math.floor(Math.random() * 4), text.length - i);
+        var step = Math.min(4 + Math.floor(Math.random() * 5), text.length - i);
         paste.value += text.slice(i, i + step);
         i += step;
         paste.scrollTop = paste.scrollHeight;
-        demoTimer = setTimeout(tick, reduceMotion ? 0 : 12);
+        demoTimer = setTimeout(tick, reduceMotion ? 0 : 10);
       }
       tick();
     }
@@ -1351,10 +1629,14 @@
       clearRowTimers();
       var key = sampleKey || "invoices";
       setChip(key);
+      if (key === "delivery") applyLayout("delivery");
+      else if (key === "invoices") applyLayout("finance");
       allRows = [];
-      renderImmediate([]);
+      body.textContent = "";
+      table.hidden = true;
+      empty.hidden = false;
       typeText(SAMPLES[key], function () {
-        demoTimer = setTimeout(function () { runParse({ toast: true }); }, reduceMotion ? 0 : 350);
+        demoTimer = setTimeout(function () { runParse({ toast: true }); }, reduceMotion ? 0 : 280);
       });
     }
 
