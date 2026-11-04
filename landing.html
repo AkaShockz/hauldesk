@@ -838,6 +838,29 @@
       .throughput { margin-inline: 0.75rem; font-size: 0.68rem; }
       .pane-mid { display: none; }
     }
+
+    /* —— cleaner page pass —— */
+    .hero-copy h1 { max-width: 14ch; }
+    .hero-copy p { max-width: 34ch; color: rgba(244,245,247,0.7); }
+    .parser { box-shadow: 0 28px 70px rgba(0,0,0,0.4); }
+    .parser-steps { background: transparent; }
+    .stat-bar { background: rgba(0,0,0,0.28); }
+    .smart-rail { border-bottom-color: rgba(244,245,247,0.06); }
+    .pane-in { background: rgba(0,0,0,0.22); }
+    .pane-mid { background: rgba(232,93,4,0.03); }
+    .build-item h3 { max-width: 18ch; }
+    .plans { background: rgba(255,255,255,0.35); }
+    .plan { gap: 0.45rem; }
+    .plan .blurb { min-height: 0; }
+    .hosting { background: rgba(255,255,247,0.28); }
+    .offer { padding: 3.25rem 0; }
+    .close h2 { max-width: 12ch; }
+    footer { padding-top: 1.25rem; }
+    @media (max-width: 900px) {
+      .smart-rail .insight:nth-child(n+4) { display: none; }
+      .field-map { display: none; }
+      .throughput span:last-child { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -857,7 +880,7 @@
 
       <div class="hero-copy">
         <h1>Many jobs. One click. Clean sheet.</h1>
-        <p>Watch a whole batch parse at once — gaps and duplicates flagged, then drop into Excel or a Daily orders board.</p>
+        <p>Watch a whole batch sort at once — parsing logic only in this demo, no plates or street addresses shown.</p>
         <div class="cta-row">
           <button type="button" class="btn btn-primary" id="btn-replay">Play rush pack</button>
           <a class="btn btn-ghost" href="#build">See everything</a>
@@ -897,7 +920,7 @@
           <button type="button" class="chip" data-sample="batch-b" aria-pressed="false">Batch B</button>
           <button type="button" class="chip" data-sample="mixed" aria-pressed="false">Mixed routes</button>
           <button type="button" class="chip" data-sample="rush" aria-pressed="false">Rush pack · 8 jobs</button>
-          <span class="chip-hint">locked samples · instant multi-job parse</span>
+          <span class="chip-hint">demo parse only · no plates or addresses</span>
         </div>
         <div class="parser-tools" id="report-tools" hidden>
           <button type="button" class="chip" data-sample="daily-a" aria-pressed="true">Morning dump</button>
@@ -991,7 +1014,7 @@
         <article class="build-item">
           <p class="tag">01 · Excel</p>
           <h3>Text → Excel in a couple of clicks</h3>
-          <p>One sheet, many jobs — fields light up together, gaps and duplicate vehicles get flagged, then the whole batch drops into Excel.</p>
+          <p>One sheet, many jobs — fields light up together, gaps get flagged, then the whole batch drops into Excel in a couple of clicks.</p>
         </article>
         <article class="build-item">
           <p class="tag">02 · Reports</p>
@@ -1188,67 +1211,51 @@
     /* —— Locked demo samples (fictional; no client brands) —— */
     var JOB_SAMPLES = {
       "batch-a":
-        "FROM\nDemo Dealer North\nSite yard\nDemo Zone\nXX0 0AA\nTel: 01000 000001\n" +
-        "TO\nCentral Hub\nHub bay\nDemo Zone\nXX0 0BB\nTel: 01000 000002\n" +
-        "JOB NO KEY LOC BARCODE\n1000001 N/A 0\n" +
-        "MAKE MODEL COLOUR REGISTRATION CHASSIS\nJEEP COMPASS Black REG-01 S10001\n" +
-        "COMMENTS\nORIGIN WARNINGS DESTINATION WARNINGS\nVALUE\n155.39\n" +
-        "FROM\nDemo Motors West\nSite yard\nDemo Zone\nXX0 0CC\nTel: 01000 000003\n" +
-        "TO\nRegional Hub\nHub bay\nDemo Zone\nXX0 0DD\nTel: 01000 000004\n" +
-        "JOB NO KEY LOC BARCODE\n1000002 N/A 0\n" +
-        "MAKE MODEL COLOUR REGISTRATION CHASSIS\nAUDI Q2 Grey REG-02 S10002\n" +
-        "COMMENTS\nORIGIN WARNINGS DESTINATION WARNINGS\n" +
-        "1. Call before arrival.\nVALUE\n158.03",
+        "FROM\nCollection site 01\nTO\nDelivery hub A\n" +
+        "JOB NO\n1000001\n" +
+        "MAKE MODEL COLOUR\nJEEP COMPASS Black\n" +
+        "VALUE\n155.39\n" +
+        "FROM\nCollection site 02\nTO\nDelivery hub B\n" +
+        "JOB NO\n1000002\n" +
+        "MAKE MODEL COLOUR\nAUDI Q2 Grey\n" +
+        "COMMENTS\n1. Call before arrival.\n" +
+        "VALUE\n158.03",
       "batch-b":
-        "FROM\nCompound Alpha\nOps yard\nDemo Zone\nXX0 0EE\nTel: 01000 000005\n" +
-        "TO\nCity Store\nStorage bay\nDemo Zone\nXX0 0FF\nTel: 01000 000006\n" +
-        "JOB NO KEY LOC BARCODE\n1000003 N/A 0\n" +
-        "MAKE MODEL COLOUR REGISTRATION CHASSIS\nRENAULT MEGANE E-TECH Grey REG-03 S10003\n" +
-        "COMMENTS\nVALUE\n70.79\n" +
-        "FROM\nDealer Park South\nTrade bay\nDemo Zone\nXX0 0GG\nTel: 01000 000007\n" +
-        "TO\nVan Compound\nDock bay\nDemo Zone\nXX0 0HH\nTel: 01000 000008\n" +
-        "JOB NO KEY LOC BARCODE\n1000004 N/A 0\n" +
-        "MAKE MODEL COLOUR REGISTRATION CHASSIS\nNISSAN X-TRAIL Grey REG-04 S10004\n" +
-        "COMMENTS\nVALUE\n32.56\n" +
-        "FROM\nShowroom Hill\nFront bay\nDemo Zone\nXX0 0JJ\nTel: 01000 000009\n" +
-        "TO\nCentral Hub\nHub bay\nDemo Zone\nXX0 0BB\nTel: 01000 000002\n" +
-        "JOB NO KEY LOC BARCODE\n1000005 N/A 0\n" +
-        "MAKE MODEL COLOUR REGISTRATION CHASSIS\nMG HS Blue REG-05 S10005\n" +
-        "COMMENTS\nVALUE\n127.01",
+        "FROM\nCollection site 03\nTO\nDelivery hub C\n" +
+        "JOB NO\n1000003\n" +
+        "MAKE MODEL COLOUR\nRENAULT MEGANE E-TECH Grey\n" +
+        "VALUE\n70.79\n" +
+        "FROM\nCollection site 04\nTO\nDelivery hub D\n" +
+        "JOB NO\n1000004\n" +
+        "MAKE MODEL COLOUR\nNISSAN X-TRAIL Grey\n" +
+        "VALUE\n32.56\n" +
+        "FROM\nCollection site 05\nTO\nDelivery hub A\n" +
+        "JOB NO\n1000005\n" +
+        "MAKE MODEL COLOUR\nMG HS Blue\n" +
+        "VALUE\n127.01",
       mixed:
-        "Driver assigned to:\nManifest Created:\n01/11/2026 10:03:00\nManifest Ref:\nPage 1 of 3\n" +
-        "FROM\nTrade Centre A\nEstate bay\nDemo Zone\nXA1 1AA\n" +
-        "TO\nMotorstore B\nClose bay\nDemo Zone\nXA2 2BB\n" +
-        "JOB NO KEY LOC BARCODE\n1000101 N/A 0\n" +
-        "MAKE MODEL COLOUR REGISTRATION CHASSIS\nVAUXHALL CORSA White REG-06 S10006\n" +
-        "COMMENTS\nVALUE\n88.40\n" +
-        "FROM\nFleet Hub C\nRing bay\nDemo Zone\nXA3 3CC\n" +
-        "TO\nHarbor Depot D\nQuay bay\nDemo Zone\nXA4 4DD\n" +
+        "Manifest Created:\nPage 1 of 3\n" +
+        "FROM\nCollection site 06\nTO\nDelivery hub E\n" +
+        "JOB NO\n1000101\n" +
+        "MAKE MODEL COLOUR\nVAUXHALL CORSA White\n" +
+        "VALUE\n88.40\n" +
+        "FROM\nCollection site 07\nTO\nDelivery hub F\n" +
         "JOB NO\n1000102\n" +
-        "MAKE MODEL COLOUR REGISTRATION CHASSIS\nFORD TRANSIT Silver REG-07 S10007\n" +
-        "COMMENTS\nVALUE\n\n" +
-        "FROM\nCedar Works E\nPark bay\nDemo Zone\nXA5 5EE\n" +
-        "TO\nMaple Depot F\nOcean bay\nDemo Zone\nXA6 6FF\n" +
-        "JOB NO KEY LOC BARCODE\n1000103 N/A 0\n" +
-        "MAKE MODEL COLOUR REGISTRATION CHASSIS\nTOYOTA YARIS Red  \n" +
-        "COMMENTS\nVALUE\n64.20",
+        "MAKE MODEL COLOUR\nFORD TRANSIT Silver\n" +
+        "VALUE\n\n" +
+        "FROM\nCollection site 08\nTO\nDelivery hub G\n" +
+        "JOB NO\n1000103\n" +
+        "MAKE MODEL COLOUR\nTOYOTA YARIS Red\n" +
+        "VALUE\n64.20",
       rush:
-        "FROM\nNorth Gate\nBay 1\nDemo Zone\nXB1 1AA\nTO\nHub One\nBay A\nDemo Zone\nXB2 2BB\n" +
-        "JOB NO KEY LOC BARCODE\n2000001 N/A 0\nMAKE MODEL COLOUR REGISTRATION CHASSIS\nBMW 1SERIES White REG-11 S20001\nVALUE\n90.00\n" +
-        "FROM\nEast Gate\nBay 2\nDemo Zone\nXB3 3CC\nTO\nHub Two\nBay B\nDemo Zone\nXB4 4DD\n" +
-        "JOB NO KEY LOC BARCODE\n2000002 N/A 0\nMAKE MODEL COLOUR REGISTRATION CHASSIS\nFORD FOCUS Blue REG-12 S20002\nVALUE\n84.50\n" +
-        "FROM\nSouth Gate\nBay 3\nDemo Zone\nXB5 5EE\nTO\nHub One\nBay A\nDemo Zone\nXB2 2BB\n" +
-        "JOB NO KEY LOC BARCODE\n2000003 N/A 0\nMAKE MODEL COLOUR REGISTRATION CHASSIS\nVW GOLF Grey REG-13 S20003\nVALUE\n91.20\n" +
-        "FROM\nWest Gate\nBay 4\nDemo Zone\nXB6 6FF\nTO\nHub Three\nBay C\nDemo Zone\nXB7 7GG\n" +
-        "JOB NO KEY LOC BARCODE\n2000004 N/A 0\nMAKE MODEL COLOUR REGISTRATION CHASSIS\nKIA SPORTAGE Black REG-14 S20004\nVALUE\n110.00\n" +
-        "FROM\nYard Five\nBay 5\nDemo Zone\nXB8 8HH\nTO\nHub Two\nBay B\nDemo Zone\nXB4 4DD\n" +
-        "JOB NO KEY LOC BARCODE\n2000005 N/A 0\nMAKE MODEL COLOUR REGISTRATION CHASSIS\nTOYOTA COROLLA Silver REG-15 S20005\nVALUE\n76.40\n" +
-        "FROM\nYard Six\nBay 6\nDemo Zone\nXB9 9JJ\nTO\nHub Four\nBay D\nDemo Zone\nXC1 1AA\n" +
-        "JOB NO KEY LOC BARCODE\n2000006 N/A 0\nMAKE MODEL COLOUR REGISTRATION CHASSIS\nHYUNDAI TUCSON Red REG-11 S20006\nVALUE\n102.10\n" +
-        "FROM\nYard Seven\nBay 7\nDemo Zone\nXC2 2BB\nTO\nHub One\nBay A\nDemo Zone\nXB2 2BB\n" +
-        "JOB NO KEY LOC BARCODE\n2000007 N/A 0\nMAKE MODEL COLOUR REGISTRATION CHASSIS\nSKODA OCTAVIA White REG-17 S20007\nVALUE\n88.80\n" +
-        "FROM\nYard Eight\nBay 8\nDemo Zone\nXC3 3CC\nTO\nHub Five\nBay E\nDemo Zone\nXC4 4DD\n" +
-        "JOB NO KEY LOC BARCODE\n2000008 N/A 0\nMAKE MODEL COLOUR REGISTRATION CHASSIS\nPEUGEOT 208 Grey REG-18 S20008\nVALUE\n69.90"
+        "FROM\nCollection site 11\nTO\nDelivery hub A\nJOB NO\n2000001\nMAKE MODEL COLOUR\nBMW 1SERIES White\nVALUE\n90.00\n" +
+        "FROM\nCollection site 12\nTO\nDelivery hub B\nJOB NO\n2000002\nMAKE MODEL COLOUR\nFORD FOCUS Blue\nVALUE\n84.50\n" +
+        "FROM\nCollection site 13\nTO\nDelivery hub A\nJOB NO\n2000003\nMAKE MODEL COLOUR\nVW GOLF Grey\nVALUE\n91.20\n" +
+        "FROM\nCollection site 14\nTO\nDelivery hub C\nJOB NO\n2000004\nMAKE MODEL COLOUR\nKIA SPORTAGE Black\nVALUE\n110.00\n" +
+        "FROM\nCollection site 15\nTO\nDelivery hub B\nJOB NO\n2000005\nMAKE MODEL COLOUR\nTOYOTA COROLLA Silver\nVALUE\n76.40\n" +
+        "FROM\nCollection site 16\nTO\nDelivery hub D\nJOB NO\n2000006\nMAKE MODEL COLOUR\nHYUNDAI TUCSON Red\nVALUE\n102.10\n" +
+        "FROM\nCollection site 17\nTO\nDelivery hub A\nJOB NO\n2000007\nMAKE MODEL COLOUR\nSKODA OCTAVIA White\nVALUE\n88.80\n" +
+        "FROM\nCollection site 18\nTO\nDelivery hub E\nJOB NO\n2000008\nMAKE MODEL COLOUR\nPEUGEOT 208 Grey\nVALUE\n69.90"
     };
 
     var REPORT_SAMPLES = {
@@ -1282,7 +1289,7 @@
       }
     };
 
-    var JOB_HEADERS = ["Reg", "Chassis", "Make", "Model", "Job no", "From", "To", "Value", "Status"];
+    var JOB_HEADERS = ["Job no", "Make", "Model", "Colour", "From", "To", "Value", "Status"];
     var REPORT_HEADERS = ["Customer", "To be planned", "Allocated", "Collected", "Late", "Customer SLA", "Notes"];
     var SPECIAL_INSTRUCTIONS = "Must call 1 hour before collection and get a name";
 
@@ -1407,7 +1414,7 @@
     }
 
     function showSource(html) {
-      sourceView.innerHTML = html + '<div class="lock-hint">Locked sample · production accepts your real paste / ZIP</div>';
+      sourceView.innerHTML = html + '<div class="lock-hint">Demo structure only · production uses your real formats</div>';
     }
 
     function showPlainSource(text) {
@@ -1431,26 +1438,26 @@
 
 
     function analyzeJobs(rows) {
-      var missing = { reg: 0, jobNo: 0, make: 0, value: 0, route: 0 };
-      var regs = {};
+      var missing = { jobNo: 0, make: 0, model: 0, value: 0, route: 0 };
+      var jobNos = {};
       var sites = {};
       rows.forEach(function (r) {
-        if (!r.reg || r.reg === "—") missing.reg += 1;
         if (!r.jobNo) missing.jobNo += 1;
         if (!r.make) missing.make += 1;
+        if (!r.model) missing.model += 1;
         if (!r.value) missing.value += 1;
         if (!r.from || !r.to || r.from === "—" || r.to === "—") missing.route += 1;
-        if (r.reg && r.reg !== "—") regs[r.reg] = (regs[r.reg] || 0) + 1;
+        if (r.jobNo) jobNos[r.jobNo] = (jobNos[r.jobNo] || 0) + 1;
         if (r.from && r.from !== "—") sites[r.from] = true;
         if (r.to && r.to !== "—") sites[r.to] = true;
       });
       var dups = 0;
-      Object.keys(regs).forEach(function (k) { if (regs[k] > 1) dups += 1; });
+      Object.keys(jobNos).forEach(function (k) { if (jobNos[k] > 1) dups += 1; });
       rows.forEach(function (r) {
-        r.duplicate = !!(r.reg && regs[r.reg] > 1);
+        r.duplicate = !!(r.jobNo && jobNos[r.jobNo] > 1);
         if (r.duplicate && r.status !== "Flag") r.status = "Flag";
       });
-      var gapCount = missing.reg + missing.jobNo + missing.make + missing.value + missing.route;
+      var gapCount = missing.jobNo + missing.make + missing.model + missing.value + missing.route;
       return {
         missing: missing,
         dups: dups,
@@ -1490,7 +1497,7 @@
       smartRail.innerHTML =
         '<span class="insight is-accent"><strong>' + insights.jobs + "</strong> vehicles</span>" +
         '<span class="insight"><strong>' + insights.sites + "</strong> sites</span>" +
-        '<span class="insight' + (insights.dups ? " is-warn" : " is-ok") + '"><strong>' + insights.dups + "</strong> duplicate regs</span>" +
+        '<span class="insight' + (insights.dups ? " is-warn" : " is-ok") + '"><strong>' + insights.dups + "</strong> duplicate jobs</span>" +
         '<span class="insight' + (insights.gapCount ? " is-warn" : " is-ok") + '"><strong>' + insights.gapCount + "</strong> field gaps</span>";
     }
 
@@ -1503,12 +1510,12 @@
       }
       var m = analysis.missing;
       var bits = [];
-      if (m.reg) bits.push("<span><b>" + m.reg + "</b> missing reg</span>");
       if (m.jobNo) bits.push("<span><b>" + m.jobNo + "</b> missing job no</span>");
       if (m.make) bits.push("<span><b>" + m.make + "</b> missing make</span>");
+      if (m.model) bits.push("<span><b>" + m.model + "</b> missing model</span>");
       if (m.value) bits.push("<span><b>" + m.value + "</b> missing value</span>");
       if (m.route) bits.push("<span><b>" + m.route + "</b> incomplete route</span>");
-      if (analysis.dups) bits.push("<span><b>" + analysis.dups + "</b> duplicate vehicle id</span>");
+      if (analysis.dups) bits.push("<span><b>" + analysis.dups + "</b> duplicate job no</span>");
       gapList.innerHTML = bits.join("");
       gapList.classList.add("is-on");
     }
@@ -1559,32 +1566,26 @@
       if (!jobNo) jobNo = jobText.match(/JOB\s*NO\s*\n\s*(\d{5,8})/i);
       if (jobNo) job.jobNo = jobNo[1];
 
-      var veh = jobText.match(/MAKE\s+MODEL\s+COLOU?R\s+REGISTRATION(?:\s+CHASSIS)?\s*\n([^\n]+)/i);
+      var veh = jobText.match(/MAKE\s+MODEL\s+COLOU?R(?:\s+REGISTRATION(?:\s+CHASSIS)?)?\s*\n([^\n]+)/i);
       if (veh) {
-        var parts = veh[1].trim().split(/\s+/);
-        if (parts.length >= 2) {
+        var parts = veh[1].trim().split(/\s+/).filter(Boolean);
+        // Demo never surfaces regs/chassis — strip plate-like tokens if present in source
+        parts = parts.filter(function (p) {
+          return !/^REG-\d{1,3}$/i.test(p) && !/^[A-Z]{2}\d{2}[A-Z]{3}$/i.test(p) && !/^[A-Z]\d{1,3}[A-Z]{3}$/i.test(p) && !/^S\d{4,}$/i.test(p);
+        });
+        if (parts.length >= 1) {
           job.make = parts[0];
-          // find UK-ish reg near end
-          var regIdx = -1;
-          for (var i = parts.length - 1; i >= 0; i--) {
-            if (/^REG-\d{1,3}$/i.test(parts[i]) || /^[A-Z]{2}\d{2}[A-Z]{3}$/i.test(parts[i]) || /^[A-Z]\d{1,3}[A-Z]{3}$/i.test(parts[i])) {
-              regIdx = i;
+          var colourIdx = -1;
+          for (var i = parts.length - 1; i >= 1; i--) {
+            if (/^(Black|White|Blue|Grey|Gray|Red|Silver|Green|Yellow|Orange|Purple|Brown|Gold)$/i.test(parts[i])) {
+              colourIdx = i;
               break;
             }
           }
-          if (regIdx > 1) {
-            job.model = parts.slice(1, regIdx - (parts[regIdx - 1] && !/^\d/.test(parts[regIdx - 1]) ? 1 : 0)).join(" ");
-            // colour is usually just before reg
-            var maybeColour = parts[regIdx - 1];
-            if (maybeColour && /^(Black|White|Blue|Grey|Gray|Red|Silver|Green|Yellow|Orange|Purple|Brown|Gold)$/i.test(maybeColour)) {
-              job.colour = maybeColour;
-              job.model = parts.slice(1, regIdx - 1).join(" ");
-            } else {
-              job.model = parts.slice(1, regIdx).join(" ");
-            }
-            job.reg = /^REG-/i.test(parts[regIdx]) ? parts[regIdx].toUpperCase() : parts[regIdx].toUpperCase();
-            if (parts[regIdx + 1]) job.chassis = parts[regIdx + 1];
-          } else {
+          if (colourIdx > 0) {
+            job.colour = parts[colourIdx];
+            job.model = parts.slice(1, colourIdx).join(" ");
+          } else if (parts.length >= 2) {
             job.model = parts.slice(1).join(" ");
           }
         }
@@ -1593,10 +1594,10 @@
       var val = jobText.match(/\nVALUE\s*\n\s*([0-9]+(?:\.[0-9]+)?)/i);
       if (val) job.value = val[1];
 
-      if (!job.make || !job.model || !job.reg || !job.jobNo || !job.from || !job.to || !job.value) {
+      if (!job.make || !job.model || !job.jobNo || !job.from || !job.to || !job.value) {
         job.status = "Flag";
       }
-      if (!job.make && !job.model && !job.reg && !job.jobNo) return null;
+      if (!job.make && !job.model && !job.jobNo) return null;
       return job;
     }
 
@@ -1614,11 +1615,10 @@
 
     function jobCells(row) {
       return [
-        row.reg || "—",
-        row.chassis || "—",
+        row.jobNo || "—",
         row.make || "—",
         row.model || "—",
-        row.jobNo || "—",
+        row.colour || "—",
         row.from || "—",
         row.to || "—",
         row.value || "—",
@@ -1642,8 +1642,9 @@
       var html = esc(text);
       rows.forEach(function (row) {
         if (row.jobNo) html = html.replace(new RegExp("\\b(" + esc(row.jobNo) + ")\\b"), '<mark class="mk-job">$1</mark>');
-        if (row.reg) html = html.replace(new RegExp("\\b(" + esc(row.reg) + ")\\b", "i"), '<mark class="mk-ref">$1</mark>');
         if (row.make) html = html.replace(new RegExp("\\b(" + esc(row.make) + ")\\b"), '<mark class="mk-veh">$1</mark>');
+        if (row.from) html = html.replace(new RegExp("(" + esc(row.from).replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")"), '<mark class="mk-ref">$1</mark>');
+        if (row.to) html = html.replace(new RegExp("(" + esc(row.to).replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")"), '<mark class="mk-owner">$1</mark>');
         if (row.value) html = html.replace(new RegExp("(" + esc(row.value).replace(/\./g, "\\.") + ")"), '<mark class="mk-detail">$1</mark>');
       });
       return html;
@@ -1742,7 +1743,7 @@
           } else if (isReport && idx >= 1 && idx <= 4) {
             td.innerHTML = '<span class="bucket' + (idx === 4 && Number(cell) > 0 ? " is-late" : "") + '">' + esc(cell) + "</span>";
           } else {
-            if (cell === "—" && !isReport && (idx <= 4)) td.className = "miss";
+            if (cell === "—" && !isReport && (idx <= 6)) td.className = "miss";
             if (!isReport && idx === 0 && row.duplicate) {
               td.innerHTML = esc(cell) + '<span class="dup-tag">dup</span>';
             } else {
@@ -1865,7 +1866,7 @@
         showSource(highlightJobs(text, parsed));
         parsed.forEach(function (row) {
           pushExtract("job", row.jobNo || "—", !row.jobNo);
-          pushExtract("reg", row.reg || "missing", !row.reg);
+          pushExtract("vehicle", ((row.make || "?") + " " + (row.model || "")).trim(), !row.make || !row.model);
           pushExtract("route", (row.from || "?") + " → " + (row.to || "?"), !row.from || !row.to);
         });
         var msFast = Math.max(10, Math.round(performance.now() - started));
@@ -1896,9 +1897,9 @@
           }, ri * (parsed.length > 5 ? 90 : 200)));
           rowTimers.push(setTimeout(function () {
             if (gen !== parseGen) return;
-            pushExtract("vehicle", (row.make || "?") + " " + (row.model || "") + " · " + (row.reg || "no reg"), !row.reg || !row.make);
+            pushExtract("vehicle", ((row.make || "?") + " " + (row.model || "")).trim(), !row.make || !row.model);
             fieldTally += 2;
-            if (!row.reg || !row.make) flagTally += 1;
+            if (!row.make || !row.model) flagTally += 1;
             setStats(0, fieldTally, flagTally, Math.round(performance.now() - started));
           }, ri * (parsed.length > 5 ? 90 : 200) + 50));
           rowTimers.push(setTimeout(function () {
