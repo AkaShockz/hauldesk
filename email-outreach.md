@@ -1,35 +1,30 @@
 # Email outreach (Hauldesk)
 
-For direct ops / traffic / allocator emails at UK vehicle logistics firms
-(trade plate, inspect & collect, transporter, dealer handover desks).
+For direct ops / traffic / allocator emails at UK vehicle logistics firms.
 
 Replace `{{LOOM_LINK}}`, `YOU@EXAMPLE.com`, and your name before sending.
 
-Lead with the painful first workflow. Mention the desk grows — do not oversell a finished platform.
+Lead with a **multi-workflow desk**. Job sheets can be the example — not the whole product.
 
 ---
 
 ## Cold email 1
 
-**Subject:** Allocator board automation at {{Company}}?
+**Subject:** Ops desk automation at {{Company}}?
 
 ```
 Hi {{First name}},
 
-I build private automation desks for UK vehicle logistics teams. The usual
-first module turns job sheets (paste or PDF) into the Excel board allocators
-already run — with a quick address check before download.
+I build private automation desks for UK vehicle logistics teams — not a
+single script, a login site where modules stack: job sheets → Excel,
+address checks, board merges, chase lists, and other repeat allocator work.
 
-Trade-plate, inspect-and-collect, and transporter formats are the usual fit.
-Same desk can take more workflows later; we just don’t pretend those are
-live on day one.
-
-If someone at {{Company}} still copies from sheets into spreadsheets, I’m
-offering a fixed pilot: first module live in about two weeks (£2,500 +
-£149/mo hosting).
+We start with whichever workflow hurts most, get that live in about two
+weeks, then add more on the same desk (£2,500 + £149/mo hosting for the
+pilot).
 
 45-second demo: {{LOOM_LINK}}
-Or reply with one redacted sample and I’ll return a test Excel free.
+Or reply with one redacted sample workflow and I’ll return a clean test free.
 
 {{Your name}}
 {{YOU@EXAMPLE.com}}
@@ -39,14 +34,14 @@ Or reply with one redacted sample and I’ll return a test Excel free.
 
 ## Cold email 2 (shorter)
 
-**Subject:** Morning board prep at {{Company}}
+**Subject:** Morning ops grind at {{Company}}
 
 ```
-{{First name}} — quick question: does anyone on your allocator desk still
-retype vehicle job sheets into Excel?
+{{First name}} — quick question: how many manual workflows still sit on
+your allocator desk each morning (sheets, checks, rebuilds, chase lists)?
 
-If yes, I run a small pilot that automates that as module one on a private
-desk. Happy to parse a redacted sample this week at no charge.
+I run a small pilot that automates the worst one first on a private desk,
+then stacks more. Happy to test one redacted sample this week at no charge.
 
 {{Your name}}
 {{YOU@EXAMPLE.com}}
@@ -54,21 +49,20 @@ desk. Happy to parse a redacted sample this week at no charge.
 
 ---
 
-## Cold email 3 (leasing / AVR / compound angle)
+## Cold email 3 (desk angle)
 
-**Subject:** Inspect & collect → Excel at {{Company}}
+**Subject:** More than one automation at {{Company}}
 
 ```
 Hi {{First name}},
 
-Leasing, rental, OEM and AVR work often lands as PDFs or portal dumps that
-someone still keys into the morning planner.
+Most vehicle logistics desks I talk to don’t have one problem — they have
+a pile of repeatable pastes, checks, and rebuilds.
 
-I build a private desk that does that parse once, flags shaky postcodes,
-and exports the columns your allocators already trust — then adds more
-modules once the first one sticks.
+I build a private desk for that pile: first module live fast, more modules
+on the same login once the first one sticks.
 
-Worth a free test on one redacted {{Company}} sheet?
+Worth a free test on one redacted {{Company}} workflow?
 
 {{Your name}}
 ```
@@ -77,29 +71,29 @@ Worth a free test on one redacted {{Company}} sheet?
 
 ## Follow-up (no reply, +4 days)
 
-**Subject:** Re: Allocator board automation at {{Company}}?
+**Subject:** Re: Ops desk automation at {{Company}}?
 
 ```
 Circling this up once. Even a “we’re fine / already on a TMS” helps me
 stop chasing the wrong firms.
 
-If useful: YOU@EXAMPLE.com — one redacted sheet in, sample Excel back.
+If useful: YOU@EXAMPLE.com — one redacted sample in, clean test back.
 ```
 
 ---
 
-## After a free parse (they sent a sample)
+## After a free sample (they sent something)
 
-**Subject:** Sample Excel from your {{format / customer}} sheet
+**Subject:** Test output from your {{workflow}} sample
 
 ```
 Hi {{First name}},
 
-Attached is a first-pass Excel from the redacted sheet you sent.
-Columns are a best guess — happy to remap to your real allocator template.
+Attached is a first-pass result from the redacted sample you sent.
+Happy to remap to your real template / board layout.
 
-If this is close, the pilot is straightforward: private desk, first module
-live in ~2 weeks, £2,500 + £149/mo hosting. Extra modules scoped after.
+If this is close, the pilot gets a private desk live in ~2 weeks
+(£2,500 + £149/mo hosting) with room to add the next modules after.
 
 Open to a 15-minute call this week?
 
