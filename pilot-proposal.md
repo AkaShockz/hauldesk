@@ -37,7 +37,7 @@ Fastenly is not a single-purpose converter and not locked to one industry. The d
 
 ## Investment
 
-### Build (one-off) — pick a visual tier
+### Automation desk (one-off) — pick a visual tier
 
 | Tier | Amount | What you get |
 |------|--------|----------------|
@@ -45,14 +45,24 @@ Fastenly is not a single-purpose converter and not locked to one industry. The d
 | **Gold** | £1,095 (+£300) | Basic + branded visual polish (most teams) |
 | **Premium** | £1,495 (+£700) | Gold + full custom look, motion, extra polish |
 
-### Hosting (monthly)
+### Full website — not automation (one-off)
+
+A complete public / business site to your brief. No automation required.
+
+| Tier | Amount | What you get |
+|------|--------|----------------|
+| **Basic** | £4,000 | Multi-page site, clean professional look |
+| **Gold** | £4,500 (+£500) | Basic + branded visual polish |
+| **Premium** | £5,000 (+£1,000) | Gold + fuller custom design, motion, extra polish |
+
+### Hosting (monthly · either path)
 
 | Plan | Amount | What you get |
 |------|--------|----------------|
 | **Standard** | £49 / month | Hosting + normal support queue |
 | **Priority** | £129 / month (+£80) | Priority fixes + request extra features as you need them |
 
-Extra modules later: from £195 each (scoped separately). Cancel hosting anytime.
+Extra automation modules later: from £195 each (scoped separately). Cancel hosting anytime.
 
 **Payment:** Deposit only after you tell us what you want and we confirm we can do it. Then 50% to start, 50% on go-live. Monthly hosting invoiced in advance. No annual lock-in.
 

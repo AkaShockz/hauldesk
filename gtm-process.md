@@ -13,7 +13,7 @@ Most sellers pitch “AI automation” or a Zapier clone. Fastenly sells a **com
 1. **Sample-first, not demo-first.** One redacted messy workflow in → clean test back same week. Buyers feel it before a call.
 2. **Busywork Audit (20 min).** Map their top 3 loops → ranked module shortlist. Not a feature tour.
 3. **Desk, not script.** Module 01 is the wedge; Modules 02+ are the expansion story on the same login.
-4. **Fixed, say-yes pricing.** Basic £795 / Gold £1,095 / Premium £1,495. Hosting £49/mo or Priority £129/mo. Extras from £195. No enterprise theatre.
+4. **Fixed, say-yes pricing.** Automation desks Basic £795 / Gold £1,095 / Premium £1,495. Full websites (unrelated to automation) £4,000 / £4,500 / £5,000. Hosting £49/mo or Priority £129/mo. Extras from £195.
 5. **Same-week sample SLA.** Public promise: sample in by Wednesday → result by Friday.
 6. **Open Desk Hour.** Weekly 30-min Zoom where anyone can paste a live sample. Low-friction volume.
 7. **Risk reversal.** Deposit only after they tell you what they want. If you can’t do it as agreed → full refund. If Module 01 isn’t used in 14 days → re-scope Module 02 free or refund the build fee.
@@ -122,7 +122,7 @@ Answer the process question first. Offer a free sample second. Never spray.
 | “Too busy to switch” | “That’s the point. Module 01 replaces one loop in ~2 weeks. No big bang.” |
 | “Need to see security / privacy” | “Private build + login per company. Your data never trains a shared model.” |
 | “Can you just do a cheap script?” | “Scripts die. Desk compounds. Basic is £795 so it stays affordable — Gold/Premium if you want the look.” |
-| “Send pricing” | “Basic £795, Gold £1,095, Premium £1,495. Hosting £49 or Priority £129/mo. Sample first if you want proof.” |
+| “Send pricing” | “Desks from £795 / £1,095 / £1,495. Full websites £4k / £4.5k / £5k. Hosting £49 or Priority £129/mo.” |
 
 ---
 
