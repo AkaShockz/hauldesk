@@ -1,14 +1,14 @@
-# Flowdesk
+# Fastenly
 
 Go-to-market pack for selling a **private multi-workflow automation desk** to any team drowning in repeat work.
 
-Working brand: **Flowdesk**. Pilot offer: **£795 + £49/mo hosting** to get the desk live with the first module. Extra modules scoped after that.
+Working brand: **Fastenly**. Pilot offer: **£795 + £49/mo hosting** to get the desk live with the first module. Extra modules scoped after that.
 
 This repo is intentionally separate from any client production app. Do not put customer data here.
 
 ## Positioning
 
-Flowdesk is **not** a single-industry tool and **not** one converter. It is a company-private desk where many automations stack:
+Fastenly is **not** a single-industry tool and **not** one converter. It is a company-private desk where many automations stack:
 
 - Messy text / documents → clean sheets  
 - Field & quality checks  
@@ -24,6 +24,7 @@ Lead with the desk. Use parse-to-rows as a common first example — never as the
 | File | Use |
 |------|-----|
 | `landing.html` | One-page site with multi-module desk demo — replace `YOU@EXAMPLE.com`, then host |
+| `gtm-process.md` | Unique sample-first sales process + weekly acquisition engine |
 | `linkedin-outreach.md` | Connection notes + follow-ups |
 | `email-outreach.md` | Cold email + post-sample reply |
 | `pilot-proposal.md` | Send same day after a good discovery call |
@@ -32,10 +33,10 @@ Lead with the desk. Use parse-to-rows as a common first example — never as the
 ## Quick start
 
 1. Find-replace `YOU@EXAMPLE.com` with your real email (optional Calendly on landing CTAs).
-2. Open `landing.html` — flip module tabs; try Orders / Leads / Tickets / Ops samples.
+2. Open `landing.html` — use **Watch it run on the desk**, then flip module tabs.
 3. Host on Netlify Drop / Cloudflare Pages / any static host.
 4. Record a short Loom showing the desk modules, not only one sample parse.
-5. Fill `targets.csv` and send ~10 personalised LinkedIn notes per day.
+5. Follow `gtm-process.md`: fill `targets.csv`, send ~10 LinkedIn notes/day, lead with free samples.
 
 ## Boundaries
 

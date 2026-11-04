@@ -1,4 +1,4 @@
-# LinkedIn outreach (Flowdesk)
+# LinkedIn outreach (Fastenly)
 
 Aimed at ops / admin / operations managers who still run repeat manual workflows.
 

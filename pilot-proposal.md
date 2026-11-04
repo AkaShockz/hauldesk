@@ -1,4 +1,4 @@
-# Flowdesk pilot proposal
+# Fastenly pilot proposal
 
 Copy into email or PDF after a good discovery call.
 
@@ -14,7 +14,7 @@ Copy into email or PDF after a good discovery call.
 
 Stand up a **private automation desk** for your team — starting with one module that removes the worst repeatable work, with a clear path to add more workflows on the same site.
 
-Flowdesk is not a single-purpose converter and not locked to one industry. The desk is built to hold many automations over time.
+Fastenly is not a single-purpose converter and not locked to one industry. The desk is built to hold many automations over time.
 
 ## What’s included (pilot)
 
@@ -70,5 +70,5 @@ Reply with a preferred kickoff week and the Module 01 sample pack. I’ll confir
 
 —
 {{Your name}}  
-Flowdesk  
+Fastenly  
 {{YOU@EXAMPLE.com}}

@@ -1,4 +1,4 @@
-# Email outreach (Flowdesk)
+# Email outreach (Fastenly)
 
 For ops / admin / operations emails at firms with repeat manual workflows.
 
