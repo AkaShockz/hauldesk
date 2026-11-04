@@ -1,20 +1,29 @@
-# Hauldesk pilot proposal (copy into email or PDF)
+# Fastenly pilot proposal
+
+Copy into email or PDF after a good discovery call.
 
 **To:** {{Company}}  
 **From:** {{Your name}}  
-**Date:** {{Date}}
+**Date:** {{Date}}  
+**Module 01 in scope:** {{agreed first workflow}}  
+**Module shortlist for later (not in this pilot):** {{list}}
+
+---
 
 ## Goal
 
-Cut the time your team spends turning vehicle job sheets into workable Excel — starting with **one** job format.
+Stand up a **private automation desk** for your team — starting with one module that removes the worst repeatable work, with a clear path to add more workflows on the same site.
 
-## What’s included
+Fastenly is not a single-purpose converter and not locked to one industry. The desk is built to hold many automations over time.
+
+## What’s included (pilot)
 
 - Private hosted web app (login for your staff only)
-- Parser for **one** agreed job type / customer format
-- On-screen preview before download
-- Excel export matching a template you approve
-- Basic address / postcode warnings where we can detect issues
+- Architecture for multiple modules on the same desk
+- One agreed automation live (Module 01)
+- On-screen preview / flags where they apply
+- Export matching a template you approve
+- History so the desk can reopen earlier runs
 - 60-minute training call + 14 days of email support after go-live
 - Hosting, backups, and uptime monitoring for the pilot month
 
@@ -22,36 +31,79 @@ Cut the time your team spends turning vehicle job sheets into workable Excel —
 
 | Week | What happens |
 |------|----------------|
-| 0 | You send 5–10 redacted sample jobs + target Excel layout |
-| 1 | First parser draft on a staging URL for your review |
+| 0 | You send samples + target output layout for Module 01 |
+| 1 | First draft on a staging URL for your review |
 | 2 | Fixes, go-live, training call |
 
 ## Investment
 
-| Item | Amount |
-|------|--------|
-| Pilot build (first format) | £2,500 (one-off) |
-| Hosting & support | £149 / month (cancel anytime) |
-| Extra formats later | from £500 each (scoped separately) |
+### Automation desk (one-off) — pick a visual tier
 
-**Payment:** 50% to start, 50% on go-live. Monthly hosting invoiced in advance.
+| Tier | Amount | What you get |
+|------|--------|----------------|
+| **Basic** | £795 | Clean functional desk + first automation |
+| **Gold** | £1,095 (+£300) | Basic + branded visual polish (most teams) |
+| **Premium** | £1,495 (+£700) | Gold + full custom look, motion, extra polish |
 
-## Out of scope (for this pilot)
+### Full website — not automation (one-off)
 
-- Full TMS replacement
-- Driver mobile apps
-- Automatic email inbox scraping (can be a later phase)
-- Formats we have not seen samples for
+A complete public / business site to your brief. No automation required.
+
+| Tier | Amount | What you get |
+|------|--------|----------------|
+| **Basic** | £4,000 | Multi-page site, clean professional look |
+| **Gold** | £4,500 (+£500) | Basic + branded visual polish |
+| **Premium** | £5,000 (+£1,000) | Gold + fuller custom design, motion, extra polish |
+
+### Hosting (monthly · either path)
+
+| Plan | Amount | What you get |
+|------|--------|----------------|
+| **Standard** | £49 / month | Hosting + normal support queue |
+| **Priority** | £129 / month (+£80) | Priority fixes + request extra features as you need them |
+
+Extra automation modules later: from £195 each (scoped separately). Cancel hosting anytime.
+
+**Payment:** Deposit only after you tell us what you want and we confirm we can do it. Then 50% to start, 50% on go-live. Monthly hosting invoiced in advance. No annual lock-in.
+
+**If we cannot deliver:** If we agree the brief and then cannot build what you asked for, you get a **full refund of the deposit** (and any pilot build fee paid).
+
+## Out of scope (this pilot)
+
+- Full platform replacement for tools you already love
+- Modules we have not agreed samples for
+- Automatic inbox scraping (possible later module)
+- Changes to accounting, payroll, or core ERP/CRM systems
 
 ## Success check
 
-After two weeks of live use: planners can produce the morning Excel from the new desk for the agreed format without falling back to full manual retyping.
+After two weeks of live use: the team runs Module 01 without falling back to full manual process — and you have a prioritised shortlist for Modules 02+.
+
+## Risk reversal
+
+1. **Before build:** deposit is only taken after you describe what you want and we confirm we can do it.  
+2. **If we cannot deliver as agreed:** full refund of the deposit / pilot build fee.  
+3. **After go-live:** if Module 01 is not in real use within 14 days, choose a free Module 02 scope pass or a refund of the build fee (hosting already used is non-refundable).
+
+This keeps the pilot easy to say yes to.
+
+## Referral credit
+
+After Module 01 sticks: introduce two peer ops leads. For each intro that becomes a paid pilot, both sides get **£100 off** the next module.
+
+## What I need from you to start
+
+1. Samples for Module 01 (redacted)  
+2. Target output template  
+3. Staff emails who need login  
+4. Preferred kickoff week  
+5. Optional: ranked list of later modules  
 
 ## Next step
 
-Reply with a preferred kickoff week and the sample pack. I’ll confirm start date and send an invoice for the deposit.
+Reply with a preferred kickoff week and the Module 01 sample pack. I’ll confirm the start date and send an invoice for the deposit.
 
 —
 {{Your name}}  
-Hauldesk  
+Fastenly  
 {{YOU@EXAMPLE.com}}

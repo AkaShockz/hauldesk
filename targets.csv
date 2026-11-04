@@ -1,2 +1,7 @@
-company,website,linkedin_url,contact_name,contact_role,email,source,status,last_touch,notes
-Example Vehicle Logistics,https://example.com,https://linkedin.com/company/example,Alex Example,Operations Manager,,,research,not_contacted,Replace this row — aim for 40 UK car delivery / compound / dealer logistics firms
+company,segment,website,linkedin_url,contact_name,contact_role,email,personalisation_hook,source,status,last_touch,next_action,notes
+Example Ops Co,mixed_ops,https://example.com,https://linkedin.com/company/example,Alex Example,Operations Manager,,Careers page mentions ops / admin coordination roles,manual_research,not_contacted,,Replace this row — aim for ~40 firms with repeat manual workflows
+Northline Fulfilment,orders,https://example.com,,Sam Reed,Head of Operations,,Hiring Order Processor — likely retyping loop,hiring_signal,not_contacted,,Wedge: messy order notes → clean board
+Cedar Agency,sales_ops,https://example.com,,Jordan Lee,Sales Ops Lead,,Posts about lead spreadsheet chaos,linkedin_content,not_contacted,,Wedge: lead dump → chase list
+Bright Harbor Support,support,https://example.com,,Riley Chen,Support Manager,,Job ad for Admin Assistant / ticket triage,hiring_signal,not_contacted,,Wedge: ticket paste → owner/due board
+Maple Field Services,field_ops,https://example.com,,Alex Morgan,Ops Coordinator,,Weekly run sheets still rebuilt by hand (careers blurb),manual_research,not_contacted,,Wedge: job notes → daily run sheet
+Bookkeep Partner Ltd,partner,https://example.com,,Pat Singh,Owner,,Serves 30+ SMEs with admin-heavy clients,partner,not_contacted,,Offer £100 / 15% intro credit

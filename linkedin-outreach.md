@@ -1,21 +1,25 @@
-# LinkedIn outreach (Hauldesk)
+# LinkedIn outreach (Fastenly)
 
-Personalise the **bracketed bits**. Send from your real profile. Cap at ~10 connection notes/day so you stay under LinkedIn limits.
+Aimed at ops / admin / operations managers who still run repeat manual workflows.
 
-Replace `YOU@EXAMPLE.com` and add your Loom / Calendly links before sending.
+Personalise every **{{bracket}}**. Cap at ~10 connection notes/day.
+
+Replace `YOU@EXAMPLE.com`, add your Loom, optional Calendly.
+
+Lead with a **multi-workflow desk** — not one industry, not one script.
 
 ---
 
 ## Connection note (≤300 characters)
 
 ```
-Hi {{First name}} — I build job-sheet → Excel tools for UK vehicle transport teams (paste/upload → clean spreadsheet). Curious how {{Company}} handles morning booking prep. Open to a quick chat?
+Hi {{First name}} — I build private automation desks for teams drowning in repeat work (parse, checks, merges, chase lists — stacked as modules). Curious how {{Company}} handles the weekly grind. Open to a quick chat?
 ```
 
 Shorter variant:
 
 ```
-Hi {{First name}}, I help car-delivery / compound ops stop retyping job sheets into Excel. Worth a 15-min look if that’s still a morning pain at {{Company}}?
+Hi {{First name}}, I help ops/admin desks automate the work people keep retyping — a private desk that grows module by module. Worth 15 mins if that still hurts at {{Company}}?
 ```
 
 ---
@@ -25,11 +29,11 @@ Hi {{First name}}, I help car-delivery / compound ops stop retyping job sheets i
 ```
 Thanks for connecting, {{First name}}.
 
-Quick context: I built a private web desk for a UK transport firm that turns messy job pastes into the Excel their planners already use — with address checks before download.
+Quick context: I build private web desks where automations stack — documents → sheets, quality checks, board merges, chase lists, and other repeat workflows. First module is whichever burns the most time.
 
-I recorded a 45-second walkthrough (no sales deck): {{LOOM_LINK}}
+45-second walkthrough: {{LOOM_LINK}}
 
-If mornings still involve retyping sheets at {{Company}}, happy to do a free parse on one redacted sample and tell you if it’s worth a pilot.
+If {{Company}} still has a pile of messy-to-clean busywork, happy to run a free sample on one redacted workflow.
 ```
 
 ---
@@ -37,7 +41,9 @@ If mornings still involve retyping sheets at {{Company}}, happy to do a free par
 ## Day 3 bump
 
 ```
-{{First name}} — circling back in case the Loom got buried. Even a “not a pain for us” is useful. If it is a pain, I run a fixed-price pilot: one format live in ~2 weeks.
+{{First name}} — circling back in case the Loom got buried. Even a “not a pain for us” is useful.
+
+If it is: fixed pilot from £795 Basic (Gold/Premium for visuals; hosting £49 or Priority £129), live in ~2 weeks, then stack modules.
 ```
 
 ---
@@ -45,9 +51,32 @@ If mornings still involve retyping sheets at {{Company}}, happy to do a free par
 ## Day 7 last touch
 
 ```
-Last note from me: if useful, send one redacted job sheet to YOU@EXAMPLE.com and I’ll return a sample Excel the same week — no charge, no login needed for that test.
+Last note from me: send one redacted sample workflow to YOU@EXAMPLE.com and I’ll return a clean test the same week — no charge.
+
+Or grab a seat at Open Desk Hour (live paste → clean test): {{CALENDLY_LINK}}
 
 Either way, appreciate the connect.
+```
+
+---
+
+## Hiring-signal variant (connection note)
+
+```
+Hi {{First name}} — saw {{Company}} hiring for {{role}}. That usually means a retyping / chase loop somewhere. I run free same-week samples on private automation desks — worth a look?
+```
+
+---
+
+## Busywork Audit variant (after accept)
+
+```
+Thanks for connecting, {{First name}}.
+
+I offer a free 20-min Busywork Audit: we map your top 3 weekly manual loops and rank what to automate first. No deck. You leave with a shortlist.
+
+Book here: {{CALENDLY_LINK}}
+Or send one redacted sample to YOU@EXAMPLE.com and I’ll return a clean test.
 ```
 
 ---
@@ -56,9 +85,9 @@ Either way, appreciate the connect.
 
 Ask only:
 
-1. Where do job sheets arrive today (email, portal, PDF, WhatsApp)?
-2. Who retypes them, and how long does a busy morning take?
-3. What must the Excel columns look like (or can you share a blank template)?
-4. How many formats / customers drive 80% of the volume?
+1. What repeatable work burns the most time?
+2. What else would go on the same desk if module one stuck?
+3. What must the output look like?
+4. Who uses it day to day?
 
-Then: propose the pilot (£2,500 + £149/mo) for the #1 format only.
+Then: propose the pilot (Basic/Gold/Premium + Standard or Priority hosting). Send `pilot-proposal.md` the same day. Mention deposit-after-brief + full refund if undeliverable.
