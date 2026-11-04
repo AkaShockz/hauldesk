@@ -1225,34 +1225,146 @@
       }
       .mark::after { transform: scaleX(1); }
     }
+
+    /* —— Page structure: preview band —— */
+    .hero {
+      min-height: auto;
+      padding: 2rem 0 3.25rem !important;
+    }
+    .hero-copy {
+      max-width: 36rem !important;
+      margin-bottom: 0 !important;
+      padding-bottom: 0.5rem;
+    }
+    .hero-copy h1 {
+      max-width: 14ch !important;
+      font-size: clamp(2.1rem, 5vw, 3.2rem) !important;
+    }
+    .hero-copy p {
+      max-width: 36ch !important;
+      font-size: 1.08rem !important;
+    }
+    .preview-band {
+      padding: 3.25rem 0 3.5rem;
+      color: var(--white);
+      background:
+        radial-gradient(ellipse 55% 45% at 90% 0%, rgba(232,93,4,0.16), transparent 55%),
+        linear-gradient(180deg, #0a0a0e 0%, var(--bg) 40%, #121218 100%);
+    }
+    .preview-band .wrap { width: min(1180px, calc(100% - 2rem)); }
+    .kicker-light { color: #ffb070; }
+    .preview-title {
+      color: var(--white) !important;
+      max-width: 16ch;
+      margin-bottom: 0.55rem;
+    }
+    .lead-light {
+      color: rgba(244,245,247,0.65) !important;
+      max-width: 42ch;
+      margin-bottom: 1.15rem;
+    }
+    .preview-actions {
+      display: flex; flex-wrap: wrap; gap: 0.55rem;
+      margin-bottom: 1.35rem;
+    }
+    .preview-band .parser {
+      animation: deskIn 0.7s var(--ease) both;
+    }
+    .preview-band .btn-ghost {
+      color: var(--white);
+      border-color: rgba(244,245,247,0.28);
+    }
+    .preview-band .btn-ghost:hover:not(:disabled) {
+      border-color: var(--white);
+    }
+    #build, #how, .close {
+      background: transparent;
+    }
+    .extras-after {
+      margin-top: 2rem;
+      padding-top: 1.35rem;
+      border-top: 1px solid var(--line);
+    }
+
+
+    #build .build-grid { margin-top: 0.35rem; }
+    @media (max-width: 900px) {
+      .hero { padding: 1.35rem 0 2rem !important; }
+      .preview-band { padding: 2.25rem 0 2.5rem; }
+      .preview-actions .btn { flex: 1 1 auto; }
+    }
   </style>
 </head>
 <body>
-  <a class="skip" href="#preview">Skip to parser</a>
+  <a class="skip" href="#preview">Skip to live desk</a>
 
   <header class="hero">
     <div class="wrap">
       <div class="topbar">
         <p class="mark">Fasten<span>ly</span></p>
         <nav aria-label="Page">
-          <a href="#preview">Try it</a>
           <a href="#build">What we build</a>
+          <a href="#preview">Try it</a>
           <a href="#pilot">Price</a>
         </nav>
         <a class="btn btn-primary btn-sm" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Send a sample</a>
       </div>
 
       <div class="hero-copy">
-        <h1>Many jobs. One click. Clean sheet.</h1>
-        <p>Watch a whole batch sort itself — then download the board. Demo parse only.</p>
+        <h1>Messy work in. Clean boards out.</h1>
+        <p>Private automation desks for Excel, reports, and delivery — or a full website to your brief.</p>
         <div class="cta-row">
-          <button type="button" class="btn btn-primary" id="btn-replay">Play the batch</button>
-          <a class="btn btn-ghost" href="#build">See everything</a>
+          <a class="btn btn-primary" href="#build">See what we build</a>
+          <a class="btn btn-ghost" href="#preview" id="btn-try-desk">Try the live desk</a>
         </div>
       </div>
+    </div>
+  </header>
 
-      <!-- LIVE PARSER PREVIEW — locked samples -->
-      <div class="parser" id="preview" aria-label="Automation desk preview">
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <section id="build" class="reveal">
+    <div class="wrap">
+      <p class="kicker">What we build</p>
+      <h2>Start with the job that hurts most.</h2>
+      <p class="lead">Most teams begin with Excel or a Daily report board. Delivery desks and full websites when you need them.</p>
+
+      <div class="build-grid">
+        <article class="build-item">
+          <p class="tag">01 · Excel</p>
+          <h3>Text → Excel in a couple of clicks</h3>
+          <p>One sheet, many jobs — fields light up together, gaps get flagged, then the whole batch drops into Excel in a couple of clicks.</p>
+        </article>
+        <article class="build-item">
+          <p class="tag">02 · Reports</p>
+          <h3>Reports from messy data</h3>
+          <p>Turn a master dump into a Daily orders board — To be planned, Allocated, Collected, Late — with SLA notes and totals.</p>
+        </article>
+        <article class="build-item">
+          <p class="tag">03 · Delivery</p>
+          <h3>Delivery information, automated</h3>
+          <p>Job notes become a clear run board: customer, window, driver, flags for missing info — before anyone leaves the yard.</p>
+        </article>
+        <article class="build-item">
+          <p class="tag">04 · Website</p>
+          <h3>Full website, your brief</h3>
+          <p>Private staff desk, or a complete public site with no automation required — pages, layout, and look to your choice. Full sites cost more (see pricing).</p>
+        </article>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="preview" class="preview-band reveal">
+    <div class="wrap">
+      <p class="kicker kicker-light">Try it</p>
+      <h2 class="preview-title">See a batch sort itself.</h2>
+      <p class="lead lead-light">Locked demo — parsing logic only. No plates or street addresses. Production uses your real formats.</p>
+      <div class="preview-actions">
+        <button type="button" class="btn btn-primary" id="btn-replay">Play the batch</button>
+        <a class="btn btn-ghost" href="#pilot">See pricing</a>
+      </div>
+      <div class="parser" id="desk" aria-label="Automation desk preview">
         <div class="parser-chrome">
           <div class="chrome-left">
             <span class="dot" aria-hidden="true"></span>
@@ -1364,60 +1476,13 @@
         </div>
       </div>
     </div>
-  </header>
-
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-  <section id="build" class="reveal">
-    <div class="wrap">
-      <p class="kicker">What we build</p>
-      <h2>Desks that sort work — or a full site.</h2>
-      <p class="lead">Start with the job that hurts most, or commission a full site with no automation required.</p>
-
-      <div class="build-grid">
-        <article class="build-item">
-          <p class="tag">01 · Excel</p>
-          <h3>Text → Excel in a couple of clicks</h3>
-          <p>One sheet, many jobs — fields light up together, gaps get flagged, then the whole batch drops into Excel in a couple of clicks.</p>
-        </article>
-        <article class="build-item">
-          <p class="tag">02 · Reports</p>
-          <h3>Reports from messy data</h3>
-          <p>Turn a master dump into a Daily orders board — To be planned, Allocated, Collected, Late — with SLA notes and totals.</p>
-        </article>
-        <article class="build-item">
-          <p class="tag">03 · Delivery</p>
-          <h3>Delivery information, automated</h3>
-          <p>Job notes become a clear run board: customer, window, driver, flags for missing info — before anyone leaves the yard.</p>
-        </article>
-        <article class="build-item">
-          <p class="tag">04 · Website</p>
-          <h3>Full website, your brief</h3>
-          <p>Private staff desk, or a complete public site with no automation required — pages, layout, and look to your choice. Full sites cost more (see pricing).</p>
-        </article>
-      </div>
-
-      <div class="extras">
-        <h3>Also easy to wire up</h3>
-        <ul class="extra-list">
-          <li><strong>Chase lists</strong> — who still owes a reply</li>
-          <li><strong>Gap checks</strong> — blank owners, dues, qty</li>
-          <li><strong>Sheet merges</strong> — two dumps, one board</li>
-          <li><strong>Form → sheet</strong> — intake without retyping</li>
-          <li><strong>Invoice / PO sort</strong> — refs, nets, exceptions</li>
-          <li><strong>Weekly digests</strong> — email the board summary</li>
-          <li><strong>Rota & leave</strong> — who’s off, who’s covering</li>
-          <li><strong>Stock counts</strong> — recount flags overnight</li>
-        </ul>
-      </div>
-    </div>
   </section>
 
-  <section id="how" class="reveal">
+<section id="how" class="reveal">
     <div class="wrap">
       <p class="kicker">How it works</p>
-      <h2>You say what you want. Then a deposit.</h2>
-      <p class="lead">No deposit until you’ve told us the job — and if we can’t do it, you get every penny back.</p>
+      <h2>Brief. Deposit. We build.</h2>
+      <p class="lead">No deposit until the job is clear — and a full refund if we can’t deliver it.</p>
       <div class="steps">
         <article class="step">
           <h3>Tell us what you want</h3>
@@ -1431,6 +1496,20 @@
           <h3>We build — or full refund</h3>
           <p>If we can’t do what you asked, you get a full refund of the deposit. No argument.</p>
         </article>
+      </div>
+
+      <div class="extras extras-after">
+        <h3>Also easy to wire up</h3>
+        <ul class="extra-list">
+          <li><strong>Chase lists</strong> — who still owes a reply</li>
+          <li><strong>Gap checks</strong> — blank owners, dues, qty</li>
+          <li><strong>Sheet merges</strong> — two dumps, one board</li>
+          <li><strong>Form → sheet</strong> — intake without retyping</li>
+          <li><strong>Invoice / PO sort</strong> — refs, nets, exceptions</li>
+          <li><strong>Weekly digests</strong> — email the board summary</li>
+          <li><strong>Rota & leave</strong> — who’s off, who’s covering</li>
+          <li><strong>Stock counts</strong> — recount flags overnight</li>
+        </ul>
       </div>
     </div>
   </section>
@@ -1659,7 +1738,7 @@
 
     var sourceView = document.getElementById("source-view");
     var extractFeed = document.getElementById("extract-feed");
-    var previewEl = document.getElementById("preview");
+    var previewEl = document.getElementById("desk");
     var body = document.getElementById("parse-body");
     var headRow = document.getElementById("parse-head");
     var table = document.getElementById("parse-table");
@@ -2537,12 +2616,25 @@
       }
     });
 
-    document.getElementById("btn-replay").addEventListener("click", function () {
-      document.getElementById("preview").scrollIntoView({ behavior: "smooth", block: "center" });
+    function goPlayBatch() {
+      var band = document.getElementById("preview");
+      if (band) band.scrollIntoView({ behavior: "smooth", block: "start" });
       if (currentModule !== "jobs") setModule("jobs");
       currentSample = "rush";
       setChip("rush");
-      playDemo();
+      setTimeout(function () { playDemo(); }, reduceMotion ? 0 : 350);
+    }
+    var replayBtn = document.getElementById("btn-replay");
+    if (replayBtn) replayBtn.addEventListener("click", goPlayBatch);
+    var tryDesk = document.getElementById("btn-try-desk");
+    if (tryDesk) tryDesk.addEventListener("click", function (e) {
+      /* let hash navigate; kick demo shortly after */
+      setTimeout(function () {
+        if (currentModule !== "jobs") setModule("jobs");
+        currentSample = "rush";
+        setChip("rush");
+        playDemo();
+      }, 400);
     });
     document.getElementById("btn-replay-foot").addEventListener("click", function () {
       playDemo();
