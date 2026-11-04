@@ -1951,6 +1951,98 @@
         padding-bottom: 5.5rem;
       }
     }
+
+    /* —— Voices (composite testimonials) —— */
+    .voices-band {
+      padding: 3.25rem 0;
+      background:
+        radial-gradient(ellipse 40% 50% at 100% 0%, rgba(232,93,4,0.05), transparent 55%),
+        rgba(255,255,255,0.32);
+      border-top: 1px solid var(--line);
+    }
+    .voices-band h2 { max-width: 16ch; }
+    .voice-list {
+      margin-top: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem 1.35rem;
+    }
+    .voice {
+      margin: 0;
+      padding: 0 0 0 1rem;
+      border-left: 3px solid var(--accent);
+      min-width: 0;
+    }
+    .voice blockquote {
+      font-family: var(--display);
+      font-size: 1.05rem;
+      font-weight: 500;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin: 0 0 0.75rem;
+      max-width: 28ch;
+    }
+    .voice figcaption {
+      font-size: 0.84rem;
+      color: var(--mute);
+    }
+    .voice figcaption strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* —— Extra polish —— */
+    .module-btn {
+      font-size: 0.68rem !important;
+      padding: 0.78rem 0.72rem !important;
+    }
+    .parser.is-live {
+      box-shadow:
+        0 0 0 1px rgba(232,93,4,0.16),
+        0 28px 80px rgba(0,0,0,0.52) !important;
+    }
+    .chip[aria-pressed="true"] {
+      letter-spacing: 0.02em;
+    }
+    .btn-ink:hover:not(:disabled) {
+      background: #1c1d24;
+    }
+    .plan.is-featured .btn-ink,
+    .plan.is-featured .btn-primary {
+      box-shadow: 0 8px 22px rgba(232,93,4,0.25);
+    }
+    .build-item .tag,
+    .step h3 {
+      transition: color 0.15s ease;
+    }
+    .build-item:hover .tag { color: var(--accent-2); }
+    .topbar .btn-sm {
+      box-shadow: 0 6px 18px rgba(232,93,4,0.2);
+    }
+    .hero-copy .btn-ghost {
+      backdrop-filter: blur(4px);
+      background: rgba(255,255,255,0.03);
+    }
+    .preview-band .preview-actions .btn-primary {
+      box-shadow: 0 10px 28px rgba(232,93,4,0.28);
+    }
+    .ba-pane:hover {
+      border-color: rgba(244,245,247,0.18);
+    }
+    .faq-list details[open] {
+      background: linear-gradient(90deg, rgba(232,93,4,0.04), transparent 55%);
+      margin-inline: -0.4rem;
+      padding-inline: 0.4rem;
+      border-radius: 2px;
+    }
+    footer.wrap .mark::after { display: none; }
+
+    @media (max-width: 900px) {
+      .voice-list { grid-template-columns: 1fr; gap: 1.25rem; }
+      .voice blockquote { max-width: none; font-size: 1.08rem; }
+      .module-btn { padding: 0.72rem 0.6rem !important; font-size: 0.64rem !important; }
+    }
   </style>
 </head>
 <body>
@@ -1963,6 +2055,7 @@
         <nav aria-label="Page">
           <a href="#build">What we build</a>
           <a href="#preview">Try it</a>
+          <a href="#voices">Voices</a>
           <a href="#faq">FAQ</a>
           <a href="#pilot">Price</a>
         </nav>
@@ -2032,7 +2125,7 @@
     <div class="wrap">
       <p class="kicker kicker-light">Try it</p>
       <h2 class="preview-title">See a batch sort itself.</h2>
-      <p class="lead lead-light">Locked demos with the same desk layout — transport sheets, daily boards, delivery runs, chase lists. Demo data only.</p>
+      <p class="lead lead-light">Locked demos with the same desk layout — transport, daily boards, delivery, chase, invoice, stock. Demo data only.</p>
       <div class="preview-actions">
         <button type="button" class="btn btn-primary plausible-event-name=Play+Batch plausible-event-location=Preview" id="btn-replay">Play the batch</button>
         <a class="btn btn-ghost plausible-event-name=Email+Sample plausible-event-location=Preview" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Email your sample</a>
@@ -2051,6 +2144,8 @@
           <button type="button" class="module-btn" data-module="report" aria-pressed="false">02 · Daily report</button>
           <button type="button" class="module-btn" data-module="delivery" aria-pressed="false">03 · Delivery</button>
           <button type="button" class="module-btn" data-module="chase" aria-pressed="false">04 · Chase</button>
+          <button type="button" class="module-btn" data-module="invoice" aria-pressed="false">05 · Invoice</button>
+          <button type="button" class="module-btn" data-module="stock" aria-pressed="false">06 · Stock</button>
         </div>
 
         <div class="parser-steps" id="job-steps" aria-hidden="true">
@@ -2087,6 +2182,16 @@
           <button type="button" class="chip" data-sample="open-a" aria-pressed="true">Open chases</button>
           <button type="button" class="chip" data-sample="open-b" aria-pressed="false">Week dues</button>
           <span class="chip-hint">refs · contacts · owners · due dates</span>
+        </div>
+        <div class="parser-tools" id="invoice-tools" hidden>
+          <button type="button" class="chip" data-sample="inv-a" aria-pressed="true">AP inbox</button>
+          <button type="button" class="chip" data-sample="inv-b" aria-pressed="false">Exceptions</button>
+          <span class="chip-hint">supplier · PO · net · VAT · exceptions</span>
+        </div>
+        <div class="parser-tools" id="stock-tools" hidden>
+          <button type="button" class="chip" data-sample="stock-a" aria-pressed="true">Night count</button>
+          <button type="button" class="chip" data-sample="stock-b" aria-pressed="false">Recount flags</button>
+          <span class="chip-hint">SKU · location · expected · counted · variance</span>
         </div>
 
         <p class="remind" id="date-remind" role="status"></p>
@@ -2230,10 +2335,29 @@ VALUE
     </div>
   </section>
 
-  <section id="outcomes" class="outcomes reveal">
+  <section id="voices" class="voices-band reveal">
     <div class="wrap">
-      <p class="kicker">What changes</p>
-      <h2>Same work. Far less retyping.</h2>
+      <p class="kicker">From desks like yours</p>
+      <h2>What ops leads say they want.</h2>
+      <p class="lead">Composite examples for the landing page — not named clients. Real quotes come after your pilot.</p>
+      <div class="voice-list">
+        <figure class="voice">
+          <blockquote>“We still paste from PDFs into Excel every morning. If a desk filled our columns and flagged gaps, we’d buy it.”</blockquote>
+          <figcaption><strong>Ops manager</strong> · Midlands yard desk</figcaption>
+        </figure>
+        <figure class="voice">
+          <blockquote>“I don’t need another platform. I need our delivery windows and missing phones to show up before drivers leave.”</blockquote>
+          <figcaption><strong>Transport lead</strong> · coastal fleet office</figcaption>
+        </figure>
+        <figure class="voice">
+          <blockquote>“Chase lists die in inboxes. A board with owner, due date, and overdue flags would save us half a day a week.”</blockquote>
+          <figcaption><strong>Accounts supervisor</strong> · hire &amp; plant admin</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="outcomes" class="outcomes reveal">
       <p class="lead">You keep your formats. We build the desk that fills them — private, on your machine or hosted.</p>
       <ul class="outcome-lines">
         <li>
@@ -2715,6 +2839,58 @@ VALUE
       }
     };
 
+    var INVOICE_SAMPLES = {
+      "inv-a": {
+        label: "AP inbox · 4 Nov",
+        rows: [
+          { ref: "INV-2201", supplier: "Northline Supplies", po: "PO-4412", net: "1,240.00", vat: "248.00", due: "18 Nov", flag: "", notes: "" },
+          { ref: "INV-2202", supplier: "Harbor Packing", po: "PO-4418", net: "680.50", vat: "136.10", due: "12 Nov", flag: "qty mismatch", notes: "Line 3" },
+          { ref: "INV-2203", supplier: "Cedar Logistics", po: "—", net: "320.00", vat: "64.00", due: "20 Nov", flag: "no PO", notes: "" },
+          { ref: "INV-2204", supplier: "Maple Works", po: "PO-4501", net: "2,110.00", vat: "422.00", due: "25 Nov", flag: "", notes: "Approved" },
+          { ref: "INV-2205", supplier: "Quayside Stores", po: "PO-4508", net: "95.40", vat: "19.08", due: "10 Nov", flag: "duplicate?", notes: "Check INV-2198" },
+          { ref: "CR-3301", supplier: "Gridline Transit", po: "PO-4412", net: "-120.00", vat: "-24.00", due: "—", flag: "", notes: "Credit note" }
+        ]
+      },
+      "inv-b": {
+        label: "Exceptions · week",
+        rows: [
+          { ref: "INV-2301", supplier: "Bright Hire Desk", po: "PO-4515", net: "4,500.00", vat: "900.00", due: "08 Nov", flag: "price query", notes: "Wait buyer" },
+          { ref: "INV-2302", supplier: "Apex Runners", po: "—", net: "210.00", vat: "42.00", due: "05 Nov", flag: "no PO", notes: "" },
+          { ref: "INV-2303", supplier: "Oakfield Depot", po: "PO-4520", net: "1,020.00", vat: "204.00", due: "15 Nov", flag: "missing VAT", notes: "" },
+          { ref: "INV-2304", supplier: "Ridgeway Plant", po: "PO-4522", net: "760.00", vat: "152.00", due: "11 Nov", flag: "qty mismatch", notes: "Ordered 12" },
+          { ref: "INV-2305", supplier: "Northline Supplies", po: "PO-4525", net: "3,300.00", vat: "660.00", due: "22 Nov", flag: "", notes: "" },
+          { ref: "INV-2306", supplier: "Harbor Packing", po: "PO-4418", net: "680.50", vat: "136.10", due: "12 Nov", flag: "duplicate?", notes: "Same as 2202" },
+          { ref: "CR-3310", supplier: "Cedar Logistics", po: "PO-4501", net: "-45.00", vat: "-9.00", due: "—", flag: "", notes: "Pack credit" }
+        ]
+      }
+    };
+
+    var STOCK_SAMPLES = {
+      "stock-a": {
+        label: "Night count · 4 Nov",
+        rows: [
+          { sku: "BRK-440", loc: "Aisle A / Bin 12", expected: "40", counted: "40", variance: "0", flag: "", notes: "" },
+          { sku: "FLT-118", loc: "Aisle B / Bin 03", expected: "18", counted: "16", variance: "-2", flag: "recount", notes: "Shelf edge" },
+          { sku: "HSG-902", loc: "Yard cage 2", expected: "6", counted: "6", variance: "0", flag: "", notes: "" },
+          { sku: "WRH-221", loc: "Mezzanine", expected: "120", counted: "118", variance: "-2", flag: "recount", notes: "" },
+          { sku: "PMP-55", loc: "Bay D", expected: "3", counted: "4", variance: "+1", flag: "over", notes: "Return?" },
+          { sku: "CAB-770", loc: "Aisle C / Bin 08", expected: "25", counted: "25", variance: "0", flag: "", notes: "" }
+        ]
+      },
+      "stock-b": {
+        label: "Recount flags · overnight",
+        rows: [
+          { sku: "FLT-118", loc: "Aisle B / Bin 03", expected: "18", counted: "16", variance: "-2", flag: "recount", notes: "2nd pass" },
+          { sku: "WRH-221", loc: "Mezzanine", expected: "120", counted: "117", variance: "-3", flag: "recount", notes: "Still short" },
+          { sku: "PMP-55", loc: "Bay D", expected: "3", counted: "3", variance: "0", flag: "cleared", notes: "Return logged" },
+          { sku: "BRK-441", loc: "Aisle A / Bin 14", expected: "12", counted: "10", variance: "-2", flag: "recount", notes: "" },
+          { sku: "HSG-910", loc: "Yard cage 1", expected: "2", counted: "0", variance: "-2", flag: "missing", notes: "Check van" },
+          { sku: "CAB-771", loc: "Aisle C / Bin 09", expected: "8", counted: "8", variance: "0", flag: "cleared", notes: "" },
+          { sku: "WRH-230", loc: "Mezzanine", expected: "50", counted: "49", variance: "-1", flag: "recount", notes: "" }
+        ]
+      }
+    };
+
     var JOB_HEADERS = [
       "YOUR REF NO", "MAKE", "MODEL", "COLOUR",
       "COLLECTION DATE",
@@ -2728,6 +2904,8 @@ VALUE
     var REPORT_HEADERS = ["Customer", "To be planned", "Allocated", "Collected", "Late", "Customer SLA", "Notes"];
     var DELIVERY_HEADERS = ["Ref", "Customer", "Window", "Postcode", "Driver", "Flag", "Notes"];
     var CHASE_HEADERS = ["Ref", "Contact", "Last touch", "Due", "Owner", "Status", "Flag"];
+    var INVOICE_HEADERS = ["Ref", "Supplier", "PO", "Net", "VAT", "Due", "Flag", "Notes"];
+    var STOCK_HEADERS = ["SKU", "Location", "Expected", "Counted", "Variance", "Flag", "Notes"];
     var SPECIAL_INSTRUCTIONS = "Must call 1 hour before collection and get a name";
 
     var MODULE_META = {
@@ -2789,6 +2967,36 @@ VALUE
         fileName: "Chase-board-demo.csv",
         stepLabels: ["Load list", "Map owners", "Flag dues", "Chase board"],
         samples: CHASE_SAMPLES
+      },
+      invoice: {
+        toolsId: "invoice-tools",
+        defaultSample: "inv-a",
+        sourceLabel: "Invoice dump sample",
+        extractLabel: "Live extract",
+        outLabel: "Invoice / PO board",
+        parseLabel: "Build board",
+        rowsLabel: "invoices",
+        fieldsLabel: "fields",
+        flagsLabel: "exceptions",
+        remind: "AP inbox",
+        fileName: "Invoice-PO-board-demo.csv",
+        stepLabels: ["Load inbox", "Map PO lines", "Flag exceptions", "AP board"],
+        samples: INVOICE_SAMPLES
+      },
+      stock: {
+        toolsId: "stock-tools",
+        defaultSample: "stock-a",
+        sourceLabel: "Stock count sample",
+        extractLabel: "Live extract",
+        outLabel: "Stock count board",
+        parseLabel: "Build board",
+        rowsLabel: "SKUs",
+        fieldsLabel: "fields",
+        flagsLabel: "flags",
+        remind: "Night count",
+        fileName: "Stock-count-board-demo.csv",
+        stepLabels: ["Load count", "Map locations", "Flag variance", "Stock board"],
+        samples: STOCK_SAMPLES
       }
     };
 
@@ -2819,13 +3027,17 @@ VALUE
     var reportTools = document.getElementById("report-tools");
     var deliveryTools = document.getElementById("delivery-tools");
     var chaseTools = document.getElementById("chase-tools");
+    var invoiceTools = document.getElementById("invoice-tools");
+    var stockTools = document.getElementById("stock-tools");
     var jobSteps = document.getElementById("job-steps");
     var boardStepsEl = document.getElementById("board-steps");
     var toolPanes = {
       jobs: jobTools,
       report: reportTools,
       delivery: deliveryTools,
-      chase: chaseTools
+      chase: chaseTools,
+      invoice: invoiceTools,
+      stock: stockTools
     };
     var sourceLabel = document.getElementById("source-label");
     var extractLabel = document.getElementById("extract-label");
@@ -3025,6 +3237,22 @@ VALUE
           '<span class="insight"><strong>' + insights.owners + "</strong> owners</span>" +
           '<span class="insight' + (insights.flags ? " is-warn" : " is-ok") + '"><strong>' + insights.flags + "</strong> flagged</span>" +
           '<span class="insight">Due dates sorted</span>';
+        return;
+      }
+      if (module === "invoice") {
+        smartRail.innerHTML =
+          '<span class="insight is-accent"><strong>' + insights.items + "</strong> invoices</span>" +
+          '<span class="insight"><strong>' + insights.suppliers + "</strong> suppliers</span>" +
+          '<span class="insight' + (insights.flags ? " is-warn" : " is-ok") + '"><strong>' + insights.flags + "</strong> exceptions</span>" +
+          '<span class="insight">PO lines mapped</span>';
+        return;
+      }
+      if (module === "stock") {
+        smartRail.innerHTML =
+          '<span class="insight is-accent"><strong>' + insights.skus + "</strong> SKUs</span>" +
+          '<span class="insight"><strong>' + insights.locs + "</strong> locations</span>" +
+          '<span class="insight' + (insights.flags ? " is-warn" : " is-ok") + '"><strong>' + insights.flags + "</strong> flags</span>" +
+          '<span class="insight">Variance checked</span>';
         return;
       }
       smartRail.innerHTML =
@@ -3291,6 +3519,31 @@ VALUE
       ];
     }
 
+    function invoiceCells(row) {
+      return [
+        row.ref || "—",
+        row.supplier || "—",
+        row.po || "—",
+        row.net || "—",
+        row.vat || "—",
+        row.due || "—",
+        row.flag || "—",
+        row.notes || "—"
+      ];
+    }
+
+    function stockCells(row) {
+      return [
+        row.sku || "—",
+        row.loc || "—",
+        row.expected || "—",
+        row.counted || "—",
+        row.variance || "—",
+        row.flag || "—",
+        row.notes || "—"
+      ];
+    }
+
     function moduleMeta() {
       return MODULE_META[currentModule] || MODULE_META.jobs;
     }
@@ -3300,13 +3553,15 @@ VALUE
     }
 
     function isBoardModule() {
-      return currentModule === "report" || currentModule === "delivery" || currentModule === "chase";
+      return !!(MODULE_META[currentModule] && MODULE_META[currentModule].samples);
     }
 
     function activeHeaders() {
       if (currentModule === "report") return REPORT_HEADERS;
       if (currentModule === "delivery") return DELIVERY_HEADERS;
       if (currentModule === "chase") return CHASE_HEADERS;
+      if (currentModule === "invoice") return INVOICE_HEADERS;
+      if (currentModule === "stock") return STOCK_HEADERS;
       return JOB_HEADERS;
     }
 
@@ -3314,6 +3569,8 @@ VALUE
       if (currentModule === "report") return reportCells(row);
       if (currentModule === "delivery") return deliveryCells(row);
       if (currentModule === "chase") return chaseCells(row);
+      if (currentModule === "invoice") return invoiceCells(row);
+      if (currentModule === "stock") return stockCells(row);
       return jobCells(row);
     }
 
@@ -3337,6 +3594,22 @@ VALUE
             " | " + r.status + (r.flag ? " · " + r.flag : "");
         })).join("\n");
       }
+      if (currentModule === "invoice") {
+        return ["AP dump · " + sample.label, ""].concat(sample.rows.map(function (r) {
+          return r.ref + " | " + r.supplier + " | PO " + r.po +
+            " | net " + r.net + " | VAT " + r.vat + " | due " + r.due +
+            (r.flag ? " | flag " + r.flag : "") +
+            (r.notes ? " · " + r.notes : "");
+        })).join("\n");
+      }
+      if (currentModule === "stock") {
+        return ["Stock count · " + sample.label, ""].concat(sample.rows.map(function (r) {
+          return r.sku + " | " + r.loc + " | exp " + r.expected +
+            " | counted " + r.counted + " | var " + r.variance +
+            (r.flag ? " | flag " + r.flag : "") +
+            (r.notes ? " · " + r.notes : "");
+        })).join("\n");
+      }
       return ["Customer dump · " + sample.label, ""].concat(sample.rows.map(function (r) {
         return r.customer + " | plan " + r.to_be_planned + " · alloc " + r.allocated +
           " · collected " + r.collected + " · late " + r.late + (r.notes ? " · " + r.notes : "");
@@ -3355,6 +3628,18 @@ VALUE
         html = html.replace(/\b(overdue|due soon)\b/gi, '<mark class="mk-due">$1</mark>');
         html = html.replace(/\b(due \d{1,2} \w+)\b/gi, '<mark class="mk-ref">$1</mark>');
         html = html.replace(/\b(owner \w+)\b/gi, '<mark class="mk-owner">$1</mark>');
+        return html;
+      }
+      if (currentModule === "invoice") {
+        html = html.replace(/\b(flag [^|\n]+)/gi, '<mark class="mk-due">$1</mark>');
+        html = html.replace(/\b(PO [A-Z0-9-]+|PO —)/gi, '<mark class="mk-ref">$1</mark>');
+        html = html.replace(/\b(net [0-9,.\-]+)/gi, '<mark class="mk-owner">$1</mark>');
+        return html;
+      }
+      if (currentModule === "stock") {
+        html = html.replace(/\b(flag [^|\n]+)/gi, '<mark class="mk-due">$1</mark>');
+        html = html.replace(/\b(var [+\-0-9]+)/gi, '<mark class="mk-ref">$1</mark>');
+        html = html.replace(/\b(counted \d+)/gi, '<mark class="mk-owner">$1</mark>');
         return html;
       }
       return highlightReport(sample);
@@ -3463,6 +3748,28 @@ VALUE
         setSmartRail({ items: rows.length, owners: Object.keys(owners).length, flags: flags }, "chase");
         setGapList(null);
         if (opts.ms != null) setThroughput(rows.length, opts.ms);
+      } else if (currentModule === "invoice") {
+        flags = rows.filter(function (r) { return !!r.flag; }).length;
+        var suppliers = {};
+        rows.forEach(function (r) { if (r.supplier) suppliers[r.supplier] = true; });
+        countEl.textContent = rows.length + " invoices" + (flags ? " · " + flags + " exceptions" : " · all clear");
+        setStatus(flags ? "flag" : "ready", flags ? flags + " exceptions" : "Board ready");
+        footSummary.textContent = "Invoice / PO board · " + rows.length + " rows · download when ready";
+        if (!opts.keepStats) setStats(rows.length, rows.length * 6, flags, opts.ms || 0);
+        setSmartRail({ items: rows.length, suppliers: Object.keys(suppliers).length, flags: flags }, "invoice");
+        setGapList(null);
+        if (opts.ms != null) setThroughput(rows.length, opts.ms);
+      } else if (currentModule === "stock") {
+        flags = rows.filter(function (r) { return !!r.flag && r.flag !== "cleared"; }).length;
+        var locs = {};
+        rows.forEach(function (r) { if (r.loc) locs[r.loc] = true; });
+        countEl.textContent = rows.length + " SKUs" + (flags ? " · " + flags + " flagged" : " · all clear");
+        setStatus(flags ? "flag" : "ready", flags ? flags + " flagged" : "Board ready");
+        footSummary.textContent = "Stock count · " + rows.length + " SKUs · download when ready";
+        if (!opts.keepStats) setStats(rows.length, rows.length * 5, flags, opts.ms || 0);
+        setSmartRail({ skus: rows.length, locs: Object.keys(locs).length, flags: flags }, "stock");
+        setGapList(null);
+        if (opts.ms != null) setThroughput(rows.length, opts.ms);
       } else {
         var analysis = analyzeJobs(rows);
         flags = analysis.flagged;
@@ -3480,7 +3787,7 @@ VALUE
         if (isTotals) tr.className = "totals";
         else if (!board && row.status === "Flag") tr.className = "warn";
         else if (currentModule === "report" && Number(row.late) > 0) tr.className = "warn";
-        else if ((currentModule === "delivery" || currentModule === "chase") && row.flag) tr.className = "warn";
+        else if ((currentModule === "delivery" || currentModule === "chase" || currentModule === "invoice" || currentModule === "stock") && row.flag && row.flag !== "cleared") tr.className = "warn";
         cells.forEach(function (cell, idx) {
           var td = document.createElement("td");
           if (!board && idx === cells.length - 1) {
@@ -3491,6 +3798,12 @@ VALUE
             td.innerHTML = '<span class="bucket' + (idx === 4 && Number(cell) > 0 ? " is-late" : "") + '">' + esc(cell) + "</span>";
           } else if ((currentModule === "delivery" || currentModule === "chase") && idx === 5 && row.flag) {
             td.innerHTML = '<span class="badge badge-warn">' + esc(cell) + "</span>";
+          } else if (currentModule === "invoice" && idx === 6 && row.flag) {
+            td.innerHTML = '<span class="badge badge-warn">' + esc(cell) + "</span>";
+          } else if (currentModule === "stock" && idx === 5 && row.flag && row.flag !== "cleared") {
+            td.innerHTML = '<span class="badge badge-warn">' + esc(cell) + "</span>";
+          } else if (currentModule === "stock" && idx === 5 && row.flag === "cleared") {
+            td.innerHTML = '<span class="badge badge-ok">' + esc(cell) + "</span>";
           } else {
             if (cell === "—" && !board && idx !== 18 && idx !== 20) td.className = "miss";
             if (!board && idx === 0 && row.duplicate) {
@@ -3717,7 +4030,9 @@ VALUE
       var progressLabels = {
         report: ["Read customer dump", "Map status columns", "Bucket planned / allocated / collected / late", "Write Daily orders board"],
         delivery: ["Read run notes", "Map windows & drivers", "Flag missing fields", "Write delivery board"],
-        chase: ["Read chase list", "Map owners & dues", "Flag overdue items", "Write chase board"]
+        chase: ["Read chase list", "Map owners & dues", "Flag overdue items", "Write chase board"],
+        invoice: ["Read AP inbox", "Map supplier / PO / net", "Flag exceptions", "Write invoice board"],
+        stock: ["Read night count", "Map SKU / location", "Flag variance", "Write stock board"]
       };
       var steps = progressLabels[currentModule] || progressLabels.report;
       progressSteps.classList.add("is-on");
@@ -3745,6 +4060,14 @@ VALUE
           rows.forEach(function (r) {
             pushExtract(r.ref, r.contact + " · due " + r.due, !!r.flag);
           });
+        } else if (currentModule === "invoice") {
+          rows.forEach(function (r) {
+            pushExtract(r.ref, r.supplier + " · " + r.po, !!r.flag);
+          });
+        } else if (currentModule === "stock") {
+          rows.forEach(function (r) {
+            pushExtract(r.sku, r.loc + " · var " + r.variance, !!r.flag && r.flag !== "cleared");
+          });
         } else {
           rows.forEach(function (r) {
             pushExtract(r.customer, "plan " + r.to_be_planned + " · late " + r.late, Number(r.late) > 0);
@@ -3758,8 +4081,8 @@ VALUE
         });
         parseBtn.disabled = false;
         parseBtn.textContent = moduleMeta().parseLabel;
-        var histLabel = currentModule === "delivery" ? "Delivery" : currentModule === "chase" ? "Chase" : "Daily report";
-        pushHistory(histLabel, rows.length + " rows");
+        var histNames = { delivery: "Delivery", chase: "Chase", invoice: "Invoice", stock: "Stock", report: "Daily report" };
+        pushHistory(histNames[currentModule] || "Board", rows.length + " rows");
         if (opts.toast !== false) toast(moduleMeta().outLabel + " ready");
       }
 
@@ -3778,6 +4101,8 @@ VALUE
         setStatus("busy", "Mapping…");
         if (currentModule === "delivery") pushExtract("route", sample.label, false);
         else if (currentModule === "chase") pushExtract("list", sample.label, false);
+        else if (currentModule === "invoice") pushExtract("inbox", sample.label, false);
+        else if (currentModule === "stock") pushExtract("count", sample.label, false);
         else pushExtract("window", "±1 calendar month", false);
       }, 320));
       rowTimers.push(setTimeout(function () {
