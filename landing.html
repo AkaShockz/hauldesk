@@ -2099,6 +2099,43 @@
       background: var(--accent);
     }
 
+    .jobs-inline {
+      margin-top: 1.5rem;
+      max-width: 52ch;
+      color: var(--mute);
+      font-size: 0.95rem;
+    }
+    .jobs-inline a {
+      color: var(--ink);
+      text-underline-offset: 0.15em;
+    }
+    .jobs-inline a:hover { color: var(--accent-2); }
+
+    .jobs-band {
+      padding: 3.25rem 0 2.75rem;
+      border-top: 1px solid rgba(18,19,24,0.08);
+      background:
+        linear-gradient(115deg, rgba(232,93,4,0.05), transparent 40%),
+        var(--paper);
+    }
+    .jobs-band h2 {
+      font-family: var(--display);
+      font-size: clamp(1.55rem, 3vw, 2rem);
+      letter-spacing: -0.035em;
+      max-width: 18ch;
+      margin-bottom: 0.55rem;
+    }
+    .jobs-band .lead {
+      max-width: 46ch;
+      margin-bottom: 0.65rem;
+    }
+    .jobs-note {
+      color: var(--mute);
+      max-width: 44ch;
+      margin-bottom: 1.15rem;
+      font-size: 0.95rem;
+    }
+
     @media (max-width: 900px) {
       .ba-grid {
         grid-template-columns: 1fr;
@@ -2293,6 +2330,7 @@
           <p>Sites, custom tools, one-offs outside pure automation — tell us the brief. Scope and price follow the workload, not a fixed menu.</p>
         </article>
       </div>
+      <p class="jobs-inline">Job opportunities in our specialties are also available — ops desks, Excel automation, boards, and related builds. <a href="#jobs">See roles</a></p>
 
     </div>
   </section>
@@ -2649,6 +2687,10 @@ VALUE
           <summary>Can you do work outside automation desks?</summary>
           <p>Yes. Websites, custom tools, and one-offs are welcome. Same process as desks: email the brief, get a real valuation based on workload.</p>
         </details>
+        <details>
+          <summary>Are you hiring?</summary>
+          <p>Yes — job opportunities in our specialties are available (ops automation, Excel desks, boards, and related custom work). Email with a short note on what you do and we’ll reply.</p>
+        </details>
       </div>
     </div>
   </section>
@@ -2751,9 +2793,19 @@ VALUE
     </div>
   </section>
 
+  <section class="jobs-band reveal" id="jobs">
+    <div class="wrap">
+      <p class="kicker">Jobs</p>
+      <h2>Opportunities in our specialties.</h2>
+      <p class="lead">Roles and freelance openings come up around what we build — ops automation, Excel desks, status boards, delivery runs, and related custom work.</p>
+      <p class="jobs-note">If that sounds like you, email a short note on your background. We’ll reply with what’s open.</p>
+      <a class="btn btn-ink plausible-event-name=Jobs+Enquiry plausible-event-location=Jobs" href="mailto:YOU@EXAMPLE.com?subject=ParseDesk%20job%20opportunity">Email about a role</a>
+    </div>
+  </section>
+
   <footer class="wrap" id="site-footer">
     <p><span class="brand brand-footer" aria-label="ParseDesk"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40" width="22" height="22" focusable="false"><rect class="pd-plate" x="4.5" y="4.5" width="31" height="31" rx="7.5" fill="rgba(18,19,24,0.04)" stroke="rgba(18,19,24,0.18)" stroke-width="1"/><g class="pd-clean"><rect x="10" y="11.2" width="20" height="2.6" rx="1.3" fill="#e85d04"/><rect x="10" y="18.2" width="16" height="2.6" rx="1.3" fill="#e85d04"/><rect x="10" y="25.2" width="18" height="2.6" rx="1.3" fill="#e85d04"/></g></svg></span><span class="brand-word">Parse<span>Desk</span></span></span> — sample in, clean board out</p>
-    <p><a href="mailto:YOU@EXAMPLE.com">YOU@EXAMPLE.com</a> · <a href="#faq">FAQ</a> · <a href="#pilot">Price</a></p>
+    <p><a href="mailto:YOU@EXAMPLE.com">YOU@EXAMPLE.com</a> · <a href="#faq">FAQ</a> · <a href="#pilot">Price</a> · <a href="#jobs">Jobs</a></p>
     <p class="privacy-line">Samples you email are used only to scope your desk — not sold, shared, or used for marketing.</p>
   </footer>
 
