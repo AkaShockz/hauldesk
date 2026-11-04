@@ -17,7 +17,7 @@ Fastenly is **not** a single-industry tool and **not** one converter. It is a co
 - Chase lists & report packs  
 - Custom repeat workflows once samples exist  
 
-Lead with the desk. Use parse-to-rows as a common first example — never as the whole product.
+Lead with the desk. Common first modules: Excel text parse (custom layout), reports from dumps, delivery boards, or a private / public site — never pitch one trick as the whole product.
 
 ## Contents
 

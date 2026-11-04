@@ -324,6 +324,62 @@
     }
     .step p { color: var(--mute); font-size: 0.94rem; }
 
+    .build-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-top: 1px solid var(--line);
+    }
+    .build-item {
+      padding: 1.15rem 1.1rem 1.15rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .build-item:nth-child(odd) { padding-right: 1.5rem; }
+    .build-item:nth-child(even) { padding-left: 1.5rem; border-left: 1px solid var(--line); }
+    .build-item .tag {
+      font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.35rem;
+    }
+    .build-item h3 {
+      font-family: var(--display); font-size: 1.15rem;
+      letter-spacing: -0.02em; margin-bottom: 0.3rem;
+    }
+    .build-item p { color: var(--mute); font-size: 0.94rem; max-width: 36ch; }
+    .extras {
+      margin-top: 1.75rem; padding-top: 1.25rem;
+      border-top: 1px solid var(--line);
+    }
+    .extras h3 {
+      font-family: var(--display); font-size: 1.05rem;
+      letter-spacing: -0.02em; margin-bottom: 0.65rem;
+    }
+    .extra-list {
+      display: flex; flex-wrap: wrap; gap: 0.45rem 0.55rem;
+      list-style: none;
+    }
+    .extra-list li {
+      font-size: 0.88rem; color: var(--mute);
+      padding: 0.35rem 0; border-bottom: 1px solid var(--line);
+      width: calc(50% - 0.3rem);
+    }
+    .extra-list li strong { color: var(--ink); font-weight: 600; }
+
+    .layout-row {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem;
+      margin-bottom: 0.55rem;
+    }
+    .layout-row .label { margin: 0 0.35rem 0 0; }
+    .layout-btn {
+      appearance: none; border: 1px solid var(--line-dark);
+      background: transparent; color: rgba(244,245,247,0.6);
+      padding: 0.28rem 0.55rem; font-size: 0.72rem; font-weight: 600;
+      font-family: var(--mono); letter-spacing: 0.04em; text-transform: uppercase;
+      cursor: pointer;
+    }
+    .layout-btn[aria-pressed="true"] {
+      background: rgba(232,93,4,0.18); border-color: rgba(232,93,4,0.55); color: var(--accent);
+    }
+
     .offer {
       padding: 3.75rem 0;
       background: linear-gradient(105deg, rgba(232,93,4,0.07), transparent 45%), #e3e6eb;
@@ -377,9 +433,13 @@
     .reveal.is-in { opacity: 1; transform: none; }
 
     @media (max-width: 900px) {
-      .parser-board, .steps, .parser-steps { grid-template-columns: 1fr; }
+      .parser-board, .steps, .parser-steps, .build-grid { grid-template-columns: 1fr; }
       .pstep { border-right: 0; border-bottom: 1px solid var(--line-dark); }
       .pane-in { border-right: 0; border-bottom: 1px solid var(--line-dark); }
+      .build-item:nth-child(odd), .build-item:nth-child(even) {
+        padding-left: 0; padding-right: 0; border-left: 0;
+      }
+      .extra-list li { width: 100%; }
       .topbar nav { display: none; }
       .editor, .table-wrap { min-height: 200px; }
     }
@@ -399,19 +459,19 @@
       <div class="topbar">
         <p class="mark">Fasten<span>ly</span></p>
         <nav aria-label="Page">
-          <a href="#preview">Parser</a>
-          <a href="#how">How</a>
+          <a href="#preview">Try it</a>
+          <a href="#build">What we build</a>
           <a href="#pilot">Price</a>
         </nav>
         <a class="btn btn-primary btn-sm" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Send a sample</a>
       </div>
 
       <div class="hero-copy">
-        <h1>Paste messy work. Get a clean board.</h1>
-        <p>A private parser desk for your company — extract the fields, flag the gaps, export the sheet. Then stack more modules on the same login.</p>
+        <h1>Messy text in. Excel, reports, and desks out.</h1>
+        <p>Private automations for your company — parse into sheets with your layout, build reports, run delivery boards, or get a website built your way.</p>
         <div class="cta-row">
-          <button type="button" class="btn btn-primary" id="btn-replay">Watch a parse</button>
-          <a class="btn btn-ghost" href="#how">How it works</a>
+          <button type="button" class="btn btn-primary" id="btn-replay">Watch Excel parse</button>
+          <a class="btn btn-ghost" href="#build">See everything</a>
         </div>
       </div>
 
@@ -436,8 +496,9 @@
           <button type="button" class="chip" data-sample="invoices" aria-pressed="true">Invoices</button>
           <button type="button" class="chip" data-sample="tickets" aria-pressed="false">Tickets</button>
           <button type="button" class="chip" data-sample="leads" aria-pressed="false">Leads</button>
+          <button type="button" class="chip" data-sample="delivery" aria-pressed="false">Delivery</button>
           <button type="button" class="chip" data-sample="stock" aria-pressed="false">Stock</button>
-          <span class="chip-hint">or paste your own notes</span>
+          <span class="chip-hint">big lump → clean rows</span>
         </div>
 
         <div class="parser-board">
@@ -448,35 +509,42 @@
               <textarea id="job-paste" class="editor" spellcheck="false" placeholder="Paste messy notes, emails, or chat dumps…"></textarea>
             </div>
             <div class="pane-actions">
-              <button type="button" class="btn btn-primary btn-sm" id="btn-parse">Parse</button>
+              <button type="button" class="btn btn-primary btn-sm" id="btn-parse">Parse to Excel</button>
               <button type="button" class="btn btn-ghost btn-sm" id="btn-clear">Clear</button>
-              <button type="button" class="btn btn-ghost btn-sm" id="btn-copy" disabled>Copy rows</button>
-              <button type="button" class="btn btn-ghost btn-sm" id="btn-csv" disabled>CSV</button>
+              <button type="button" class="btn btn-ghost btn-sm" id="btn-copy" disabled>Copy</button>
+              <button type="button" class="btn btn-ghost btn-sm" id="btn-csv" disabled>Download Excel</button>
             </div>
             <div class="run-meta">
-              <span>Looks for <b>ref</b> · <b>type</b> · <b>owner</b> · <b>due</b> · <b>detail</b></span>
+              <span>A couple of clicks — layout is yours in production</span>
             </div>
           </div>
 
           <div class="pane pane-out">
             <div class="out-head">
-              <p class="label" style="margin:0">Parsed board</p>
+              <p class="label" style="margin:0">Excel layout</p>
               <span class="status-pill" id="status-pill">Idle</span>
+            </div>
+            <div class="layout-row" role="group" aria-label="Sheet layout">
+              <span class="label">Layout</span>
+              <button type="button" class="layout-btn" data-layout="ops" aria-pressed="true">Ops</button>
+              <button type="button" class="layout-btn" data-layout="finance" aria-pressed="false">Finance</button>
+              <button type="button" class="layout-btn" data-layout="delivery" aria-pressed="false">Delivery</button>
+              <button type="button" class="layout-btn" data-layout="report" aria-pressed="false">Report</button>
             </div>
             <div class="scanline" id="scanline" aria-hidden="true"><i></i></div>
             <div class="field-map" id="field-map" aria-hidden="true">
-              <span data-f="ref">ref</span>
-              <span data-f="type">type</span>
-              <span data-f="owner">owner</span>
-              <span data-f="due">due</span>
-              <span data-f="detail">detail</span>
-              <span data-f="status">status</span>
+              <span data-f="c0">col 1</span>
+              <span data-f="c1">col 2</span>
+              <span data-f="c2">col 3</span>
+              <span data-f="c3">col 4</span>
+              <span data-f="c4">col 5</span>
+              <span data-f="c5">status</span>
             </div>
             <div class="table-wrap" id="table-wrap">
-              <div id="parse-empty" class="empty">Load a sample or hit Parse.</div>
+              <div id="parse-empty" class="empty">Load a sample or hit Parse to Excel.</div>
               <table class="table" id="parse-table" hidden>
                 <thead>
-                  <tr>
+                  <tr id="parse-head">
                     <th>Ref</th>
                     <th>Type</th>
                     <th>Owner</th>
@@ -495,7 +563,7 @@
         </div>
 
         <div class="parser-foot">
-          <p><strong id="foot-summary">Waiting for paste</strong> — production uses your columns and rules.</p>
+          <p><strong id="foot-summary">Waiting for paste</strong> — production matches the Excel layout you choose.</p>
           <button type="button" class="btn btn-ghost btn-sm" id="btn-replay-foot">Replay demo</button>
         </div>
       </div>
@@ -504,23 +572,68 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <section id="build" class="reveal">
+    <div class="wrap">
+      <p class="kicker">What we automate</p>
+      <h2>Pick the jobs that eat your week.</h2>
+      <p class="lead">One private site. Modules stack as you grow — start with whatever hurts most.</p>
+
+      <div class="build-grid">
+        <article class="build-item">
+          <p class="tag">01 · Excel</p>
+          <h3>Text → Excel in a couple of clicks</h3>
+          <p>Paste a big lump of notes, chats, or emails. We sort it into a clean sheet — columns and layout of your choice.</p>
+        </article>
+        <article class="build-item">
+          <p class="tag">02 · Reports</p>
+          <h3>Reports from messy data</h3>
+          <p>Turn dumps into weekly / monthly boards your team can actually read — totals, exceptions, and ready-to-send summaries.</p>
+        </article>
+        <article class="build-item">
+          <p class="tag">03 · Delivery</p>
+          <h3>Delivery information, automated</h3>
+          <p>Job notes become a clear run board: customer, window, driver, flags for missing info — before anyone leaves the yard.</p>
+        </article>
+        <article class="build-item">
+          <p class="tag">04 · Website</p>
+          <h3>A website built your way</h3>
+          <p>Private staff desk or a simple public site — layout and pages to your brief, not a shared SaaS template.</p>
+        </article>
+      </div>
+
+      <div class="extras">
+        <h3>Also easy to automate</h3>
+        <ul class="extra-list">
+          <li><strong>Chase lists</strong> — who still owes a reply</li>
+          <li><strong>Gap checks</strong> — blank owners, dues, qty</li>
+          <li><strong>Sheet merges</strong> — two dumps, one board</li>
+          <li><strong>Form → sheet</strong> — intake without retyping</li>
+          <li><strong>Invoice / PO sort</strong> — refs, nets, exceptions</li>
+          <li><strong>Weekly digests</strong> — email the board summary</li>
+          <li><strong>Rota & leave</strong> — who’s off, who’s covering</li>
+          <li><strong>Stock counts</strong> — recount flags overnight</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <section id="how" class="reveal">
     <div class="wrap">
       <p class="kicker">How it works</p>
-      <h2>Same idea as a job parser — for any repeat work.</h2>
-      <p class="lead">You paste. We structure. Gaps get flagged before anyone acts.</p>
+      <h2>Tell us the job. We build the desk.</h2>
+      <p class="lead">Same process whether it’s Excel parse, reports, delivery, or a full site.</p>
       <div class="steps">
         <article class="step">
           <h3>Send a sample</h3>
           <p>One redacted messy dump. We return a clean test free.</p>
         </article>
         <article class="step">
-          <h3>Private desk</h3>
-          <p>Your login, your fields, live in about two weeks.</p>
+          <h3>Choose the layout</h3>
+          <p>Your columns, your report shape, your site pages.</p>
         </article>
         <article class="step">
-          <h3>Stack modules</h3>
-          <p>Checks, merges, chase lists — same site later.</p>
+          <h3>Go live & stack more</h3>
+          <p>Private login in about two weeks. Add modules later.</p>
         </article>
       </div>
     </div>
@@ -531,11 +644,11 @@
       <p class="kicker">Price</p>
       <h2>Simple pilot.</h2>
       <p class="price">£795 <span>+ £49/month</span></p>
-      <p class="price-note">Private desk + first parser workflow. Extra modules from £195.</p>
+      <p class="price-note">Private desk + first automation (Excel parse, report, delivery board, or site start). Extra modules from £195.</p>
       <ul class="includes">
         <li>Private site for your staff only</li>
         <li>First workflow live in ~2 weeks</li>
-        <li>Room to add more modules later</li>
+        <li>Layout and columns of your choice</li>
         <li>Training call + 14 days support</li>
       </ul>
       <a class="btn btn-ink" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20pilot">Start for £795</a>
@@ -583,6 +696,13 @@
         "owner: · due TBD · form half-filled\n\n" +
         "LEAD-903 Maple Works\n" +
         "owner Riley · due Wed · wants pilot quote",
+      delivery:
+        "JOB-331 Northline Supplies\n" +
+        "driver Sam · window 09:00-11:00 · notes 12 cartons · confirmed\n\n" +
+        "JOB-332 customer missing\n" +
+        "driver: · window TBD · notes rush pack · incomplete\n\n" +
+        "JOB-333 Bright Harbor\n" +
+        "driver Alex · window 14:00-16:00 · notes restock · confirmed",
       stock:
         "SKU-4410 Blue widget\n" +
         "owner Okoro · due Fri · count 48 · shelf B2\n\n" +
@@ -592,8 +712,16 @@
         "owner Patel · due Mon · count 12 · shelf A1"
     };
 
+    var LAYOUTS = {
+      ops: ["Ref", "Type", "Owner", "Due", "Detail", "Status"],
+      finance: ["Ref", "Customer", "Owner", "Due", "Amount", "Status"],
+      delivery: ["Job", "Customer", "Window", "Driver", "Notes", "Status"],
+      report: ["Ref", "Category", "Owner", "Period", "Figure", "Status"]
+    };
+
     var paste = document.getElementById("job-paste");
     var body = document.getElementById("parse-body");
+    var headRow = document.getElementById("parse-head");
     var table = document.getElementById("parse-table");
     var empty = document.getElementById("parse-empty");
     var meta = document.getElementById("parse-meta");
@@ -607,8 +735,10 @@
     var footSummary = document.getElementById("foot-summary");
     var fieldMap = document.getElementById("field-map");
     var chips = Array.prototype.slice.call(document.querySelectorAll(".chip"));
+    var layoutBtns = Array.prototype.slice.call(document.querySelectorAll(".layout-btn"));
     var steps = Array.prototype.slice.call(document.querySelectorAll(".pstep"));
     var allRows = [];
+    var currentLayout = "ops";
     var toastTimer = null;
     var demoTimer = null;
     var rowTimers = [];
@@ -638,10 +768,41 @@
       });
     }
 
-    function setFields(active) {
+    function setFields(on) {
       Array.prototype.forEach.call(fieldMap.querySelectorAll("span"), function (span) {
-        span.classList.toggle("on", !active || active.indexOf(span.getAttribute("data-f")) !== -1);
+        span.classList.toggle("on", !!on);
       });
+      var heads = LAYOUTS[currentLayout] || LAYOUTS.ops;
+      Array.prototype.forEach.call(fieldMap.querySelectorAll("span"), function (span, i) {
+        if (heads[i]) span.textContent = heads[i].toLowerCase();
+      });
+    }
+
+    function applyLayout(key) {
+      currentLayout = LAYOUTS[key] ? key : "ops";
+      layoutBtns.forEach(function (btn) {
+        btn.setAttribute("aria-pressed", btn.getAttribute("data-layout") === currentLayout ? "true" : "false");
+      });
+      var heads = LAYOUTS[currentLayout];
+      headRow.innerHTML = heads.map(function (h) { return "<th>" + h + "</th>"; }).join("");
+      setFields(allRows.length > 0);
+      if (allRows.length) renderImmediate(allRows);
+    }
+
+    function rowCells(row) {
+      var customer = row.customer || "—";
+      var amount = row.amount || row.detail || "—";
+      var figure = row.detail || "—";
+      if (currentLayout === "finance") {
+        return [row.ref, customer, row.owner, row.due, amount, row.status];
+      }
+      if (currentLayout === "delivery") {
+        return [row.ref, customer, row.due, row.owner, row.detail, row.status];
+      }
+      if (currentLayout === "report") {
+        return [row.ref, row.type, row.owner, row.due, figure, row.status];
+      }
+      return [row.ref, row.type, row.owner, row.due, row.detail, row.status];
     }
 
     function setStatus(mode, text) {
@@ -660,14 +821,14 @@
       var byBlank = raw.split(/\n\s*\n+/).map(function (s) { return s.trim(); }).filter(Boolean);
       if (byBlank.length > 1) {
         return byBlank.filter(function (b) {
-          return /\b(?:INV|TKT|LEAD|SKU|ORD|JOB)-[0-9]+\b/i.test(b);
+          return /\b(?:INV|TKT|LEAD|SKU|ORD|JOB|DEL)-[0-9]+\b/i.test(b);
         });
       }
       var lines = raw.split("\n");
       var blocks = [];
       var cur = [];
       lines.forEach(function (line) {
-        if (/\b(?:INV|TKT|LEAD|SKU|ORD|JOB)-[0-9]+\b/i.test(line) && cur.length) {
+        if (/\b(?:INV|TKT|LEAD|SKU|ORD|JOB|DEL)-[0-9]+\b/i.test(line) && cur.length) {
           blocks.push(cur.join("\n").trim());
           cur = [line];
         } else {
@@ -686,32 +847,43 @@
     }
 
     function parseBlock(block) {
-      var refMatch = block.match(/\b((?:INV|TKT|LEAD|SKU|ORD|JOB)-[0-9]+)\b/i);
+      var refMatch = block.match(/\b((?:INV|TKT|LEAD|SKU|ORD|JOB|DEL)-[0-9]+)\b/i);
       var ref = refMatch ? refMatch[1].toUpperCase() : "—";
+      var titleLine = block.split("\n")[0].replace(/\b(?:INV|TKT|LEAD|SKU|ORD|JOB|DEL)-[0-9]+\b/i, "").trim();
+      var customer = titleLine.replace(/^\(|\)$/g, "").trim() || "—";
+      if (/missing|blank|\?\?\?/i.test(customer)) customer = "—";
 
       var type = "Item";
-      if (/^INV-|\bINV-/i.test(ref) || /\binvoice\b/i.test(block)) type = "Invoice";
-      else if (/^TKT-|\bTKT-/i.test(ref) || /\bticket\b/i.test(block)) type = "Ticket";
-      else if (/^LEAD-|\bLEAD-/i.test(ref) || /\blead\b/i.test(block)) type = "Lead";
-      else if (/^SKU-|\bSKU-/i.test(ref) || /\bstock\b|\bcount\b/i.test(block)) type = "Stock";
+      if (/INV-/i.test(ref) || /\binvoice\b/i.test(block)) type = "Invoice";
+      else if (/TKT-/i.test(ref) || /\bticket\b/i.test(block)) type = "Ticket";
+      else if (/LEAD-/i.test(ref) || /\blead\b/i.test(block)) type = "Lead";
+      else if (/SKU-/i.test(ref) || /\bstock\b|\bcount\b/i.test(block)) type = "Stock";
+      else if (/JOB-|DEL-/i.test(ref) || /\bdriver\b|\bwindow\b|\bdelivery\b/i.test(block)) type = "Delivery";
 
-      var owner = fieldAfter("owner", block);
+      var owner = fieldAfter("owner", block) || fieldAfter("driver", block);
       if (/^(nobody|unassigned|blank|\(blank\)|\?\?\?|n\/?a)?$/i.test(owner) || /nobody assigned|no owner/i.test(owner)) {
         owner = "—";
       }
       if (!owner) owner = "—";
 
-      var due = fieldAfter("due", block);
-      due = due.replace(/\s*(qty|priority|notes|source|count|shelf|net)\b.*$/i, "").trim();
+      var due = fieldAfter("due", block) || fieldAfter("window", block);
+      due = due.replace(/\s*(qty|priority|notes|source|count|shelf|net|driver)\b.*$/i, "").trim();
       if (!due || /^(tbd|\(blank\)|\?\?\?)$/i.test(due)) due = "—";
 
       var detail = "";
-      if (fieldAfter("qty", block)) {
+      var amount = "";
+      if (fieldAfter("net", block)) {
+        amount = fieldAfter("net", block);
+        detail = amount;
+      } else if (fieldAfter("qty", block)) {
         detail = "qty " + fieldAfter("qty", block);
+        amount = detail;
       } else if (fieldAfter("count", block)) {
         detail = "count " + fieldAfter("count", block);
         var shelf = fieldAfter("shelf", block);
         if (shelf) detail += " · " + shelf;
+      } else if (fieldAfter("notes", block)) {
+        detail = fieldAfter("notes", block);
       } else if (fieldAfter("priority", block)) {
         detail = fieldAfter("priority", block);
         var notes = fieldAfter("notes", block);
@@ -719,17 +891,26 @@
       } else if (fieldAfter("source", block)) {
         detail = fieldAfter("source", block);
       } else {
-        var titleLine = block.split("\n")[0].replace(/\b(?:INV|TKT|LEAD|SKU|ORD|JOB)-[0-9]+\b/i, "").trim();
         detail = titleLine.slice(0, 34) || "—";
       }
       if (detail.length > 34) detail = detail.slice(0, 32) + "…";
+      if (!amount) amount = detail;
 
       var status = "Ready";
-      if (owner === "—" || due === "—" || /TBD|missing|blank|\?\?|unknown|incomplete|half-filled|awaiting/i.test(block)) {
+      if (owner === "—" || due === "—" || customer === "—" || /TBD|missing|blank|\?\?|unknown|incomplete|half-filled|awaiting/i.test(block)) {
         status = "Flag";
       }
 
-      return { ref: ref, type: type, owner: owner, due: due, detail: detail, status: status };
+      return {
+        ref: ref,
+        type: type,
+        owner: owner,
+        due: due,
+        detail: detail,
+        customer: customer,
+        amount: amount,
+        status: status
+      };
     }
 
     function esc(s) {
@@ -759,20 +940,22 @@
       countEl.textContent = rows.length + " rows" + (flags ? " · " + flags + " flagged" : " · all clear");
       footSummary.textContent = rows.length + " rows parsed" + (flags ? " · " + flags + " need a look" : " · ready to export");
       setStatus(flags ? "flag" : "ready", flags ? flags + " flagged" : "Ready");
-      setFields(["ref", "type", "owner", "due", "detail", "status"]);
+      setFields(true);
+      footSummary.textContent = rows.length + " rows · " + currentLayout + " layout" + (flags ? " · " + flags + " need a look" : " · ready for Excel");
 
       rows.forEach(function (row, i) {
         var tr = document.createElement("tr");
         if (row.status === "Flag") tr.className = "warn";
-        tr.innerHTML =
-          "<td>" + esc(row.ref) + "</td>" +
-          "<td>" + esc(row.type) + "</td>" +
-          "<td class=\"" + (row.owner === "—" ? "miss" : "") + "\">" + esc(row.owner) + "</td>" +
-          "<td class=\"" + (row.due === "—" ? "miss" : "") + "\">" + esc(row.due) + "</td>" +
-          "<td>" + esc(row.detail) + "</td>" +
-          "<td>" + (row.status === "Flag"
-            ? '<span class="badge badge-warn">Flag</span>'
-            : '<span class="badge badge-ok">Ready</span>') + "</td>";
+        var cells = rowCells(row);
+        tr.innerHTML = cells.map(function (cell, idx) {
+          if (idx === cells.length - 1) {
+            return "<td>" + (row.status === "Flag"
+              ? '<span class="badge badge-warn">Flag</span>'
+              : '<span class="badge badge-ok">Ready</span>') + "</td>";
+          }
+          var miss = (cell === "—" && (idx === 1 || idx === 2 || idx === 3)) ? " miss" : "";
+          return "<td class=\"" + miss.trim() + "\">" + esc(cell) + "</td>";
+        }).join("");
         body.appendChild(tr);
         if (reduceMotion) {
           tr.classList.add("show");
@@ -797,14 +980,14 @@
         allRows = [];
         renderImmediate([]);
         parseBtn.disabled = false;
-        parseBtn.textContent = "Parse";
+        parseBtn.textContent = "Parse to Excel";
         return;
       }
 
       setStep(1);
       setStatus("busy", "Reading…");
-      setFields(["ref", "type"]);
-      footSummary.textContent = "Reading fields…";
+      setFields(true);
+      footSummary.textContent = "Reading fields into your layout…";
       scanline.classList.remove("is-run");
       void scanline.offsetWidth;
       scanline.classList.add("is-run");
@@ -825,15 +1008,15 @@
       setTimeout(function () {
         if (gen !== parseGen) return;
         setStep(2);
-        setFields(["ref", "type", "owner", "due", "detail", "status"]);
+        setFields(true);
         setStatus("busy", "Flagging…");
         setTimeout(function () {
           if (gen !== parseGen) return;
           renderImmediate(parsed);
           setStep(parsed.length ? 3 : 0);
           parseBtn.disabled = false;
-          parseBtn.textContent = "Parse";
-          if (opts.toast !== false) toast(parsed.length ? "Parsed " + parsed.length + " rows" : "Nothing found");
+          parseBtn.textContent = "Parse to Excel";
+          if (opts.toast !== false) toast(parsed.length ? "Ready for Excel · " + parsed.length + " rows" : "Nothing found");
         }, reduceMotion || opts.instant ? 0 : 380);
       }, delay);
     }
@@ -849,6 +1032,9 @@
       paste.value = SAMPLES[key];
       setChip(key);
       setStep(0);
+      if (key === "delivery") applyLayout("delivery");
+      else if (key === "invoices") applyLayout("finance");
+      else if (currentLayout === "delivery" || currentLayout === "finance") applyLayout("ops");
       if (autoParse !== false) runParse();
       else {
         allRows = [];
@@ -862,8 +1048,15 @@
         stopDemo();
         clearRowTimers();
         parseBtn.disabled = false;
-        parseBtn.textContent = "Parse";
+        parseBtn.textContent = "Parse to Excel";
         loadSample(c.getAttribute("data-sample"), true);
+      });
+    });
+
+    layoutBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        applyLayout(btn.getAttribute("data-layout"));
+        toast("Layout · " + currentLayout);
       });
     });
 
@@ -894,9 +1087,10 @@
 
     copyBtn.addEventListener("click", function () {
       if (!allRows.length) return;
-      var lines = ["Ref\tType\tOwner\tDue\tDetail\tStatus"];
+      var heads = LAYOUTS[currentLayout];
+      var lines = [heads.join("\t")];
       allRows.forEach(function (r) {
-        lines.push([r.ref, r.type, r.owner, r.due, r.detail, r.status].join("\t"));
+        lines.push(rowCells(r).join("\t"));
       });
       copyText(lines.join("\n"));
       setStep(3);
@@ -904,19 +1098,20 @@
 
     csvBtn.addEventListener("click", function () {
       if (!allRows.length) return;
-      var lines = ["Ref,Type,Owner,Due,Detail,Status"];
+      var heads = LAYOUTS[currentLayout];
+      var lines = [heads.join(",")];
       allRows.forEach(function (r) {
-        lines.push([r.ref, r.type, r.owner, r.due, r.detail, r.status].map(function (c) {
+        lines.push(rowCells(r).map(function (c) {
           return '"' + String(c).replace(/"/g, '""') + '"';
         }).join(","));
       });
       var a = document.createElement("a");
-      a.href = URL.createObjectURL(new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8" }));
-      a.download = "fastenly-preview.csv";
+      a.href = URL.createObjectURL(new Blob(["\uFEFF" + lines.join("\n")], { type: "text/csv;charset=utf-8" }));
+      a.download = "fastenly-" + currentLayout + "-sheet.csv";
       document.body.appendChild(a);
       a.click();
       a.remove();
-      toast("CSV ready");
+      toast("Excel file ready");
       setStep(3);
     });
 
@@ -991,6 +1186,7 @@
       document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("is-in"); });
     }
 
+    applyLayout("ops");
     // First paint: load invoices quietly, then autoplay demo once in view
     loadSample("invoices", false);
     var played = false;

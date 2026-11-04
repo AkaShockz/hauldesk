@@ -69,11 +69,14 @@ Lead with the language they already use:
 
 | Segment | Module 01 wedge |
 |---------|-----------------|
-| Orders / fulfilment | Messy order notes → clean board + flags |
+| Ops / admin | Messy text → Excel (their column layout) |
+| Finance admin | Invoice / PO dumps → report + exceptions |
+| Delivery / logistics | Job notes → delivery board (window, driver, flags) |
 | Sales / agencies | Lead dumps → chase list |
 | Support | Ticket paste → owner/due board |
-| Field / logistics ops | Job notes → daily run sheet |
-| Finance admin | Statement / invoice dumps → exception list |
+| Any SMB | Private website + first automation on same login |
+
+**Easy add-ons to pitch after Module 01:** chase lists, gap checks, sheet merges, form→sheet intake, weekly digests, rota/leave boards, stock recount flags.
 
 ### I. Content that sells samples (not brand)
 Post 2×/week: before/after of a **redacted** sample (never client data). CTA always = “send yours.”
