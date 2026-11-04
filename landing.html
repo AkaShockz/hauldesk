@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fastenly — Private automation for work that repeats</title>
-  <meta name="description" content="Fastenly is a private automation desk for your company. Stack parse, checks, merges, chase lists, and custom workflows — without shared SaaS." />
+  <title>Fastenly — Turn messy repeat work into clean sheets</title>
+  <meta name="description" content="Fastenly builds your company a private website that turns messy notes, forms and dumps into clean rows — then adds more automations on the same login." />
   <meta name="theme-color" content="#0e0e12" />
   <meta property="og:title" content="Fastenly — Private automation for work that repeats" />
-  <meta property="og:description" content="A company-private automation desk. Stack parse, checks, merges, chase lists, and custom workflows." />
+  <meta property="og:description" content="A private website for your company that turns messy repeat work into clean sheets — then stacks more automations on the same login." />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23111114'/%3E%3Ccircle cx='16' cy='16' r='7.5' fill='none' stroke='%23e85d04' stroke-width='2.5'/%3E%3Cpath d='M16 11.5v9M12.5 16h7' stroke='%23e85d04' stroke-width='2' stroke-linecap='square'/%3E%3C/svg%3E" />
@@ -152,7 +152,8 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 0.5rem;
       font-family: var(--mono);
-      font-size: 0.68rem;
+      font-size: 0.62rem;
+      line-height: 1.35;
       color: rgba(247, 246, 242, 0.55);
     }
 
@@ -1654,6 +1655,111 @@
       .diff-view .side + .side { border-left: 0; border-top: 1px solid var(--line-dark); }
     }
 
+
+    .hero-split {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 0;
+      min-height: 0;
+      height: 100%;
+    }
+    .hero-pane {
+      padding: 0.85rem 0.9rem;
+      min-width: 0;
+      overflow: hidden;
+    }
+    .hero-pane + .hero-pane { border-left: 0; }
+    .hero-pane .tagline {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(244,245,247,0.42);
+      margin-bottom: 0.55rem;
+    }
+    .hero-pane.messy .tagline { color: #ffb070; }
+    .hero-pane.clean .tagline { color: #8fd4ae; }
+    .hero-pane pre {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      line-height: 1.5;
+      color: rgba(244,245,247,0.7);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .hero-pane.messy pre { color: rgba(244,245,247,0.55); }
+    .hero-pane table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.68rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .hero-pane th, .hero-pane td {
+      text-align: left;
+      padding: 0.28rem 0.2rem;
+      border-bottom: 1px solid var(--line-dark);
+      white-space: nowrap;
+    }
+    .hero-pane th {
+      font-family: var(--mono);
+      font-size: 0.56rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(244,245,247,0.4);
+      font-weight: 500;
+    }
+    .hero-pane td.warn { color: #ffb070; }
+    .hero-arrow {
+      display: grid;
+      place-items: center;
+      padding: 0.4rem;
+      border-left: 1px solid var(--line-dark);
+      border-right: 1px solid var(--line-dark);
+      background: rgba(232, 93, 4, 0.08);
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      text-align: center;
+    }
+    .plain {
+      border-bottom: 1px solid var(--line);
+      background: var(--paper);
+      padding: 1.35rem 0;
+    }
+    .plain-inner {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1rem 1.5rem;
+      align-items: baseline;
+    }
+    .plain .say {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding-top: 0.2rem;
+    }
+    .plain p {
+      font-family: var(--display);
+      font-size: clamp(1.15rem, 2.4vw, 1.45rem);
+      letter-spacing: -0.025em;
+      line-height: 1.35;
+      max-width: 38ch;
+      color: var(--ink);
+    }
+    .plain p em {
+      font-style: normal;
+      color: var(--accent-2);
+    }
+    @media (max-width: 900px) {
+      .plain-inner { grid-template-columns: 1fr; gap: 0.35rem; }
+    }
+
   </style>
 </head>
 <body>
@@ -1672,34 +1778,65 @@
   <header class="hero">
     <div class="hero-rail" aria-hidden="true"></div>
     <aside class="hero-ui" aria-hidden="true">
-      <div class="hero-ui-bar"><span class="pulse" aria-hidden="true"></span><i></i><i></i><span>fastenly · private desk · live</span></div>
-      <div class="hero-ui-body" id="hero-stream"></div>
+      <div class="hero-ui-bar"><span class="pulse" aria-hidden="true"></span><i></i><i></i><span>what Fastenly does</span></div>
+      <div class="hero-split">
+        <div class="hero-pane messy">
+          <p class="tagline">Your messy notes</p>
+          <pre>ORD-4821 Northline
+owner Sam due today
+
+ORD-4822 customer TBD
+owner — due tomorrow
+
+TKT-118 access reset
+owner Alex due Thu</pre>
+        </div>
+        <div class="hero-arrow">Fastenly</div>
+        <div class="hero-pane clean">
+          <p class="tagline">Clean rows out</p>
+          <table>
+            <thead><tr><th>Ref</th><th>Owner</th><th>Due</th><th></th></tr></thead>
+            <tbody>
+              <tr><td>ORD-4821</td><td>Sam</td><td>Today</td><td>Ready</td></tr>
+              <tr><td>ORD-4822</td><td class="warn">—</td><td>Tomorrow</td><td class="warn">Flag</td></tr>
+              <tr><td>TKT-118</td><td>Alex</td><td>Thu</td><td>Ready</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
       <div class="hero-ui-foot">
-        <div><strong>04</strong> modules</div>
-        <div><strong>private</strong> per company</div>
-        <div><strong>live</strong> in ~2 weeks</div>
+        <div><strong>private</strong> site for your company</div>
+        <div><strong>first module</strong> in ~2 weeks</div>
+        <div><strong>then</strong> add more on same login</div>
       </div>
     </aside>
 
     <div class="wrap hero-inner">
       <p class="brand">Fasten<span>ly</span></p>
-      <h1>The busywork desk, finally private.</h1>
+      <h1>Turn messy repeat work into clean sheets.</h1>
       <p class="hero-lead">
-        Automate the work your team keeps repeating — then keep stacking modules on the same login.
+        We build your company a private website that does the weekly retyping — paste notes in, get clean rows out, flag the gaps.
       </p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Email a sample</a>
-        <a class="btn btn-ghost" href="#automation">See how it runs</a>
+        <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Send a messy sample</a>
+        <a class="btn btn-ghost" href="#automation">Watch a 20-second demo</a>
       </div>
     </div>
-    <a class="scroll-cue" href="#automation"><span>Scroll</span><i></i></a>
+    <a class="scroll-cue" href="#plain"><span>What this is</span><i></i></a>
   </header>
+
+  <div class="plain" id="plain">
+    <div class="wrap plain-inner">
+      <p class="say">In one line</p>
+      <p>Fastenly is <em>not</em> shared SaaS. It’s a private desk we build for your team — start with one painful workflow, then stack more automations on the same login.</p>
+    </div>
+  </div>
 
   <section id="automation" class="reveal">
     <div class="wrap">
-      <p class="kicker">See the automation</p>
-      <h2>Messy in. Clean out. Gaps flagged.</h2>
-      <p class="lead">Watch one module do the job people still do by hand — then open the live desk and try it yourself.</p>
+      <p class="kicker">The job it does</p>
+      <h2>Paste messy work. Get a clean board.</h2>
+      <p class="lead">This is the first module most teams start with: notes and dumps become rows you can copy or export — with gaps flagged before handoff.</p>
 
       <div class="demo" id="auto-demo" aria-live="polite">
         <div class="demo-top">
@@ -1725,8 +1862,8 @@
           </div>
         </div>
         <div class="demo-actions">
-          <button type="button" class="btn btn-ink" id="btn-see-run">Try this sample on the live desk</button>
-          <p class="demo-note">Jumps to the interactive desk with the same Orders sample already parsed.</p>
+          <button type="button" class="btn btn-ink" id="btn-see-run">Open the live desk with this sample</button>
+          <p class="demo-note">Loads the same example below so you can paste, filter, copy, and export yourself.</p>
         </div>
       </div>
     </div>
@@ -1734,21 +1871,21 @@
 
   <section id="how" class="reveal">
     <div class="wrap">
-      <p class="kicker">How it works</p>
-      <h2>Build once. Add forever.</h2>
-      <p class="lead">Fastenly is a private site for your company. First module clears the worst weekly grind. The next ones land on the same desk.</p>
+      <p class="kicker">How buying works</p>
+      <h2>One workflow first. More later.</h2>
+      <p class="lead">You keep your spreadsheets and tools. Fastenly sits beside them as your private automation desk.</p>
       <div class="steps">
         <article class="step">
-          <h3>Name the grind</h3>
-          <p>Pastes, checks, rebuilds, chase lists — whatever still eats mornings.</p>
+          <h3>Pick the worst loop</h3>
+          <p>The thing someone still retypes, rebuilds, or chases every week.</p>
         </article>
         <article class="step">
-          <h3>Ship module one</h3>
-          <p>Preview, flags, export, history. Your people, your login, your layout.</p>
+          <h3>We build Module 01</h3>
+          <p>Your private login, your columns, preview + export — live in about two weeks.</p>
         </article>
         <article class="step">
-          <h3>Keep stacking</h3>
-          <p>Checks, merges, reports, custom flows — without starting from zero.</p>
+          <h3>Add the next jobs</h3>
+          <p>Checks, merges, chase lists, reports — same desk, no starting over.</p>
         </article>
       </div>
     </div>
@@ -1834,9 +1971,9 @@
 
   <div class="desk reveal" id="desk">
     <div class="wrap">
-      <p class="kicker">Try it</p>
-      <h2>Same desk. Different modules.</h2>
-      <p class="lead">Parse is live. Checks, merge, and custom modules run as interactive previews.</p>
+      <p class="kicker">Try the desk</p>
+      <h2>This is the product — click around.</h2>
+      <p class="lead">Parse turns messy text into rows. Checks finds gaps. Merge combines sources. Yours is where we scope your workflow.</p>
 
       <div class="desk-chrome">
         <span><strong id="desk-clock">--:--</strong> desk session</span>
@@ -2203,8 +2340,8 @@ LEAD-904 · Harbor Ltd · Sam · Mon</pre>
   <section class="close reveal" id="contact">
     <div class="wrap">
       <p class="kicker">Next</p>
-      <h2>Send the messy sample. Get a clean test.</h2>
-      <p class="lead">Free same-week pass on the first workflow. If it lands, we scope the pilot and leave room for the rest.</p>
+      <h2>Send one messy example. We’ll send a clean test back.</h2>
+      <p class="lead">Free, same week. If it’s useful, we build your private desk around that workflow for £795 + £49/mo.</p>
       <div class="cta-row" style="opacity:1;animation:none">
         <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample" style="color:#1a0a00">Email a sample</a>
         <a class="btn btn-ink" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20Busywork%20Audit">Book a Busywork Audit</a>
@@ -2214,7 +2351,7 @@ LEAD-904 · Harbor Ltd · Sam · Mon</pre>
   </section>
 
   <footer class="wrap">
-    <p><span class="mark">Fastenly</span> — private automation for work that repeats</p>
+    <p><span class="mark">Fastenly</span> — private desks that turn messy repeat work into clean sheets</p>
     <p><a href="mailto:YOU@EXAMPLE.com">YOU@EXAMPLE.com</a></p>
   </footer>
 
@@ -2363,14 +2500,7 @@ LEAD-904 · Harbor Ltd · Sam · Mon</pre>
     (function () {
       var stream = document.getElementById("hero-stream");
       var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      var lines = [
-        { cls: "ac", text: "// inbound · live feed" },
-        { cls: "hi", text: "ORD-4821 · Northline · owner Sam · due today" },
-        { cls: "", text: "LEAD-902 · incomplete form · owner — · due TBD" },
-        { cls: "hi", text: "TKT-118 · access reset · owner Alex · due Thu" },
-        { cls: "ac", text: "// modules online" },
-        { cls: "", text: "parse · checks · merge · chase" }
-      ];
+      var lines = [];
       var lineEls = [];
       function setupLines() {
         if (!stream) return;
@@ -2425,7 +2555,7 @@ LEAD-904 · Harbor Ltd · Sam · Mon</pre>
         }
         next();
       }
-      runHero();
+      if (stream) runHero();
 
       var progress = document.getElementById("scroll-progress");
       var topnav = document.getElementById("topnav");
