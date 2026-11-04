@@ -43,7 +43,7 @@ If {{Company}} still has a pile of messy-to-clean busywork, happy to run a free 
 ```
 {{First name}} — circling back in case the Loom got buried. Even a “not a pain for us” is useful.
 
-If it is: fixed pilot to get the desk live in ~2 weeks (£2,500 + £149/mo hosting), then stack modules.
+If it is: fixed pilot to get the desk live in ~2 weeks (£1,200 + £79/mo hosting), then stack modules.
 ```
 
 ---
@@ -67,4 +67,4 @@ Ask only:
 3. What must the output look like?
 4. Who uses it day to day?
 
-Then: propose the pilot (£2,500 + £149/mo). Send `pilot-proposal.md` the same day.
+Then: propose the pilot (£1,200 + £79/mo). Send `pilot-proposal.md` the same day.

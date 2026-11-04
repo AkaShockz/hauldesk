@@ -2,7 +2,7 @@
 
 Go-to-market pack for selling a **private multi-workflow automation desk** to any team drowning in repeat work.
 
-Working brand: **Flowdesk**. Pilot offer: **£2,500 + £149/mo hosting** to get the desk live with the first module. Extra modules scoped after that.
+Working brand: **Flowdesk**. Pilot offer: **£1,200 + £79/mo hosting** to get the desk live with the first module. Extra modules scoped after that.
 
 This repo is intentionally separate from any client production app. Do not put customer data here.
 
