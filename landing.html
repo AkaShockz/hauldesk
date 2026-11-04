@@ -2752,7 +2752,7 @@
   </style>
 </head>
 <body>
-  <a class="skip" href="#preview">Skip to live desk</a>
+  <a class="skip" href="#preview">Skip to example preview</a>
 
   <header class="hero" id="top">
     <div class="wrap">
@@ -2789,7 +2789,7 @@
         </a>
         <nav aria-label="Page">
           <a href="#build">What we build</a>
-          <a href="#preview">Try it</a>
+          <a href="#preview">Example</a>
           <a href="#voices">Voices</a>
           <a href="#faq">FAQ</a>
           <a href="#pilot">Price</a>
@@ -2803,7 +2803,6 @@
         <div class="cta-row">
           <a class="btn btn-primary plausible-event-name=Email+Sample plausible-event-location=Hero" href="mailto:YOU@EXAMPLE.com?subject=ParseDesk%20sample">Email a sample</a>
           <a class="btn btn-wa plausible-event-name=WhatsApp plausible-event-location=Hero" href="https://wa.me/447XXXXXXXXX?text=Hi%20ParseDesk%20%E2%80%94%20I%27ve%20got%20a%20sample" target="_blank" rel="noopener">WhatsApp</a>
-          <a class="btn btn-ghost plausible-event-name=Try+Desk plausible-event-location=Hero" href="#preview" id="btn-try-desk">Try the live desk</a>
         </div>
       </div>
     </div>
@@ -2860,18 +2859,18 @@
 
   <section id="preview" class="preview-band reveal">
     <div class="wrap">
-      <p class="kicker kicker-light">Try it</p>
-      <h2 class="preview-title">See a batch sort itself.</h2>
-      <p class="lead lead-light">Locked demos with the same desk layout — transport, daily boards, delivery, chase, invoice, stock. Demo data only.</p>
+      <p class="kicker kicker-light">Example only</p>
+      <h2 class="preview-title">An example of how a desk can work.</h2>
+      <p class="lead lead-light">This is a demo with fictional data — not the exact desk you’ll get. Your build is scoped from your sample and brief. Modules below are illustrative: transport, daily boards, delivery, chase, invoice, stock.</p>
       <div class="preview-actions">
-        <button type="button" class="btn btn-primary plausible-event-name=Play+Batch plausible-event-location=Preview" id="btn-replay">Play the batch</button>
+        <button type="button" class="btn btn-primary plausible-event-name=Play+Batch plausible-event-location=Preview" id="btn-replay">Play the example</button>
         <a class="btn btn-ghost plausible-event-name=Email+Sample plausible-event-location=Preview" href="mailto:YOU@EXAMPLE.com?subject=ParseDesk%20sample">Email your sample</a>
       </div>
-      <div class="parser" id="desk" aria-label="Automation desk preview">
+      <div class="parser" id="desk" aria-label="Example automation desk preview">
         <div class="parser-chrome">
           <div class="chrome-left">
             <span class="dot" aria-hidden="true"></span>
-            <span><strong>Ops desk</strong> · sample mode</span>
+            <span><strong>Example desk</strong> · not your live build</span>
           </div>
           <span id="desk-clock">--:--</span>
         </div>
@@ -2998,15 +2997,15 @@
         </div>
 
         <div class="parser-foot">
-          <p><strong id="foot-summary">Waiting for a sample</strong> — production desks use your real formats.</p>
-          <button type="button" class="btn btn-ghost btn-sm" id="btn-replay-foot">Replay</button>
+          <p><strong id="foot-summary">Waiting for a sample</strong> — example only; your desk follows your formats after we quote.</p>
+          <button type="button" class="btn btn-ghost btn-sm" id="btn-replay-foot">Replay example</button>
         </div>
       </div>
 
       <div class="ba-strip reveal" id="before-after" aria-label="Before and after example">
-        <p class="kicker kicker-light">Same layout</p>
+        <p class="kicker kicker-light">Example strip</p>
         <h3 class="ba-title">Raw dump in. Clean board out.</h3>
-        <p class="ba-lead">Anonymised demo — fictional sites and numbers only. Your live desk uses your formats.</p>
+        <p class="ba-lead">Illustrative before → after with fictional sites and numbers — not a promise of this exact layout. Your desk is built to your brief.</p>
         <div class="ba-grid">
           <div class="ba-pane ba-before">
             <p class="ba-label">Before · job notes</p>
@@ -4620,7 +4619,7 @@ VALUE
         showPlainSource(boardPlainSource(sample));
         allRows = [];
         renderTable([]);
-        empty.textContent = "Build the board — fields land in the same desk layout.";
+        empty.textContent = "Example board — fields land into illustrative columns.";
         if (autoRun !== false) runBoard();
       }
       updateRemind();
@@ -5007,16 +5006,6 @@ VALUE
     }
     var replayBtn = document.getElementById("btn-replay");
     if (replayBtn) replayBtn.addEventListener("click", goPlayBatch);
-    var tryDesk = document.getElementById("btn-try-desk");
-    if (tryDesk) tryDesk.addEventListener("click", function (e) {
-      /* let hash navigate; kick demo shortly after */
-      setTimeout(function () {
-        if (currentModule !== "jobs") setModule("jobs");
-        currentSample = "rush";
-        setChip("rush");
-        playDemo();
-      }, 400);
-    });
     document.getElementById("btn-replay-foot").addEventListener("click", function () {
       playDemo();
     });
