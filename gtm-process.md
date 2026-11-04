@@ -16,7 +16,7 @@ Most sellers pitch “AI automation” or a Zapier clone. Fastenly sells a **com
 4. **Fixed, say-yes pricing.** £795 + £49/mo. Extras from £195. No enterprise theatre.
 5. **Same-week sample SLA.** Public promise: sample in by Wednesday → result by Friday.
 6. **Open Desk Hour.** Weekly 30-min Zoom where anyone can paste a live sample. Low-friction volume.
-7. **Risk reversal.** If Module 01 isn’t used in the first 14 days, re-scope Module 02 free or refund the build fee.
+7. **Risk reversal.** Deposit only after they tell you what they want. If you can’t do it as agreed → full refund. If Module 01 isn’t used in 14 days → re-scope Module 02 free or refund the build fee.
 8. **Twin-seat referral.** Closed referral → both sides get £100 off the next module.
 
 ---

@@ -43,7 +43,9 @@ Fastenly is not a single-purpose converter and not locked to one industry. The d
 | Hosting & support | £49 / month (cancel anytime) |
 | Extra modules later | from £195 each (scoped separately) |
 
-**Payment:** 50% to start (£397.50), 50% on go-live. Monthly hosting invoiced in advance. No annual lock-in.
+**Payment:** Deposit only after you tell us what you want and we confirm we can do it. Then 50% to start (£397.50), 50% on go-live. Monthly hosting invoiced in advance. No annual lock-in.
+
+**If we cannot deliver:** If we agree the brief and then cannot build what you asked for, you get a **full refund of the deposit** (and any pilot build fee paid).
 
 ## Out of scope (this pilot)
 
@@ -58,10 +60,9 @@ After two weeks of live use: the team runs Module 01 without falling back to ful
 
 ## Risk reversal
 
-If Module 01 is not in real use within 14 days of go-live, choose one:
-
-1. Free scope pass on Module 02 (build fee waived on the next scoped module), or  
-2. Refund of the £795 pilot build fee (hosting already used is non-refundable)
+1. **Before build:** deposit is only taken after you describe what you want and we confirm we can do it.  
+2. **If we cannot deliver as agreed:** full refund of the deposit / pilot build fee.  
+3. **After go-live:** if Module 01 is not in real use within 14 days, choose a free Module 02 scope pass or a refund of the build fee (hosting already used is non-refundable).
 
 This keeps the pilot easy to say yes to.
 
