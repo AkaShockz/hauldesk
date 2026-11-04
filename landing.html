@@ -316,102 +316,185 @@
 
     .step p { color: var(--mute); font-size: 0.95rem; }
 
-    .flow {
-      margin-top: 2.5rem;
-      display: grid;
-      grid-template-columns: 1.1fr auto 1fr auto 1.1fr;
-      gap: 0.75rem;
-      align-items: stretch;
+    .demo {
+      margin-top: 0.5rem;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(232, 93, 4, 0.06), transparent 42%),
+        var(--paper-2);
+      overflow: hidden;
     }
 
-    .flow-card {
+    .demo-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .demo-stages {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .demo-stage {
+      appearance: none;
       border: 1px solid var(--line);
-      background: var(--paper-2);
-      padding: 1rem 1.05rem;
+      background: transparent;
+      color: var(--mute);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.55rem;
+      cursor: pointer;
+    }
+
+    .demo-stage[aria-current="true"] {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--white);
+    }
+
+    .demo-body {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      min-height: 280px;
+    }
+
+    .demo-pane {
+      padding: 1.15rem 1.2rem;
       min-width: 0;
     }
 
-    .flow-card .label {
-      color: var(--mute);
-      margin-bottom: 0.55rem;
+    .demo-pane + .demo-pane {
+      border-left: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.45);
     }
 
-    .flow-card pre {
+    .demo-pane .label { color: var(--mute); margin-bottom: 0.65rem; }
+
+    .demo-copy {
+      font-size: 0.95rem;
+      color: var(--ink);
+      max-width: 36ch;
+      margin-bottom: 0.85rem;
+      line-height: 1.45;
+    }
+
+    .demo-copy strong { color: var(--accent-2); font-weight: 600; }
+
+    .demo-source,
+    .demo-out {
       font-family: var(--mono);
-      font-size: 0.72rem;
-      line-height: 1.5;
+      font-size: 0.74rem;
+      line-height: 1.55;
+      min-height: 9.5rem;
+      padding: 0.8rem;
+      border: 1px solid var(--line);
+      background: #fff;
       color: var(--ink);
       white-space: pre-wrap;
       word-break: break-word;
     }
 
-    .flow-card table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.72rem;
-      font-variant-numeric: tabular-nums;
+    .demo-source.is-scanning {
+      box-shadow: inset 3px 0 0 var(--accent);
+      animation: scanPulse 0.9s ease;
     }
 
-    .flow-card th,
-    .flow-card td {
+    @keyframes scanPulse {
+      from { background: #fff7f0; }
+      to { background: #fff; }
+    }
+
+    .demo-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.74rem;
+      font-variant-numeric: tabular-nums;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+
+    .demo-table th,
+    .demo-table td {
       text-align: left;
-      padding: 0.28rem 0.2rem;
+      padding: 0.45rem 0.5rem;
       border-bottom: 1px solid var(--line);
       white-space: nowrap;
     }
 
-    .flow-card th {
+    .demo-table th {
       font-family: var(--mono);
       font-size: 0.6rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--mute);
       font-weight: 500;
+      background: rgba(244, 242, 236, 0.8);
     }
 
-    .flow-card td.warn { color: var(--warn); }
+    .demo-table tr { animation: rowIn 0.28s ease both; }
+    .demo-table td.warn { color: var(--warn); font-weight: 600; }
 
-    .flow-mid {
-      display: grid;
-      place-items: center;
-      padding: 0.4rem 0.2rem;
-      align-self: center;
-    }
-
-    .flow-mid span {
-      display: inline-grid;
-      place-items: center;
-      min-width: 2.4rem;
-      min-height: 2.4rem;
-      padding: 0.35rem 0.45rem;
-      background: var(--ink);
-      color: var(--white);
+    .demo-badge {
+      display: inline-block;
       font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.06em;
+      font-size: 0.6rem;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      text-align: center;
-      line-height: 1.2;
-      animation: pulseDot 2.4s ease-in-out infinite;
+      padding: 0.12rem 0.35rem;
     }
 
-    @keyframes pulseDot {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.04); opacity: 0.88; }
+    .demo-badge.ok { background: rgba(31, 122, 76, 0.14); color: var(--ok); }
+    .demo-badge.flag { background: rgba(232, 93, 4, 0.14); color: var(--accent-2); }
+
+    .demo-export {
+      display: grid;
+      gap: 0.45rem;
     }
 
-    .flow-actions {
-      margin-top: 1.35rem;
+    .demo-export li {
+      list-style: none;
+      display: flex;
+      gap: 0.55rem;
+      align-items: baseline;
+      font-size: 0.9rem;
+      color: var(--ink);
+      padding: 0.55rem 0.65rem;
+      border: 1px solid var(--line);
+      background: #fff;
+      animation: rowIn 0.28s ease both;
+    }
+
+    .demo-export li span {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+      min-width: 3.5rem;
+    }
+
+    .demo-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 0.55rem;
       align-items: center;
+      padding: 0.9rem 1rem 1.05rem;
+      border-top: 1px solid var(--line);
     }
 
-    .flow-note {
+    .demo-note {
       font-size: 0.85rem;
       color: var(--mute);
-      max-width: 42ch;
+      max-width: 46ch;
     }
 
     .uses {
@@ -938,9 +1021,8 @@
     }
 
     @media (max-width: 760px) {
-      .steps, .board, .fit, .offer-grid, .flow { grid-template-columns: 1fr; }
-      .flow-mid { justify-self: start; }
-      .flow-mid span { transform: rotate(90deg); }
+      .steps, .board, .fit, .offer-grid, .demo-body { grid-template-columns: 1fr; }
+      .demo-pane + .demo-pane { border-left: 0; border-top: 1px solid var(--line); }
       .pane-in { border-right: none; border-bottom: 1px solid var(--line-dark); }
       .mod-list li { grid-template-columns: 5.5rem 1fr; }
       .hero-inner { padding-top: 4rem; }
@@ -992,10 +1074,45 @@
       </p>
       <div class="cta-row">
         <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20pilot">Book a short call</a>
-        <a class="btn btn-ghost" href="#desk">Open the desk</a>
+        <a class="btn btn-ghost" href="#automation">See how it runs</a>
       </div>
     </div>
   </header>
+
+  <section id="automation">
+    <div class="wrap">
+      <p class="kicker">See the automation</p>
+      <h2>Messy in. Clean out. Gaps flagged.</h2>
+      <p class="lead">Watch one module do the job people still do by hand — then open the live desk and try it yourself.</p>
+
+      <div class="demo" id="auto-demo" aria-live="polite">
+        <div class="demo-top">
+          <div class="demo-stages" role="tablist" aria-label="Automation stages">
+            <button type="button" class="demo-stage" data-stage="0" aria-current="true">01 Paste</button>
+            <button type="button" class="demo-stage" data-stage="1" aria-current="false">02 Parse</button>
+            <button type="button" class="demo-stage" data-stage="2" aria-current="false">03 Flag</button>
+            <button type="button" class="demo-stage" data-stage="3" aria-current="false">04 Export</button>
+          </div>
+          <button type="button" class="btn btn-ghost" id="btn-demo-replay" style="min-height:2.1rem;padding:0.35rem 0.7rem;font-size:0.8rem;border-color:var(--line);color:var(--ink)">Replay</button>
+        </div>
+        <div class="demo-body">
+          <div class="demo-pane">
+            <p class="label" id="demo-left-label">Inbound text</p>
+            <p class="demo-copy" id="demo-explain">Someone pastes the week’s messy notes, forms, or dumps — no cleanup first.</p>
+            <div class="demo-source" id="demo-source"></div>
+          </div>
+          <div class="demo-pane">
+            <p class="label" id="demo-right-label">Result</p>
+            <div id="demo-result"></div>
+          </div>
+        </div>
+        <div class="demo-actions">
+          <button type="button" class="btn btn-ink" id="btn-see-run">Try this sample on the live desk</button>
+          <p class="demo-note">Jumps to the interactive desk with the same Orders sample already parsed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section id="how">
     <div class="wrap">
@@ -1015,49 +1132,6 @@
           <h3>Keep stacking</h3>
           <p>Checks, merges, reports, custom flows — without starting from zero.</p>
         </article>
-      </div>
-
-      <div class="flow" aria-label="Example automation path">
-        <article class="flow-card">
-          <p class="label">Messy inbound</p>
-          <pre>REF ORD-4821
-Type: Order
-Customer: Northline
-Owner: Sam
-Due: Today
-
-REF ORD-4822
-Customer: TBD
-Owner:
-Due: Tomorrow</pre>
-        </article>
-        <div class="flow-mid" aria-hidden="true"><span>parse</span></div>
-        <article class="flow-card">
-          <p class="label">Desk preview</p>
-          <table>
-            <thead>
-              <tr><th>Ref</th><th>Owner</th><th>Due</th><th>Status</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>ORD-4821</td><td>Sam</td><td>Today</td><td>Ready</td></tr>
-              <tr><td>ORD-4822</td><td class="warn">—</td><td>Tomorrow</td><td class="warn">Flag</td></tr>
-            </tbody>
-          </table>
-        </article>
-        <div class="flow-mid" aria-hidden="true"><span>export</span></div>
-        <article class="flow-card">
-          <p class="label">Clean handoff</p>
-          <pre>CSV / copy ready
-Flags listed
-History saved
-Next module free
-to land on the
-same login</pre>
-        </article>
-      </div>
-      <div class="flow-actions">
-        <button type="button" class="btn btn-ink" id="btn-see-run">Watch it run on the desk</button>
-        <p class="flow-note">Loads an Orders sample, parses it live, and jumps to the interactive desk.</p>
       </div>
     </div>
   </section>
@@ -1370,6 +1444,127 @@ same login</pre>
   </footer>
 
   <script>
+    (function () {
+      var stages = [
+        {
+          left: "Inbound text",
+          right: "Waiting",
+          explain: "Someone pastes the week’s messy notes, forms, or dumps — <strong>no cleanup first</strong>.",
+          source: "REF ORD-4821\nType: Order\nCustomer: Northline Supplies\nOwner: Sam\nDue: Today\n\nREF ORD-4822\nType: Order\nCustomer: TBD\nOwner:\nDue: Tomorrow",
+          result: "idle"
+        },
+        {
+          left: "Inbound text",
+          right: "Parsing…",
+          explain: "Fastenly reads refs, types, owners, and dues — the same fields your sheet already uses.",
+          source: "REF ORD-4821\nType: Order\nCustomer: Northline Supplies\nOwner: Sam\nDue: Today\n\nREF ORD-4822\nType: Order\nCustomer: TBD\nOwner:\nDue: Tomorrow",
+          result: "scanning"
+        },
+        {
+          left: "Inbound text",
+          right: "Clean rows + flags",
+          explain: "Rows land in a preview. Missing owner or TBD values get <strong>flagged</strong> before handoff.",
+          source: "REF ORD-4821\nType: Order\nCustomer: Northline Supplies\nOwner: Sam\nDue: Today\n\nREF ORD-4822\nType: Order\nCustomer: TBD\nOwner:\nDue: Tomorrow",
+          result: "table"
+        },
+        {
+          left: "Inbound text",
+          right: "Ready to hand off",
+          explain: "Copy or CSV out. History stays on the desk. Next module stacks on the <strong>same login</strong>.",
+          source: "REF ORD-4821\nType: Order\nCustomer: Northline Supplies\nOwner: Sam\nDue: Today\n\nREF ORD-4822\nType: Order\nCustomer: TBD\nOwner:\nDue: Tomorrow",
+          result: "export"
+        }
+      ];
+
+      var idx = 0;
+      var timer = null;
+      var sourceEl = document.getElementById("demo-source");
+      var resultEl = document.getElementById("demo-result");
+      var explainEl = document.getElementById("demo-explain");
+      var leftLabel = document.getElementById("demo-left-label");
+      var rightLabel = document.getElementById("demo-right-label");
+      var stageBtns = Array.prototype.slice.call(document.querySelectorAll(".demo-stage"));
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function renderResult(kind) {
+        resultEl.textContent = "";
+        if (kind === "idle") {
+          resultEl.innerHTML = '<div class="demo-out">Paste lands here.\nNothing leaves until you export.</div>';
+          return;
+        }
+        if (kind === "scanning") {
+          resultEl.innerHTML = '<div class="demo-out">Reading blocks…\nMapping: ref · type · owner · due\nChecking blanks…</div>';
+          sourceEl.classList.add("is-scanning");
+          setTimeout(function () { sourceEl.classList.remove("is-scanning"); }, 900);
+          return;
+        }
+        if (kind === "table") {
+          resultEl.innerHTML =
+            '<table class="demo-table"><thead><tr><th>Ref</th><th>Owner</th><th>Due</th><th>Status</th></tr></thead><tbody>' +
+            '<tr style="animation-delay:0s"><td>ORD-4821</td><td>Sam</td><td>Today</td><td><span class="demo-badge ok">Ready</span></td></tr>' +
+            '<tr style="animation-delay:0.08s"><td>ORD-4822</td><td class="warn">—</td><td>Tomorrow</td><td><span class="demo-badge flag">Flag</span></td></tr>' +
+            "</tbody></table>";
+          return;
+        }
+        resultEl.innerHTML =
+          '<ul class="demo-export">' +
+          '<li style="animation-delay:0s"><span>Copy</span> Tab-ready rows for your sheet</li>' +
+          '<li style="animation-delay:0.06s"><span>CSV</span> Download for the next handoff</li>' +
+          '<li style="animation-delay:0.12s"><span>Flags</span> Gaps listed before work moves</li>' +
+          '<li style="animation-delay:0.18s"><span>Next</span> Checks / merge / chase on same desk</li>' +
+          "</ul>";
+      }
+
+      function showStage(n, userDriven) {
+        idx = (n + stages.length) % stages.length;
+        var s = stages[idx];
+        leftLabel.textContent = s.left;
+        rightLabel.textContent = s.right;
+        explainEl.innerHTML = s.explain;
+        sourceEl.textContent = s.source;
+        stageBtns.forEach(function (btn, i) {
+          btn.setAttribute("aria-current", i === idx ? "true" : "false");
+        });
+        renderResult(s.result);
+        if (userDriven) restartAuto();
+      }
+
+      function nextStage() { showStage(idx + 1, false); }
+
+      function restartAuto() {
+        clearInterval(timer);
+        if (reduceMotion) return;
+        timer = setInterval(nextStage, 2600);
+      }
+
+      stageBtns.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          showStage(parseInt(btn.getAttribute("data-stage"), 10) || 0, true);
+        });
+      });
+
+      var replay = document.getElementById("btn-demo-replay");
+      if (replay) {
+        replay.addEventListener("click", function () {
+          showStage(0, true);
+        });
+      }
+
+      showStage(0, false);
+      restartAuto();
+
+      if ("IntersectionObserver" in window && !reduceMotion) {
+        var demo = document.getElementById("auto-demo");
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) restartAuto();
+            else clearInterval(timer);
+          });
+        }, { threshold: 0.35 });
+        if (demo) observer.observe(demo);
+      }
+    })();
+
     (function () {
       var SAMPLES = {
         orders: "REF ORD-4821\nType: Order\nCustomer: Northline Supplies\nOwner: Sam\nDue: Today\nItems: 12 units · SO14 3HG\n\nREF ORD-4822\nType: Order\nCustomer: TBD\nOwner:\nDue: Tomorrow\nItems: rush pack · M34 2AB\n\nREF ORD-4823\nType: Order\nCustomer: Bright Harbor\nOwner: Alex\nDue: Thu\nItems: restock · BN1 4GH",
