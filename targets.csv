@@ -1,2 +1,2 @@
-company,website,linkedin_url,contact_name,contact_role,email,source,status,last_touch,notes
-Example Vehicle Logistics,https://example.com,https://linkedin.com/company/example,Alex Example,Operations Manager,,,research,not_contacted,Replace this row — aim for 40 UK car delivery / compound / dealer logistics firms
+company,segment,website,linkedin_url,contact_name,contact_role,email,personalisation_hook,source,status,last_touch,next_action,notes
+Example Vehicle Logistics,mixed_ops,https://example.com,https://linkedin.com/company/example,Alex Example,Operations Manager,,Mentions allocator / planning roles on careers page,manual_research,not_contacted,,Replace this row — aim for ~40 UK vehicle logistics firms
