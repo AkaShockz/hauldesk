@@ -20,7 +20,7 @@ single script, a login site where modules stack: document parsing, checks,
 merges, chase lists, reports, and custom workflows.
 
 We start with whichever workflow hurts most, get that live in about two
-weeks, then add more on the same desk (£1,200 + £79/mo hosting for the
+weeks, then add more on the same desk (£795 + £49/mo hosting for the
 pilot).
 
 45-second demo: {{LOOM_LINK}}
@@ -73,7 +73,7 @@ Attached is a first-pass result from the redacted sample you sent.
 Happy to remap to your real template.
 
 If this is close, the pilot gets a private desk live in ~2 weeks
-(£1,200 + £79/mo hosting) with room to add the next modules after.
+(£795 + £49/mo hosting) with room to add the next modules after.
 
 Open to a 15-minute call this week?
 

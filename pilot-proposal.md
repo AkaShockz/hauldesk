@@ -39,11 +39,11 @@ Flowdesk is not a single-purpose converter and not locked to one industry. The d
 
 | Item | Amount |
 |------|--------|
-| Pilot (desk + first module) | £1,200 (one-off) |
-| Hosting & support | £79 / month (cancel anytime) |
-| Extra modules later | from £300 each (scoped separately) |
+| Pilot (desk + first module) | £795 (one-off) |
+| Hosting & support | £49 / month (cancel anytime) |
+| Extra modules later | from £195 each (scoped separately) |
 
-**Payment:** 50% to start, 50% on go-live. Monthly hosting invoiced in advance.
+**Payment:** 50% to start (£397.50), 50% on go-live. Monthly hosting invoiced in advance. No annual lock-in.
 
 ## Out of scope (this pilot)
 

@@ -612,31 +612,59 @@
     /* —— Offer —— */
     .offer {
       background:
-        linear-gradient(90deg, rgba(232, 93, 4, 0.08), transparent 40%),
+        linear-gradient(105deg, rgba(232, 93, 4, 0.09), transparent 42%),
         var(--paper-2);
       padding: 4.75rem 0;
       border-block: 1px solid var(--line);
     }
 
+    .offer-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 2.5rem;
+      align-items: end;
+    }
+
+    .price-block {
+      border-top: 2px solid var(--ink);
+      padding-top: 1.15rem;
+    }
+
+    .price-was {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--mute);
+      margin-bottom: 0.35rem;
+    }
+
     .price {
       font-family: var(--display);
-      font-size: clamp(2.2rem, 4.5vw, 3rem);
-      letter-spacing: -0.04em;
+      font-size: clamp(2.4rem, 5vw, 3.25rem);
+      letter-spacing: -0.045em;
       font-weight: 700;
-      margin: 1.1rem 0 0.4rem;
+      margin: 0 0 0.35rem;
+      line-height: 1;
     }
 
     .price span {
       font-family: var(--sans);
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 400;
       color: var(--mute);
     }
 
+    .price-why {
+      color: var(--mute);
+      font-size: 0.95rem;
+      max-width: 34ch;
+      margin: 0.65rem 0 1.25rem;
+    }
+
     .includes {
       list-style: none;
-      max-width: 38ch;
-      margin: 1rem 0 1.35rem;
+      margin: 0 0 1.25rem;
     }
 
     .includes li {
@@ -644,6 +672,7 @@
       padding: 0.45rem 0 0.45rem 1rem;
       border-bottom: 1px solid var(--line);
       color: var(--mute);
+      font-size: 0.95rem;
     }
 
     .includes li::before {
@@ -659,9 +688,50 @@
     .note {
       color: var(--mute);
       max-width: 40ch;
-      margin-bottom: 1.35rem;
-      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.92rem;
     }
+
+    .compare {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.35);
+      padding: 1.15rem 1.2rem;
+    }
+
+    .compare h3 {
+      font-family: var(--display);
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .compare dl {
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .compare div {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.75rem;
+      padding-bottom: 0.55rem;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.9rem;
+    }
+
+    .compare dt { color: var(--mute); }
+    .compare dd {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--ink);
+    }
+
+    .compare div:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .compare div:last-child dd { color: var(--accent); font-weight: 600; }
 
     .fit {
       display: grid;
@@ -770,7 +840,7 @@
     }
 
     @media (max-width: 760px) {
-      .steps, .board, .fit { grid-template-columns: 1fr; }
+      .steps, .board, .fit, .offer-grid { grid-template-columns: 1fr; }
       .pane-in { border-right: none; border-bottom: 1px solid var(--line-dark); }
       .mod-list li { grid-template-columns: 5.5rem 1fr; }
       .hero-inner { padding-top: 4rem; }
@@ -1045,19 +1115,46 @@
 
   <div class="offer" id="pilot">
     <div class="wrap">
-      <p class="kicker">Pilot</p>
-      <h2>Desk live in two weeks</h2>
-      <p class="lead">Private site. First module. Room to grow — priced to start, not to scare.</p>
-      <p class="price">£1,200 <span>+ £79/month</span></p>
-      <ul class="includes">
-        <li>Private multi-module desk for your staff</li>
-        <li>First automation of your choosing</li>
-        <li>Preview, export, flags where useful</li>
-        <li>Path to add modules without a rebuild</li>
-        <li>Training call + 14 days email support</li>
-      </ul>
-      <p class="note">Extra modules from £300 once scoped. Cancel hosting anytime — keep every file you exported.</p>
-      <a class="btn btn-ink" href="mailto:YOU@EXAMPLE.com?subject=Flowdesk%20pilot">Start the desk</a>
+      <p class="kicker">Pilot pricing</p>
+      <h2>Start small. Stay private. Keep growing.</h2>
+      <p class="lead">Built to be affordable for real ops teams — not enterprise theatre.</p>
+      <div class="offer-grid">
+        <div class="price-block">
+          <p class="price-was">Simple pilot · no annual lock-in</p>
+          <p class="price">£795 <span>+ £49/month</span></p>
+          <p class="price-why">Roughly a couple of days of manual ops time — then the desk keeps working every week.</p>
+          <ul class="includes">
+            <li>Private multi-module desk for your staff</li>
+            <li>First automation of your choosing</li>
+            <li>Preview, export, flags where useful</li>
+            <li>Room to add modules without a rebuild</li>
+            <li>Training call + 14 days email support</li>
+          </ul>
+          <p class="note">Extra modules from £195 once scoped. Cancel hosting anytime — keep every file you exported.</p>
+          <a class="btn btn-ink" href="mailto:YOU@EXAMPLE.com?subject=Flowdesk%20pilot">Start for £795</a>
+        </div>
+        <aside class="compare" aria-label="Cost comparison">
+          <h3>Compared to doing nothing</h3>
+          <dl>
+            <div>
+              <dt>Freelance rebuild each time</dt>
+              <dd>£400–£900+</dd>
+            </div>
+            <div>
+              <dt>Shared SaaS seats / year</dt>
+              <dd>£600–£2k+</dd>
+            </div>
+            <div>
+              <dt>Hours lost retyping weekly</dt>
+              <dd>adds up fast</dd>
+            </div>
+            <div>
+              <dt>Flowdesk pilot</dt>
+              <dd>£795 + £49/mo</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
     </div>
   </div>
 
@@ -1106,7 +1203,7 @@
         </details>
         <details>
           <summary>How do extra modules work?</summary>
-          <p>Same desk, new scope — from £300 after samples. Hosting stays with the desk unless load clearly needs more.</p>
+          <p>Same desk, new scope — from £195 after samples. Hosting is £49/mo and cancel-anytime.</p>
         </details>
       </div>
     </div>
