@@ -2511,6 +2511,27 @@
     }
     .preview-title {
       font-size: clamp(1.95rem, 3.7vw, 2.7rem) !important;
+      max-width: 16ch;
+    }
+    .preview-disclaimer {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin: 0.15rem 0 1.05rem;
+      padding: 0.45rem 0.75rem;
+      border: 1px solid rgba(232,93,4,0.35);
+      border-left: 3px solid var(--accent);
+      background: rgba(232,93,4,0.1);
+      color: rgba(255,176,112,0.95);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      max-width: 52ch;
+    }
+    .preview-band .lead-light {
+      max-width: 52ch !important;
+      margin-bottom: 0.85rem !important;
     }
     .parser {
       border-radius: 5px !important;
@@ -2860,17 +2881,18 @@
   <section id="preview" class="preview-band reveal">
     <div class="wrap">
       <p class="kicker kicker-light">Example only</p>
-      <h2 class="preview-title">An example of how a desk can work.</h2>
-      <p class="lead lead-light">This is a demo with fictional data — not the exact desk you’ll get. Your build is scoped from your sample and brief. Modules below are illustrative: transport, daily boards, delivery, chase, invoice, stock.</p>
+      <h2 class="preview-title">A demo — not your finished desk.</h2>
+      <p class="lead lead-light">What you see below is an interactive example with fictional data. It shows the kind of thing we build. It is not the exact product, layout, or modules you’ll receive — those come from your sample and brief after a real valuation.</p>
+      <p class="preview-disclaimer" role="note">Example preview · fictional data · not a quote or finished build</p>
       <div class="preview-actions">
         <button type="button" class="btn btn-primary plausible-event-name=Play+Batch plausible-event-location=Preview" id="btn-replay">Play the example</button>
         <a class="btn btn-ghost plausible-event-name=Email+Sample plausible-event-location=Preview" href="mailto:YOU@EXAMPLE.com?subject=ParseDesk%20sample">Email your sample</a>
       </div>
-      <div class="parser" id="desk" aria-label="Example automation desk preview">
+      <div class="parser" id="desk" aria-label="Example automation desk preview — not the finished product">
         <div class="parser-chrome">
           <div class="chrome-left">
             <span class="dot" aria-hidden="true"></span>
-            <span><strong>Example desk</strong> · not your live build</span>
+            <span><strong>Example only</strong> · fictional demo · not your build</span>
           </div>
           <span id="desk-clock">--:--</span>
         </div>
@@ -2963,7 +2985,7 @@
           </div>
 
           <div class="pane pane-mid">
-            <p class="label" id="extract-label">Live extract</p>
+            <p class="label" id="extract-label">Example extract</p>
             <div class="extract-feed" id="extract-feed">
               <p class="idle">Fields appear here as they’re found…</p>
             </div>
@@ -2977,7 +2999,7 @@
             <div class="scanline" id="scanline" aria-hidden="true"><i></i></div>
             <div class="field-map" id="field-map" aria-hidden="true"></div>
             <div class="table-wrap" id="table-wrap">
-              <div id="parse-empty" class="empty">Pick a locked sample and run — rows land here.</div>
+              <div id="parse-empty" class="empty">Pick a demo sample and run — example rows land here.</div>
               <table class="table" id="parse-table" hidden>
                 <thead>
                   <tr id="parse-head"></tr>
@@ -2997,15 +3019,15 @@
         </div>
 
         <div class="parser-foot">
-          <p><strong id="foot-summary">Waiting for a sample</strong> — example only; your desk follows your formats after we quote.</p>
+          <p><strong id="foot-summary">Waiting for a demo sample</strong> — this preview is an example only, not your finished desk.</p>
           <button type="button" class="btn btn-ghost btn-sm" id="btn-replay-foot">Replay example</button>
         </div>
       </div>
 
       <div class="ba-strip reveal" id="before-after" aria-label="Before and after example">
         <p class="kicker kicker-light">Example strip</p>
-        <h3 class="ba-title">Raw dump in. Clean board out.</h3>
-        <p class="ba-lead">Illustrative before → after with fictional sites and numbers — not a promise of this exact layout. Your desk is built to your brief.</p>
+        <h3 class="ba-title">One illustrative before → after.</h3>
+        <p class="ba-lead">Fictional sites and numbers only. This strip is an example of the idea — not a promise of this exact layout, columns, or result. Your desk is built from your brief.</p>
         <div class="ba-grid">
           <div class="ba-pane ba-before">
             <p class="ba-label">Before · job notes</p>
@@ -3646,7 +3668,7 @@ VALUE
         toolsId: "job-tools",
         defaultSample: "batch-a",
         sourceLabel: "Job sheet sample",
-        extractLabel: "Live extract",
+        extractLabel: "Example extract",
         outLabel: "Transport request",
         parseLabel: "Run parse",
         rowsLabel: "rows",
@@ -3675,7 +3697,7 @@ VALUE
         toolsId: "delivery-tools",
         defaultSample: "route-a",
         sourceLabel: "Run notes sample",
-        extractLabel: "Live extract",
+        extractLabel: "Example extract",
         outLabel: "Delivery run board",
         parseLabel: "Build board",
         rowsLabel: "stops",
@@ -3690,7 +3712,7 @@ VALUE
         toolsId: "chase-tools",
         defaultSample: "open-a",
         sourceLabel: "Chase list sample",
-        extractLabel: "Live extract",
+        extractLabel: "Example extract",
         outLabel: "Chase board",
         parseLabel: "Build board",
         rowsLabel: "items",
@@ -3705,7 +3727,7 @@ VALUE
         toolsId: "invoice-tools",
         defaultSample: "inv-a",
         sourceLabel: "Invoice dump sample",
-        extractLabel: "Live extract",
+        extractLabel: "Example extract",
         outLabel: "Invoice / PO board",
         parseLabel: "Build board",
         rowsLabel: "invoices",
@@ -3720,7 +3742,7 @@ VALUE
         toolsId: "stock-tools",
         defaultSample: "stock-a",
         sourceLabel: "Stock count sample",
-        extractLabel: "Live extract",
+        extractLabel: "Example extract",
         outLabel: "Stock count board",
         parseLabel: "Build board",
         rowsLabel: "SKUs",
@@ -3875,7 +3897,7 @@ VALUE
     }
 
     function showSource(html) {
-      sourceView.innerHTML = html + '<div class="lock-hint">Demo structure only · production uses your real formats</div>';
+      sourceView.innerHTML = html + '<div class="lock-hint">Example structure only · not your finished desk</div>';
     }
 
     function showPlainSource(text) {
@@ -4431,7 +4453,7 @@ VALUE
         setStatus("", "Idle");
         setStats(0, 0, 0, 0);
         clearExtract();
-        footSummary.textContent = "Waiting for a sample";
+        footSummary.textContent = "Waiting for a demo sample";
         previewEl.classList.remove("is-live");
         setSmartRail(null);
         setGapList(null);
