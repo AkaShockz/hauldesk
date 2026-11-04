@@ -251,12 +251,19 @@
       border: 1px solid var(--line-dark); padding: 0.85rem;
       white-space: pre-wrap; word-break: break-word;
     }
-    .source-view.is-on { display: block; }
+    .source-view.is-on { display: block; cursor: text; }
     .source-view .beam {
       position: absolute; left: 0; right: 0; height: 2px;
       background: linear-gradient(90deg, transparent, var(--accent), transparent);
       opacity: 0; pointer-events: none;
       animation: beamSweep 1.15s var(--ease) forwards;
+    }
+    .source-view .edit-hint {
+      position: sticky; bottom: 0; left: 0;
+      margin-top: 0.75rem;
+      font-family: var(--mono); font-size: 0.62rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: rgba(244,245,247,0.35);
     }
     @keyframes beamSweep {
       0% { top: 8%; opacity: 0; }
@@ -741,7 +748,7 @@
               <button type="button" class="btn btn-ghost btn-sm" id="btn-csv" disabled>Download Excel</button>
             </div>
             <div class="run-meta">
-              <span>Colours = <b>ref</b> · <b style="color:#8fd4ae">owner</b> · <b style="color:#ffd27a">due</b> · detail</span>
+              <span>Paste <b>any</b> messy notes — we split, label, and flag gaps</span>
             </div>
           </div>
 
@@ -774,7 +781,7 @@
               <span data-f="c5">status</span>
             </div>
             <div class="table-wrap" id="table-wrap">
-              <div id="parse-empty" class="empty">Hit Play — watch fields light up and land in Excel.</div>
+              <div id="parse-empty" class="empty">Paste your own text or hit Play — rows appear here.</div>
               <table class="table" id="parse-table" hidden>
                 <thead>
                   <tr id="parse-head">
@@ -1157,28 +1164,66 @@
       rowTimers = [];
     }
 
+    var REF_TOKEN = /\b((?:INV|TKT|LEAD|SKU|ORD|JOB|DEL|[A-Z]{2,5})-?\d{2,6})\b/i;
+    var KNOWN_REF = /\b(?:INV|TKT|LEAD|SKU|ORD|JOB|DEL)-[0-9]+\b/i;
+
     function splitBlocks(text) {
       var raw = text.replace(/\r/g, "").trim();
       if (!raw) return [];
+
+      // Prefer blank-line paragraphs for free-form paste
       var byBlank = raw.split(/\n\s*\n+/).map(function (s) { return s.trim(); }).filter(Boolean);
-      if (byBlank.length > 1) {
-        return byBlank.filter(function (b) {
-          return /\b(?:INV|TKT|LEAD|SKU|ORD|JOB|DEL)-[0-9]+\b/i.test(b);
-        });
+      if (byBlank.length > 1) return byBlank;
+
+      // Numbered / bulleted list items
+      if (/(?:^|\n)\s*(?:\d+[\).\]]|-|\*|•)\s+\S/.test(raw)) {
+        var parts = raw.split(/(?:^|\n)\s*(?=(?:\d+[\).\]]|-|\*|•)\s+)/).map(function (s) {
+          return s.replace(/^\s*(?:\d+[\).\]]|-|\*|•)\s+/, "").trim();
+        }).filter(Boolean);
+        if (parts.length > 1) return parts;
       }
-      var lines = raw.split("\n");
-      var blocks = [];
-      var cur = [];
-      lines.forEach(function (line) {
-        if (/\b(?:INV|TKT|LEAD|SKU|ORD|JOB|DEL)-[0-9]+\b/i.test(line) && cur.length) {
-          blocks.push(cur.join("\n").trim());
-          cur = [line];
-        } else {
-          cur.push(line);
-        }
-      });
-      if (cur.length) blocks.push(cur.join("\n").trim());
-      return blocks.filter(Boolean);
+
+      // Known sample-style refs starting a new block
+      if (KNOWN_REF.test(raw)) {
+        var lines = raw.split("\n");
+        var blocks = [];
+        var cur = [];
+        lines.forEach(function (line) {
+          if (KNOWN_REF.test(line) && cur.length) {
+            blocks.push(cur.join("\n").trim());
+            cur = [line];
+          } else {
+            cur.push(line);
+          }
+        });
+        if (cur.length) blocks.push(cur.join("\n").trim());
+        if (blocks.length > 1) return blocks.filter(Boolean);
+      }
+
+      // Long single dump: split on lines that look like new items (Name — … / Name needs…)
+      var loose = raw.split(/\n+/).map(function (s) { return s.trim(); }).filter(Boolean);
+      if (loose.length >= 3) {
+        var grouped = [];
+        var buf = [];
+        loose.forEach(function (line, idx) {
+          var startsItem = /^(?:[A-Z][a-z]+(?:\s+[A-Z][a-z]+)?\b|REF\b|order\b|ticket\b|lead\b|job\b)/i.test(line)
+            && (/\b(due|owner|by|needs|call|chase|follow)\b/i.test(line) || line.length < 80);
+          if (startsItem && buf.length && idx > 0) {
+            grouped.push(buf.join("\n"));
+            buf = [line];
+          } else {
+            buf.push(line);
+          }
+        });
+        if (buf.length) grouped.push(buf.join("\n"));
+        if (grouped.length > 1) return grouped;
+      }
+
+      // Last resort: one row per non-empty line (if several), else whole text
+      if (loose.length >= 2 && loose.length <= 12 && loose.every(function (l) { return l.length < 120; })) {
+        return loose;
+      }
+      return [raw];
     }
 
     function fieldAfter(label, text) {
@@ -1188,28 +1233,70 @@
       return String(m[1]).replace(/\s+/g, " ").trim();
     }
 
-    function parseBlock(block) {
-      var refMatch = block.match(/\b((?:INV|TKT|LEAD|SKU|ORD|JOB|DEL)-[0-9]+)\b/i);
-      var ref = refMatch ? refMatch[1].toUpperCase() : "—";
-      var titleLine = block.split("\n")[0].replace(/\b(?:INV|TKT|LEAD|SKU|ORD|JOB|DEL)-[0-9]+\b/i, "").trim();
-      var customer = titleLine.replace(/^\(|\)$/g, "").trim() || "—";
-      if (/missing|blank|\?\?\?/i.test(customer)) customer = "—";
+    function cleanOwner(owner) {
+      owner = String(owner || "").replace(/^[^A-Za-z]+/, "").replace(/\s+/g, " ").trim();
+      if (!owner) return "";
+      if (/^(nobody|unassigned|blank|listed|missing|n\/?a|tbd|\?\?\?)(?:\s|$)/i.test(owner)) return "";
+      if (/nobody assigned|no owner|not assigned|unassigned|owner listed/i.test(owner)) return "";
+      if (owner.length > 28) owner = owner.slice(0, 26) + "…";
+      return owner;
+    }
 
-      var type = "Item";
+    function guessOwner(block) {
+      if (/\b(no owner|nobody assigned|unassigned|owner\s*:\s*$|owner\s*:\s*·)/i.test(block)) return "";
+      var owner = cleanOwner(fieldAfter("owner", block) || fieldAfter("driver", block));
+      if (owner) return owner;
+      var owns = block.match(/\b([A-Z][a-z]{1,20})\s+owns\b/);
+      if (owns) return owns[1];
+      var dash = block.match(/[—–-]\s*([A-Z][a-z]{1,20})\b/);
+      if (dash && !/due|today|tomorrow|mon|tue|wed|thu|fri/i.test(dash[1])) return dash[1];
+      var leadName = block.match(/^([A-Z][a-z]{1,20}(?:\s+[A-Z][a-z]{1,20})?)\b/);
+      if (leadName && !/order|ticket|lead|invoice|job|stock|chase|call/i.test(leadName[1])) return leadName[1];
+      return "";
+    }
+
+    function guessDue(block) {
+      var due = fieldAfter("due", block) || fieldAfter("window", block) || fieldAfter("by", block);
+      if (due) {
+        due = due.replace(/\s*(qty|priority|notes|source|count|shelf|net|driver|about)\b.*$/i, "").trim();
+        return due;
+      }
+      var m = block.match(/\b(today|tomorrow|mon|tue|wed|thu|fri|sat|sun|monday|tuesday|wednesday|thursday|friday|tbd)\b/i);
+      if (m) return m[1];
+      var time = block.match(/\b(\d{1,2}:\d{2}(?:\s*-\s*\d{1,2}:\d{2})?)\b/);
+      if (time) return time[1];
+      return "";
+    }
+
+    function parseBlock(block, index) {
+      var refMatch = block.match(REF_TOKEN);
+      var ref = refMatch ? refMatch[1].toUpperCase().replace(/^(INV|TKT|LEAD|SKU|ORD|JOB|DEL)(\d)/i, function (_, a, d) { return a.toUpperCase() + "-" + d; }) : "";
+      if (ref && !/-/.test(ref) && /[A-Z]+\d+/.test(ref)) {
+        ref = ref.replace(/([A-Z]+)(\d+)/, "$1-$2");
+      }
+      if (!ref) ref = "ROW-" + String(index + 1).padStart(3, "0");
+
+      var titleLine = block.split("\n")[0]
+        .replace(REF_TOKEN, "")
+        .replace(/^\s*(?:\d+[\).\]]|-|\*|•)\s+/, "")
+        .trim();
+      var customer = titleLine.replace(/^\(|\)$/g, "").trim() || "—";
+      customer = customer.replace(/\b(owner|due|driver|window|by)\b.*$/i, "").trim() || customer;
+      if (/missing|blank|\?\?\?|nobody/i.test(customer) || customer.length < 2) customer = "—";
+      if (customer.length > 28) customer = customer.slice(0, 26) + "…";
+
+      var type = "Note";
       if (/INV-/i.test(ref) || /\binvoice\b/i.test(block)) type = "Invoice";
       else if (/TKT-/i.test(ref) || /\bticket\b/i.test(block)) type = "Ticket";
       else if (/LEAD-/i.test(ref) || /\blead\b/i.test(block)) type = "Lead";
       else if (/SKU-/i.test(ref) || /\bstock\b|\bcount\b/i.test(block)) type = "Stock";
-      else if (/JOB-|DEL-/i.test(ref) || /\bdriver\b|\bwindow\b|\bdelivery\b/i.test(block)) type = "Delivery";
+      else if (/JOB-|DEL-|ORD-/i.test(ref) || /\bdriver\b|\bwindow\b|\bdelivery\b|\border\b/i.test(block)) type = "Delivery";
+      else if (/\bquote\b|\bchase\b|\bcall back\b/i.test(block)) type = "Chase";
 
-      var owner = fieldAfter("owner", block) || fieldAfter("driver", block);
-      if (/^(nobody|unassigned|blank|\(blank\)|\?\?\?|n\/?a)?$/i.test(owner) || /nobody assigned|no owner/i.test(owner)) {
-        owner = "—";
-      }
+      var owner = cleanOwner(guessOwner(block));
       if (!owner) owner = "—";
 
-      var due = fieldAfter("due", block) || fieldAfter("window", block);
-      due = due.replace(/\s*(qty|priority|notes|source|count|shelf|net|driver)\b.*$/i, "").trim();
+      var due = guessDue(block);
       if (!due || /^(tbd|\(blank\)|\?\?\?)$/i.test(due)) due = "—";
 
       var detail = "";
@@ -1217,8 +1304,9 @@
       if (fieldAfter("net", block)) {
         amount = fieldAfter("net", block);
         detail = amount;
-      } else if (fieldAfter("qty", block)) {
-        detail = "qty " + fieldAfter("qty", block);
+      } else if (fieldAfter("qty", block) || /\bqty\b|\bunits?\b/i.test(block)) {
+        var q = fieldAfter("qty", block) || (block.match(/\b(\d+)\s*units?\b/i) || [])[1] || "";
+        detail = q ? "qty " + q : "";
         amount = detail;
       } else if (fieldAfter("count", block)) {
         detail = "count " + fieldAfter("count", block);
@@ -1228,18 +1316,17 @@
         detail = fieldAfter("notes", block);
       } else if (fieldAfter("priority", block)) {
         detail = fieldAfter("priority", block);
-        var notes = fieldAfter("notes", block);
-        if (notes) detail += " · " + notes;
       } else if (fieldAfter("source", block)) {
         detail = fieldAfter("source", block);
-      } else {
-        detail = titleLine.slice(0, 34) || "—";
+      }
+      if (!detail) {
+        detail = titleLine.slice(0, 34) || block.replace(/\s+/g, " ").slice(0, 34) || "—";
       }
       if (detail.length > 34) detail = detail.slice(0, 32) + "…";
       if (!amount) amount = detail;
 
       var status = "Ready";
-      if (owner === "—" || due === "—" || customer === "—" || /TBD|missing|blank|\?\?|unknown|incomplete|half-filled|awaiting/i.test(block)) {
+      if (owner === "—" || due === "—" || customer === "—" || /TBD|missing|blank|\?\?|unknown|incomplete|half-filled|awaiting|nobody/i.test(block)) {
         status = "Flag";
       }
 
@@ -1295,7 +1382,16 @@
       var beam = document.createElement("div");
       beam.className = "beam";
       sourceView.appendChild(beam);
+      var hint = document.createElement("div");
+      hint.className = "edit-hint";
+      hint.textContent = "Click to edit paste";
+      sourceView.appendChild(hint);
     }
+
+    sourceView.addEventListener("click", function () {
+      showSourceEdit();
+      paste.focus();
+    });
 
     function highlightText(text, rows) {
       var html = esc(text);
@@ -1416,7 +1512,12 @@
       csvBtn.disabled = true;
       copyBtn.disabled = true;
 
-      var parsed = splitBlocks(text).map(parseBlock).filter(function (r) { return r.ref !== "—"; });
+      var blocks = splitBlocks(text);
+      var parsed = blocks.map(function (b, i) { return parseBlock(b, i); }).filter(function (r) {
+        return r && r.ref && String(r.detail || "").replace(/[—\s.]/g, "").length > 0;
+      });
+      // Cap very large pastes in the demo so the animation stays readable
+      if (parsed.length > 20) parsed = parsed.slice(0, 20);
       allRows = parsed;
 
       if (reduceMotion || opts.instant) {
