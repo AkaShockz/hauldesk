@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fastenly — Job sheets to Excel, daily boards, private ops desks</title>
+  <title>ParseDesk — Job sheets to Excel, daily boards, private ops desks</title>
   <meta name="description" content="Private automation desks for UK ops teams: job sheets to Excel, daily status boards, and delivery run boards. Guide prices — email the project for a real valuation. Deposit only after we agree; full refund if we can’t deliver." />
   <meta name="theme-color" content="#0e0e12" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230e0e12'/%3E%3Ccircle cx='16' cy='16' r='7.5' fill='none' stroke='%23e85d04' stroke-width='2.5'/%3E%3Cpath d='M16 11.5v9M12.5 16h7' stroke='%23e85d04' stroke-width='2' stroke-linecap='square'/%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230e0e12'/%3E%3Crect x='7' y='9' width='18' height='2.5' rx='1.2' fill='%23e85d04'/%3E%3Crect x='7' y='15' width='14' height='2.5' rx='1.2' fill='%23e85d04'/%3E%3Crect x='7' y='21' width='16' height='2.5' rx='1.2' fill='%23e85d04'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -98,6 +98,102 @@
       font-size: 1.35rem; letter-spacing: -0.03em;
     }
     .mark span { color: var(--accent); }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.62rem;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+    }
+    .brand-word {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(1.28rem, 2.5vw, 1.55rem);
+      letter-spacing: -0.045em;
+      line-height: 1;
+    }
+    .brand-word span { color: var(--accent); }
+    .brand-mark {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      flex: 0 0 auto;
+      filter: drop-shadow(0 8px 18px rgba(232,93,4,0.28));
+      animation: pdFloat 3.8s ease-in-out infinite;
+    }
+    .brand-mark svg { display: block; overflow: visible; }
+    .pd-raw > g {
+      animation: pdRaw 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+    .pd-raw > g:nth-child(2) { animation-delay: 0.1s; }
+    .pd-raw > g:nth-child(3) { animation-delay: 0.2s; }
+    .pd-clean rect {
+      opacity: 0;
+      transform-box: fill-box;
+      transform-origin: left center;
+      animation: pdClean 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+    .pd-clean rect:nth-child(1) { animation-delay: 0.12s; }
+    .pd-clean rect:nth-child(2) { animation-delay: 0.24s; }
+    .pd-clean rect:nth-child(3) { animation-delay: 0.36s; }
+    .pd-scan {
+      filter: drop-shadow(0 0 6px rgba(255,179,71,0.85));
+      animation: pdScan 3.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+    .pd-plate {
+      animation: pdPlate 3.8s ease-in-out infinite;
+    }
+    .brand-word span {
+      display: inline-block;
+      animation: pdAccent 3.8s ease-in-out infinite;
+    }
+    @keyframes pdFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-1.5px); }
+    }
+    @keyframes pdScan {
+      0%, 6% { transform: translateX(-2px); opacity: 0; }
+      12% { opacity: 1; }
+      42% { transform: translateX(24px); opacity: 0.95; }
+      52%, 100% { transform: translateX(24px); opacity: 0; }
+    }
+    @keyframes pdRaw {
+      0%, 10% { opacity: 1; }
+      30%, 78% { opacity: 0; }
+      92%, 100% { opacity: 1; }
+    }
+    @keyframes pdClean {
+      0%, 14% { opacity: 0; transform: scaleX(0.2); }
+      30%, 70% { opacity: 1; transform: scaleX(1); }
+      86%, 100% { opacity: 0; transform: scaleX(0.75); }
+    }
+    @keyframes pdPlate {
+      0%, 100% { stroke: rgba(244,245,247,0.2); }
+      35% { stroke: rgba(255,179,71,0.95); }
+      65% { stroke: rgba(232,93,4,0.55); }
+    }
+    @keyframes pdAccent {
+      0%, 100% { filter: brightness(1); }
+      35% { filter: brightness(1.18); }
+    }
+    .brand-footer {
+      gap: 0.42rem;
+      vertical-align: middle;
+    }
+    .brand-footer .brand-word {
+      font-size: 1rem;
+      color: var(--ink);
+    }
+    .brand-footer .brand-mark {
+      width: 1.35rem;
+      height: 1.35rem;
+      filter: none;
+    }
+    .brand-footer .pd-clean rect { opacity: 1; animation: none; }
     .topbar nav { display: flex; gap: 1.1rem; font-size: 0.88rem; color: rgba(244,245,247,0.55); }
     .topbar a { text-decoration: none; }
     .topbar a:hover { color: var(--white); }
@@ -950,17 +1046,21 @@
       --desk-pad: 1rem;
     }
 
-    .mark {
-      position: relative;
-      display: inline-block;
+    .brand {
+      animation: brandIn 0.7s var(--ease) both;
     }
-    .mark::after {
+    @keyframes brandIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: none; }
+    }
+    .brand::after {
       content: "";
-      position: absolute; left: 0; right: 0; bottom: -0.2rem; height: 2px;
+      position: absolute; left: 2.75rem; right: 0; bottom: -0.28rem; height: 2px;
       background: linear-gradient(90deg, var(--accent), transparent 80%);
       transform: scaleX(0.35); transform-origin: left;
-      animation: markRule 1.1s var(--ease) 0.2s forwards;
+      animation: markRule 1.1s var(--ease) 0.25s forwards;
     }
+    .brand-footer::after { display: none; }
     @keyframes markRule {
       to { transform: scaleX(1); }
     }
@@ -1219,15 +1319,24 @@
         background: rgba(0,0,0,0.22);
       }
       .build-item:hover, .step:hover { transform: none; background: transparent; }
-      .mark::after { animation: none; transform: scaleX(1); }
-      .hero-copy h1, .hero-copy p, .hero-copy .cta-row, .parser { animation: none; }
+      .brand::after { animation: none; transform: scaleX(1); }
+      .brand, .hero-copy h1, .hero-copy p, .hero-copy .cta-row, .parser { animation: none; }
+      .pd-raw > g, .pd-clean rect, .pd-scan, .pd-plate { animation: none; }
+      .pd-clean rect { opacity: 1; }
+      .pd-raw > g { opacity: 0; }
+      .pd-scan { opacity: 0; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .mark::after, .hero-copy h1, .hero-copy p, .hero-copy .cta-row, .parser, .dot {
+      .brand::after, .brand, .brand-mark, .brand-word span, .hero-copy h1, .hero-copy p, .hero-copy .cta-row, .parser, .dot,
+      .pd-raw > g, .pd-clean rect, .pd-scan, .pd-plate {
         animation: none !important;
       }
-      .mark::after { transform: scaleX(1); }
+      .brand::after { transform: scaleX(1); }
+      .pd-raw > g { opacity: 0; }
+      .pd-clean rect { opacity: 1; transform: none; }
+      .pd-scan { opacity: 0; }
+      .brand-mark { filter: none; transform: none; }
     }
 
     /* —— Page structure: preview band —— */
@@ -1499,9 +1608,9 @@
       mask-image: linear-gradient(180deg, rgba(0,0,0,0.55), transparent 78%);
     }
     .topbar { margin-bottom: 2.6rem; }
-    .mark {
-      font-size: clamp(1.4rem, 2.6vw, 1.65rem) !important;
-      letter-spacing: -0.045em;
+    .brand-word {
+      font-size: clamp(1.35rem, 2.6vw, 1.7rem) !important;
+      letter-spacing: -0.05em;
     }
     .hero-copy h1 {
       max-width: 12ch !important;
@@ -1789,7 +1898,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .pstep.is-on::after, .faq-list details p, .mark::after {
+      .pstep.is-on::after, .faq-list details p, .brand::after {
         animation: none !important;
       }
       .pstep.is-on::after { transform: none; opacity: 1; }
@@ -2088,7 +2197,7 @@
       padding-inline: 0.4rem;
       border-radius: 2px;
     }
-    footer.wrap .mark::after { display: none; }
+    footer.wrap .brand::after { display: none; }
 
     @media (max-width: 900px) {
       .voice-list { grid-template-columns: 1fr; gap: 1.25rem; }
@@ -2100,10 +2209,39 @@
 <body>
   <a class="skip" href="#preview">Skip to live desk</a>
 
-  <header class="hero">
+  <header class="hero" id="top">
     <div class="wrap">
       <div class="topbar">
-        <p class="mark">Fasten<span>ly</span></p>
+        <a class="brand" href="#top" aria-label="ParseDesk home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40" width="36" height="36" focusable="false">
+              <defs>
+                <linearGradient id="pd-glow" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#ffb347"/>
+                  <stop offset="100%" stop-color="#e85d04"/>
+                </linearGradient>
+                <clipPath id="pd-clip">
+                  <rect x="5" y="5" width="30" height="30" rx="7"/>
+                </clipPath>
+              </defs>
+              <rect class="pd-plate" x="4.5" y="4.5" width="31" height="31" rx="7.5" fill="rgba(255,255,255,0.04)" stroke="rgba(244,245,247,0.22)" stroke-width="1"/>
+              <g clip-path="url(#pd-clip)">
+                <g class="pd-raw">
+                  <g transform="rotate(-7 18 12)"><rect x="10" y="11" width="16" height="2.4" rx="1.2" fill="rgba(244,245,247,0.28)"/></g>
+                  <g transform="rotate(5 17 19)"><rect x="11" y="18" width="12" height="2.4" rx="1.2" fill="rgba(244,245,247,0.2)"/></g>
+                  <g transform="rotate(-4 17.5 26)"><rect x="10" y="25" width="15" height="2.4" rx="1.2" fill="rgba(244,245,247,0.16)"/></g>
+                </g>
+                <g class="pd-clean">
+                  <rect x="10" y="11.2" width="20" height="2.6" rx="1.3" fill="url(#pd-glow)"/>
+                  <rect x="10" y="18.2" width="16" height="2.6" rx="1.3" fill="url(#pd-glow)"/>
+                  <rect x="10" y="25.2" width="18" height="2.6" rx="1.3" fill="url(#pd-glow)"/>
+                </g>
+                <rect class="pd-scan" x="8" y="5" width="2.5" height="30" fill="url(#pd-glow)" opacity="0.9"/>
+              </g>
+            </svg>
+          </span>
+          <span class="brand-word">Parse<span>Desk</span></span>
+        </a>
         <nav aria-label="Page">
           <a href="#build">What we build</a>
           <a href="#preview">Try it</a>
@@ -2111,14 +2249,14 @@
           <a href="#faq">FAQ</a>
           <a href="#pilot">Price</a>
         </nav>
-        <a class="btn btn-primary btn-sm plausible-event-name=Email+Sample plausible-event-location=Nav" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Send a sample</a>
+        <a class="btn btn-primary btn-sm plausible-event-name=Email+Sample plausible-event-location=Nav" href="mailto:YOU@EXAMPLE.com?subject=ParseDesk%20sample">Send a sample</a>
       </div>
 
       <div class="hero-copy">
         <h1>Raw work in. Clean boards out.</h1>
         <p>Private automation desks for Excel, reports, and delivery. Open to other builds too — quoted from your brief.</p>
         <div class="cta-row">
-          <a class="btn btn-primary plausible-event-name=Email+Sample plausible-event-location=Hero" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Email a sample</a>
+          <a class="btn btn-primary plausible-event-name=Email+Sample plausible-event-location=Hero" href="mailto:YOU@EXAMPLE.com?subject=ParseDesk%20sample">Email a sample</a>
           <a class="btn btn-ghost plausible-event-name=Try+Desk plausible-event-location=Hero" href="#preview" id="btn-try-desk">Try the live desk</a>
         </div>
       </div>
@@ -2180,7 +2318,7 @@
       <p class="lead lead-light">Locked demos with the same desk layout — transport, daily boards, delivery, chase, invoice, stock. Demo data only.</p>
       <div class="preview-actions">
         <button type="button" class="btn btn-primary plausible-event-name=Play+Batch plausible-event-location=Preview" id="btn-replay">Play the batch</button>
-        <a class="btn btn-ghost plausible-event-name=Email+Sample plausible-event-location=Preview" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Email your sample</a>
+        <a class="btn btn-ghost plausible-event-name=Email+Sample plausible-event-location=Preview" href="mailto:YOU@EXAMPLE.com?subject=ParseDesk%20sample">Email your sample</a>
       </div>
       <div class="parser" id="desk" aria-label="Automation desk preview">
         <div class="parser-chrome">
@@ -2435,7 +2573,7 @@ VALUE
         </li>
       </ul>
       <div class="bridge-cta">
-        <a class="btn btn-ink plausible-event-name=Email+Sample plausible-event-location=Outcomes" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Send one real sample</a>
+        <a class="btn btn-ink plausible-event-name=Email+Sample plausible-event-location=Outcomes" href="mailto:YOU@EXAMPLE.com?subject=ParseDesk%20sample">Send one real sample</a>
         <p class="hint">Free sort the same week — PDF, Excel, or a screenshot of the board you use now.</p>
       </div>
     </div>
@@ -2534,7 +2672,7 @@ VALUE
             <li>Clean default look</li>
             <li>Training call + 14 days support</li>
           </ul>
-          <a class="btn btn-ink btn-sm plausible-event-name=Choose+Basic+Desk plausible-event-location=Price" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20Basic%20desk">Email for Basic valuation</a>
+          <a class="btn btn-ink btn-sm plausible-event-name=Choose+Basic+Desk plausible-event-location=Price" href="mailto:YOU@EXAMPLE.com?subject=ParseDesk%20Basic%20desk">Email for Basic valuation</a>
         </article>
 
         <article class="plan is-featured">
@@ -2548,7 +2686,7 @@ VALUE
             <li>Stronger first impression for staff</li>
             <li>One visual revision round</li>
           </ul>
-          <a class="btn btn-ink btn-sm plausible-event-name=Choose+Gold+Desk plausible-event-location=Price" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20Gold%20desk">Email for Gold valuation</a>
+          <a class="btn btn-ink btn-sm plausible-event-name=Choose+Gold+Desk plausible-event-location=Price" href="mailto:YOU@EXAMPLE.com?subject=ParseDesk%20Gold%20desk">Email for Gold valuation</a>
         </article>
 
         <article class="plan">
@@ -2557,12 +2695,12 @@ VALUE
           <p class="amount">from £1,495 <small>guide · +£700</small></p>
           <p class="blurb">A richer visual finish — tighter layout, stronger hierarchy, and more polish across the desk.</p>
           <ul>
-            <li>Higher visual finish than Basic and Gold</li>
+            <li>More visually pleasing overall</li>
             <li>Custom visual system + motion</li>
             <li>Extra polish pass across key screens</li>
             <li>Two visual revision rounds</li>
           </ul>
-          <a class="btn btn-ink btn-sm plausible-event-name=Choose+Premium+Desk plausible-event-location=Price" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20Premium%20desk">Email for Premium valuation</a>
+          <a class="btn btn-ink btn-sm plausible-event-name=Choose+Premium+Desk plausible-event-location=Price" href="mailto:YOU@EXAMPLE.com?subject=ParseDesk%20Premium%20desk">Email for Premium valuation</a>
         </article>
       </div>
 
@@ -2575,7 +2713,7 @@ VALUE
           <li>We size the workload and reply with a real figure</li>
           <li>You only deposit after that valuation is agreed</li>
         </ul>
-        <a class="btn btn-ink plausible-event-name=Custom+Brief plausible-event-location=Price" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20project%20valuation">Email for a valuation</a>
+        <a class="btn btn-ink plausible-event-name=Custom+Brief plausible-event-location=Price" href="mailto:YOU@EXAMPLE.com?subject=ParseDesk%20project%20valuation">Email for a valuation</a>
       </div>
 
       <p class="subhead">Hosting (monthly · desks)</p>
@@ -2595,7 +2733,7 @@ VALUE
       </div>
 
       <p class="promise" id="refund-promise">Real valuation by email first. Deposit only after that figure is agreed (50% to start, 50% on go-live). If we can’t build what you asked for, you get a full refund.</p>
-      <a class="btn btn-ink plausible-event-name=Start+Brief plausible-event-location=Price" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20project%20valuation">Email the project</a>
+      <a class="btn btn-ink plausible-event-name=Start+Brief plausible-event-location=Price" href="mailto:YOU@EXAMPLE.com?subject=ParseDesk%20project%20valuation">Email the project</a>
     </div>
   </div>
 
@@ -2606,15 +2744,15 @@ VALUE
       <p class="lead">We’ll sort a free test the same week.</p>
       <p class="attach-hint">Attach a PDF, Excel export, or a screenshot of the board you use now. Redact plates and customer details if you want — fictionalised samples are fine for a first pass.</p>
       <div class="cta-row">
-        <a class="btn btn-primary plausible-event-name=Email+Sample plausible-event-location=Contact" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample" style="color:#1a0a00">Email a sample</a>
-        <a class="btn btn-ink plausible-event-name=Book+Call plausible-event-location=Contact" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20pilot">Book a call</a>
+        <a class="btn btn-primary plausible-event-name=Email+Sample plausible-event-location=Contact" href="mailto:YOU@EXAMPLE.com?subject=ParseDesk%20sample" style="color:#1a0a00">Email a sample</a>
+        <a class="btn btn-ink plausible-event-name=Book+Call plausible-event-location=Contact" href="mailto:YOU@EXAMPLE.com?subject=ParseDesk%20pilot">Book a call</a>
       </div>
       <p class="trust-line">Email the project for a real valuation · deposit only after that figure is agreed · full refund if we can’t build it · hosting from £49/mo when you want it live.</p>
     </div>
   </section>
 
   <footer class="wrap" id="site-footer">
-    <p><span class="mark">Fasten<span>ly</span></span> — sample in, clean board out</p>
+    <p><span class="brand brand-footer" aria-label="ParseDesk"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40" width="22" height="22" focusable="false"><rect class="pd-plate" x="4.5" y="4.5" width="31" height="31" rx="7.5" fill="rgba(18,19,24,0.04)" stroke="rgba(18,19,24,0.18)" stroke-width="1"/><g class="pd-clean"><rect x="10" y="11.2" width="20" height="2.6" rx="1.3" fill="#e85d04"/><rect x="10" y="18.2" width="16" height="2.6" rx="1.3" fill="#e85d04"/><rect x="10" y="25.2" width="18" height="2.6" rx="1.3" fill="#e85d04"/></g></svg></span><span class="brand-word">Parse<span>Desk</span></span></span> — sample in, clean board out</p>
     <p><a href="mailto:YOU@EXAMPLE.com">YOU@EXAMPLE.com</a> · <a href="#faq">FAQ</a> · <a href="#pilot">Price</a></p>
     <p class="privacy-line">Samples you email are used only to scope your desk — not sold, shared, or used for marketing.</p>
   </footer>
@@ -2622,7 +2760,7 @@ VALUE
   <div class="sticky-cta" id="sticky-cta" hidden>
     <div class="sticky-cta-inner">
       <p class="sticky-cta-copy"><strong>Got a sample?</strong> Free sort the same week.</p>
-      <a class="btn btn-primary btn-sm plausible-event-name=Email+Sample plausible-event-location=Sticky+Bar" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Email a sample</a>
+      <a class="btn btn-primary btn-sm plausible-event-name=Email+Sample plausible-event-location=Sticky+Bar" href="mailto:YOU@EXAMPLE.com?subject=ParseDesk%20sample">Email a sample</a>
     </div>
   </div>
 
