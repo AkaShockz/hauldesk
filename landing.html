@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hauldesk — Job sheets to Excel, without the retyping</title>
+  <meta name="description" content="Custom job-sheet parsers for UK vehicle transport teams. Paste or upload. Preview. Download clean Excel." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #122018;
+      --ink-soft: #3a4a40;
+      --paper: #e8efe6;
+      --mist: #c5d4c8;
+      --field: #1a3d2e;
+      --field-deep: #0d241a;
+      --signal: #d6b23a;
+      --signal-hover: #c09e2a;
+      --signal-ink: #122018;
+      --line: rgba(18, 32, 24, 0.12);
+      --glow: rgba(214, 178, 58, 0.35);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+
+    .wrap {
+      width: min(1120px, calc(100% - 2.5rem));
+      margin-inline: auto;
+    }
+
+    /* —— Hero: one composition, brand-first, full-bleed —— */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+      color: #f3f7f2;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 20%, rgba(214, 178, 58, 0.22), transparent 55%),
+        radial-gradient(ellipse 50% 40% at 10% 80%, rgba(90, 140, 110, 0.25), transparent 50%),
+        linear-gradient(165deg, var(--field-deep) 0%, var(--field) 45%, #243d30 100%);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(243, 247, 242, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(243, 247, 242, 0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, black 40%, transparent 95%);
+      pointer-events: none;
+      animation: gridDrift 28s linear infinite;
+    }
+
+    @keyframes gridDrift {
+      from { background-position: 0 0; }
+      to { background-position: 48px 48px; }
+    }
+
+    .hero-road {
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 42%;
+      background:
+        linear-gradient(to top, rgba(8, 18, 12, 0.85), transparent),
+        repeating-linear-gradient(
+          90deg,
+          transparent 0,
+          transparent 70px,
+          rgba(243, 247, 242, 0.08) 70px,
+          rgba(243, 247, 242, 0.08) 74px
+        );
+      transform: perspective(400px) rotateX(52deg);
+      transform-origin: bottom center;
+      opacity: 0.55;
+      animation: roadPulse 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes roadPulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.65; }
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      padding: 2rem 0 4.5rem;
+    }
+
+    .brand {
+      font-family: "Fraunces", serif;
+      font-weight: 700;
+      font-size: clamp(2.75rem, 8vw, 5.5rem);
+      letter-spacing: -0.03em;
+      line-height: 0.95;
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      animation: rise 0.9s ease forwards 0.1s;
+    }
+
+    .brand span {
+      color: var(--signal);
+    }
+
+    .hero h1 {
+      font-family: "Fraunces", serif;
+      font-weight: 500;
+      font-size: clamp(1.35rem, 3.2vw, 2rem);
+      max-width: 18ch;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.85rem;
+      opacity: 0;
+      animation: rise 0.9s ease forwards 0.25s;
+    }
+
+    .hero-lead {
+      font-size: 1.05rem;
+      color: rgba(243, 247, 242, 0.78);
+      max-width: 36ch;
+      margin-bottom: 1.75rem;
+      opacity: 0;
+      animation: rise 0.9s ease forwards 0.4s;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      opacity: 0;
+      animation: rise 0.9s ease forwards 0.55s;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem 1.35rem;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: var(--signal);
+      color: var(--signal-ink);
+    }
+    .btn-primary:hover { background: var(--signal-hover); }
+
+    .btn-ghost {
+      background: transparent;
+      color: #f3f7f2;
+      border: 1px solid rgba(243, 247, 242, 0.35);
+    }
+    .btn-ghost:hover { border-color: #f3f7f2; }
+
+    /* —— Sections —— */
+    section {
+      padding: 4.5rem 0;
+    }
+
+    section + section {
+      border-top: 1px solid var(--line);
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-family: "Fraunces", serif;
+      font-weight: 700;
+      font-size: clamp(1.75rem, 3.5vw, 2.35rem);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 0.65rem;
+      max-width: 18ch;
+    }
+
+    .section-lead {
+      color: var(--ink-soft);
+      max-width: 42ch;
+      margin-bottom: 2rem;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      counter-reset: step;
+    }
+
+    .flow-step {
+      padding-top: 1rem;
+      border-top: 2px solid var(--field);
+      counter-increment: step;
+    }
+
+    .flow-step::before {
+      content: "0" counter(step);
+      display: block;
+      font-family: "Fraunces", serif;
+      font-size: 0.9rem;
+      color: var(--signal);
+      margin-bottom: 0.5rem;
+    }
+
+    .flow-step h3 {
+      font-family: "Fraunces", serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .flow-step p {
+      color: var(--ink-soft);
+      font-size: 0.95rem;
+    }
+
+    .offer-block {
+      background: var(--field-deep);
+      color: #f3f7f2;
+      padding: 4.5rem 0;
+    }
+
+    .offer-block h2 { color: #f3f7f2; }
+    .offer-block .section-lead { color: rgba(243, 247, 242, 0.7); }
+
+    .price {
+      font-family: "Fraunces", serif;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 700;
+      margin: 1.5rem 0 0.5rem;
+    }
+
+    .price span {
+      font-family: "DM Sans", sans-serif;
+      font-size: 1rem;
+      font-weight: 400;
+      color: rgba(243, 247, 242, 0.65);
+    }
+
+    .offer-note {
+      color: rgba(243, 247, 242, 0.65);
+      max-width: 40ch;
+      margin-bottom: 1.5rem;
+    }
+
+    .fit {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .fit ul {
+      list-style: none;
+      margin-top: 1rem;
+    }
+
+    .fit li {
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink-soft);
+    }
+
+    .fit li strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    footer {
+      padding: 2.5rem 0 3rem;
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+    }
+
+    footer .brand-sm {
+      font-family: "Fraunces", serif;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    @media (max-width: 720px) {
+      .flow, .fit { grid-template-columns: 1fr; }
+      .hero-inner { padding-bottom: 3.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-road" aria-hidden="true"></div>
+    <div class="wrap hero-inner">
+      <p class="brand">Haul<span>desk</span></p>
+      <h1>Job sheets in. Clean Excel out.</h1>
+      <p class="hero-lead">
+        Built for UK vehicle transport teams tired of retyping collections and deliveries every morning.
+      </p>
+      <div class="cta-row">
+        <!-- Replace with your email / Calendly -->
+        <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Hauldesk%20pilot">Book a 15-minute call</a>
+        <a class="btn btn-ghost" href="#how">See how it works</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="how">
+    <div class="wrap">
+      <p class="section-label">How it works</p>
+      <h2>One desk for messy job formats</h2>
+      <p class="section-lead">
+        We wire your real job sheets into a private login site. Your team pastes or uploads; Hauldesk checks addresses and exports the Excel you already use.
+      </p>
+      <div class="flow">
+        <div class="flow-step">
+          <h3>Send one sample</h3>
+          <p>A redacted job sheet or paste from the format you use most.</p>
+        </div>
+        <div class="flow-step">
+          <h3>We build the parser</h3>
+          <p>Hosted for your company only — users, history, Excel download.</p>
+        </div>
+        <div class="flow-step">
+          <h3>Ops runs mornings faster</h3>
+          <p>Preview before export. Fewer mistyped postcodes. Same spreadsheet layout.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="offer-block" id="pilot">
+    <div class="wrap">
+      <p class="section-label" style="color: var(--signal);">Pilot offer</p>
+      <h2>First format live in two weeks</h2>
+      <p class="section-lead">
+        One job type, private site, training call. Expand to more formats when the first one sticks.
+      </p>
+      <p class="price">£2,500 <span>+ £149/month hosting</span></p>
+      <p class="offer-note">Extra formats from £500. No multi-year lock-in — cancel hosting anytime; you keep your export files.</p>
+      <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Hauldesk%20pilot%20—%20first%20format">Start with one format</a>
+    </div>
+  </div>
+
+  <section id="fit">
+    <div class="wrap">
+      <p class="section-label">Fit</p>
+      <h2>Made for transport ops, not generic SaaS</h2>
+      <div class="fit">
+        <div>
+          <ul>
+            <li><strong>Car &amp; van delivery fleets</strong> juggling OEM and compound sheets</li>
+            <li><strong>Dealer logistics</strong> moving stock between sites</li>
+            <li><strong>Compounds &amp; ports</strong> turning manifests into driver work</li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li><strong>Not a fit</strong> if you only need a shared Google Sheet</li>
+            <li><strong>Not a fit</strong> if every job is already in one TMS with clean APIs</li>
+            <li><strong>Strong fit</strong> if someone still copies from PDF/email into Excel</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="wrap">
+    <p><span class="brand-sm">Hauldesk</span> — job-sheet automation for vehicle transport</p>
+    <p><a href="mailto:YOU@EXAMPLE.com">YOU@EXAMPLE.com</a></p>
+  </footer>
+</body>
+</html>
