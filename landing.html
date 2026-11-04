@@ -1040,6 +1040,8 @@
     .toast.show {
       opacity: 1;
       transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+      z-index: 90;
     }
 
     .sr-only {
@@ -1383,6 +1385,275 @@
       }
       html { scroll-behavior: auto; }
     }
+
+    /* —— Pass: 5 new + 5 improved —— */
+    .cmd {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: none;
+      place-items: start center;
+      padding-top: min(18vh, 8rem);
+      background: rgba(8, 8, 12, 0.55);
+      backdrop-filter: blur(6px);
+    }
+    .cmd.is-open { display: grid; }
+    .cmd-box {
+      width: min(34rem, calc(100% - 2rem));
+      border: 1px solid var(--line-dark);
+      background: #121218;
+      color: var(--white);
+      box-shadow: 0 28px 80px rgba(0,0,0,0.45);
+    }
+    .cmd-box input {
+      width: 100%;
+      border: 0;
+      border-bottom: 1px solid var(--line-dark);
+      background: transparent;
+      color: var(--white);
+      padding: 0.95rem 1rem;
+      font-size: 0.95rem;
+      outline: none;
+    }
+    .cmd-list { max-height: 18rem; overflow: auto; padding: 0.35rem; }
+    .cmd-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      width: 100%;
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: rgba(244,245,247,0.78);
+      text-align: left;
+      padding: 0.65rem 0.7rem;
+      cursor: pointer;
+      font-size: 0.88rem;
+    }
+    .cmd-item:hover, .cmd-item.is-active {
+      background: rgba(232, 93, 4, 0.14);
+      color: var(--white);
+    }
+    .cmd-item kbd {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: rgba(244,245,247,0.4);
+      letter-spacing: 0.04em;
+    }
+    .cmd-hint {
+      padding: 0.55rem 0.85rem 0.7rem;
+      border-top: 1px solid var(--line-dark);
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(244,245,247,0.4);
+    }
+
+    .calc {
+      margin-top: 1.5rem;
+      padding-top: 1.15rem;
+      border-top: 1px solid var(--line);
+    }
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 0.85rem;
+    }
+    .calc label {
+      display: grid;
+      gap: 0.35rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--mute);
+    }
+    .calc input {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      padding: 0.55rem 0.65rem;
+      font-size: 1rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .calc-out {
+      font-family: var(--display);
+      font-size: clamp(1.35rem, 2.5vw, 1.7rem);
+      letter-spacing: -0.03em;
+      line-height: 1.25;
+    }
+    .calc-out strong { color: var(--accent-2); }
+    .calc-note { color: var(--mute); font-size: 0.85rem; margin-top: 0.35rem; max-width: 42ch; }
+
+    .monday {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 0.5rem;
+      border-top: 2px solid var(--ink);
+    }
+    .monday article {
+      padding: 1.15rem 1rem 1.15rem 0;
+      border-right: 1px solid var(--line);
+    }
+    .monday article:last-child { border-right: 0; padding-right: 0; }
+    .monday .when {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.45rem;
+    }
+    .monday h3 {
+      font-family: var(--display);
+      font-size: 1.12rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.3rem;
+    }
+    .monday p { color: var(--mute); font-size: 0.92rem; max-width: 28ch; }
+
+    .diff-toggle {
+      display: flex;
+      gap: 0.35rem;
+      margin-bottom: 0.7rem;
+    }
+    .diff-toggle button {
+      appearance: none;
+      border: 1px solid var(--line-dark);
+      background: transparent;
+      color: rgba(244,245,247,0.65);
+      padding: 0.35rem 0.6rem;
+      font-size: 0.72rem;
+      font-family: var(--mono);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .diff-toggle button[aria-pressed="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #1a0a00;
+    }
+    .diff-view {
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--line-dark);
+      background: rgba(0,0,0,0.28);
+      margin-bottom: 0.85rem;
+    }
+    .diff-view.is-on { display: grid; }
+    .diff-view .side {
+      padding: 0.75rem;
+      min-width: 0;
+      max-height: 180px;
+      overflow: auto;
+    }
+    .diff-view .side + .side { border-left: 1px solid var(--line-dark); }
+    .diff-view pre {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      line-height: 1.45;
+      color: rgba(244,245,247,0.72);
+      white-space: pre-wrap;
+    }
+    .diff-view .hit { color: #ffb070; }
+
+    .desk.is-focus {
+      position: relative;
+      z-index: 40;
+      min-height: 100svh;
+      padding-top: 5.5rem;
+      box-shadow: 0 0 0 100vmax rgba(8,8,12,0.72);
+    }
+    .focus-btn {
+      appearance: none;
+      border: 1px solid var(--line-dark);
+      background: transparent;
+      color: rgba(244,245,247,0.65);
+      padding: 0.25rem 0.45rem;
+      font-size: 0.65rem;
+      font-family: var(--mono);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .focus-btn:hover { color: var(--white); border-color: rgba(244,245,247,0.4); }
+
+    .toast {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .toast button {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.78rem;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .demo-stage {
+      position: relative;
+    }
+    .demo.is-paused .demo-stage[aria-current="true"]::after {
+      content: "paused";
+      position: absolute;
+      right: -0.2rem;
+      top: -0.55rem;
+      font-size: 0.55rem;
+      letter-spacing: 0.08em;
+      color: var(--accent-2);
+    }
+    .demo-pct {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      color: var(--mute);
+      margin-left: auto;
+      margin-right: 0.5rem;
+    }
+
+    .topnav-links a.is-active { color: var(--white); }
+    .topnav-links a.is-active::after {
+      content: "";
+      display: block;
+      height: 2px;
+      margin-top: 0.15rem;
+      background: var(--accent);
+    }
+
+    .sev {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin: 0.55rem 0 0.75rem;
+    }
+    .sev span {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.45rem;
+      border: 1px solid var(--line-dark);
+      color: rgba(244,245,247,0.7);
+    }
+    .sev .bad { border-color: rgba(232,93,4,0.45); color: #ffb070; }
+    .sev .ok { border-color: rgba(31,122,76,0.45); color: #8fd4ae; }
+
+    @media (max-width: 900px) {
+      .monday, .calc-grid, .diff-view.is-on { grid-template-columns: 1fr; }
+      .monday article { border-right: 0; border-bottom: 1px solid var(--line); padding-right: 0; }
+      .diff-view .side + .side { border-left: 0; border-top: 1px solid var(--line-dark); }
+    }
+
   </style>
 </head>
 <body>
@@ -1391,9 +1662,10 @@
   <nav class="topnav" id="topnav" aria-label="Primary">
     <a class="mark" href="#">Fasten<span>ly</span></a>
     <div class="topnav-links">
-      <a class="hide-sm" href="#automation">Automation</a>
-      <a class="hide-sm" href="#desk">Desk</a>
-      <a class="hide-sm" href="#process">Process</a>
+      <a class="hide-sm" href="#automation" data-nav="automation">Automation</a>
+      <a class="hide-sm" href="#desk" data-nav="desk">Desk</a>
+      <a class="hide-sm" href="#monday" data-nav="monday">Monday</a>
+      <a class="hide-sm" href="#process" data-nav="process">Process</a>
       <a class="btn btn-primary" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample">Email a sample</a>
     </div>
   </nav>
@@ -1437,6 +1709,7 @@
             <button type="button" class="demo-stage" data-stage="2" aria-current="false">03 Flag</button>
             <button type="button" class="demo-stage" data-stage="3" aria-current="false">04 Export</button>
           </div>
+          <span class="demo-pct" id="demo-pct">1 / 4</span>
           <button type="button" class="btn btn-ghost" id="btn-demo-replay" style="min-height:2.1rem;padding:0.35rem 0.7rem;font-size:0.8rem;border-color:var(--line);color:var(--ink)">Replay</button>
         </div>
         <div class="demo-track" aria-hidden="true"><span id="demo-track-bar"></span></div>
@@ -1565,10 +1838,11 @@
       <h2>Same desk. Different modules.</h2>
       <p class="lead">Parse is live. Checks, merge, and custom modules run as interactive previews.</p>
 
-      <div class="desk-chrome" aria-hidden="true">
+      <div class="desk-chrome">
         <span><strong id="desk-clock">--:--</strong> desk session</span>
         <span>module <strong id="desk-module">parse</strong></span>
-        <span>shortcuts <kbd>1</kbd>–<kbd>4</kbd> · <kbd>⌘</kbd>/<kbd>Ctrl</kbd>+<kbd>Enter</kbd> parse</span>
+        <span>shortcuts <kbd>1</kbd>–<kbd>4</kbd> · <kbd>⌘</kbd>/<kbd>Ctrl</kbd>+<kbd>Enter</kbd> · <kbd>⌘</kbd>/<kbd>Ctrl</kbd>+<kbd>K</kbd></span>
+        <button type="button" class="focus-btn" id="btn-focus" aria-pressed="false">Focus desk</button>
       </div>
 
       <div class="tabs" role="tablist" aria-label="Modules">
@@ -1611,6 +1885,14 @@
           </div>
           <div class="pane">
             <p class="label">Preview</p>
+            <div class="diff-toggle" role="group" aria-label="View mode">
+              <button type="button" id="view-rows" aria-pressed="true">Rows</button>
+              <button type="button" id="view-diff" aria-pressed="false">Diff</button>
+            </div>
+            <div class="diff-view" id="diff-view" aria-hidden="true">
+              <div class="side"><p class="label">Raw</p><pre id="diff-raw"></pre></div>
+              <div class="side"><p class="label">Structured</p><pre id="diff-structured"></pre></div>
+            </div>
             <div class="filters" role="group" aria-label="Filter">
               <button type="button" class="filter" data-filter="all" aria-pressed="true">All</button>
               <button type="button" class="filter" data-filter="Order" aria-pressed="false">Orders</button>
@@ -1657,6 +1939,13 @@
             <div class="pane">
               <p class="label">Summary</p>
               <div class="meta" id="checks-summary"><span>Waiting…</span></div>
+              <div class="sev" id="checks-sev" hidden>
+                <span class="bad" id="sev-bad">0 flags</span>
+                <span class="ok" id="sev-ok">0 ready</span>
+              </div>
+              <div class="actions">
+                <button type="button" class="btn btn-ghost" id="btn-copy-flags" disabled>Copy exceptions</button>
+              </div>
               <ul style="margin-top:0.85rem">
                 <li><strong>Flag</strong> missing owners, dues, IDs</li>
                 <li><strong>Highlight</strong> TBD / incomplete values</li>
@@ -1717,7 +2006,15 @@ LEAD-904 · Harbor Ltd · Sam · Mon</pre>
     </div>
   </div>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"><span id="toast-msg"></span><button type="button" id="toast-action" hidden>Undo</button></div>
+
+  <div class="cmd" id="cmd" role="dialog" aria-modal="true" aria-label="Command palette" hidden>
+    <div class="cmd-box">
+      <input id="cmd-input" type="text" placeholder="Jump, load sample, run module…" autocomplete="off" />
+      <div class="cmd-list" id="cmd-list"></div>
+      <div class="cmd-hint">Esc close · ↑↓ move · Enter run · ⌘K / Ctrl K open</div>
+    </div>
+  </div>
 
   <div class="offer reveal" id="pilot">
     <div class="wrap">
@@ -1737,6 +2034,15 @@ LEAD-904 · Harbor Ltd · Sam · Mon</pre>
             <li>Training call + 14 days email support</li>
           </ul>
           <p class="note">Extra modules from £195 once scoped. Cancel hosting anytime — keep every file you exported.</p>
+          <div class="calc" id="roi-calc">
+            <div class="calc-grid">
+              <label>Hours / week wasted<input id="roi-hours" type="number" min="1" max="40" value="4" /></label>
+              <label>People on the loop<input id="roi-people" type="number" min="1" max="30" value="2" /></label>
+              <label>£ / hour (loaded)<input id="roi-rate" type="number" min="10" max="200" value="35" /></label>
+            </div>
+            <p class="calc-out" id="roi-out">About <strong>£1,120</strong> / month of grind</p>
+            <p class="calc-note">Pilot pays back when you clear roughly one busy afternoon a week.</p>
+          </div>
           <a class="btn btn-ink" href="mailto:YOU@EXAMPLE.com?subject=Fastenly%20pilot">Start for £795</a>
         </div>
         <aside class="compare" aria-label="Cost comparison">
@@ -1763,6 +2069,37 @@ LEAD-904 · Harbor Ltd · Sam · Mon</pre>
       </div>
     </div>
   </div>
+
+
+  <section id="monday" class="reveal">
+    <div class="wrap">
+      <p class="kicker">After go-live</p>
+      <h2>What Monday morning looks like</h2>
+      <p class="lead">The desk is already warm. Your team opens one login and the worst loop is gone.</p>
+      <div class="monday">
+        <article>
+          <p class="when">09:05</p>
+          <h3>Paste the pile</h3>
+          <p>Inbound notes land in Module 01 — no retyping into the sheet.</p>
+        </article>
+        <article>
+          <p class="when">09:07</p>
+          <h3>Flags surface</h3>
+          <p>Missing owners and TBD dues light up before anything is handed off.</p>
+        </article>
+        <article>
+          <p class="when">09:10</p>
+          <h3>Export once</h3>
+          <p>Copy or CSV into the board you already run. History stays on the desk.</p>
+        </article>
+        <article>
+          <p class="when">Later</p>
+          <h3>Stack the next</h3>
+          <p>Checks, merge, chase — same login, no rebuild when the next grind shows up.</p>
+        </article>
+      </div>
+    </div>
+  </section>
 
   <section id="fit" class="reveal">
     <div class="wrap">
@@ -1968,6 +2305,8 @@ LEAD-904 · Harbor Ltd · Sam · Mon</pre>
           bar.style.width = (100 / stages.length) + "%";
           bar.style.marginLeft = (idx * (100 / stages.length)) + "%";
         }
+        var pct = document.getElementById("demo-pct");
+        if (pct) pct.textContent = (idx + 1) + " / " + stages.length;
         renderResult(s.result);
         if (userDriven) restartAuto();
       }
@@ -1996,6 +2335,18 @@ LEAD-904 · Harbor Ltd · Sam · Mon</pre>
       showStage(0, false);
       restartAuto();
 
+      var demoRoot = document.getElementById("auto-demo");
+      if (demoRoot && !reduceMotion) {
+        demoRoot.addEventListener("mouseenter", function () {
+          clearInterval(timer);
+          demoRoot.classList.add("is-paused");
+        });
+        demoRoot.addEventListener("mouseleave", function () {
+          demoRoot.classList.remove("is-paused");
+          restartAuto();
+        });
+      }
+
       if ("IntersectionObserver" in window && !reduceMotion) {
         var demo = document.getElementById("auto-demo");
         var observer = new IntersectionObserver(function (entries) {
@@ -2020,35 +2371,79 @@ LEAD-904 · Harbor Ltd · Sam · Mon</pre>
         { cls: "ac", text: "// modules online" },
         { cls: "", text: "parse · checks · merge · chase" }
       ];
-      function paint(withCaret) {
+      var lineEls = [];
+      function setupLines() {
         if (!stream) return;
         stream.innerHTML = "";
+        lineEls = [];
         lines.forEach(function (line, i) {
           var div = document.createElement("div");
           if (line.cls) div.className = line.cls;
           div.classList.add("line");
-          div.style.animationDelay = (i * 0.08) + "s";
-          div.textContent = line.text;
-          if (withCaret && i === lines.length - 1) {
-            var caret = document.createElement("span");
-            caret.className = "caret";
-            caret.setAttribute("aria-hidden", "true");
-            div.appendChild(caret);
-          }
           if (i === 4) div.style.marginTop = "0.85rem";
           stream.appendChild(div);
+          lineEls.push(div);
         });
       }
-      paint(!reduce);
-      if (!reduce) setInterval(function () { paint(true); }, 5200);
+      function typeLine(i, done) {
+        if (!lineEls[i]) { if (done) done(); return; }
+        var full = lines[i].text;
+        var el = lineEls[i];
+        el.textContent = "";
+        var caret = document.createElement("span");
+        caret.className = "caret";
+        caret.setAttribute("aria-hidden", "true");
+        el.appendChild(caret);
+        var n = 0;
+        function step() {
+          n += 1;
+          el.textContent = full.slice(0, n);
+          if (n < full.length) {
+            el.appendChild(caret);
+            setTimeout(step, reduce ? 0 : 12);
+          } else {
+            if (i === lines.length - 1) el.appendChild(caret);
+            else caret.remove();
+            if (done) done();
+          }
+        }
+        step();
+      }
+      function runHero() {
+        setupLines();
+        if (reduce) {
+          lines.forEach(function (line, i) { lineEls[i].textContent = line.text; });
+          return;
+        }
+        var i = 0;
+        function next() {
+          typeLine(i, function () {
+            i += 1;
+            if (i < lines.length) setTimeout(next, 90);
+            else setTimeout(runHero, 4200);
+          });
+        }
+        next();
+      }
+      runHero();
 
       var progress = document.getElementById("scroll-progress");
       var topnav = document.getElementById("topnav");
+      var navLinks = Array.prototype.slice.call(document.querySelectorAll("#topnav [data-nav]"));
+      var navTargets = navLinks.map(function (a) {
+        return { id: a.getAttribute("data-nav"), el: document.getElementById(a.getAttribute("data-nav")), a: a };
+      }).filter(function (t) { return t.el; });
       function onScroll() {
         var max = document.documentElement.scrollHeight - window.innerHeight;
         var p = max > 0 ? (window.scrollY / max) * 100 : 0;
         if (progress) progress.style.width = p + "%";
         if (topnav) topnav.classList.toggle("is-on", window.scrollY > window.innerHeight * 0.72);
+        var active = null;
+        navTargets.forEach(function (t) {
+          var top = t.el.getBoundingClientRect().top;
+          if (top <= 120) active = t;
+        });
+        navLinks.forEach(function (a) { a.classList.toggle("is-active", active && a.getAttribute("data-nav") === active.id); });
       }
       window.addEventListener("scroll", onScroll, { passive: true });
       onScroll();
@@ -2106,11 +2501,37 @@ LEAD-904 · Harbor Ltd · Sam · Mon</pre>
       var DUE = /\bDue:\s*([^\n]+)/i;
       var DETAIL = /\b(?:Detail|Notes|Items|Subject|Customer|Company|Mode):\s*([^\n]+)/i;
 
-      function toast(msg) {
-        toastEl.textContent = msg;
+      var toastMsg = document.getElementById("toast-msg");
+      var toastAction = document.getElementById("toast-action");
+      var undoHandler = null;
+      function toast(msg, actionLabel, actionFn) {
+        if (toastMsg) toastMsg.textContent = msg;
+        else toastEl.textContent = msg;
+        if (toastAction) {
+          if (actionLabel && actionFn) {
+            toastAction.hidden = false;
+            toastAction.textContent = actionLabel;
+            undoHandler = actionFn;
+          } else {
+            toastAction.hidden = true;
+            undoHandler = null;
+          }
+        }
         toastEl.classList.add("show");
         clearTimeout(toastTimer);
-        toastTimer = setTimeout(function () { toastEl.classList.remove("show"); }, 1800);
+        toastTimer = setTimeout(function () {
+          toastEl.classList.remove("show");
+          if (toastAction) toastAction.hidden = true;
+          undoHandler = null;
+        }, actionLabel ? 4000 : 1800);
+      }
+      if (toastAction) {
+        toastAction.addEventListener("click", function () {
+          if (undoHandler) undoHandler();
+          toastEl.classList.remove("show");
+          toastAction.hidden = true;
+          undoHandler = null;
+        });
       }
 
       function splitBlocks(text) {
@@ -2307,6 +2728,15 @@ LEAD-904 · Harbor Ltd · Sam · Mon</pre>
         if (checksSummary) {
           checksSummary.innerHTML = "<span><strong>" + rows.length + "</strong> rows · <strong>" + flags.length + "</strong> flagged</span>";
         }
+        var sev = document.getElementById("checks-sev");
+        var sevBad = document.getElementById("sev-bad");
+        var sevOk = document.getElementById("sev-ok");
+        var copyFlags = document.getElementById("btn-copy-flags");
+        if (sev) sev.hidden = false;
+        if (sevBad) sevBad.textContent = flags.length + " flags";
+        if (sevOk) sevOk.textContent = (rows.length - flags.length) + " ready";
+        if (copyFlags) copyFlags.disabled = !flags.length;
+        window.__flagRows = flags;
       }
 
       var runChecksBtn = document.getElementById("btn-run-checks");
@@ -2320,6 +2750,13 @@ LEAD-904 · Harbor Ltd · Sam · Mon</pre>
         loadSample("orders");
         switchPanel("checks");
         renderChecks();
+      });
+      var copyFlagsBtn = document.getElementById("btn-copy-flags");
+      if (copyFlagsBtn) copyFlagsBtn.addEventListener("click", function () {
+        var flags = window.__flagRows || [];
+        if (!flags.length) return;
+        var lines = flags.map(function (r) { return [r.ref, r.type, r.owner, r.due, r.status].join("\t"); });
+        copyText("Ref\tType\tOwner\tDue\tStatus\n" + lines.join("\n"));
       });
 
       function runMerge() {
@@ -2422,7 +2859,17 @@ LEAD-904 · Harbor Ltd · Sam · Mon</pre>
       });
 
       document.getElementById("btn-parse").addEventListener("click", function () { setChip(""); runParse(true); toast(allRows.length ? "Updated" : "Nothing to parse"); });
-      document.getElementById("btn-clear").addEventListener("click", function () { paste.value = ""; setChip(""); allRows = []; render(); paste.focus(); });
+      document.getElementById("btn-clear").addEventListener("click", function () {
+        var prev = paste.value;
+        if (!prev) { paste.value = ""; setChip(""); allRows = []; render(); paste.focus(); return; }
+        paste.value = ""; setChip(""); allRows = []; render(); paste.focus();
+        toast("Cleared", "Undo", function () {
+          paste.value = prev;
+          runParse(false);
+          updateDiff();
+          toast("Restored");
+        });
+      });
       document.getElementById("btn-upload").addEventListener("click", function () { fileInput.click(); });
       fileInput.addEventListener("change", function () { if (fileInput.files[0]) ingest(fileInput.files[0]); fileInput.value = ""; });
 
@@ -2493,6 +2940,162 @@ LEAD-904 · Harbor Ltd · Sam · Mon</pre>
           el.scrollIntoView({ behavior: "smooth", block: "start" });
           if (history.replaceState) history.replaceState(null, "", "#" + id);
         });
+      });
+
+
+      function updateDiff() {
+        var raw = document.getElementById("diff-raw");
+        var structured = document.getElementById("diff-structured");
+        if (!raw || !structured) return;
+        raw.textContent = paste.value.trim() || "—";
+        if (!allRows.length) {
+          structured.textContent = "—";
+          return;
+        }
+        structured.innerHTML = allRows.map(function (r) {
+          var line = r.ref + " · " + r.type + " · " + r.owner + " · " + r.due + " · " + r.status;
+          if (r.status === "Check") return '<span class="hit">' + esc(line) + "</span>";
+          return esc(line);
+        }).join("\n");
+      }
+
+      var viewRows = document.getElementById("view-rows");
+      var viewDiff = document.getElementById("view-diff");
+      var diffView = document.getElementById("diff-view");
+      function setDiffMode(on) {
+        if (!diffView) return;
+        diffView.classList.toggle("is-on", on);
+        diffView.setAttribute("aria-hidden", on ? "false" : "true");
+        if (viewRows) viewRows.setAttribute("aria-pressed", on ? "false" : "true");
+        if (viewDiff) viewDiff.setAttribute("aria-pressed", on ? "true" : "false");
+        if (on) updateDiff();
+      }
+      if (viewRows) viewRows.addEventListener("click", function () { setDiffMode(false); });
+      if (viewDiff) viewDiff.addEventListener("click", function () { setDiffMode(true); });
+
+      var _render = render;
+      render = function () {
+        _render();
+        updateDiff();
+      };
+
+      var focusBtn = document.getElementById("btn-focus");
+      var deskEl = document.getElementById("desk");
+      if (focusBtn && deskEl) {
+        focusBtn.addEventListener("click", function () {
+          var on = !deskEl.classList.contains("is-focus");
+          deskEl.classList.toggle("is-focus", on);
+          focusBtn.setAttribute("aria-pressed", on ? "true" : "false");
+          focusBtn.textContent = on ? "Exit focus" : "Focus desk";
+          if (on) deskEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
+
+      function calcRoi() {
+        var h = Number((document.getElementById("roi-hours") || {}).value || 0);
+        var p = Number((document.getElementById("roi-people") || {}).value || 0);
+        var r = Number((document.getElementById("roi-rate") || {}).value || 0);
+        var monthly = Math.round(h * p * r * 4.3);
+        var out = document.getElementById("roi-out");
+        if (out) out.innerHTML = "About <strong>£" + monthly.toLocaleString("en-GB") + "</strong> / month of grind";
+      }
+      ["roi-hours", "roi-people", "roi-rate"].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.addEventListener("input", calcRoi);
+      });
+      calcRoi();
+
+      var cmd = document.getElementById("cmd");
+      var cmdInput = document.getElementById("cmd-input");
+      var cmdList = document.getElementById("cmd-list");
+      var cmdIndex = 0;
+      var cmdItems = [];
+      function cmdCommands() {
+        return [
+          { label: "Go to automation", hint: "jump", run: function () { document.getElementById("automation").scrollIntoView({ behavior: "smooth" }); } },
+          { label: "Go to desk", hint: "jump", run: function () { document.getElementById("desk").scrollIntoView({ behavior: "smooth" }); } },
+          { label: "Go to Monday morning", hint: "jump", run: function () { document.getElementById("monday").scrollIntoView({ behavior: "smooth" }); } },
+          { label: "Go to pricing", hint: "jump", run: function () { document.getElementById("pilot").scrollIntoView({ behavior: "smooth" }); } },
+          { label: "Load Orders sample", hint: "sample", run: function () { switchPanel("parse"); loadSample("orders"); document.getElementById("desk").scrollIntoView({ behavior: "smooth" }); } },
+          { label: "Load Leads sample", hint: "sample", run: function () { switchPanel("parse"); loadSample("leads"); document.getElementById("desk").scrollIntoView({ behavior: "smooth" }); } },
+          { label: "Load Tickets sample", hint: "sample", run: function () { switchPanel("parse"); loadSample("tickets"); document.getElementById("desk").scrollIntoView({ behavior: "smooth" }); } },
+          { label: "Load Ops sample", hint: "sample", run: function () { switchPanel("parse"); loadSample("ops"); document.getElementById("desk").scrollIntoView({ behavior: "smooth" }); } },
+          { label: "Open Checks module", hint: "module", run: function () { document.getElementById("desk").scrollIntoView({ behavior: "smooth" }); switchPanel("checks"); renderChecks(); } },
+          { label: "Run merge now", hint: "action", run: function () { document.getElementById("desk").scrollIntoView({ behavior: "smooth" }); switchPanel("merge"); runMerge(); } },
+          { label: "Open Merge module", hint: "module", run: function () { document.getElementById("desk").scrollIntoView({ behavior: "smooth" }); switchPanel("merge"); } },
+          { label: "Toggle focus desk", hint: "action", run: function () { if (focusBtn) focusBtn.click(); } },
+          { label: "Email a sample", hint: "cta", run: function () { window.location.href = "mailto:YOU@EXAMPLE.com?subject=Fastenly%20sample"; } }
+        ];
+      }
+      function openCmd() {
+        if (!cmd) return;
+        cmd.hidden = false;
+        cmd.classList.add("is-open");
+        renderCmd("");
+        setTimeout(function () { if (cmdInput) { cmdInput.value = ""; cmdInput.focus(); } }, 10);
+      }
+      function closeCmd() {
+        if (!cmd) return;
+        cmd.classList.remove("is-open");
+        cmd.hidden = true;
+      }
+      function renderCmd(q) {
+        if (!cmdList) return;
+        var all = cmdCommands();
+        var query = (q || "").toLowerCase().trim();
+        cmdItems = all.filter(function (c) { return !query || c.label.toLowerCase().indexOf(query) !== -1 || c.hint.indexOf(query) !== -1; });
+        cmdIndex = 0;
+        cmdList.innerHTML = "";
+        if (!cmdItems.length) {
+          cmdList.innerHTML = '<div class="cmd-item">No matches</div>';
+          return;
+        }
+        cmdItems.forEach(function (c, i) {
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "cmd-item" + (i === 0 ? " is-active" : "");
+          btn.innerHTML = "<span>" + c.label + "</span><kbd>" + c.hint + "</kbd>";
+          btn.addEventListener("click", function () { c.run(); closeCmd(); });
+          cmdList.appendChild(btn);
+        });
+      }
+      function runActiveCmd() {
+        if (!cmdItems[cmdIndex]) return;
+        cmdItems[cmdIndex].run();
+        closeCmd();
+      }
+      if (cmdInput) {
+        cmdInput.addEventListener("input", function () { renderCmd(cmdInput.value); });
+        cmdInput.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") { e.preventDefault(); closeCmd(); }
+          if (e.key === "ArrowDown") {
+            e.preventDefault();
+            cmdIndex = Math.min(cmdIndex + 1, cmdItems.length - 1);
+            Array.prototype.forEach.call(cmdList.children, function (el, i) { el.classList.toggle("is-active", i === cmdIndex); });
+          }
+          if (e.key === "ArrowUp") {
+            e.preventDefault();
+            cmdIndex = Math.max(cmdIndex - 1, 0);
+            Array.prototype.forEach.call(cmdList.children, function (el, i) { el.classList.toggle("is-active", i === cmdIndex); });
+          }
+          if (e.key === "Enter") { e.preventDefault(); runActiveCmd(); }
+        });
+      }
+      if (cmd) cmd.addEventListener("click", function (e) { if (e.target === cmd) closeCmd(); });
+      document.addEventListener("keydown", function (e) {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+          e.preventDefault();
+          if (cmd && cmd.classList.contains("is-open")) closeCmd();
+          else openCmd();
+        }
+        if (e.key === "/" && !/INPUT|TEXTAREA|SELECT/.test((e.target || {}).tagName || "")) {
+          e.preventDefault();
+          openCmd();
+        }
+        if (e.key === "Escape") {
+          closeCmd();
+          if (deskEl && deskEl.classList.contains("is-focus") && focusBtn) focusBtn.click();
+        }
       });
 
       renderHist();
